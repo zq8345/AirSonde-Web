@@ -1,0 +1,31 @@
+{
+  "slug": "handheld-air-quality-analyser",
+  "name": "Handheld Air Quality Analyser",
+  "model": "AS-P9",
+  "category": "portable",
+  "sensors": [
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "highlights": [
+    "One-hand housing with a ribbed grip and wrist strap post",
+    "D-pad and OK key for menu navigation",
+    "AQI shown as a coloured ring beside the numeric readings"
+  ],
+  "specs": {
+    "Form factor": "Handheld",
+    "Display": "Colour LCD with keypad",
+    "Readings": "PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
+  },
+  "images": {
+    "main": "products/handheld-air-quality-analyser.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Portable-Air-Quality-Detector-CO2-Formaldehyde_1601819328164.html",
+  "status": "published"
+}

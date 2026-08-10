@@ -1,0 +1,158 @@
+---
+import { Image } from 'astro:assets';
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { categoryLabel, getPublishedProducts, resolveProductImage } from '../../lib/products';
+
+export const getStaticPaths = (async () => {
+  const products = await getPublishedProducts();
+  return products.map((product) => ({
+    params: { slug: product.data.slug },
+    props: { product, siblings: products.filter((p) => p.data.slug !== product.data.slug) },
+  }));
+}) satisfies GetStaticPaths;
+
+const { product, siblings } = Astro.props;
+const { name, model, category, sensors, highlights, specs, images } = product.data;
+
+const main = resolveProductImage(images.main);
+const gallery = (images.gallery ?? []).map((path) => ({
+  src: resolveProductImage(path),
+  path,
+}));
+
+const related = siblings.filter((p) => p.data.category === category).slice(0, 3);
+
+const title = `${name} (${model}) — OEM / ODM | AirSonde`;
+const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Built to order for OEM and ODM programmes under your own brand.`;
+---
+
+<Base title={title} description={description}>
+  <div class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+    <nav aria-label="Breadcrumb" class="text-sm text-ink-400">
+      <a href="/products" class="transition-colors hover:text-ink-100">Products</a>
+      <span class="mx-2 text-ink-600">/</span>
+      <span class="text-ink-300">{name}</span>
+    </nav>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14">
+      <div>
+        <div class="overflow-hidden rounded-2xl bg-white p-6">
+          <Image
+            src={main}
+            alt={name}
+            widths={[480, 720, 960]}
+            sizes="(min-width: 1024px) 560px, 90vw"
+            class="mx-auto h-auto w-full max-w-md object-contain"
+            loading="eager"
+          />
+        </div>
+
+        {
+          gallery.length > 0 && (
+            <ul class="mt-4 grid grid-cols-4 gap-3">
+              {gallery.map((item) => (
+                <li class="overflow-hidden rounded-lg bg-white p-2">
+                  <Image
+                    src={item.src}
+                    alt={`${name} — alternative view`}
+                    widths={[160, 240]}
+                    sizes="120px"
+                    class="mx-auto h-20 w-auto object-contain"
+                    loading="lazy"
+                  />
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-air-400">
+          {categoryLabel(category)} · {model}
+        </p>
+        <h1 class="mt-3 text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
+          {name}
+        </h1>
+
+        <div class="mt-7">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">Sensing</h2>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {
+              sensors.map((sensor) => (
+                <li class="rounded-lg border border-air-400/25 bg-air-500/10 px-3 py-1.5 text-sm font-medium text-air-300">
+                  {sensor}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        {
+          highlights && highlights.length > 0 && (
+            <div class="mt-8">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">
+                What it is
+              </h2>
+              <ul class="mt-3 space-y-2.5">
+                {highlights.map((line) => (
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-300">
+                    <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-air-400" aria-hidden="true" />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {
+          specs && Object.keys(specs).length > 0 && (
+            <div class="mt-8">
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">
+                At a glance
+              </h2>
+              <dl class="mt-3 divide-y divide-white/10 border-y border-white/10">
+                {Object.entries(specs).map(([key, value]) => (
+                  <div class="flex flex-wrap gap-x-6 gap-y-1 py-3">
+                    <dt class="w-32 shrink-0 text-sm text-ink-400">{key}</dt>
+                    <dd class="flex-1 text-sm text-ink-100">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )
+        }
+
+        <div class="mt-9 rounded-xl border border-white/10 bg-white/[0.03] p-6">
+          <p class="text-sm leading-relaxed text-ink-300">
+            Every unit is specified with you before anything is built — sensing set, enclosure,
+            display, firmware branding and packaging. Tell us the target market and the volumes and
+            we will come back with a build path.
+          </p>
+          <a
+            href="/contact"
+            class="mt-5 inline-flex rounded-lg bg-air-500 px-5 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
+          >
+            Enquire about {model}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="mt-20 border-t border-white/10 pt-12">
+          <h2 class="text-xl font-bold tracking-tight text-ink-50">Other {categoryLabel(category).toLowerCase()} monitors</h2>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((item) => (
+              <ProductCard product={item} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+</Base>

@@ -1,0 +1,34 @@
+{
+  "slug": "co2-tvoc-hcho-desktop-monitor",
+  "name": "Desktop CO2, TVOC & Formaldehyde Monitor",
+  "model": "AS-D3",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "TVOC",
+    "HCHO",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Three live readings with good / ok / poor bands on one screen",
+    "Compact desktop housing, vented on both sides",
+    "Rechargeable, battery level on display"
+  ],
+  "specs": {
+    "Form factor": "Desktop",
+    "Display": "Colour LCD",
+    "Readings": "CO2, TVOC, HCHO, temperature, humidity"
+  },
+  "images": {
+    "main": "products/co2-tvoc-hcho-desktop-monitor.webp",
+    "gallery": [
+      "products/co2-tvoc-hcho-desktop-monitor-2.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-3.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-4.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-5.webp"
+    ]
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/AK4-Manufacturer-High-Accuracy-CO2-Gas_1600636810240.html",
+  "status": "published"
+}

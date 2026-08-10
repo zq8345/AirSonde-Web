@@ -1,0 +1,15 @@
+{
+  "slug": "wall-mount-co2-tvoc-monitor",
+  "name": "Wall-Mount CO2 & TVOC Monitor",
+  "model": "AS-W2",
+  "category": "wall-mounted",
+  "sensors": [
+    "CO2",
+    "TVOC"
+  ],
+  "images": {
+    "main": "products/_draft/wall-mount-co2-tvoc-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Monitor-Detector_1601034639063.html",
+  "status": "draft"
+}

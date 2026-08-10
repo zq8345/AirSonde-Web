@@ -33,7 +33,7 @@ const title = `Page not found — ${SITE.brand}`;
         {
           NAV.map((item) => (
             <li>
-              <a href={`/${item.href}`} class="text-sm text-ink-300 transition-colors hover:text-ink-50">
+              <a href={item.href} class="text-sm text-ink-300 transition-colors hover:text-ink-50">
                 {item.label}
               </a>
             </li>

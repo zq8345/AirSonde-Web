@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
+
+const products = await getPublishedProducts();
+const categories = categoriesOf(products);
+
+const title = 'Products — OEM / ODM Indoor Air Quality Monitors | AirSonde';
+const description =
+  'Desktop and handheld indoor air quality monitors available for OEM and ODM production: CO2, PM1.0, PM2.5, PM10, HCHO and TVOC sensing, built under your brand.';
+---
+
+<Base title={title} description={description}>
+  <section class="border-b border-white/10">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">Products</p>
+      <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
+        Monitors we build under your brand
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">
+        These are the platforms most OEM and ODM programmes start from. Housing, display, firmware
+        branding and the sensing set are all specified with you — nothing here is fixed.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-8">
+      <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by category">
+        <button
+          type="button"
+          data-filter="all"
+          class="filter-btn rounded-lg border border-air-400/40 bg-air-500/15 px-4 py-2 text-sm font-semibold text-air-300"
+          aria-pressed="true"
+        >
+          All ({products.length})
+        </button>
+        {
+          categories.map((category) => (
+            <button
+              type="button"
+              data-filter={category}
+              class="filter-btn rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-ink-300 transition-colors hover:border-white/25 hover:text-ink-50"
+              aria-pressed="false"
+            >
+              {categoryLabel(category)} (
+              {products.filter((p) => p.data.category === category).length})
+            </button>
+          ))
+        }
+      </div>
+
+      <div id="product-grid" class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {products.map((product) => <ProductCard product={product} />)}
+      </div>
+
+      <p id="no-results" class="mt-10 hidden text-sm text-ink-400">
+        No products in that category yet.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('#product-grid > [data-category]');
+  const empty = document.getElementById('no-results');
+
+  const ACTIVE = ['border-air-400/40', 'bg-air-500/15', 'text-air-300'];
+  const IDLE = ['border-white/10', 'text-ink-300'];
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const wanted = button.dataset.filter;
+
+      buttons.forEach((other) => {
+        const on = other === button;
+        other.setAttribute('aria-pressed', String(on));
+        other.classList.toggle('hover:border-white/25', !on);
+        other.classList.toggle('hover:text-ink-50', !on);
+        ACTIVE.forEach((cls) => other.classList.toggle(cls, on));
+        IDLE.forEach((cls) => other.classList.toggle(cls, !on));
+      });
+
+      let shown = 0;
+      cards.forEach((card) => {
+        const match = wanted === 'all' || card.dataset.category === wanted;
+        card.hidden = !match;
+        if (match) shown += 1;
+      });
+      empty?.classList.toggle('hidden', shown > 0);
+    });
+  });
+</script>

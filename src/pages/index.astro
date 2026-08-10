@@ -114,11 +114,20 @@ import { CAPABILITIES, CONTACT, HERO, SENSORS, SITE, VALUE_PROPS } from '../data
         <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-300 sm:text-base">
           {CONTACT.body}
         </p>
-        <p
-          class="mt-8 inline-flex rounded-lg border border-air-400/30 bg-air-500/10 px-5 py-3 text-sm font-semibold text-air-300"
-        >
-          {CONTACT.note}
-        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={`mailto:${SITE.email}`}
+            class="rounded-lg bg-air-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
+          >
+            {SITE.email}
+          </a>
+          <a
+            href="/contact"
+            class="rounded-lg border border-white/15 px-6 py-3 text-sm font-semibold text-ink-100 transition-colors hover:border-white/30 hover:bg-white/5"
+          >
+            What to send us
+          </a>
+        </div>
       </div>
     </div>
   </section>

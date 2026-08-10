@@ -1,0 +1,26 @@
+{
+  "slug": "hcho-desktop-monitor",
+  "name": "Desktop Formaldehyde Monitor",
+  "model": "AS-D1H",
+  "category": "desktop",
+  "sensors": [
+    "HCHO",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Single-purpose formaldehyde readout, large and unambiguous",
+    "Four-step severity scale under the reading",
+    "Temperature and humidity in secondary dials"
+  ],
+  "specs": {
+    "Form factor": "Desktop",
+    "Display": "Colour LCD",
+    "Readings": "HCHO, temperature, humidity"
+  },
+  "images": {
+    "main": "products/hcho-desktop-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Hot-Selling-Air-Quality-Monitor-Desktop_1600581552446.html",
+  "status": "published"
+}

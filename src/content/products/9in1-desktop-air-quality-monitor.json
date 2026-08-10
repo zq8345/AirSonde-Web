@@ -1,0 +1,35 @@
+{
+  "slug": "9in1-desktop-air-quality-monitor",
+  "name": "9-in-1 Desktop Air Quality Monitor",
+  "model": "AS-D9",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "highlights": [
+    "Particulate, gas and comfort readings on a single dashboard",
+    "AQI scale with colour bands along the foot of the screen",
+    "Clock and date alongside the live readings"
+  ],
+  "specs": {
+    "Form factor": "Desktop",
+    "Display": "Colour LCD dashboard",
+    "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
+  },
+  "images": {
+    "main": "products/9in1-desktop-air-quality-monitor.webp",
+    "gallery": [
+      "products/9in1-desktop-air-quality-monitor-2.webp"
+    ]
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Indoor-Air-Quality-Monitor-WIFI-Smart_1601805161103.html",
+  "status": "published"
+}

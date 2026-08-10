@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { categoryLabel, resolveProductImage, type Product } from '../lib/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const { slug, name, model, category, sensors, images } = product.data;
+const image = resolveProductImage(images.main);
+---
+
+<article
+  class="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] transition-colors hover:border-white/25"
+  data-category={category}
+>
+  <a href={`/products/${slug}`} class="block bg-white p-4">
+    <Image
+      src={image}
+      alt={name}
+      widths={[320, 480, 640]}
+      sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
+      class="mx-auto h-44 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+      loading="lazy"
+    />
+  </a>
+
+  <div class="flex flex-1 flex-col p-5">
+    <p class="text-xs font-medium uppercase tracking-wider text-air-400">
+      {categoryLabel(category)} · {model}
+    </p>
+
+    <h3 class="mt-2 text-base font-semibold leading-snug text-ink-50">
+      <a href={`/products/${slug}`} class="hover:text-air-300">{name}</a>
+    </h3>
+
+    <ul class="mt-4 flex flex-wrap gap-1.5">
+      {
+        sensors.slice(0, 6).map((sensor) => (
+          <li class="rounded border border-white/10 px-2 py-0.5 text-[11px] text-ink-300">
+            {sensor}
+          </li>
+        ))
+      }
+      {
+        sensors.length > 6 && (
+          <li class="rounded border border-white/10 px-2 py-0.5 text-[11px] text-ink-400">
+            +{sensors.length - 6}
+          </li>
+        )
+      }
+    </ul>
+  </div>
+</article>

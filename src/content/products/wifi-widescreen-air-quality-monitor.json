@@ -1,0 +1,33 @@
+{
+  "slug": "wifi-widescreen-air-quality-monitor",
+  "name": "Wi-Fi Wide-Screen Air Quality Monitor",
+  "model": "AS-D7W",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM2.5",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "highlights": [
+    "Landscape panel with the clock centred between reading groups",
+    "Wireless status indicator on screen",
+    "Wedge housing that angles the display upward"
+  ],
+  "specs": {
+    "Form factor": "Desktop",
+    "Display": "Wide colour LCD",
+    "Readings": "CO2, PM2.5, HCHO, TVOC, temperature, humidity, AQI"
+  },
+  "images": {
+    "main": "products/wifi-widescreen-air-quality-monitor.webp",
+    "gallery": [
+      "products/wifi-widescreen-air-quality-monitor-2.webp"
+    ]
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Indoor-Monitor_1601177912645.html",
+  "status": "published"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "pump-breathalyser",
+  "name": "Pump-Type Breathalyser",
+  "model": "AS-X-ALC1",
+  "category": "other",
+  "sensors": [
+    "alcohol"
+  ],
+  "images": {
+    "main": "products/_draft/pump-breathalyser.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Portable-Pump-Type-Alcohol-Tester-Accurate_1601845522777.html",
+  "status": "draft"
+}

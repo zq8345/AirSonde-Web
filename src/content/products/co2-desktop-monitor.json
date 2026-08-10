@@ -1,0 +1,16 @@
+{
+  "slug": "co2-desktop-monitor",
+  "name": "Desktop CO2 Monitor",
+  "model": "AS-D1C",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "temperature",
+    "humidity"
+  ],
+  "images": {
+    "main": "products/_draft/co2-desktop-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Detector-Monitor-Analyzer_1600437309820.html",
+  "status": "draft"
+}

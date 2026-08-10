@@ -1,0 +1,28 @@
+{
+  "slug": "wide-screen-co2-monitor",
+  "name": "Wide-Screen Desktop CO2 Monitor",
+  "model": "AS-D3L",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "TVOC",
+    "HCHO",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Large high-contrast panel, readable across a room",
+    "Status bar under every reading",
+    "Upright desktop housing with side venting"
+  ],
+  "specs": {
+    "Form factor": "Desktop",
+    "Display": "Large colour LCD",
+    "Readings": "CO2, TVOC, HCHO, temperature, humidity"
+  },
+  "images": {
+    "main": "products/wide-screen-co2-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Accurate-Intelligent-Air-Quality-Monitor-Infrared_1600806101682.html",
+  "status": "published"
+}

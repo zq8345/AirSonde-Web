@@ -1,0 +1,31 @@
+{
+  "slug": "8in1-desktop-monitor",
+  "name": "8-in-1 Desktop Air Quality Monitor",
+  "model": "AS-D8",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Eight readings gridded on one screen, each with its own status bar",
+    "Fold-out rear stand",
+    "On-screen prompt when ventilation is needed"
+  ],
+  "specs": {
+    "Form factor": "Desktop",
+    "Display": "Colour LCD with fold-out stand",
+    "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity"
+  },
+  "images": {
+    "main": "products/8in1-desktop-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Portable-8-In1-Gas-Detector-with_1600890784164.html",
+  "status": "published"
+}

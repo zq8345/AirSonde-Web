@@ -15,15 +15,17 @@ export const SITE = {
   brand: 'AirSonde',
   url: 'https://airsonde.com',
   locale: 'en',
+  /** Real, monitored inbox — MX/SPF/DMARC verified by 总工 2026-08-10. */
+  email: 'sales@airsonde.com',
   defaultTitle: 'AirSonde — OEM / ODM Indoor Air Quality Monitors',
   defaultDescription:
     'AirSonde manufactures white-label indoor air quality monitors for brands and importers. OEM and ODM production for CO2, PM2.5, PM10, HCHO and TVOC sensing.',
 } as const;
 
 export const NAV = [
-  { label: 'What we do', href: '#what-we-do' },
-  { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Products', href: '/products' },
+  { label: 'Capabilities', href: '/capabilities' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 /** Hero — the positioning has to be said by the page, not by the name. */
@@ -32,8 +34,8 @@ export const HERO = {
   headline: 'Indoor Air Quality Monitors, Built for Your Brand',
   tagline: 'OEM / ODM manufacturing · White-label ready · CO2 · PM2.5 · HCHO · TVOC',
   body: 'We build IAQ monitors that ship under your name — your housing, your firmware branding, your packaging.',
-  primaryCta: { label: 'Contact us', href: '#contact' },
-  secondaryCta: { label: 'See what we can build', href: '#capabilities' },
+  primaryCta: { label: 'See the products', href: '/products' },
+  secondaryCta: { label: 'What we can build', href: '/capabilities' },
 } as const;
 
 export const SENSORS = [
@@ -78,6 +80,4 @@ export const CONTACT = {
   title: 'Tell us what you want to put your name on',
   body:
     'The details that move a programme forward are the target market, the sensing set and the volumes you are planning. We come back with a build path and lead times.',
-  /** No inbox published until a monitored address is confirmed. */
-  note: 'Enquiry form coming soon.',
 } as const;

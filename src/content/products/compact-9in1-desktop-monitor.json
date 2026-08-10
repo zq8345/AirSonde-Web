@@ -1,0 +1,22 @@
+{
+  "slug": "compact-9in1-desktop-monitor",
+  "name": "Compact 9-in-1 Desktop Monitor",
+  "model": "AS-D9M",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "images": {
+    "main": "products/_draft/compact-9in1-desktop-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Monitor-Detector_1601124548595.html",
+  "status": "draft"
+}

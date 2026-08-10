@@ -1,0 +1,22 @@
+{
+  "slug": "7in-desktop-air-quality-monitor",
+  "name": "7-inch Desktop Air Quality Monitor",
+  "model": "AS-D7",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "images": {
+    "main": "products/_draft/7in-desktop-air-quality-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/16-in-1-Home-Air-Quality_1601819421475.html",
+  "status": "draft"
+}

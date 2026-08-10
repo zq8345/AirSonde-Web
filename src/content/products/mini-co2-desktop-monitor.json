@@ -1,0 +1,18 @@
+{
+  "slug": "mini-co2-desktop-monitor",
+  "name": "Mini Desktop CO2 Monitor",
+  "model": "AS-D3S",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "TVOC",
+    "HCHO",
+    "temperature",
+    "humidity"
+  ],
+  "images": {
+    "main": "products/_draft/mini-co2-desktop-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Analyzer-Monitor-Quality-Detector_1600310647343.html",
+  "status": "draft"
+}

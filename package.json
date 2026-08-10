@@ -6,15 +6,17 @@
   "packageManager": "pnpm@11.21.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/check-dist.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "images:build": "node scripts/build-product-images.mjs"
   },
   "dependencies": {
     "astro": "^7.2.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.3.3"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "slug": "wifi-9in1-desktop-monitor",
+  "name": "Wi-Fi 9-in-1 Desktop Monitor",
+  "model": "AS-D9W",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "images": {
+    "main": "products/_draft/wifi-9in1-desktop-monitor.webp"
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/9-In-1-Indoor-Air-Quality_1601202603359.html",
+  "status": "draft"
+}
