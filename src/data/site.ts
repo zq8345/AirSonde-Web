@@ -66,7 +66,7 @@ export const CAPABILITIES = [
   },
   {
     title: 'Hardware',
-    body: 'Desktop, wall-mount and handheld form factors. Custom enclosure tooling, display and battery options.',
+    body: 'Desktop and handheld form factors. Enclosure, display and battery options scoped per programme.',
   },
   {
     title: 'Firmware & app',
@@ -77,7 +77,7 @@ export const CAPABILITIES = [
 export const CONTACT = {
   title: 'Tell us what you want to put your name on',
   body:
-    'The details that move a programme forward are the target market, the sensing set and the volumes you are planning. We come back with a build path, tooling implications and lead times.',
+    'The details that move a programme forward are the target market, the sensing set and the volumes you are planning. We come back with a build path and lead times.',
   /** No inbox published until a monitored address is confirmed. */
   note: 'Enquiry form coming soon.',
 } as const;
