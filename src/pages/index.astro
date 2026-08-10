@@ -65,10 +65,10 @@ import { CAPABILITIES, CONTACT, HERO, SENSORS, SITE, VALUE_PROPS } from '../data
   <section id="what-we-do" class="border-b border-white/10 scroll-mt-20">
     <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
       <h2 class="text-2xl font-bold tracking-tight text-ink-50 sm:text-3xl">
-        A manufacturing partner, not a brand you compete with
+        How we work with brands
       </h2>
 
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
         {
           VALUE_PROPS.map((prop) => (
             <article class="rounded-xl border border-white/10 bg-white/[0.02] p-6">
@@ -115,12 +115,11 @@ import { CAPABILITIES, CONTACT, HERO, SENSORS, SITE, VALUE_PROPS } from '../data
         <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-300 sm:text-base">
           {CONTACT.body}
         </p>
-        <a
-          href={`mailto:${SITE.email}`}
-          class="mt-8 inline-flex rounded-lg bg-air-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
+        <p
+          class="mt-8 inline-flex rounded-lg border border-air-400/30 bg-air-500/10 px-5 py-3 text-sm font-semibold text-air-300"
         >
-          {SITE.email}
-        </a>
+          {CONTACT.note}
+        </p>
       </div>
     </div>
   </section>
