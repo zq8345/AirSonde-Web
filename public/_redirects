@@ -1,3 +1,3 @@
-# TEMPORARY positive control — isolate whether the host-form line was poisoning
-# the whole file. Remove once the www-redirect question is settled.
+# TEMPORARY — re-add host-form line to confirm it poisons the whole file.
 /probe-redirects-ok /probe-target 301
+https://www.airsonde.com/* https://airsonde.com/:splat 301
