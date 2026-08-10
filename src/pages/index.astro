@@ -100,7 +100,9 @@ import {
         {HOME_SECTIONS.capabilities.intro}
       </p>
 
-      <dl class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      {/* 3 across or 1 across — never 2, which would leave the third card
+          sitting alone with an empty cell beside it. */}
+      <dl class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-3">
         {
           CAPABILITIES.map((item) => (
             <div class="border-l-2 border-air-500/40 pl-5">
