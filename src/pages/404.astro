@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import { NAV, SITE } from '../data/site';
+
+const title = `Page not found — ${SITE.brand}`;
+---
+
+<Base title={title} description="That page does not exist on this site." noindex>
+  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+    <p class="text-sm font-semibold uppercase tracking-wider text-air-400">Error 404</p>
+
+    <h1 class="mt-4 max-w-2xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
+      That page does not exist
+    </h1>
+
+    <p class="mt-5 max-w-xl text-base leading-relaxed text-ink-300">
+      The address may be mistyped, or the page may have moved. Everything on the site is reachable
+      from the homepage.
+    </p>
+
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a
+        href="/"
+        class="rounded-lg bg-air-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
+      >
+        Back to the homepage
+      </a>
+    </div>
+
+    <nav aria-label="Suggested pages" class="mt-12 border-t border-white/10 pt-8">
+      <p class="text-xs font-semibold uppercase tracking-wider text-ink-400">Try one of these</p>
+      <ul class="mt-4 flex flex-wrap gap-x-7 gap-y-3">
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={`/${item.href}`} class="text-sm text-ink-300 transition-colors hover:text-ink-50">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </section>
+</Base>

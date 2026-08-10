@@ -13,3 +13,17 @@
 # So www -> apex has to be a zone-level Redirect Rule in Cloudflare, not a line
 # in this file. Add path rules below as the site grows (CF Pages caps this file
 # at ~140 rules).
+#
+# ---------------------------------------------------------------------------
+# Verifying anything on this project: "Active" is not "live".
+#
+# A deployment shows Active in `wrangler pages deployment list` roughly 40-60s
+# before it actually serves everywhere. Curling straight after Active returns
+# the PREVIOUS build. That read cost us a wrong conclusion once (we nearly
+# reported that the host-form line above poisons the whole file — it does not;
+# we had simply measured the old deployment).
+#
+# So: after pushing, sleep ~25s+, append a cache-buster (?cb=$RANDOM) and take
+# the same assertion 2-3 times consistently before believing it. When a reading
+# contradicts expectation, suspect propagation before suspecting the code.
+# ---------------------------------------------------------------------------
