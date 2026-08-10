@@ -1,0 +1,4 @@
+# pnpm 11 moved package.json's "pnpm" field here.
+# esbuild ships a platform binary and needs its install script to run.
+allowBuilds:
+  esbuild: true
