@@ -12,6 +12,7 @@
     "images:build": "node scripts/build-product-images.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.2.0"
   },
   "devDependencies": {

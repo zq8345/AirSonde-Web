@@ -19,6 +19,9 @@ export const CATEGORIES = [
 
 export const SENSORS = [
   'CO2',
+  // Added by contract v1.1 (2026-08-10): household CO alarms are indoor air
+  // safety, and neither CO2 nor combustible-gas describes them.
+  'CO',
   'PM1.0',
   'PM2.5',
   'PM10',

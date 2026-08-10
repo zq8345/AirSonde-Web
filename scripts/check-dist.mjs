@@ -55,6 +55,50 @@ for (const slug of draftSlugs) {
   }
 }
 
+// 3. every page needs a unique title and description, and the sitemap must
+//    list exactly the indexable pages — no more, no fewer.
+const htmlFiles = files.filter((f) => f.endsWith('.html'));
+const titles = new Map();
+const descriptions = new Map();
+let indexable = 0;
+
+for (const file of htmlFiles) {
+  const body = await readFile(file, 'utf8');
+  const title = body.match(/<title>([\s\S]*?)<\/title>/)?.[1]?.trim();
+  const description = body
+    .match(/<meta name="description" content="([\s\S]*?)"/)?.[1]
+    ?.trim();
+
+  if (!title) failures.push(`${file}: no <title>`);
+  if (!description) failures.push(`${file}: no meta description`);
+
+  if (title) {
+    if (titles.has(title)) failures.push(`${file}: <title> duplicates ${titles.get(title)}`);
+    else titles.set(title, file);
+  }
+  if (description) {
+    if (descriptions.has(description))
+      failures.push(`${file}: description duplicates ${descriptions.get(description)}`);
+    else descriptions.set(description, file);
+  }
+
+  if (!/<meta name="robots" content="noindex/.test(body)) indexable += 1;
+}
+
+const sitemapFiles = files.filter((f) => /sitemap-\d+\.xml$/.test(f));
+if (sitemapFiles.length === 0) {
+  failures.push('no sitemap-N.xml emitted');
+} else {
+  let urls = 0;
+  for (const file of sitemapFiles) {
+    urls += (await readFile(file, 'utf8')).match(/<loc>/g)?.length ?? 0;
+  }
+  if (urls !== indexable) {
+    failures.push(`sitemap lists ${urls} URL(s) but ${indexable} page(s) are indexable`);
+  }
+  console.log(`  sitemap: ${urls} URL(s) == ${indexable} indexable page(s)`);
+}
+
 if (failures.length) {
   console.error(`\n✗ dist check failed (${failures.length}):`);
   for (const line of failures.slice(0, 40)) console.error(`  - ${line}`);
@@ -63,5 +107,6 @@ if (failures.length) {
 
 console.log(
   `✓ dist check passed — ${textFiles.length} text file(s) scanned, ` +
-    `${draftSlugs.length} draft slug(s) confirmed absent`,
+    `${draftSlugs.length} draft slug(s) confirmed absent, ` +
+    `${titles.size} unique title(s) across ${htmlFiles.length} page(s)`,
 );

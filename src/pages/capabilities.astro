@@ -1,53 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
-import { CAPABILITIES, SITE } from '../data/site';
+import { CAPABILITIES, CAPABILITIES_PAGE, META, SITE } from '../data/site';
+import { breadcrumbSchema } from '../lib/jsonld';
 
-const title = 'OEM / ODM Capabilities — White-Label IAQ Manufacturing | AirSonde';
-const description =
-  'How an AirSonde OEM or ODM programme runs: sensing set, hardware, firmware and app branding, and what we need from you to quote.';
-
-const STEPS = [
-  {
-    step: '01',
-    title: 'Tell us the programme',
-    body: 'Target market, the sensing set you need, the volumes you are planning and any certification route your importer requires.',
-  },
-  {
-    step: '02',
-    title: 'We come back with a build path',
-    body: 'Which platform fits, what changes it needs, what that implies for lead times, and where the decisions that cost money actually are.',
-  },
-  {
-    step: '03',
-    title: 'Specification and samples',
-    body: 'Sensing, enclosure, display and firmware branding are fixed in writing before anything is built. Samples follow.',
-  },
-  {
-    step: '04',
-    title: 'Production under your brand',
-    body: 'Your name on the housing, the display, the app and the box. Nothing on the finished unit points back to us.',
-  },
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Capabilities', url: `${SITE.url}/capabilities/` },
+  ]),
 ];
 ---
 
-<Base title={title} description={description}>
+<Base
+  title={META.capabilities.title}
+  description={META.capabilities.description}
+  schemas={schemas}
+>
   <section class="border-b border-white/10">
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">Capabilities</p>
-      <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
-        OEM and ODM, start to finished goods
-      </h1>
-      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">
-        Bring us a finished spec and we build to it. Or start from one of our platforms and we adapt
-        the sensing, the enclosure and the firmware to your market. Either way the unit ships as
-        yours.
+      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">
+        {CAPABILITIES_PAGE.eyebrow}
       </p>
+      <h1
+        class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl"
+      >
+        {CAPABILITIES_PAGE.heading}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">{CAPABILITIES_PAGE.intro}</p>
     </div>
   </section>
 
   <section class="border-b border-white/10">
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-      <h2 class="text-2xl font-bold tracking-tight text-ink-50">What we specify with you</h2>
+      <h2 class="text-2xl font-bold tracking-tight text-ink-50">{CAPABILITIES_PAGE.specHeading}</h2>
       <dl class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
         {
           CAPABILITIES.map((item) => (
@@ -58,9 +43,9 @@ const STEPS = [
           ))
         }
         <div class="border-l-2 border-air-500/40 pl-5">
-          <dt class="text-base font-semibold text-ink-50">Branding</dt>
+          <dt class="text-base font-semibold text-ink-50">{CAPABILITIES_PAGE.branding.title}</dt>
           <dd class="mt-2 text-sm leading-relaxed text-ink-300">
-            Housing, on-screen identity, app and packaging carry your brand, not ours.
+            {CAPABILITIES_PAGE.branding.body}
           </dd>
         </div>
       </dl>
@@ -69,10 +54,12 @@ const STEPS = [
 
   <section class="border-b border-white/10">
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-      <h2 class="text-2xl font-bold tracking-tight text-ink-50">How a programme runs</h2>
+      <h2 class="text-2xl font-bold tracking-tight text-ink-50">
+        {CAPABILITIES_PAGE.processHeading}
+      </h2>
       <ol class="mt-10 grid gap-6 sm:grid-cols-2">
         {
-          STEPS.map((item) => (
+          CAPABILITIES_PAGE.steps.map((item) => (
             <li class="rounded-xl border border-white/10 bg-white/[0.02] p-6">
               <p class="text-sm font-semibold text-air-400">{item.step}</p>
               <h3 class="mt-2 text-lg font-semibold text-ink-50">{item.title}</h3>
@@ -87,10 +74,9 @@ const STEPS = [
   <section>
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
       <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-12">
-        <h2 class="text-2xl font-bold tracking-tight text-ink-50">Ready to scope one?</h2>
+        <h2 class="text-2xl font-bold tracking-tight text-ink-50">{CAPABILITIES_PAGE.ctaHeading}</h2>
         <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-300 sm:text-base">
-          Send the market, the sensing set and the volumes. We will come back with a build path and
-          lead times.
+          {CAPABILITIES_PAGE.ctaBody}
         </p>
         <a
           href={`mailto:${SITE.email}`}

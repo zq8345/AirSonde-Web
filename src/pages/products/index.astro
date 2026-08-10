@@ -1,33 +1,44 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
+import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
 const products = await getPublishedProducts();
 const categories = categoriesOf(products);
 
-const title = 'Products — OEM / ODM Indoor Air Quality Monitors | AirSonde';
-const description =
-  'Desktop and handheld indoor air quality monitors available for OEM and ODM production: CO2, PM1.0, PM2.5, PM10, HCHO and TVOC sensing, built under your brand.';
+const schemas = [
+  itemListSchema(products),
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Products', url: `${SITE.url}/products/` },
+  ]),
+];
 ---
 
-<Base title={title} description={description}>
+<Base title={META.products.title} description={META.products.description} schemas={schemas}>
   <section class="border-b border-white/10">
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">Products</p>
-      <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
-        Monitors we build under your brand
-      </h1>
-      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">
-        These are the platforms most OEM and ODM programmes start from. Housing, display, firmware
-        branding and the sensing set are all specified with you — nothing here is fixed.
+      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">
+        {PRODUCTS_PAGE.eyebrow}
       </p>
+      <h1
+        class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl"
+      >
+        {PRODUCTS_PAGE.heading}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">{PRODUCTS_PAGE.intro}</p>
     </div>
   </section>
 
   <section>
     <div class="mx-auto max-w-6xl px-5 py-12 sm:px-8">
-      <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by category">
+      <div
+        class="flex flex-wrap items-center gap-2"
+        role="group"
+        aria-label={PRODUCTS_PAGE.filterLabel}
+      >
         <button
           type="button"
           data-filter="all"
@@ -55,9 +66,7 @@ const description =
         {products.map((product) => <ProductCard product={product} />)}
       </div>
 
-      <p id="no-results" class="mt-10 hidden text-sm text-ink-400">
-        No products in that category yet.
-      </p>
+      <p id="no-results" class="mt-10 hidden text-sm text-ink-400">{PRODUCTS_PAGE.emptyState}</p>
     </div>
   </section>
 </Base>

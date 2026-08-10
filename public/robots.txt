@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://airsonde.com/sitemap-index.xml

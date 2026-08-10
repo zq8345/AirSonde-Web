@@ -1,8 +1,10 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import { PRODUCTS_PAGE, SITE } from '../../data/site';
+import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
 import { categoryLabel, getPublishedProducts, resolveProductImage } from '../../lib/products';
 
 export const getStaticPaths = (async () => {
@@ -24,11 +26,29 @@ const gallery = (images.gallery ?? []).map((path) => ({
 
 const related = siblings.filter((p) => p.data.category === category).slice(0, 3);
 
-const title = `${name} (${model}) — OEM / ODM | AirSonde`;
+const title = `${name} (${model}) — OEM / ODM | ${SITE.brand}`;
 const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Built to order for OEM and ODM programmes under your own brand.`;
+
+// Absolute URLs of the emitted assets, so structured data points at files that
+// actually exist rather than at the source paths.
+const schemaImages = await Promise.all(
+  [main, ...gallery.map((g) => g.src)].map(async (src) => {
+    const built = await getImage({ src, width: 960, format: 'webp' });
+    return new URL(built.src, SITE.url).href;
+  }),
+);
+
+const schemas = [
+  productSchema(product, schemaImages),
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Products', url: `${SITE.url}/products/` },
+    { name, url: `${SITE.url}/products/${product.data.slug}/` },
+  ]),
+];
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} schemas={schemas} ogImage={schemaImages[0]}>
   <div class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
     <nav aria-label="Breadcrumb" class="text-sm text-ink-400">
       <a href="/products" class="transition-colors hover:text-ink-100">Products</a>
@@ -78,7 +98,7 @@ const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Bui
         </h1>
 
         <div class="mt-7">
-          <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">Sensing</h2>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">{PRODUCTS_PAGE.sectionHeadings.sensing}</h2>
           <ul class="mt-3 flex flex-wrap gap-2">
             {
               sensors.map((sensor) => (
@@ -94,7 +114,7 @@ const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Bui
           highlights && highlights.length > 0 && (
             <div class="mt-8">
               <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">
-                What it is
+                {PRODUCTS_PAGE.sectionHeadings.highlights}
               </h2>
               <ul class="mt-3 space-y-2.5">
                 {highlights.map((line) => (
@@ -112,7 +132,7 @@ const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Bui
           specs && Object.keys(specs).length > 0 && (
             <div class="mt-8">
               <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">
-                At a glance
+                {PRODUCTS_PAGE.sectionHeadings.specs}
               </h2>
               <dl class="mt-3 divide-y divide-white/10 border-y border-white/10">
                 {Object.entries(specs).map(([key, value]) => (
@@ -127,11 +147,7 @@ const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Bui
         }
 
         <div class="mt-9 rounded-xl border border-white/10 bg-white/[0.03] p-6">
-          <p class="text-sm leading-relaxed text-ink-300">
-            Every unit is specified with you before anything is built — sensing set, enclosure,
-            display, firmware branding and packaging. Tell us the target market and the volumes and
-            we will come back with a build path.
-          </p>
+          <p class="text-sm leading-relaxed text-ink-300">{PRODUCTS_PAGE.detailCta.body}</p>
           <a
             href="/contact"
             class="mt-5 inline-flex rounded-lg bg-air-500 px-5 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"

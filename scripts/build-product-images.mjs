@@ -36,6 +36,8 @@ const MAP = {
   '35-': 'portrait-aqi-desktop-monitor',
   '36-': 'portrait-aqi-desktop-monitor-2',
   '14-': 'handheld-air-quality-analyser',
+  '18-': 'portable-co-alarm',
+  '28-': 'portable-co-alarm-2',
   // --- draft: written to products/_draft/ so the published glob cannot see
   // them, which is what keeps draft slugs out of dist/ entirely ---
   '13-': '7in-desktop-air-quality-monitor',

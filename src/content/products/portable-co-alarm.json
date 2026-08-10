@@ -1,0 +1,27 @@
+{
+  "slug": "portable-co-alarm",
+  "name": "Portable Carbon Monoxide Alarm",
+  "model": "AS-P1C",
+  "category": "portable",
+  "sensors": [
+    "CO"
+  ],
+  "highlights": [
+    "Single large CO readout ringed by a good / slight / moderate / serious arc",
+    "Audible alarm with a vented grille on the body",
+    "Hanging tab and wrist strap for travel and rented rooms"
+  ],
+  "specs": {
+    "Form factor": "Portable",
+    "Display": "Round colour LCD",
+    "Readings": "CO"
+  },
+  "images": {
+    "main": "products/portable-co-alarm.webp",
+    "gallery": [
+      "products/portable-co-alarm-2.webp"
+    ]
+  },
+  "supplierRef": "https://www.alibaba.com/product-detail/2025-New-Release-39g-Mini-Portable_1601058966923.html",
+  "status": "published"
+}

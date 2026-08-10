@@ -1,25 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
-import { CONTACT, SITE } from '../data/site';
+import { CONTACT, CONTACT_PAGE, META, SITE } from '../data/site';
+import { breadcrumbSchema } from '../lib/jsonld';
 
-const title = 'Contact — Start an OEM / ODM Programme | AirSonde';
-const description =
-  'Contact AirSonde about OEM and ODM production of white-label indoor air quality monitors. Tell us the market, the sensing set and the volumes.';
-
-const ASK = [
-  'The market you are selling into, and who the importer of record will be',
-  'The sensing set you need — CO2, PM1.0 / PM2.5 / PM10, HCHO, TVOC, temperature and humidity',
-  'Form factor: desktop, handheld, or something you have already designed',
-  'Volumes for the first order and what you expect annually',
-  'Any certification route your channel requires',
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Contact', url: `${SITE.url}/contact/` },
+  ]),
 ];
 ---
 
-<Base title={title} description={description}>
+<Base title={META.contact.title} description={META.contact.description} schemas={schemas}>
   <section class="border-b border-white/10">
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">Contact</p>
-      <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
+      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">
+        {CONTACT_PAGE.eyebrow}
+      </p>
+      <h1
+        class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl"
+      >
         {CONTACT.title}
       </h1>
       <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">{CONTACT.body}</p>
@@ -37,16 +37,11 @@ const ASK = [
     <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
       <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div>
-          <h2 class="text-2xl font-bold tracking-tight text-ink-50">
-            What to put in the first email
-          </h2>
-          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-400">
-            The more of this you can answer up front, the sooner we can give you something concrete
-            rather than a brochure.
-          </p>
+          <h2 class="text-2xl font-bold tracking-tight text-ink-50">{CONTACT_PAGE.askHeading}</h2>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-400">{CONTACT_PAGE.askIntro}</p>
           <ul class="mt-8 space-y-4">
             {
-              ASK.map((line) => (
+              CONTACT_PAGE.ask.map((line) => (
                 <li class="flex gap-3 text-sm leading-relaxed text-ink-300">
                   <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-air-400" aria-hidden="true" />
                   {line}
@@ -57,22 +52,21 @@ const ASK = [
         </div>
 
         <aside class="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-ink-400">Enquiries</h2>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-ink-400">
+            {CONTACT_PAGE.asideHeading}
+          </h2>
           <a
             href={`mailto:${SITE.email}`}
             class="mt-3 block text-base font-semibold text-air-300 transition-colors hover:text-air-400"
           >
             {SITE.email}
           </a>
-          <p class="mt-6 text-sm leading-relaxed text-ink-400">
-            Not sure which platform fits? Send the requirement rather than a product code — the
-            platform is the easy part.
-          </p>
+          <p class="mt-6 text-sm leading-relaxed text-ink-400">{CONTACT_PAGE.asideBody}</p>
           <a
             href="/products"
             class="mt-6 inline-flex text-sm font-semibold text-ink-100 underline decoration-white/25 underline-offset-4 transition-colors hover:decoration-white/60"
           >
-            Browse the products
+            {CONTACT_PAGE.asideLink}
           </a>
         </aside>
       </div>

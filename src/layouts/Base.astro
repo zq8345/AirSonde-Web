@@ -3,20 +3,33 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../data/site';
+import { organisationSchema, websiteSchema } from '../lib/jsonld';
 
 interface Props {
   title?: string;
   description?: string;
   /** Error pages are served at arbitrary URLs — no canonical, no indexing. */
   noindex?: boolean;
+  /** Page-specific structured data, emitted after Organization and WebSite. */
+  schemas?: Record<string, unknown>[];
+  /** Social preview image, absolute or root-relative. */
+  ogImage?: string;
 }
 
 const {
   title = SITE.defaultTitle,
   description = SITE.defaultDescription,
   noindex = false,
+  schemas = [],
+  ogImage,
 } = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const ogImageUrl = ogImage ? new URL(ogImage, SITE.url).href : undefined;
+
+// Organization and WebSite go on every page; @id lets product pages point at
+// the same organisation rather than describing a new one each time.
+const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
 ---
 
 <!doctype html>
@@ -37,11 +50,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en" />
-    <meta name="twitter:card" content="summary_large_image" />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
     <meta name="generator" content={Astro.generator} />
+
+    {
+      allSchemas.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
   </head>
 
   <body class="min-h-screen overflow-x-hidden bg-ink-950 font-sans text-ink-100 antialiased">
