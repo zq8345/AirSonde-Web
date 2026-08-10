@@ -1,4 +1,3 @@
-# TEMPORARY positive control — proves whether CF Pages is parsing this file at
-# all. Remove once the www-redirect question is settled.
+# TEMPORARY positive control — isolate whether the host-form line was poisoning
+# the whole file. Remove once the www-redirect question is settled.
 /probe-redirects-ok /probe-target 301
-https://www.airsonde.com/* https://airsonde.com/:splat 301
