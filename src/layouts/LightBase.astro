@@ -1,0 +1,132 @@
+---
+/**
+ * Light-theme layout for the W4 homepage sample ONLY.
+ *
+ * Head logic (title / meta / canonical / OG / JSON-LD) mirrors Base.astro so
+ * the crawlable surface of the page is unchanged; only the skin differs.
+ * The 15 untouched pages keep Base.astro — do not point them here before
+ * Joe approves the sample.
+ */
+import '../styles/light.css';
+import { NAV, SITE } from '../data/site';
+import { organisationSchema, websiteSchema } from '../lib/jsonld';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE.defaultTitle, description = SITE.defaultDescription } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const allSchemas = [organisationSchema(), websiteSchema()];
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <meta name="generator" content={Astro.generator} />
+
+    {
+      allSchemas.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      style="position:absolute;left:-9999px;top:0;z-index:60"
+      onfocus="this.style.left='16px';this.style.top='16px';this.style.background='#0c7a6b';this.style.color='#fff';this.style.padding='10px 16px';this.style.borderRadius='10px'"
+      onblur="this.style.left='-9999px'"
+    >
+      Skip to content
+    </a>
+
+    <header class="as-header" id="as-header">
+      <div class="as-header__in">
+        <a href="/" class="as-brand">
+          <span class="as-brand__dot" aria-hidden="true"></span>
+          {SITE.brand}
+        </a>
+        <nav aria-label="Primary" class="as-nav">
+          {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+        <a href="/contact" class="as-btn as-btn--primary">Get a quote</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="as-footer">
+      <div class="as-container">
+        <div class="as-footer__grid">
+          <div>
+            <span class="as-brand">
+              <span class="as-brand__dot" aria-hidden="true"></span>
+              {SITE.brand}
+            </span>
+            <p class="as-footer__blurb">
+              OEM / ODM manufacturing of indoor air quality monitors for brands, importers and
+              distributors.
+            </p>
+          </div>
+          <nav aria-label="Footer" class="as-footer__nav">
+            {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </nav>
+        </div>
+        <p class="as-footer__legal">&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // §3.3: transparent header floats over the hero, drops onto white glass
+      // once the page scrolls (threshold 12px, same as wanew's w3.js).
+      const header = document.getElementById('as-header');
+      const sync = () => header?.classList.toggle('is-solid', window.scrollY > 12);
+      sync();
+      window.addEventListener('scroll', sync, { passive: true });
+
+      // §2.5 reveal — max 4 per screen, staggered by data-as-reveal level.
+      const revealed = document.querySelectorAll('[data-as-reveal]');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' },
+        );
+        revealed.forEach((el) => io.observe(el));
+      } else {
+        revealed.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
+  </body>
+</html>

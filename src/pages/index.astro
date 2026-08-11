@@ -1,5 +1,11 @@
 ---
-import Base from '../layouts/Base.astro';
+/**
+ * W4 light-theme homepage sample. Copy is rendered VERBATIM from site.ts —
+ * the accepted assertions (OEM/ODM counts, banned-word zeros) live on that
+ * text. New sections take their labels from home-light.ts only.
+ */
+import { Image } from 'astro:assets';
+import LightBase from '../layouts/LightBase.astro';
 import {
   CAPABILITIES,
   CONTACT,
@@ -10,79 +16,162 @@ import {
   SITE,
   VALUE_PROPS,
 } from '../data/site';
+import { FEATURED, FORM_FACTORS, HERO_PHOTO, SCENES } from '../data/home-light';
+import { categoryLabel, getPublishedProducts, resolveProductImage } from '../lib/products';
+
+const products = await getPublishedProducts();
+const bySlug = new Map(products.map((p) => [p.data.slug, p]));
+
+const featured = FEATURED.slugs
+  .map((slug) => bySlug.get(slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const formTiles = FORM_FACTORS.tiles.map((tile) => ({
+  ...tile,
+  count: products.filter((p) => p.data.category === tile.category).length,
+  image: resolveProductImage(bySlug.get(tile.imageFrom)!.data.images.main),
+}));
 ---
 
-<Base title={META.home.title} description={META.home.description}>
-  {/* ---------- Hero ---------- */}
-  <section class="relative overflow-hidden border-b border-white/10">
-    <div
-      class="pointer-events-none absolute -top-40 left-1/2 h-[38rem] w-[38rem] -translate-x-1/2 rounded-full bg-air-500/10 blur-3xl"
-      aria-hidden="true"
-    >
-    </div>
-
-    <div class="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-      <p
-        class="inline-flex items-center rounded-full border border-air-400/30 bg-air-500/10 px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-air-300"
-      >
-        {HERO.eyebrow}
-      </p>
-
-      <h1
-        class="mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-ink-50 sm:text-5xl lg:text-6xl"
-      >
-        <span class="text-air-400">{SITE.brand}</span> — {HERO.headline}
+<LightBase title={META.home.title} description={META.home.description}>
+  {/* 1 ── photo hero (§3.2d) */}
+  <section class="as-hero" style={`--hero-focus: ${HERO_PHOTO.focus}`}>
+    <Image
+      src={HERO_PHOTO.src}
+      alt={HERO_PHOTO.alt}
+      class="as-hero__img"
+      widths={[768, 1280, 1600]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="as-hero__wash" aria-hidden="true"></div>
+    <div class="as-container as-hero__in">
+      <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
+      <h1 class="as-hero__title">
+        <span class="as-hero__brand">{SITE.brand}</span> — {HERO.headline}
       </h1>
-
-      <p class="mt-5 max-w-2xl text-base font-medium text-air-300 sm:text-lg">
-        {HERO.tagline}
-      </p>
-
-      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300 sm:text-lg">
-        {HERO.body}
-      </p>
-
-      <div class="mt-9 flex flex-wrap gap-3">
-        <a
-          href={HERO.primaryCta.href}
-          class="rounded-lg bg-air-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
-        >
+      <p class="as-hero__tagline">{HERO.tagline}</p>
+      <p class="as-hero__body">{HERO.body}</p>
+      <div class="as-hero__cta">
+        <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
           {HERO.primaryCta.label}
+          <span class="as-arw" aria-hidden="true">→</span>
         </a>
-        <a
-          href={HERO.secondaryCta.href}
-          class="rounded-lg border border-white/15 px-6 py-3 text-sm font-semibold text-ink-100 transition-colors hover:border-white/30 hover:bg-white/5"
-        >
-          {HERO.secondaryCta.label}
-        </a>
+        <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
       </div>
-
-      <ul class="mt-12 flex flex-wrap gap-2.5">
-        {
-          SENSOR_CHIPS.map((sensor) => (
-            <li class="rounded-lg border border-white/10 bg-white/[0.03] px-3.5 py-2">
-              <span class="text-sm font-semibold text-ink-100">{sensor.code}</span>
-              <span class="ml-2 text-xs text-ink-400">{sensor.label}</span>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 
-  {/* ---------- What we do ---------- */}
-  <section id={HOME_SECTIONS.whatWeDo.id} class="border-b border-white/10 scroll-mt-20">
-    <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
-      <h2 class="text-2xl font-bold tracking-tight text-ink-50 sm:text-3xl">
-        {HOME_SECTIONS.whatWeDo.heading}
-      </h2>
+  {/* existing sensor-chip copy, restyled as a slim band */}
+  <div class="as-container">
+    <ul class="as-chips">
+      {
+        SENSOR_CHIPS.map((sensor) => (
+          <li class="as-chip">
+            <span class="as-chip__code">{sensor.code}</span>
+            <span class="as-chip__label">{sensor.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 
-      <div class="mt-10 grid gap-6 md:grid-cols-2">
+  {/* 2 ── featured strip (curated, §3.6) */}
+  <section class="as-section" id="featured">
+    <div class="as-container">
+      <div class="as-sechead">
+        <p class="as-eyebrow">{FEATURED.eyebrow}</p>
+        <h2 class="as-h2">{FEATURED.heading}</h2>
+      </div>
+      <div class="as-pgrid">
+        {
+          featured.map((product) => (
+            <a
+              class="as-pcard"
+              href={`/products/${product.data.slug}`}
+              data-as-reveal
+            >
+              <span class="as-stage">
+                <Image
+                  src={resolveProductImage(product.data.images.main)}
+                  alt={product.data.name}
+                  widths={[320, 480, 640]}
+                  sizes="(min-width: 980px) 380px, (min-width: 560px) 45vw, 90vw"
+                  loading="lazy"
+                />
+              </span>
+              <span class="as-pcard__body">
+                <span class="as-pcard__meta">
+                  {categoryLabel(product.data.category)} · {product.data.model}
+                </span>
+                <span class="as-pcard__name">{product.data.name}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 3 ── browse by form factor */}
+  <section class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-sechead">
+        <p class="as-eyebrow">{FORM_FACTORS.eyebrow}</p>
+        <h2 class="as-h2">{FORM_FACTORS.heading}</h2>
+      </div>
+      <div class="as-forms">
+        {
+          formTiles.map((tile) => (
+            <a class="as-form-tile" href="/products">
+              <span class="as-stage">
+                <Image src={tile.image} alt={tile.label} widths={[160, 240]} sizes="116px" loading="lazy" />
+              </span>
+              <span>
+                <span class="as-form-tile__name">{tile.label}</span>
+                <span class="as-form-tile__count">{tile.count} models</span>
+              </span>
+              <span class="as-form-tile__arw" aria-hidden="true">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 4 ── scenes band */}
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <p class="as-eyebrow">{SCENES.eyebrow}</p>
+        <h2 class="as-h2">{SCENES.heading}</h2>
+      </div>
+      <div class="as-scenes">
+        {
+          SCENES.cards.map((scene) => (
+            <figure class="as-scene" data-as-reveal>
+              <Image src={scene.src} alt={scene.alt} widths={[420, 640]} sizes="(min-width: 980px) 300px, (min-width: 560px) 45vw, 90vw" loading="lazy" />
+              <figcaption class="as-scene__label">{scene.label}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 5 ── how we work with brands (existing copy) */}
+  <section id={HOME_SECTIONS.whatWeDo.id} class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{HOME_SECTIONS.whatWeDo.heading}</h2>
+      </div>
+      <div class="as-cards2">
         {
           VALUE_PROPS.map((prop) => (
-            <article class="rounded-xl border border-white/10 bg-white/[0.02] p-6">
-              <h3 class="text-lg font-semibold text-ink-50">{prop.title}</h3>
-              <p class="mt-3 text-sm leading-relaxed text-ink-300">{prop.body}</p>
+            <article class="as-panelcard">
+              <h3>{prop.title}</h3>
+              <p>{prop.body}</p>
             </article>
           ))
         }
@@ -90,63 +179,40 @@ import {
     </div>
   </section>
 
-  {/* ---------- Capabilities ---------- */}
-  <section id={HOME_SECTIONS.capabilities.id} class="border-b border-white/10 scroll-mt-20">
-    <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
-      <h2 class="text-2xl font-bold tracking-tight text-ink-50 sm:text-3xl">
-        {HOME_SECTIONS.capabilities.heading}
-      </h2>
-      <p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-400">
-        {HOME_SECTIONS.capabilities.intro}
-      </p>
-
-      {/* 3 across or 1 across — never 2, which would leave the third card
-          sitting alone with an empty cell beside it. */}
-      <dl class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-3">
+  {/* 6 ── what we can build (existing copy) */}
+  <section id={HOME_SECTIONS.capabilities.id} class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{HOME_SECTIONS.capabilities.heading}</h2>
+        <p class="as-sub">{HOME_SECTIONS.capabilities.intro}</p>
+      </div>
+      <dl class="as-caps">
         {
           CAPABILITIES.map((item) => (
-            <div class="border-l-2 border-air-500/40 pl-5">
-              <dt class="text-base font-semibold text-ink-50">{item.title}</dt>
-              <dd class="mt-2 text-sm leading-relaxed text-ink-300">{item.body}</dd>
+            <div class="as-cap">
+              <dt>{item.title}</dt>
+              <dd>{item.body}</dd>
             </div>
           ))
         }
       </dl>
-
-      <a
-        href="/capabilities"
-        class="mt-10 inline-flex text-sm font-semibold text-air-300 underline decoration-air-400/40 underline-offset-4 transition-colors hover:text-air-400"
-      >
-        How a programme runs
-      </a>
+      <p style="margin-top:40px">
+        <a href="/capabilities" class="as-link-arrow">How a programme runs</a>
+      </p>
     </div>
   </section>
 
-  {/* ---------- Contact ---------- */}
-  <section id={HOME_SECTIONS.contact.id} class="scroll-mt-20">
-    <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
-      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-8 sm:p-12">
-        <h2 class="max-w-2xl text-2xl font-bold tracking-tight text-ink-50 sm:text-3xl">
-          {CONTACT.title}
-        </h2>
-        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-300 sm:text-base">
-          {CONTACT.body}
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a
-            href={`mailto:${SITE.email}`}
-            class="rounded-lg bg-air-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
-          >
-            {SITE.email}
-          </a>
-          <a
-            href="/contact"
-            class="rounded-lg border border-white/15 px-6 py-3 text-sm font-semibold text-ink-100 transition-colors hover:border-white/30 hover:bg-white/5"
-          >
-            What to send us
-          </a>
+  {/* 7 ── enquiry CTA (existing copy) */}
+  <section id={HOME_SECTIONS.contact.id} class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <div class="as-cta">
+        <h2 class="as-cta__title">{CONTACT.title}</h2>
+        <p class="as-cta__body">{CONTACT.body}</p>
+        <div class="as-cta__actions">
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+          <a href="/contact" class="as-btn as-btn--ghost">What to send us</a>
         </div>
       </div>
     </div>
   </section>
-</Base>
+</LightBase>
