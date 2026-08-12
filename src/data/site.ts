@@ -28,9 +28,12 @@ export const SITE = {
     'AirSonde is an OEM and ODM manufacturer of indoor air quality monitors, producing desktop and portable CO2, particulate, formaldehyde and TVOC monitors under its customers’ own brands.',
 } as const;
 
+// IA per Joe 2026-08-11 (改令四): 首页/Products/Solutions/Guides/About/Contact.
+// Only sections that exist get a menu item; Solutions and Guides join as they
+// ship. Capabilities is no longer a section — /capabilities/ 301s to /about/.
 export const NAV = [
   { label: 'Products', href: '/products' },
-  { label: 'Capabilities', href: '/capabilities' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 
@@ -72,7 +75,7 @@ export const HERO = {
   tagline: 'OEM / ODM manufacturing · White-label ready · CO2 · PM2.5 · HCHO · TVOC',
   body: 'We build IAQ monitors that ship under your name — your housing, your firmware branding, your packaging.',
   primaryCta: { label: 'See the products', href: '/products' },
-  secondaryCta: { label: 'What we can build', href: '/capabilities' },
+  secondaryCta: { label: 'What we can build', href: '/about' },
 } as const;
 
 export const SENSOR_CHIPS = [

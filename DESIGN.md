@@ -76,10 +76,18 @@ starlink.com,理由不迁移。」
 
 ## 新组件登记(首页样板)
 
-`as-header / as-hero(__wash/__eyebrow) / as-chips / as-pcard+as-stage / as-form-tile /
-as-scene / as-panelcard / as-cap / as-cta / as-footer / as-btn(--primary/--ghost) /
-as-link-arrow / as-eyebrow / as-sechead / [data-as-reveal]` —— 全部只在 `light.css` 定义,
+`as-header / as-hero(__wash/__eyebrow/__product) / as-chips / as-pcard+as-stage /
+as-form-tile / as-scene / as-panelcard(__points) / as-cap / as-cta / as-footer /
+as-btn(--primary/--ghost) / as-link-arrow / as-eyebrow / as-sechead / as-brand(__mark/__word) /
+[data-as-reveal]` —— 全部只在 `light.css` 定义,
 禁止页面内联样式发明第二种写法。新组件/新令牌照本文件头部规则:**同 commit 登记**。
+
+About 页新增(2026-08-11):`as-hero--page`(信息页矮版照片 hero,clamp(400px,46vh,560px) 照 §3.2d)/
+`as-stats+as-stat`(1px 发丝网格拼接数据格,W3 §3.6 .w3-stats 的浅色版)/
+`as-gallery`(6 列非对称工厂影像墙,前两张跨 3、其余跨 2,≤719px 单列 —— .about-facwall 的浅色版)/
+`as-steps+as-step`(编号卡:质检五步与流程四步共用一套 —— 编号领起,⛔图标堆砌,照 review#1)/
+`as-certstrip+as-certbadge`(slim 药丸认证条,.about-certstrip 浅色版;**只承载公司级合规能力,
+不承载产品级证书**)/ `as-checklist`。
 
 ## 照片留档
 

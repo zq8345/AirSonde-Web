@@ -1,0 +1,204 @@
+---
+/**
+ * /about/ — W4 page 2. Absorbs the former /capabilities/ content per 改令四
+ * (Capabilities is no longer a top-level section; /capabilities/ 301s here).
+ * Every sentence renders from src/data/about.ts.
+ */
+import { Image } from 'astro:assets';
+import LightBase from '../layouts/LightBase.astro';
+import { SITE } from '../data/site';
+import {
+  ABOUT_COMPLIANCE,
+  ABOUT_CTA,
+  ABOUT_EXPECT,
+  ABOUT_FACTORY,
+  ABOUT_HERO,
+  ABOUT_META,
+  ABOUT_PROCESS,
+  ABOUT_QUALITY,
+  ABOUT_SERVICES,
+  ABOUT_STATS,
+  ABOUT_STORY,
+} from '../data/about';
+import { breadcrumbSchema } from '../lib/jsonld';
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'About', url: `${SITE.url}/about/` },
+  ]),
+];
+---
+
+<LightBase title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas}>
+  {/* hero — real factory photo (§3.2d info-page hero) */}
+  <section class="as-hero as-hero--page" style={`--hero-focus: ${ABOUT_HERO.photo.focus}`}>
+    <Image
+      src={ABOUT_HERO.photo.src}
+      alt={ABOUT_HERO.photo.alt}
+      class="as-hero__img"
+      widths={[768, 1280, 1600]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="as-hero__wash" aria-hidden="true"></div>
+    <div class="as-container as-hero__in">
+      <p class="as-hero__eyebrow">{ABOUT_HERO.eyebrow}</p>
+      <h1 class="as-hero__title">{ABOUT_HERO.heading}</h1>
+      <p class="as-hero__lead">{ABOUT_HERO.lead}</p>
+    </div>
+  </section>
+
+  {/* story */}
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_STORY.heading}</h2>
+      </div>
+      <div class="as-checklist" style="gap:18px;max-width:70ch">
+        {ABOUT_STORY.paragraphs.map((p) => <p style="font-size:var(--as-fs-body);line-height:1.7">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {/* stats — real group figures */}
+  <section class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_STATS.heading}</h2>
+      </div>
+      <div class="as-stats">
+        {
+          ABOUT_STATS.items.map((s) => (
+            <div class="as-stat">
+              <div class="as-stat__value">{s.value}</div>
+              <div class="as-stat__label">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* factory gallery */}
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_FACTORY.heading}</h2>
+        <p class="as-sub">{ABOUT_FACTORY.intro}</p>
+      </div>
+      <div class="as-gallery">
+        {
+          ABOUT_FACTORY.photos.map((photo) => (
+            <figure data-as-reveal>
+              <Image src={photo.src} alt={photo.alt} widths={[480, 760]} sizes="(min-width: 720px) 50vw, 100vw" loading="lazy" />
+              <figcaption>{photo.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* quality process */}
+  <section class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_QUALITY.heading}</h2>
+        <p class="as-sub">{ABOUT_QUALITY.intro}</p>
+      </div>
+      <div class="as-steps">
+        {
+          ABOUT_QUALITY.steps.map((step, i) => (
+            <div class="as-step">
+              <div class="as-step__n">{String(i + 1).padStart(2, '0')}</div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div style="margin-top:44px">
+        <h3 style="font-size:var(--as-fs-h3);font-weight:700;color:var(--as-ink)">
+          {ABOUT_COMPLIANCE.heading}
+        </h3>
+        <p class="as-sub">{ABOUT_COMPLIANCE.body}</p>
+        <div class="as-certstrip">
+          {ABOUT_COMPLIANCE.badges.map((badge) => <span class="as-certbadge">{badge}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* OEM / ODM services */}
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_SERVICES.heading}</h2>
+      </div>
+      <div class="as-cards2">
+        {
+          ABOUT_SERVICES.cards.map((card) => (
+            <article class="as-panelcard">
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+              <ul class="as-panelcard__points">
+                {card.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* programme flow (from the former capabilities page) */}
+  <section class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_PROCESS.heading}</h2>
+      </div>
+      <div class="as-steps">
+        {
+          ABOUT_PROCESS.steps.map((item) => (
+            <div class="as-step">
+              <div class="as-step__n">{item.step}</div>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* what to expect */}
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{ABOUT_EXPECT.heading}</h2>
+      </div>
+      <ul class="as-checklist">
+        {ABOUT_EXPECT.items.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <div class="as-cta">
+        <h2 class="as-cta__title">{ABOUT_CTA.heading}</h2>
+        <p class="as-cta__body">{ABOUT_CTA.body}</p>
+        <div class="as-cta__actions">
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+          <a href="/products" class="as-btn as-btn--ghost">Browse the products</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LightBase>

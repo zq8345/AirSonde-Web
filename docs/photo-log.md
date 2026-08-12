@@ -23,6 +23,25 @@ bot check mid-session and we stopped browsing rather than solve it); the
 source pages above are the canonical record. Attribution is appreciated but
 not required by the licence.
 
+## Factory photography on /about/ (own-group assets, 2026-08-11)
+
+Six photos forked from the wanew repo (`wanew/static/upload/image/about/`,
+also live on wanew.com/about) into `src/assets/photos/factory/`. These are
+Joe's own manufacturing group's facility photos — reuse authorized by Joe via
+总工 (改令二) for AirSonde as the group's IAQ line. Reviewed individually:
+no Starlink product close-ups in frame, all generic manufacturing scenes.
+These ARE manufacturing evidence, used as such — unlike the Unsplash concept
+photos above, which never back a manufacturing claim.
+
+| File | Used for |
+|---|---|
+| `factory-assembly.webp` | /about/ hero |
+| `factory-cnc.webp` | gallery — tooling & moulding |
+| `factory-qc.webp` | gallery — testing |
+| `factory-warehouse.webp` | gallery — warehousing |
+| `factory-shipping.webp` | gallery — dispatch |
+| `factory-office.webp` | gallery — engineering & support |
+
 ## Hero composite (改令三, 2026-08-11)
 
 The hero shows `hero-living-room.jpg` (above) as the scene plus our own

@@ -13,6 +13,11 @@
 # So www -> apex has to be a zone-level Redirect Rule in Cloudflare, not a line
 # in this file. Add path rules below as the site grows (CF Pages caps this file
 # at ~140 rules).
+
+# Capabilities stopped being a top-level section on 2026-08-11 (Joe's六大板块
+# IA); its content lives in /about/ now.
+/capabilities/* /about/ 301
+/capabilities /about/ 301
 #
 # ---------------------------------------------------------------------------
 # Verifying anything on this project: "Active" is not "live".
