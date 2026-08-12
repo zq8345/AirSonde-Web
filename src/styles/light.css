@@ -2093,3 +2093,14 @@ select.as-field__input {
     padding: 0 18px;
   }
 }
+
+/* banner-clean, measured round 2: the default centre alignment sank the
+   text block onto the device (H1 line 3 sat on the dark screen — probe
+   read 1.0), and 18ch wrapped the headline to three lines. Top-anchor the
+   block and let the headline breathe to two lines. */
+.as-hero--bannerclean .as-hero__in {
+  align-items: flex-start;
+}
+.as-hero--bannerclean .as-hero__title {
+  max-width: 28ch;
+}
