@@ -2118,3 +2118,18 @@ select.as-field__input {
   left: calc(max(0px, (100vw - 1240px) / 2) + 24px);
   margin: 0;
 }
+
+/* banner-clean, final geometry: at 1440 the banner is viewport-wide with zero
+   focus slack — the only guaranteed-empty area is the cleaned wall patch
+   (viewport y<273, x<530). Flow layout kept drifting into the device, so the
+   text block is pinned there absolutely, narrow (3 lines inside x<530), and
+   the CTA row stays pinned at the section bottom below the device box. */
+.as-hero--bannerclean .as-hero__text {
+  position: absolute;
+  top: calc(var(--as-header-h) + 22px);
+  left: calc(max(0px, (100vw - 1240px) / 2) + 24px);
+  max-width: 520px;
+}
+.as-hero--bannerclean .as-hero__title {
+  max-width: 18ch;
+}
