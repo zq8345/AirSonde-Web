@@ -1,0 +1,65 @@
+---
+/**
+ * /guides/ — shell only (改令四). The GEO content engine is W5's own
+ * dispatch; this hub stands the section up so navigation and URL structure
+ * are final, but it carries noindex until real articles land, and the
+ * sitemap filter in astro.config.mjs keeps it out of the sitemap.
+ */
+import LightBase from '../../layouts/LightBase.astro';
+import { SITE } from '../../data/site';
+
+const title = 'Guides — Indoor Air Quality, Explained | AirSonde';
+const description =
+  'Practical guides on indoor air quality monitoring — placement, readings and what they mean. First articles are on the way.';
+
+const TOPICS = [
+  { title: 'Understanding readings', body: 'What CO2, PM2.5, HCHO and TVOC numbers actually tell you about a room.' },
+  { title: 'Placement and setup', body: 'Where a monitor belongs in a home, office or classroom — and where it lies to you.' },
+  { title: 'Buying for your brand', body: 'How OEM and ODM programmes work when the product is an air quality monitor.' },
+];
+---
+
+<LightBase title={title} description={description} noindex>
+  <section class="as-section" style="padding-bottom:48px">
+    <div class="as-container as-pagehead">
+      <p class="as-eyebrow">Guides</p>
+      <h1 class="as-pagehead__title">Indoor air quality, explained</h1>
+      <p class="as-pagehead__lead">
+        The first guides are being written. Here is what this section will cover.
+      </p>
+    </div>
+  </section>
+
+  <section class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <div class="as-steps as-steps--three">
+        {
+          TOPICS.map((topic) => (
+            <div class="as-step">
+              <h3>{topic.title}</h3>
+              <p>{topic.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="as-sub" style="margin-top:36px">
+        Until then, the <a href="/products" class="as-link-arrow">products</a> and
+        <a href="/solutions/" class="as-link-arrow">solutions</a> pages cover the hardware side.
+      </p>
+    </div>
+  </section>
+
+  <section class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <div class="as-cta">
+        <h2 class="as-cta__title">Have a question the guides should answer?</h2>
+        <p class="as-cta__body">
+          Tell us what you are trying to figure out — the first articles come from real enquiries.
+        </p>
+        <div class="as-cta__actions">
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LightBase>

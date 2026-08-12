@@ -7,7 +7,13 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://airsonde.com',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // /guides/ is a noindexed shell until W5 lands articles; the sitemap
+      // must not advertise it (check-dist asserts sitemap == indexable pages).
+      filter: (page) => !page.includes('/guides/'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

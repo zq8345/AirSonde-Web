@@ -14,11 +14,19 @@ import { organisationSchema, websiteSchema } from '../lib/jsonld';
 interface Props {
   title?: string;
   description?: string;
+  /** Pages served at arbitrary URLs or still empty shells: no canonical, no indexing. */
+  noindex?: boolean;
+  schemas?: Record<string, unknown>[];
 }
 
-const { title = SITE.defaultTitle, description = SITE.defaultDescription } = Astro.props;
+const {
+  title = SITE.defaultTitle,
+  description = SITE.defaultDescription,
+  noindex = false,
+  schemas = [],
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
-const allSchemas = [organisationSchema(), websiteSchema()];
+const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
 ---
 
 <!doctype html>
@@ -28,7 +36,7 @@ const allSchemas = [organisationSchema(), websiteSchema()];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
