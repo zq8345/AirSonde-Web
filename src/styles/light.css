@@ -2397,3 +2397,12 @@ select.as-field__input {
     padding-top: calc(var(--as-header-h) + 3vh);
   }
 }
+
+/* measured: the CTA row's bottom edge met the device's top edge exactly at
+   1440 (393px vs 393px). Lift the block for real clearance. */
+.as-heroover__text {
+  padding-top: calc(var(--as-header-h) + 1.5vh);
+}
+.as-heroover .as-hero__cta {
+  margin-top: 18px;
+}
