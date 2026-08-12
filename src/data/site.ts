@@ -223,6 +223,24 @@ export const CONTACT_PAGE = {
   ],
 } as const;
 
+/**
+ * Contact channels — same set as wanew.com/contact (Joe, 改令二): one phone
+ * number across WhatsApp / WeChat / voice. QR asset forked from the wanew repo.
+ */
+export const CONTACT_CHANNELS = {
+  heading: 'Reach us directly',
+  email: { label: 'Email', value: 'sales@airsonde.com', href: 'mailto:sales@airsonde.com' },
+  whatsapp: { label: 'WhatsApp', value: '+86 186 8116 0111', href: 'https://wa.me/8618681160111' },
+  phone: { label: 'Phone', value: '+86 186 8116 0111', href: 'tel:+8618681160111' },
+  wechat: {
+    label: 'WeChat',
+    id: '18681160111',
+    scanHint: 'Scan to add on WeChat',
+    copyLabel: 'Copy WeChat ID',
+    copiedLabel: 'Copied',
+  },
+} as const;
+
 /* -------------------------------------------------------------------------
  * 404
  * ---------------------------------------------------------------------- */

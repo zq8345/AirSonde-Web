@@ -1,7 +1,16 @@
 ---
-import Base from '../layouts/Base.astro';
-import { CONTACT, CONTACT_PAGE, META, SITE } from '../data/site';
+/**
+ * /contact/ — W4 page 3, light theme. Channels mirror wanew.com/contact
+ * (same number for WhatsApp / WeChat / phone, per Joe). The enquiry form is
+ * deliberately absent: Web3Forms needs Joe's own access key (⛔ reusing the
+ * wanew key would route enquiries to the wrong inbox). sales@ is the primary
+ * conversion piece until then.
+ */
+import { Image } from 'astro:assets';
+import LightBase from '../layouts/LightBase.astro';
+import { CONTACT, CONTACT_CHANNELS, CONTACT_PAGE, META, SITE } from '../data/site';
 import { breadcrumbSchema } from '../lib/jsonld';
+import wechatQr from '../assets/photos/wechat-qr.webp';
 
 const schemas = [
   breadcrumbSchema([
@@ -11,65 +20,128 @@ const schemas = [
 ];
 ---
 
-<Base title={META.contact.title} description={META.contact.description} schemas={schemas}>
-  <section class="border-b border-white/10">
-    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-      <p class="text-sm font-semibold uppercase tracking-wider text-air-400">
-        {CONTACT_PAGE.eyebrow}
-      </p>
-      <h1
-        class="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl"
-      >
-        {CONTACT.title}
-      </h1>
-      <p class="mt-5 max-w-2xl text-base leading-relaxed text-ink-300">{CONTACT.body}</p>
-
-      <a
-        href={`mailto:${SITE.email}`}
-        class="mt-9 inline-flex rounded-lg bg-air-500 px-6 py-3 text-base font-semibold text-ink-950 transition-colors hover:bg-air-400"
-      >
-        {SITE.email}
-      </a>
-    </div>
-  </section>
-
-  <section>
-    <div class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div>
-          <h2 class="text-2xl font-bold tracking-tight text-ink-50">{CONTACT_PAGE.askHeading}</h2>
-          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-ink-400">{CONTACT_PAGE.askIntro}</p>
-          <ul class="mt-8 space-y-4">
-            {
-              CONTACT_PAGE.ask.map((line) => (
-                <li class="flex gap-3 text-sm leading-relaxed text-ink-300">
-                  <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-air-400" aria-hidden="true" />
-                  {line}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <aside class="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-ink-400">
-            {CONTACT_PAGE.asideHeading}
-          </h2>
-          <a
-            href={`mailto:${SITE.email}`}
-            class="mt-3 block text-base font-semibold text-air-300 transition-colors hover:text-air-400"
-          >
-            {SITE.email}
-          </a>
-          <p class="mt-6 text-sm leading-relaxed text-ink-400">{CONTACT_PAGE.asideBody}</p>
-          <a
-            href="/products"
-            class="mt-6 inline-flex text-sm font-semibold text-ink-100 underline decoration-white/25 underline-offset-4 transition-colors hover:decoration-white/60"
-          >
-            {CONTACT_PAGE.asideLink}
-          </a>
-        </aside>
+<LightBase title={META.contact.title} description={META.contact.description} schemas={schemas}>
+  <section class="as-section" style="padding-bottom:48px">
+    <div class="as-container as-pagehead">
+      <p class="as-eyebrow">{CONTACT_PAGE.eyebrow}</p>
+      <h1 class="as-pagehead__title">{CONTACT.title}</h1>
+      <p class="as-pagehead__lead">{CONTACT.body}</p>
+      <div class="as-pagehead__actions">
+        <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">
+          {SITE.email}
+          <span class="as-arw" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
-</Base>
+
+  <section class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-contact-grid">
+        <div>
+          <div class="as-sechead">
+            <h2 class="as-h2">{CONTACT_PAGE.askHeading}</h2>
+            <p class="as-sub">{CONTACT_PAGE.askIntro}</p>
+          </div>
+          <ul class="as-checklist">
+            {CONTACT_PAGE.ask.map((line) => <li>{line}</li>)}
+          </ul>
+        </div>
+
+        <div>
+          <div class="as-sechead">
+            <h2 class="as-h2">{CONTACT_CHANNELS.heading}</h2>
+          </div>
+          <div class="as-channels">
+            <div class="as-channel">
+              <span class="as-channel__label">{CONTACT_CHANNELS.email.label}</span>
+              <a class="as-channel__value" href={CONTACT_CHANNELS.email.href}>
+                {CONTACT_CHANNELS.email.value}
+              </a>
+            </div>
+            <div class="as-channel">
+              <span class="as-channel__label">{CONTACT_CHANNELS.whatsapp.label}</span>
+              <a class="as-channel__value" href={CONTACT_CHANNELS.whatsapp.href} rel="noopener">
+                {CONTACT_CHANNELS.whatsapp.value}
+              </a>
+            </div>
+            <div class="as-channel" data-wechat>
+              <span class="as-channel__label">{CONTACT_CHANNELS.wechat.label}</span>
+              <button
+                type="button"
+                class="as-channel__value as-channel__btn as-wechat-btn"
+                aria-expanded="false"
+              >
+                {CONTACT_CHANNELS.wechat.id}
+              </button>
+              <div class="as-wechat-pop">
+                <Image src={wechatQr} alt={CONTACT_CHANNELS.wechat.scanHint} widths={[180, 360]} sizes="180px" loading="lazy" />
+                <p class="as-wechat-pop__scan">{CONTACT_CHANNELS.wechat.scanHint}</p>
+                <button
+                  type="button"
+                  class="as-wechat-pop__copy"
+                  data-wechat-copy
+                  data-id={CONTACT_CHANNELS.wechat.id}
+                >
+                  {CONTACT_CHANNELS.wechat.copyLabel}
+                </button>
+              </div>
+            </div>
+            <div class="as-channel">
+              <span class="as-channel__label">{CONTACT_CHANNELS.phone.label}</span>
+              <a class="as-channel__value" href={CONTACT_CHANNELS.phone.href}>
+                {CONTACT_CHANNELS.phone.value}
+              </a>
+            </div>
+          </div>
+          <p class="as-sub" style="font-size:var(--as-fs-compact);margin-top:16px">
+            {CONTACT_PAGE.asideBody}
+          </p>
+          <a
+            href="/products"
+            class="as-link-arrow"
+            style="margin-top:10px">{CONTACT_PAGE.asideLink}</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</LightBase>
+
+<script>
+  // Forked from wanew skin/js/w3.js @747d4e95d (WeChat QR popover + copy id) —
+  // same behaviour: toggle, outside-click / Escape close, clipboard fallback.
+  document.querySelectorAll<HTMLElement>('[data-wechat]').forEach((wrap) => {
+    const btn = wrap.querySelector<HTMLButtonElement>('.as-wechat-btn');
+    const pop = wrap.querySelector<HTMLElement>('.as-wechat-pop');
+    if (!btn || !pop) return;
+    const close = () => {
+      pop.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    };
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = pop.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target as Node)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+    const copyBtn = pop.querySelector<HTMLButtonElement>('[data-wechat-copy]');
+    copyBtn?.addEventListener('click', () => {
+      const id = copyBtn.getAttribute('data-id') || '';
+      const done = () => {
+        copyBtn.classList.add('is-copied');
+        copyBtn.textContent = 'Copied';
+        setTimeout(() => {
+          copyBtn.classList.remove('is-copied');
+          copyBtn.textContent = 'Copy WeChat ID';
+        }, 1600);
+      };
+      navigator.clipboard?.writeText(id).then(done, done);
+    });
+  });
+</script>
