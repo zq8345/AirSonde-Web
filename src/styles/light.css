@@ -21,8 +21,11 @@
 
 :root {
   /* ── colour — W3 light set (DESIGN.md §2.1 white-panel row + --w3-tile) ── */
-  --as-bg: #fff;
-  --as-tile: #f4f5f7;          /* second surface / section alternation / product stages */
+  --as-bg: #eceef1;            /* Joe 2026-08-12 拍板（三档实测样例选②）: page base goes
+                                  grey OUTSIDE the containers so white-bg product photos
+                                  never merge with the page. Measured: photo whites
+                                  L* 98–100, this grey L* 94.0 (Δ≈6). Containers stay #fff. */
+  --as-tile: #f4f5f7;          /* in-container second surface (card text blocks, form zone) */
   --as-ink: #101418;           /* headings (W3 white-panel title ink) */
   --as-ink2: #4d5762;          /* body — 7.35:1 on white, tuned to 总工's ≥7 line */
   --as-line: #e6e9ed;          /* hairlines on light (W3 white-panel table line) */
@@ -143,9 +146,11 @@ ol {
 .as-section {
   padding: 96px 0;
 }
-/* Section separation = space + tonal alternation (§3.2c). ⛔ no hairline rules. */
+/* Section separation: since the page base went grey (Joe 拍板), layering is
+   carried by grey-page ↔ white-container; the old tile alternation is retired
+   (a #f4f5f7 band on a #eceef1 page reads as noise, not structure). */
 .as-band--alt {
-  background: var(--as-tile);
+  background: transparent;
 }
 @media (max-width: 767px) {
   .as-section {
@@ -1540,7 +1545,9 @@ textarea.as-field__input {
 
 /* ---- CTA ------------------------------------------------------------------ */
 .as-cta {
-  background: var(--as-tile);
+  /* container = white on the grey page (was tile — invisible on the new base) */
+  background: #fff;
+  border: 1px solid var(--as-line);
   border-radius: 20px;
   padding: 48px;
 }
@@ -1571,7 +1578,9 @@ textarea.as-field__input {
 
 /* ---- footer ---------------------------------------------------------------- */
 .as-footer {
-  background: var(--as-tile);
+  /* white container zone on the grey page (tile would read lighter-than-page) */
+  background: #fff;
+  border-top: 1px solid var(--as-line);
   margin-top: 96px;
   padding: 56px 0 36px;
 }
