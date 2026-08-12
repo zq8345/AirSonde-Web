@@ -6,15 +6,18 @@
  * certification words: new labels must not shift those counts.
  */
 
-import heroImg from '../assets/photos/hero-composite-a.webp';
+// Joe 插队 2026-08-12: trial of his own banner ("放到首页 hero 位置看看").
+// hero-composite-a.webp stays in the repo — Joe may switch back after seeing
+// it. ⚠️ The banner has text baked into its left side; focus pushes right so
+// the crop favours the model/device, but at wide viewports the baked text
+// still shows under our copy layer — that collision is part of what Joe is
+// evaluating.
+import heroImg from '../assets/photos/hero-joe-workspace.webp';
 
 export const HERO_PHOTO = {
-  // W6②: the scene now CONTAINS the product (AS-D3 composited onto the coffee
-  // table by scripts/build-hero-composite.mjs) — the W4 floating-card overlay
-  // is retired per Joe. Focus keeps the table and device in frame.
   src: heroImg,
-  alt: 'Living room with an AirSonde air quality monitor standing on the coffee table',
-  focus: '55% 56%',
+  alt: 'Man working at a desk with an air quality monitor beside his laptop',
+  focus: '80% 50%',
 } as const;
 
 /** W9 §2 — products section (wanew "Design by Wanew" slot): curated eight,

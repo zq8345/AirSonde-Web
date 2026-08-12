@@ -76,3 +76,13 @@ already logged above — no new photography.
 
 A ships as the production hero; A/B/C go to a preview branch for Joe to pick
 (视觉判断归 Joe). Regenerate with `node scripts/build-hero-composite.mjs`.
+
+## Joe-supplied hero banner trial (2026-08-12)
+
+`hero-joe-workspace.webp` — from `C:\Download\airsonde-hero.png`, provided by
+Joe ("放到首页 hero 位置看看"). 1464×600 marketing banner: man at a desk,
+AS-D16-style monitor beside a laptop, headline text BAKED INTO the left side
+("Breathe Easily in Your Workspace…"). Likely a supplier marketing asset —
+⚠️ real identifiable model, no release on file (asset-review question 17);
+flagged to 总工, not blocked (Joe's call). `hero-composite-a.webp` retained
+for switching back.
