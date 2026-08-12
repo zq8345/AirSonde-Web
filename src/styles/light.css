@@ -656,19 +656,30 @@ ol {
 }
 
 /* form-factor tiles */
+/* Joe 2026-08-12: 四个类型放在一行 — one row of four on desktop */
 .as-forms {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+}
+@media (max-width: 1023px) {
+  .as-forms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 559px) {
+  .as-forms {
+    grid-template-columns: 1fr;
+  }
 }
 .as-form-tile {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
   border: 1px solid var(--as-line);
   border-radius: var(--as-radius);
   background: #fff;
-  padding: 22px 24px;
+  padding: 16px 18px;
   transition:
     transform 0.25s var(--as-ease),
     border-color 0.25s;
