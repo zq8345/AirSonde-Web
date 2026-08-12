@@ -61,7 +61,40 @@ const whyCards = [
       positioning copy sits below at its full display tier. Other modes keep
       the overlay hero. */}
   {
-    HERO_PHOTO.mode === 'banner-split' || HERO_PHOTO.mode === 'banner-under' ? (
+    HERO_PHOTO.mode === 'banner-over' ? (
+      /* Joe: copy sits ON the image, stepped down, headline in exactly two
+         lines — split on the comma so the break is data-driven, not a manual
+         <br> that would rot if the sentence changes. */
+      <section class="as-heroover" style={`--hero-focus: ${HERO_PHOTO.focus}`}>
+        <Image
+          src={HERO_PHOTO.src}
+          alt={HERO_PHOTO.alt}
+          class="as-heroover__img"
+          widths={[768, 1280, 1600, 2400]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="as-container as-heroover__in">
+          <div class="as-heroover__text">
+            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
+            <h1 class="as-heroover__title">
+              {HERO.headline.split(/,\s+/).map((line, i, all) => (
+                <span class="as-heroover__line">{i < all.length - 1 ? `${line},` : line}</span>
+              ))}
+            </h1>
+            <p class="as-heroover__sub">{HERO.body}</p>
+            <div class="as-hero__cta">
+              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
+                {HERO.primaryCta.label}
+                <span class="as-arw" aria-hidden="true">→</span>
+              </a>
+              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    ) : HERO_PHOTO.mode === 'banner-split' || HERO_PHOTO.mode === 'banner-under' ? (
       <>
         <section
           class:list={['as-herosplit', { 'as-herosplit--under': HERO_PHOTO.mode === 'banner-under' }]}

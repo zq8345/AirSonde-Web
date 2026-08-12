@@ -22,10 +22,17 @@ export const HERO_PHOTO = {
   src: heroImg,
   alt: 'Man working at a desk with an AirSonde air quality monitor beside his laptop',
   focus: '50% 42%',
-  /** 'banner-under' = nav floats over a full-bleed image, copy in the white
-   *  block below · 'banner-split' = image below the solid header ·
-   *  'banner' / 'banner-clean' / 'scene' = earlier overlay modes */
-  mode: 'banner-under' as 'banner' | 'banner-clean' | 'banner-split' | 'banner-under' | 'scene',
+  /** 'banner-over' (Joe): nav AND copy both float over the full-bleed image,
+   *  headline stepped down and broken into exactly two lines on the empty
+   *  wall · 'banner-under' = copy in the white block below · others = earlier
+   *  overlay modes */
+  mode: 'banner-over' as
+    | 'banner'
+    | 'banner-clean'
+    | 'banner-split'
+    | 'banner-under'
+    | 'banner-over'
+    | 'scene',
 } as const;
 
 /** W9 §2 — products section (wanew "Design by Wanew" slot): curated eight,
