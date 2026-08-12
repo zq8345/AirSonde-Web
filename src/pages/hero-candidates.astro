@@ -1,0 +1,52 @@
+---
+/**
+ * W9 §1 — internal picker page, PREVIEW BRANCH ONLY (never merges to main).
+ * Three rendered hero composites for Joe to choose from; noindex, and
+ * astro.config filters it out of the sitemap so the 25==25 gate holds.
+ */
+import { Image } from 'astro:assets';
+import LightBase from '../layouts/LightBase.astro';
+import compositeA from '../assets/photos/hero-composite-a.webp';
+import compositeB from '../assets/photos/hero-composite-b.webp';
+import compositeC from '../assets/photos/hero-composite-c.webp';
+
+const candidates = [
+  { id: 'A', img: compositeA, note: 'Living room — AS-D3 on the coffee table (currently live)' },
+  { id: 'B', img: compositeB, note: 'Home — AS-D3 on the TV console' },
+  { id: 'C', img: compositeC, note: 'Office — AS-D16 on the desk' },
+];
+---
+
+<LightBase
+  title="Hero composite candidates — internal"
+  description="Internal preview of the rendered hero composites. Not a public page."
+  noindex
+>
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-sechead">
+        <p class="as-eyebrow">Internal</p>
+        <h1 class="as-h2">Hero composite candidates</h1>
+        <p class="as-sub">Pick one — A is live on production today.</p>
+      </div>
+      {
+        candidates.map((c) => (
+          <figure style="margin:0 0 48px">
+            <figcaption
+              style="font-weight:700;color:var(--as-ink);margin-bottom:10px;font-size:var(--as-fs-h3)"
+            >
+              {c.id} — {c.note}
+            </figcaption>
+            <Image
+              src={c.img}
+              alt={`Candidate ${c.id}`}
+              widths={[1280, 1600]}
+              sizes="(min-width: 1200px) 1140px, 94vw"
+              style="width:100%;height:auto;border-radius:var(--as-radius);border:1px solid var(--as-line)"
+            />
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+</LightBase>

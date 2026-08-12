@@ -7,7 +7,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://airsonde.com',
   output: 'static',
-  integrations: [sitemap()],
+  // hero-candidates is the branch-only internal picker page: noindex, and it
+  // must also stay out of the sitemap or the 25==25 dist gate breaks.
+  integrations: [sitemap({ filter: (page) => !page.includes('/hero-candidates/') })],
   vite: {
     plugins: [tailwindcss()],
   },
