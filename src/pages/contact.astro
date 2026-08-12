@@ -1,14 +1,14 @@
 ---
 /**
  * /contact/ — W4 page 3, light theme. Channels mirror wanew.com/contact
- * (same number for WhatsApp / WeChat / phone, per Joe). The enquiry form is
- * deliberately absent: Web3Forms needs Joe's own access key (⛔ reusing the
- * wanew key would route enquiries to the wrong inbox). sales@ is the primary
- * conversion piece until then.
+ * (same number for WhatsApp / WeChat / phone, per Joe). The enquiry form
+ * (W7) posts to /api/contact — a Pages Function that pushes to Joe's Lark
+ * group. Not Web3Forms: that needed Joe's own key, and Lark is where he
+ * actually reads. Delivery errors always surface the mailto fallback.
  */
 import { Image } from 'astro:assets';
 import LightBase from '../layouts/LightBase.astro';
-import { CONTACT, CONTACT_CHANNELS, CONTACT_PAGE, META, SITE } from '../data/site';
+import { CONTACT, CONTACT_CHANNELS, CONTACT_FORM, CONTACT_PAGE, META, SITE } from '../data/site';
 import { breadcrumbSchema } from '../lib/jsonld';
 import wechatQr from '../assets/photos/wechat-qr.webp';
 
@@ -32,6 +32,47 @@ const schemas = [
           <span class="as-arw" aria-hidden="true">→</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  {/* W7 enquiry form — same fields the Function validates; browser-native
+      required/maxlength mirror the server rules, they don't replace them */}
+  <section class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <form class="as-fform" id="contact-form" method="post" action="/api/contact">
+        <h2 class="as-h2">{CONTACT_FORM.heading}</h2>
+        <div class="as-fform__grid">
+          <label class="as-field">
+            <span class="as-field__label">{CONTACT_FORM.fields.name}</span>
+            <input class="as-field__input" type="text" name="name" required maxlength="200" autocomplete="name" />
+          </label>
+          <label class="as-field">
+            <span class="as-field__label">{CONTACT_FORM.fields.company}</span>
+            <input class="as-field__input" type="text" name="company" required maxlength="200" autocomplete="organization" />
+          </label>
+          <label class="as-field as-field--wide">
+            <span class="as-field__label">{CONTACT_FORM.fields.email}</span>
+            <input class="as-field__input" type="email" name="email" required maxlength="254" autocomplete="email" />
+          </label>
+          <label class="as-field as-field--wide">
+            <span class="as-field__label">{CONTACT_FORM.fields.message}</span>
+            <textarea class="as-field__input" name="message" required maxlength="3000" rows="6"></textarea>
+          </label>
+        </div>
+        <label class="as-fform__hp" aria-hidden="true">
+          Website
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+        <div class="as-fform__foot">
+          <button type="submit" class="as-btn as-btn--primary">{CONTACT_FORM.submit}</button>
+          <p class="as-fform__status" data-status="idle" aria-live="polite">
+            <span data-when="sent">{CONTACT_FORM.sent}</span>
+            <span data-when="failed">
+              {CONTACT_FORM.failed}{' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            </span>
+          </p>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -109,6 +150,29 @@ const schemas = [
 </LightBase>
 
 <script>
+  // W7 enquiry form. Native constraint validation gates the submit event;
+  // anything short of {ok:true} from /api/contact shows the failed line —
+  // the Function is fail-closed and this mirrors it.
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = form?.querySelector<HTMLElement>('[data-status]');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    status?.setAttribute('data-status', 'idle');
+    let ok = false;
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+      ok = res.ok && data?.ok === true;
+    } catch {
+      ok = false;
+    }
+    status?.setAttribute('data-status', ok ? 'sent' : 'failed');
+    if (ok) form.reset();
+    if (btn) btn.disabled = false;
+  });
+
   // Forked from wanew skin/js/w3.js @747d4e95d (WeChat QR popover + copy id) —
   // same behaviour: toggle, outside-click / Escape close, clipboard fallback.
   document.querySelectorAll<HTMLElement>('[data-wechat]').forEach((wrap) => {

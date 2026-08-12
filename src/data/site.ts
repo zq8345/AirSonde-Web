@@ -196,6 +196,24 @@ export const CONTACT_CHANNELS = {
   },
 } as const;
 
+/**
+ * W7: enquiry form → POST /api/contact (Pages Function → Joe's Lark group).
+ * Fail-closed on the page: any error shows the failed line with the direct
+ * address — never a fake success. The "website" field is a honeypot.
+ */
+export const CONTACT_FORM = {
+  heading: 'Or send it from here',
+  fields: {
+    name: 'Name',
+    company: 'Company',
+    email: 'Work email',
+    message: 'Message',
+  },
+  submit: 'Send enquiry',
+  sent: 'Sent — we reply by email.',
+  failed: 'Sending failed — email us instead:',
+} as const;
+
 /* -------------------------------------------------------------------------
  * 404
  * ---------------------------------------------------------------------- */

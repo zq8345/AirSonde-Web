@@ -16,3 +16,5 @@ pnpm-debug.log*
 .idea/
 # local agent/dev launch config
 .claude/
+# wrangler pages dev cache (W7 local function testing)
+.wrangler/

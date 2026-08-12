@@ -1410,6 +1410,96 @@ a.as-channel__value:hover {
   }
 }
 
+/* ---- contact enquiry form (W7) -------------------------------------------- */
+.as-fform {
+  max-width: 640px;
+}
+.as-fform__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+.as-field--wide {
+  grid-column: 1 / -1;
+}
+@media (max-width: 559px) {
+  .as-fform__grid {
+    grid-template-columns: 1fr;
+  }
+  .as-field--wide {
+    grid-column: auto;
+  }
+}
+.as-field__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--as-ink2);
+}
+.as-field__input {
+  width: 100%;
+  border: 1px solid var(--as-line2);
+  border-radius: var(--as-radius-s);
+  background: #fff;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: var(--as-fs-body);
+  color: var(--as-ink);
+  transition: border-color 0.15s var(--as-ease);
+}
+.as-field__input:focus {
+  outline: none;
+  border-color: var(--as-accent);
+  box-shadow: 0 0 0 3px rgba(12, 122, 107, 0.15);
+}
+textarea.as-field__input {
+  resize: vertical;
+  min-height: 140px;
+}
+/* Honeypot: parked off-screen, not display:none — scripted fillers still see it */
+.as-fform__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.as-fform__foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.as-fform__status {
+  margin: 0;
+  font-size: var(--as-fs-compact);
+  font-weight: 600;
+}
+.as-fform__status span {
+  display: none;
+}
+.as-fform__status[data-status='sent'] {
+  color: var(--as-accent);
+}
+.as-fform__status[data-status='failed'] {
+  color: #b42318; /* AIRSONDE: error red — 5.9:1 on white; system has no failure colour */
+}
+.as-fform__status[data-status='sent'] [data-when='sent'] {
+  display: inline;
+}
+.as-fform__status[data-status='failed'] [data-when='failed'] {
+  display: inline;
+}
+.as-fform__status a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 /* ---- CTA ------------------------------------------------------------------ */
 .as-cta {
   background: var(--as-tile);
