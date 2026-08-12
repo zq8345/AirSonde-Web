@@ -2289,3 +2289,14 @@ select.as-field__input {
     max-height: 62vh;
   }
 }
+
+/* phones: at 375 the 16:9 banner is only ~212px tall and the floating nav
+   eats a third of it — give it a real hero height and let cover crop. */
+@media (max-width: 767px) {
+  .as-herosplit--under .as-herosplit__img {
+    height: 46vh;
+    min-height: 320px;
+    max-height: none;
+    object-fit: cover;
+  }
+}
