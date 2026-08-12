@@ -953,6 +953,199 @@ ol {
   }
 }
 
+/* ---- products: filter pills (W3 §3.6 chip mirrored to light) --------------- */
+.as-filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.as-filter {
+  border: 1px solid var(--as-line2);
+  background: none;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: var(--as-fs-small);
+  font-weight: 600;
+  color: var(--as-ink2);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+.as-filter:hover {
+  border-color: #9aa7b2;
+  color: var(--as-ink);
+}
+.as-filter.is-active {
+  background: var(--as-ink);
+  border-color: var(--as-ink);
+  color: #fff;
+}
+.as-filter__n {
+  font-size: var(--as-fs-micro);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+  margin-left: 4px;
+}
+
+/* ---- product detail page ---------------------------------------------------- */
+.as-crumb {
+  font-size: var(--as-fs-small);
+  color: var(--as-ink2);
+}
+.as-crumb a:hover {
+  color: var(--as-ink);
+}
+.as-crumb__sep {
+  margin: 0 8px;
+  color: var(--as-line2);
+}
+.as-pdp {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+  margin-top: 30px;
+}
+.as-pdp__stage {
+  background: var(--as-tile);
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.as-pdp__stage img {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  object-fit: contain;
+}
+.as-pdp__thumbs {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.as-pdp__thumbs li {
+  background: var(--as-tile);
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius-s);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.as-pdp__thumbs img {
+  height: 76px;
+  width: auto;
+  object-fit: contain;
+}
+.as-pdp__meta {
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--as-accent);
+}
+.as-pdp__title {
+  margin-top: 10px;
+  font-size: var(--as-fs-h1);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--as-ink);
+}
+.as-pdp__h {
+  margin-top: 30px;
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--as-ink2);
+}
+.as-sensor-pills {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.as-sensor-pills li {
+  border: 1px solid rgba(12, 122, 107, 0.28);
+  background: rgba(12, 122, 107, 0.07);
+  border-radius: var(--as-radius-s);
+  padding: 6px 12px;
+  font-size: var(--as-fs-compact);
+  font-weight: 600;
+  color: var(--as-accent);
+}
+.as-pdp__list {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+.as-pdp__list li {
+  display: flex;
+  gap: 10px;
+  font-size: var(--as-fs-compact);
+  line-height: 1.6;
+  color: var(--as-ink2);
+}
+.as-pdp__list li::before {
+  content: '';
+  margin-top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--as-accent);
+  flex: 0 0 auto;
+}
+.as-spec {
+  margin-top: 12px;
+  border-top: 1px solid var(--as-line);
+}
+.as-spec > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--as-line);
+}
+.as-spec dt {
+  flex: 0 0 128px;
+  font-size: var(--as-fs-compact);
+  color: var(--as-ink2);
+}
+.as-spec dd {
+  flex: 1;
+  min-width: 200px;
+  font-size: var(--as-fs-compact);
+  color: var(--as-ink);
+}
+.as-pdp__cta {
+  margin-top: 32px;
+  background: var(--as-tile);
+  border-radius: var(--as-radius);
+  padding: 24px 26px;
+}
+.as-pdp__cta p {
+  font-size: var(--as-fs-compact);
+  line-height: 1.65;
+  color: var(--as-ink2);
+}
+.as-pdp__cta .as-btn {
+  margin-top: 16px;
+}
+@media (max-width: 899px) {
+  .as-pdp {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 /* ---- plain page head (no-photo pages) + contact two-up -------------------- */
 .as-pagehead {
   padding: 68px 0 0;

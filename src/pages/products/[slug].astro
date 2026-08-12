@@ -1,8 +1,14 @@
 ---
+/**
+ * /products/[slug]/ — light skin (W4 products批). Skin only: getStaticPaths,
+ * titles, descriptions, Product/Breadcrumb JSON-LD and the og:image pipeline
+ * are byte-for-byte the dark version's logic. Data never renders supplierRef
+ * or moq; draft products never reach getStaticPaths.
+ */
 import { Image, getImage } from 'astro:assets';
 import type { GetStaticPaths } from 'astro';
-import Base from '../../layouts/Base.astro';
-import ProductCard from '../../components/ProductCard.astro';
+import LightBase from '../../layouts/LightBase.astro';
+import LightProductCard from '../../components/LightProductCard.astro';
 import { PRODUCTS_PAGE, SITE } from '../../data/site';
 import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
 import { categoryLabel, getPublishedProducts, resolveProductImage } from '../../lib/products';
@@ -48,38 +54,36 @@ const schemas = [
 ];
 ---
 
-<Base title={title} description={description} schemas={schemas} ogImage={schemaImages[0]}>
-  <div class="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
-    <nav aria-label="Breadcrumb" class="text-sm text-ink-400">
-      <a href="/products" class="transition-colors hover:text-ink-100">Products</a>
-      <span class="mx-2 text-ink-600">/</span>
-      <span class="text-ink-300">{name}</span>
+<LightBase title={title} description={description} schemas={schemas} ogImage={schemaImages[0]}>
+  <div class="as-container" style="padding-top:calc(var(--as-header-h) + 26px);padding-bottom:72px">
+    <nav aria-label="Breadcrumb" class="as-crumb">
+      <a href="/products">Products</a>
+      <span class="as-crumb__sep">/</span>
+      <span>{name}</span>
     </nav>
 
-    <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14">
+    <div class="as-pdp">
       <div>
-        <div class="overflow-hidden rounded-2xl bg-white p-6">
+        <div class="as-pdp__stage">
           <Image
             src={main}
             alt={name}
             widths={[480, 720, 960]}
             sizes="(min-width: 1024px) 560px, 90vw"
-            class="mx-auto h-auto w-full max-w-md object-contain"
             loading="eager"
           />
         </div>
 
         {
           gallery.length > 0 && (
-            <ul class="mt-4 grid grid-cols-4 gap-3">
+            <ul class="as-pdp__thumbs">
               {gallery.map((item) => (
-                <li class="overflow-hidden rounded-lg bg-white p-2">
+                <li>
                   <Image
                     src={item.src}
                     alt={`${name} — alternative view`}
                     widths={[160, 240]}
                     sizes="120px"
-                    class="mx-auto h-20 w-auto object-contain"
                     loading="lazy"
                   />
                 </li>
@@ -90,69 +94,48 @@ const schemas = [
       </div>
 
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-air-400">
-          {categoryLabel(category)} · {model}
-        </p>
-        <h1 class="mt-3 text-3xl font-bold leading-tight tracking-tight text-ink-50 sm:text-4xl">
-          {name}
-        </h1>
+        <p class="as-pdp__meta">{categoryLabel(category)} · {model}</p>
+        <h1 class="as-pdp__title">{name}</h1>
 
-        <div class="mt-7">
-          <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">{PRODUCTS_PAGE.sectionHeadings.sensing}</h2>
-          <ul class="mt-3 flex flex-wrap gap-2">
-            {
-              sensors.map((sensor) => (
-                <li class="rounded-lg border border-air-400/25 bg-air-500/10 px-3 py-1.5 text-sm font-medium text-air-300">
-                  {sensor}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+        <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.sensing}</h2>
+        <ul class="as-sensor-pills">
+          {sensors.map((sensor) => <li>{sensor}</li>)}
+        </ul>
 
         {
           highlights && highlights.length > 0 && (
-            <div class="mt-8">
-              <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">
-                {PRODUCTS_PAGE.sectionHeadings.highlights}
-              </h2>
-              <ul class="mt-3 space-y-2.5">
+            <>
+              <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.highlights}</h2>
+              <ul class="as-pdp__list">
                 {highlights.map((line) => (
-                  <li class="flex gap-3 text-sm leading-relaxed text-ink-300">
-                    <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-air-400" aria-hidden="true" />
-                    {line}
-                  </li>
+                  <li>{line}</li>
                 ))}
               </ul>
-            </div>
+            </>
           )
         }
 
         {
           specs && Object.keys(specs).length > 0 && (
-            <div class="mt-8">
-              <h2 class="text-xs font-semibold uppercase tracking-wider text-ink-400">
-                {PRODUCTS_PAGE.sectionHeadings.specs}
-              </h2>
-              <dl class="mt-3 divide-y divide-white/10 border-y border-white/10">
+            <>
+              <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.specs}</h2>
+              <dl class="as-spec">
                 {Object.entries(specs).map(([key, value]) => (
-                  <div class="flex flex-wrap gap-x-6 gap-y-1 py-3">
-                    <dt class="w-32 shrink-0 text-sm text-ink-400">{key}</dt>
-                    <dd class="flex-1 text-sm text-ink-100">{value}</dd>
+                  <div>
+                    <dt>{key}</dt>
+                    <dd>{value}</dd>
                   </div>
                 ))}
               </dl>
-            </div>
+            </>
           )
         }
 
-        <div class="mt-9 rounded-xl border border-white/10 bg-white/[0.03] p-6">
-          <p class="text-sm leading-relaxed text-ink-300">{PRODUCTS_PAGE.detailCta.body}</p>
-          <a
-            href="/contact"
-            class="mt-5 inline-flex rounded-lg bg-air-500 px-5 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-air-400"
-          >
+        <div class="as-pdp__cta">
+          <p>{PRODUCTS_PAGE.detailCta.body}</p>
+          <a href="/contact" class="as-btn as-btn--primary">
             Enquire about {model}
+            <span class="as-arw" aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -160,15 +143,17 @@ const schemas = [
 
     {
       related.length > 0 && (
-        <section class="mt-20 border-t border-white/10 pt-12">
-          <h2 class="text-xl font-bold tracking-tight text-ink-50">Other {categoryLabel(category).toLowerCase()} monitors</h2>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <section style="margin-top:88px">
+          <div class="as-sechead">
+            <h2 class="as-h2">Other {categoryLabel(category).toLowerCase()} monitors</h2>
+          </div>
+          <div class="as-pgrid">
             {related.map((item) => (
-              <ProductCard product={item} />
+              <LightProductCard product={item} />
             ))}
           </div>
         </section>
       )
     }
   </div>
-</Base>
+</LightBase>

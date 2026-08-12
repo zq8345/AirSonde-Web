@@ -17,6 +17,8 @@ interface Props {
   /** Pages served at arbitrary URLs or still empty shells: no canonical, no indexing. */
   noindex?: boolean;
   schemas?: Record<string, unknown>[];
+  /** Social preview image, absolute or root-relative (mirrors Base.astro). */
+  ogImage?: string;
 }
 
 const {
@@ -24,8 +26,10 @@ const {
   description = SITE.defaultDescription,
   noindex = false,
   schemas = [],
+  ogImage,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const ogImageUrl = ogImage ? new URL(ogImage, SITE.url).href : undefined;
 const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
 ---
 
@@ -49,9 +53,11 @@ const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en" />
-    <meta name="twitter:card" content="summary" />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
     <meta name="generator" content={Astro.generator} />
 
