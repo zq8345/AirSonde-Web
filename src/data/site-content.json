@@ -1,0 +1,78 @@
+{
+  "_readme": [
+    "后台 (admin.airsonde.com) 可写的站点文案与联系数据。**这是唯一一份后台能改的站级内容。**",
+    "为什么单独抽出来：后台只允许写 JSON，绝不允许改 .ts —— 重写 TS 的出错方式是",
+    "生成一个语法合法但语义变了的文件，而任何校验闸都看不出来。",
+    "",
+    "⛔ 有意**没有**放进来的东西（它们留在 site.ts，因为改错了会静默坏掉）：",
+    "  · NAV 的 href —— 必须对得上真实路由，改错=导航指向 404",
+    "  · CONTACT_FORM.inquiryOptions —— 必须与 functions/api/contact.ts 的白名单一致，",
+    "    改这里而不改那里 = 表单提交被后端拒绝，而页面上看不出任何异常",
+    "  · CTA 的 href、各种 label/字段名/section id —— 那是结构不是内容",
+    "  · HOME_SECTIONS 的两个 heading 与整个 CAPABILITIES —— **实测在产出页里 0 处**（死导出）。",
+    "    放进来 = 让人改一段改了也不会变的字，比不给这个字段更糟。",
+    "",
+    "⚠️ 链接不在这里：mailto: / wa.me / tel: 全部由 site.ts 从 contact.phone 与 contact.email",
+    "   **派生**。这样改了号码不可能漏改链接 —— 那种不一致没有任何症状，直到有人点了它。"
+  ],
+
+  "seo": {
+    "defaultTitle": "AirSonde — OEM / ODM Indoor Air Quality Monitors",
+    "defaultDescription": "AirSonde manufactures white-label indoor air quality monitors for brands and importers. OEM and ODM production for CO2, PM2.5, PM10, HCHO and TVOC sensing.",
+    "organisationDescription": "AirSonde is an OEM and ODM manufacturer of indoor air quality monitors, producing desktop and portable CO2, particulate, formaldehyde and TVOC monitors under its customers’ own brands.",
+    "pages": {
+      "home": {
+        "title": "AirSonde — OEM / ODM Indoor Air Quality Monitors",
+        "description": ""
+      },
+      "products": {
+        "title": "Products — OEM / ODM Indoor Air Quality Monitors | AirSonde",
+        "description": "Desktop, portable and handheld indoor air quality monitors available for OEM and ODM production: CO2, CO, PM1.0, PM2.5, PM10, HCHO and TVOC sensing, built under your brand."
+      },
+      "contact": {
+        "title": "Contact — Start an OEM / ODM Programme | AirSonde",
+        "description": "Contact AirSonde about OEM and ODM production of white-label indoor air quality monitors. Tell us the market, the sensing set and the volumes."
+      },
+      "notFound": {
+        "title": "Page not found — AirSonde",
+        "description": "That page does not exist on this site."
+      }
+    }
+  },
+
+  "contact": {
+    "email": "sales@airsonde.com",
+    "phone": "+86 186 8116 0111",
+    "wechatId": "18681160111",
+    "address": "No. 62, Baotian 1st Road, Xixiang Street, Bao'an District, Shenzhen, Guangdong, China",
+    "hours": "Mon–Fri 9:00–18:00 (GMT+8)",
+    "response": "Within 1 business day"
+  },
+
+  "home": {
+    "hero": {
+      "eyebrow": "Independent manufacturer · OEM / ODM",
+      "headline": "Indoor Air Quality Monitors, Built for Your Brand",
+      "body": "IAQ monitors shipped under your name — housing, firmware, packaging.",
+      "primaryCtaLabel": "Request a quote",
+      "secondaryCtaLabel": "Browse products"
+    },
+    "sections": {
+      "capabilitiesIntro": "Every unit is specified with you up front."
+    },
+    "valueProps": [
+      {
+        "title": "White-label ready",
+        "body": "Your brand on the housing, display, app and box. Nothing points back to us."
+      },
+      {
+        "title": "OEM and ODM",
+        "body": "Bring a finished spec (OEM), or adapt one of our reference designs (ODM)."
+      }
+    ],
+    "contactBlock": {
+      "title": "Tell us what you want to put your name on",
+      "body": "Send the market, the sensing set and the volumes. We come back with a build path and lead times."
+    }
+  }
+}

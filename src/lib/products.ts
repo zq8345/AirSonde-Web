@@ -49,3 +49,26 @@ export const CATEGORY_LABELS: Record<string, string> = {
 export function categoryLabel(category: string): string {
   return CATEGORY_LABELS[category] ?? category;
 }
+
+/**
+ * 七条之3: the 2-3 chips a buyer scans on a card. Priority picks the
+ * discriminating sensors first; T/RH are never padded in (every unit has
+ * them). Products outside the IAQ set (radiation, alcohol) fall back to
+ * their own headline value. (All 23 records use `sensors` — an earlier
+ * claim of a sensing/sensors field fork was a mis-probe, retracted.)
+ */
+const CHIP_PRIORITY = ['CO2', 'PM2.5', 'HCHO', 'TVOC', 'CO', 'PM10', 'PM1.0', 'AQI'];
+const CHIP_LABELS: Record<string, string> = {
+  temperature: 'Temp',
+  humidity: 'RH',
+  radiation: 'Radiation',
+  alcohol: 'Alcohol',
+};
+export function headlineSensors(product: Product, max = 3): string[] {
+  const sensors = product.data.sensors ?? [];
+  const picked = CHIP_PRIORITY.filter((s) => sensors.includes(s)).slice(0, max);
+  if (picked.length > 0) return picked;
+  return sensors
+    .slice(0, 2)
+    .map((s) => CHIP_LABELS[s] ?? s.charAt(0).toUpperCase() + s.slice(1));
+}

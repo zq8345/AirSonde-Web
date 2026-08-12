@@ -31,6 +31,16 @@ const gallery = (images.gallery ?? []).map((path) => ({
 }));
 
 const related = siblings.filter((p) => p.data.category === category).slice(0, 3);
+// "Other other monitors" was live for the 'other' category — special-case it
+const relatedHeading =
+  category === 'other' ? 'More from the catalogue' : `Other ${categoryLabel(category).toLowerCase()} monitors`;
+
+// Admin-created records ship without specs yet; the at-a-glance table falls
+// back to rows derived purely from data on hand — nothing invented.
+const glance =
+  specs && Object.keys(specs).length > 0
+    ? specs
+    : { Model: model, 'Form factor': categoryLabel(category), Sensing: sensors.join(', ') };
 
 const title = `${name} (${model}) — OEM / ODM | ${SITE.brand}`;
 const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Built to order for OEM and ODM programmes under your own brand.`;
@@ -115,21 +125,17 @@ const schemas = [
           )
         }
 
-        {
-          specs && Object.keys(specs).length > 0 && (
-            <>
-              <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.specs}</h2>
-              <dl class="as-spec">
-                {Object.entries(specs).map(([key, value]) => (
-                  <div>
-                    <dt>{key}</dt>
-                    <dd>{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </>
-          )
-        }
+        <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.specs}</h2>
+        <dl class="as-spec">
+          {
+            Object.entries(glance).map(([key, value]) => (
+              <div>
+                <dt>{key}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))
+          }
+        </dl>
 
         <div class="as-pdp__cta">
           <p>{PRODUCTS_PAGE.detailCta.body}</p>
@@ -145,7 +151,7 @@ const schemas = [
       related.length > 0 && (
         <section style="margin-top:88px">
           <div class="as-sechead">
-            <h2 class="as-h2">Other {categoryLabel(category).toLowerCase()} monitors</h2>
+            <h2 class="as-h2">{relatedHeading}</h2>
           </div>
           <div class="as-pgrid">
             {related.map((item) => (

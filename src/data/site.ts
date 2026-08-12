@@ -13,19 +13,34 @@
  * ⚠️ Copy rule: nothing here may assert a fact we cannot evidence — no
  * certifications, no sensor technologies, no commercial promises. Positioning
  * (OEM / ODM / white-label) is the business itself and stays.
+ *
+ * ── 后台可写的部分住在 site-content.json ──────────────────────────────────
+ * 联系数据、首页文案、各页 title/description 从 `./site-content.json` 读进来，
+ * 因为 admin.airsonde.com 要能改它们。**后台只写 JSON，永不写这个 .ts**：
+ * 重写 TS 的出错方式是产出一个语法合法但语义变了的文件，闸看不出来。
+ *
+ * ⚠️ 下面每个 export 的**形状保持不变** —— 所有页面照旧从这里取，一个都不用改。
+ * ⚠️ 哪些**不许**进 JSON，见该文件的 `_readme`（NAV href、表单选项、CTA href…）。
  */
+
+import content from './site-content.json';
+
+/**
+ * 号码只存一份，三个链接全部**派生**。
+ * 🔴 之所以不把 href 也放进 JSON：号码改了而某个 href 没改，页面上**看不出任何异常** ——
+ *    直到有人点了它，打到一个不存在的号上。派生 ⇒ 那种不一致在结构上不可能出现。
+ */
+const PHONE_DIGITS = content.contact.phone.replace(/\D/g, '');
 
 export const SITE = {
   brand: 'AirSonde',
   url: 'https://airsonde.com',
   locale: 'en',
   /** Real, monitored inbox — MX/SPF/DMARC verified by 总工 2026-08-10. */
-  email: 'sales@airsonde.com',
-  defaultTitle: 'AirSonde — OEM / ODM Indoor Air Quality Monitors',
-  defaultDescription:
-    'AirSonde manufactures white-label indoor air quality monitors for brands and importers. OEM and ODM production for CO2, PM2.5, PM10, HCHO and TVOC sensing.',
-  organisationDescription:
-    'AirSonde is an OEM and ODM manufacturer of indoor air quality monitors, producing desktop and portable CO2, particulate, formaldehyde and TVOC monitors under its customers’ own brands.',
+  email: content.contact.email,
+  defaultTitle: content.seo.defaultTitle,
+  defaultDescription: content.seo.defaultDescription,
+  organisationDescription: content.seo.organisationDescription,
 } as const;
 
 // IA per Joe 2026-08-11 (改令四): 首页/Products/Solutions/Guides/About/Contact.
@@ -42,22 +57,22 @@ export const NAV = [
 /** Per-page <title> and meta description. Every entry must be unique. */
 export const META = {
   home: {
-    title: 'AirSonde — OEM / ODM Indoor Air Quality Monitors',
-    description: SITE.defaultDescription,
+    title: content.seo.pages.home.title,
+    // 空字符串 ⇒ 回落到站点默认描述。**空不是"没描述"，是"用默认那条"** ——
+    // 让它渲染成空 meta description 会比写错还糟（搜索结果里自己造摘要）。
+    description: content.seo.pages.home.description || SITE.defaultDescription,
   },
   products: {
-    title: 'Products — OEM / ODM Indoor Air Quality Monitors | AirSonde',
-    description:
-      'Desktop, portable and handheld indoor air quality monitors available for OEM and ODM production: CO2, CO, PM1.0, PM2.5, PM10, HCHO and TVOC sensing, built under your brand.',
+    title: content.seo.pages.products.title,
+    description: content.seo.pages.products.description || SITE.defaultDescription,
   },
   contact: {
-    title: 'Contact — Start an OEM / ODM Programme | AirSonde',
-    description:
-      'Contact AirSonde about OEM and ODM production of white-label indoor air quality monitors. Tell us the market, the sensing set and the volumes.',
+    title: content.seo.pages.contact.title,
+    description: content.seo.pages.contact.description || SITE.defaultDescription,
   },
   notFound: {
-    title: 'Page not found — AirSonde',
-    description: 'That page does not exist on this site.',
+    title: content.seo.pages.notFound.title,
+    description: content.seo.pages.notFound.description || SITE.defaultDescription,
   },
 } as const;
 
@@ -70,12 +85,14 @@ export const HERO = {
   // W9 §1: hero mirrors wanew's skeleton — eyebrow / H1 / ONE subline / two
   // buttons. `tagline` is no longer rendered but stays as the frozen W1
   // positioning line (sensor set now lives in the chips band below the hero).
-  eyebrow: 'Independent manufacturer · OEM / ODM',
-  headline: 'Indoor Air Quality Monitors, Built for Your Brand',
+  eyebrow: content.home.hero.eyebrow,
+  headline: content.home.hero.headline,
   tagline: 'OEM / ODM manufacturing · White-label ready · CO2 · PM2.5 · HCHO · TVOC',
-  body: 'IAQ monitors shipped under your name — housing, firmware, packaging.',
-  primaryCta: { label: 'Request a quote', href: '/contact' },
-  secondaryCta: { label: 'Browse products', href: '/products' },
+  body: content.home.hero.body,
+  // ⚠️ **href 故意不进 JSON**：文案改错只是难看，链接改错是 404。
+  //    后台只给改 label —— 那是它真正想改的东西。
+  primaryCta: { label: content.home.hero.primaryCtaLabel, href: '/contact' },
+  secondaryCta: { label: content.home.hero.secondaryCtaLabel, href: '/products' },
 } as const;
 
 export const SENSOR_CHIPS = [
@@ -88,6 +105,10 @@ export const SENSOR_CHIPS = [
 ] as const;
 
 export const HOME_SECTIONS = {
+  // ⚠️ `id` 留在 TS：它是锚点/CSS 钩子（结构），不是文案。改它会断锚点链接。
+  // ⚠️ 两个 `heading` 也留在 TS：实测它们在**产出页里 0 处**（index.astro 只用了
+  //    capabilities.id / capabilities.intro / contact.id）。把死字段接到后台上，
+  //    等于让人改一段改了不会变的字 —— 那比没有这个输入框更糟。
   whatWeDo: {
     id: 'what-we-do',
     heading: 'How we work with brands',
@@ -95,26 +116,16 @@ export const HOME_SECTIONS = {
   capabilities: {
     id: 'capabilities',
     heading: 'What we can build for you',
-    intro: 'Every unit is specified with you up front.',
+    intro: content.home.sections.capabilitiesIntro,
   },
   contact: {
     id: 'contact',
   },
 } as const;
 
-export const VALUE_PROPS = [
-  {
-    title: 'White-label ready',
-    body:
-      'Your brand on the housing, display, app and box. Nothing points back to us.',
-  },
-  {
-    title: 'OEM and ODM',
-    body:
-      'Bring a finished spec (OEM), or adapt one of our reference designs (ODM).',
-  },
-] as const;
+export const VALUE_PROPS = content.home.valueProps;
 
+/** ⚠️ 当前**没有任何页面 import 它**（实测产出页 0 处）。故意不接后台，见上面的理由。 */
 export const CAPABILITIES = [
   {
     title: 'Sensing',
@@ -132,9 +143,8 @@ export const CAPABILITIES = [
 ] as const;
 
 export const CONTACT = {
-  title: 'Tell us what you want to put your name on',
-  body:
-    'Send the market, the sensing set and the volumes. We come back with a build path and lead times.',
+  title: content.home.contactBlock.title,
+  body: content.home.contactBlock.body,
 } as const;
 
 /* -------------------------------------------------------------------------
@@ -196,14 +206,17 @@ export const CONTACT_HERO = {
 export const CONTACT_INFO = {
   tagline: 'Reach the AirSonde team',
   heading: 'Contact information',
-  address: "No. 62, Baotian 1st Road, Xixiang Street, Bao'an District, Shenzhen, Guangdong, China",
-  hours: 'Mon–Fri 9:00–18:00 (GMT+8)',
-  response: 'Within 1 business day',
+  address: content.contact.address,
+  hours: content.contact.hours,
+  response: content.contact.response,
   labels: { address: 'Address', email: 'Email', hours: 'Business hours', response: 'Response time' },
   map: {
     hq: 'Shenzhen HQ',
     cta: 'View on Google Maps',
-    url: "https://www.google.com/maps/search/?api=1&query=No.%2062%2C%20Baotian%201st%20Road%2C%20Xixiang%20Street%2C%20Bao%27an%20District%2C%20Shenzhen",
+    // 🔴 地图链接**从地址派生**，不单独存一份。
+    //    存两份的下场是：有人改了地址、没改链接，而页面上完全看不出来 ——
+    //    地址是新的，"View on Google Maps" 还指着旧地方。
+    url: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.contact.address)}`,
   },
 } as const;
 
@@ -213,12 +226,13 @@ export const CONTACT_INFO = {
  */
 export const CONTACT_CHANNELS = {
   heading: 'Reach us directly',
-  email: { label: 'Email', value: 'sales@airsonde.com', href: 'mailto:sales@airsonde.com' },
-  whatsapp: { label: 'WhatsApp', value: '+86 186 8116 0111', href: 'https://wa.me/8618681160111' },
-  phone: { label: 'Phone', value: '+86 186 8116 0111', href: 'tel:+8618681160111' },
+  // ⭐ value 与 href **同源**：href 由 value 算出来，不各存一份。见文件顶部 PHONE_DIGITS。
+  email: { label: 'Email', value: content.contact.email, href: `mailto:${content.contact.email}` },
+  whatsapp: { label: 'WhatsApp', value: content.contact.phone, href: `https://wa.me/${PHONE_DIGITS}` },
+  phone: { label: 'Phone', value: content.contact.phone, href: `tel:+${PHONE_DIGITS}` },
   wechat: {
     label: 'WeChat',
-    id: '18681160111',
+    id: content.contact.wechatId,
     scanHint: 'Scan to add on WeChat',
     copyLabel: 'Copy WeChat ID',
     copiedLabel: 'Copied',
@@ -231,9 +245,11 @@ export const CONTACT_CHANNELS = {
  * address — never a fake success. The "website" field is a honeypot.
  */
 export const CONTACT_FORM = {
-  /** reuses the ask-intro line — existing verified copy */
+  /** reuses the ask-intro line — existing verified copy (rendered as a
+   *  normal-case subline, not an uppercase eyebrow — 总工七条之7) */
   tagline: 'The more you answer up front, the sooner you get something concrete.',
   heading: 'Leave a message online',
+  privacy: 'Used only to reply to your enquiry.',
   fields: {
     name: 'Name',
     company: 'Company',

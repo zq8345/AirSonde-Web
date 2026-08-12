@@ -4,7 +4,7 @@
  * so the look is defined once in light.css.
  */
 import { Image } from 'astro:assets';
-import { categoryLabel, resolveProductImage, type Product } from '../lib/products';
+import { categoryLabel, headlineSensors, resolveProductImage, type Product } from '../lib/products';
 
 interface Props {
   product: Product;
@@ -13,6 +13,7 @@ interface Props {
 const { product } = Astro.props;
 const { slug, name, model, category, images } = product.data;
 const image = resolveProductImage(images.main);
+const chips = headlineSensors(product);
 ---
 
 <a class="as-pcard" href={`/products/${slug}`}>
@@ -28,5 +29,14 @@ const image = resolveProductImage(images.main);
   <span class="as-pcard__body">
     <span class="as-pcard__meta">{categoryLabel(category)} · {model}</span>
     <span class="as-pcard__name">{name}</span>
+    {
+      chips.length > 0 && (
+        <span class="as-pcard__chips">
+          {chips.map((chip) => (
+            <span>{chip}</span>
+          ))}
+        </span>
+      )
+    }
   </span>
 </a>
