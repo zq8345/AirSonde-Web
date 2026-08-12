@@ -491,6 +491,18 @@ ol {
 .as-hero--banner .as-hero__cta {
   margin-bottom: 26px;
 }
+/* phones: the stacked buttons were riding up onto the device (measured
+   overlap at 375) — compact them so the stack clears the device box */
+@media (max-width: 767px) {
+  .as-hero--banner .as-hero__cta {
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+  .as-hero--banner .as-hero__cta .as-btn {
+    min-height: 42px;
+    padding: 0 18px;
+  }
+}
 .as-hero__cta {
   margin-top: 30px;
   display: flex;
