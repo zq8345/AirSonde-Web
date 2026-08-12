@@ -299,8 +299,13 @@ ol {
    stays for the rest. (prefers-reduced-motion kills animations globally;
    those users are covered by the JS path.) */
 @supports (animation-timeline: scroll()) {
+  /* longhands on purpose: the CSS minifier eats the `animation:` shorthand
+     and `animation-timeline` when combined — verified on the built output */
   .as-header {
-    animation: as-solidify linear both;
+    animation-name: as-solidify;
+    animation-duration: 1ms;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
     animation-timeline: scroll();
     animation-range: 0px 68px;
   }
