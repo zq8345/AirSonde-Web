@@ -2032,3 +2032,14 @@ select.as-field__input {
     flex: 0 0 auto;
   }
 }
+
+/* ...and the inner wrapper only reaches the section bottom if it actually
+   has the section's height — its content height (~350px) was shorter than
+   the hero min-height, so every flex-end so far anchored inside a box that
+   never touched the bottom. Flex the section; stretch the wrapper. */
+.as-hero--banner {
+  display: flex;
+}
+.as-hero--banner .as-hero__in {
+  min-height: 100%;
+}
