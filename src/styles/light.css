@@ -293,6 +293,26 @@ ol {
   -webkit-backdrop-filter: blur(14px);
   border-bottom-color: var(--as-line);
 }
+/* 0-b (Joe: title ran through the nav while scrolling): the glass state must
+   not depend on the JS scroll listener alone — browsers that support
+   scroll-driven animations get the same solidify natively. The JS toggle
+   stays for the rest. (prefers-reduced-motion kills animations globally;
+   those users are covered by the JS path.) */
+@supports (animation-timeline: scroll()) {
+  .as-header {
+    animation: as-solidify linear both;
+    animation-timeline: scroll();
+    animation-range: 0px 68px;
+  }
+  @keyframes as-solidify {
+    to {
+      background: rgba(255, 255, 255, 0.85);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-bottom-color: var(--as-line);
+    }
+  }
+}
 .as-header__in {
   max-width: 1240px;
   margin: 0 auto;
@@ -335,6 +355,7 @@ ol {
   gap: 26px;
 }
 .as-nav a {
+  position: relative;
   font-size: var(--as-fs-compact);
   font-weight: 500;
   color: var(--as-ink2);
@@ -342,6 +363,21 @@ ol {
 }
 .as-nav a:hover {
   color: var(--as-ink);
+}
+/* 0-a (Joe): current-section state — ink + accent underline (wanew 对位) */
+.as-nav a[aria-current='page'] {
+  color: var(--as-ink);
+  font-weight: 600;
+}
+.as-nav a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--as-accent);
 }
 .as-header .as-btn {
   min-height: 40px;
@@ -1552,6 +1588,14 @@ textarea.as-field__input {
   transition:
     opacity 0.65s var(--as-ease),
     transform 0.65s var(--as-ease);
+}
+/* Same principle as the 0-b fix: content visibility must not depend on JS.
+   Without scripting the IntersectionObserver never runs — show everything. */
+@media (scripting: none) {
+  [data-as-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }
 [data-as-reveal].is-in {
   opacity: 1;

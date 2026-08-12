@@ -12,6 +12,9 @@ import path from 'node:path';
 const DIST = 'dist';
 const CONTENT = 'src/content/products';
 
+// ⚠️ 口径: these are NARROW claim-word checks (exact substrings). A stem-wide
+// sweep (e.g. /certif/i) will hit legitimate topical mentions in guides copy —
+// wide-scan hits need human qualification, they are not automatically failures.
 const BANNED_SUBSTRINGS = ['alibaba.com', 'alicdn.com', 'supplierRef'];
 
 async function walk(dir) {

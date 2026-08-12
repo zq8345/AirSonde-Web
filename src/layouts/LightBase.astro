@@ -31,6 +31,11 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const ogImageUrl = ogImage ? new URL(ogImage, SITE.url).href : undefined;
 const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
+
+// 0-a (Joe): the section you are in is marked in the nav — aria-current +
+// styled state, wanew's behaviour. Prefix match covers /products/slug etc.
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path === `${href}/` || path.startsWith(`${href}/`);
 ---
 
 <!doctype html>
@@ -92,7 +97,11 @@ const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
           >
         </a>
         <nav aria-label="Primary" class="as-nav">
-          {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+          {NAV.map((item) => (
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
         </nav>
         <a href="/contact" class="as-btn as-btn--primary">Get a quote</a>
       </div>
