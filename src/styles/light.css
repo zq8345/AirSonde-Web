@@ -1864,3 +1864,91 @@ textarea.as-field__input {
   margin-top: 8px;
   color: var(--as-ink2);
 }
+
+/* ---- W10 contact page (wanew two-card grid) ------------------------------- */
+.as-contact2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 899px) {
+  .as-contact2 {
+    grid-template-columns: 1fr;
+  }
+}
+.as-ccard {
+  background: #fff;
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  padding: 32px 30px 36px;
+}
+.as-ccard__head {
+  margin-bottom: 26px;
+}
+.as-cinfo li {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--as-line);
+}
+.as-cinfo li:first-child {
+  padding-top: 0;
+}
+.as-cinfo__k {
+  flex: 0 0 118px;
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--as-ink2);
+  padding-top: 3px;
+}
+.as-cinfo__v {
+  font-size: var(--as-fs-compact);
+  font-weight: 500;
+  color: var(--as-ink);
+}
+a.as-cinfo__link:hover {
+  color: var(--as-accent);
+}
+.as-ccard .as-channels {
+  margin-top: 22px;
+}
+.as-cmap {
+  display: block;
+  margin-top: 22px;
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius-s);
+  background: var(--as-tile);
+  padding: 16px 18px;
+  transition: border-color 0.2s var(--as-ease);
+}
+.as-cmap:hover {
+  border-color: var(--as-line2);
+}
+.as-cmap__hq {
+  display: block;
+  font-weight: 700;
+  color: var(--as-ink);
+}
+.as-cmap__addr {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--as-fs-small);
+  color: var(--as-ink2);
+}
+.as-cmap__cta {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: var(--as-fs-compact);
+  font-weight: 600;
+  color: var(--as-accent);
+}
+select.as-field__input {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--as-ink2) 50%), linear-gradient(135deg, var(--as-ink2) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}

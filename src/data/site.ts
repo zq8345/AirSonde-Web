@@ -181,6 +181,32 @@ export const CONTACT_PAGE = {
   ],
 } as const;
 
+/** W10-B hero — wording set by 总工 (wanew page-header 对位). */
+export const CONTACT_HERO = {
+  eyebrow: 'Contact',
+  heading: "Tell us what you're building",
+  sub: 'OEM / ODM inquiries welcome.',
+} as const;
+
+/**
+ * W10-B info card. Address is the group's Shenzhen address — same as
+ * wanew.com/contact (总工裁定, Joe 可否决). Hours/response mirror wanew's
+ * published values (集团同口径).
+ */
+export const CONTACT_INFO = {
+  tagline: 'Reach the AirSonde team',
+  heading: 'Contact information',
+  address: "No. 62, Baotian 1st Road, Xixiang Street, Bao'an District, Shenzhen, Guangdong, China",
+  hours: 'Mon–Fri 9:00–18:00 (GMT+8)',
+  response: 'Within 1 business day',
+  labels: { address: 'Address', email: 'Email', hours: 'Business hours', response: 'Response time' },
+  map: {
+    hq: 'Shenzhen HQ',
+    cta: 'View on Google Maps',
+    url: "https://www.google.com/maps/search/?api=1&query=No.%2062%2C%20Baotian%201st%20Road%2C%20Xixiang%20Street%2C%20Bao%27an%20District%2C%20Shenzhen",
+  },
+} as const;
+
 /**
  * Contact channels — same set as wanew.com/contact (Joe, 改令二): one phone
  * number across WhatsApp / WeChat / voice. QR asset forked from the wanew repo.
@@ -205,14 +231,20 @@ export const CONTACT_CHANNELS = {
  * address — never a fake success. The "website" field is a honeypot.
  */
 export const CONTACT_FORM = {
-  heading: 'Or send it from here',
+  /** reuses the ask-intro line — existing verified copy */
+  tagline: 'The more you answer up front, the sooner you get something concrete.',
+  heading: 'Leave a message online',
   fields: {
     name: 'Name',
     company: 'Company',
     email: 'Work email',
+    phone: 'Phone (optional)',
+    inquiryType: 'Inquiry type',
     message: 'Message',
   },
-  submit: 'Send enquiry',
+  /** must match the Function's allowlist in functions/api/contact.ts */
+  inquiryOptions: ['OEM / ODM', 'White-label', 'General'],
+  submit: 'Submit',
   sent: 'Sent — we reply by email.',
   failed: 'Sending failed — email us instead:',
 } as const;

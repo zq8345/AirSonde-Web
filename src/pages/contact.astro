@@ -1,16 +1,25 @@
 ---
 /**
- * /contact/ — W4 page 3, light theme. Channels mirror wanew.com/contact
- * (same number for WhatsApp / WeChat / phone, per Joe). The enquiry form
- * (W7) posts to /api/contact — a Pages Function that pushes to Joe's Lark
- * group. Not Web3Forms: that needed Joe's own key, and Lark is where he
- * actually reads. Delivery errors always surface the mailto fallback.
+ * /contact/ — W10-B: rebuilt on wanew.com/contact's skeleton — photo
+ * page-header, then a two-column card grid: contact information (address /
+ * email / hours / response, instant channels, HQ map card) on the left, the
+ * W7 Lark-backed form ("Leave a message online", now with Phone and Inquiry
+ * type) on the right. Channels keep the wanew-mirrored number set (Joe).
+ * Delivery errors always surface the mailto fallback — fail-closed (W7).
  */
 import { Image } from 'astro:assets';
 import LightBase from '../layouts/LightBase.astro';
-import { CONTACT, CONTACT_CHANNELS, CONTACT_FORM, CONTACT_PAGE, META, SITE } from '../data/site';
+import {
+  CONTACT_CHANNELS,
+  CONTACT_FORM,
+  CONTACT_HERO,
+  CONTACT_INFO,
+  META,
+  SITE,
+} from '../data/site';
 import { breadcrumbSchema } from '../lib/jsonld';
 import wechatQr from '../assets/photos/wechat-qr.webp';
+import heroPhoto from '../assets/photos/scene-office.jpg';
 
 const schemas = [
   breadcrumbSchema([
@@ -21,85 +30,54 @@ const schemas = [
 ---
 
 <LightBase title={META.contact.title} description={META.contact.description} schemas={schemas}>
-  <section class="as-section" style="padding-bottom:48px">
-    <div class="as-container as-pagehead">
-      <p class="as-eyebrow">{CONTACT_PAGE.eyebrow}</p>
-      <h1 class="as-pagehead__title">{CONTACT.title}</h1>
-      <p class="as-pagehead__lead">{CONTACT.body}</p>
-      <div class="as-pagehead__actions">
-        <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">
-          {SITE.email}
-          <span class="as-arw" aria-hidden="true">→</span>
-        </a>
-      </div>
+  {/* 1 ── photo page-header (wanew page-header 对位, §3.2d) */}
+  <section class="as-hero as-hero--page" style="--hero-focus: 50% 45%">
+    <Image
+      src={heroPhoto}
+      alt="Office where AirSonde enquiries are answered"
+      class="as-hero__img"
+      widths={[768, 1280, 1600]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="as-hero__wash" aria-hidden="true"></div>
+    <div class="as-container as-hero__in">
+      <p class="as-hero__eyebrow">{CONTACT_HERO.eyebrow}</p>
+      <h1 class="as-hero__title">{CONTACT_HERO.heading}</h1>
+      <p class="as-hero__lead">{CONTACT_HERO.sub}</p>
     </div>
   </section>
 
-  {/* W7 enquiry form — same fields the Function validates; browser-native
-      required/maxlength mirror the server rules, they don't replace them */}
-  <section class="as-section" style="padding-top:0">
+  {/* 2 ── two-column: info card | message form card */}
+  <section class="as-section">
     <div class="as-container">
-      <form class="as-fform" id="contact-form" method="post" action="/api/contact">
-        <h2 class="as-h2">{CONTACT_FORM.heading}</h2>
-        <div class="as-fform__grid">
-          <label class="as-field">
-            <span class="as-field__label">{CONTACT_FORM.fields.name}</span>
-            <input class="as-field__input" type="text" name="name" required maxlength="200" autocomplete="name" />
-          </label>
-          <label class="as-field">
-            <span class="as-field__label">{CONTACT_FORM.fields.company}</span>
-            <input class="as-field__input" type="text" name="company" required maxlength="200" autocomplete="organization" />
-          </label>
-          <label class="as-field as-field--wide">
-            <span class="as-field__label">{CONTACT_FORM.fields.email}</span>
-            <input class="as-field__input" type="email" name="email" required maxlength="254" autocomplete="email" />
-          </label>
-          <label class="as-field as-field--wide">
-            <span class="as-field__label">{CONTACT_FORM.fields.message}</span>
-            <textarea class="as-field__input" name="message" required maxlength="3000" rows="6"></textarea>
-          </label>
-        </div>
-        <label class="as-fform__hp" aria-hidden="true">
-          Website
-          <input type="text" name="website" tabindex="-1" autocomplete="off" />
-        </label>
-        <div class="as-fform__foot">
-          <button type="submit" class="as-btn as-btn--primary">{CONTACT_FORM.submit}</button>
-          <p class="as-fform__status" data-status="idle" aria-live="polite">
-            <span data-when="sent">{CONTACT_FORM.sent}</span>
-            <span data-when="failed">
-              {CONTACT_FORM.failed}{' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-            </span>
-          </p>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-contact-grid">
-        <div>
-          <div class="as-sechead">
-            <h2 class="as-h2">{CONTACT_PAGE.askHeading}</h2>
-            <p class="as-sub">{CONTACT_PAGE.askIntro}</p>
+      <div class="as-contact2">
+        <aside class="as-ccard">
+          <div class="as-ccard__head">
+            <p class="as-eyebrow">{CONTACT_INFO.tagline}</p>
+            <h2 class="as-h2">{CONTACT_INFO.heading}</h2>
           </div>
-          <ul class="as-checklist">
-            {CONTACT_PAGE.ask.map((line) => <li>{line}</li>)}
+          <ul class="as-cinfo">
+            <li>
+              <span class="as-cinfo__k">{CONTACT_INFO.labels.address}</span>
+              <span class="as-cinfo__v">{CONTACT_INFO.address}</span>
+            </li>
+            <li>
+              <span class="as-cinfo__k">{CONTACT_INFO.labels.email}</span>
+              <a class="as-cinfo__v as-cinfo__link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            </li>
+            <li>
+              <span class="as-cinfo__k">{CONTACT_INFO.labels.hours}</span>
+              <span class="as-cinfo__v">{CONTACT_INFO.hours}</span>
+            </li>
+            <li>
+              <span class="as-cinfo__k">{CONTACT_INFO.labels.response}</span>
+              <span class="as-cinfo__v">{CONTACT_INFO.response}</span>
+            </li>
           </ul>
-        </div>
 
-        <div>
-          <div class="as-sechead">
-            <h2 class="as-h2">{CONTACT_CHANNELS.heading}</h2>
-          </div>
           <div class="as-channels">
-            <div class="as-channel">
-              <span class="as-channel__label">{CONTACT_CHANNELS.email.label}</span>
-              <a class="as-channel__value" href={CONTACT_CHANNELS.email.href}>
-                {CONTACT_CHANNELS.email.value}
-              </a>
-            </div>
             <div class="as-channel">
               <span class="as-channel__label">{CONTACT_CHANNELS.whatsapp.label}</span>
               <a class="as-channel__value" href={CONTACT_CHANNELS.whatsapp.href} rel="noopener">
@@ -135,14 +113,62 @@ const schemas = [
               </a>
             </div>
           </div>
-          <p class="as-sub" style="font-size:var(--as-fs-compact);margin-top:16px">
-            {CONTACT_PAGE.asideBody}
-          </p>
-          <a
-            href="/products"
-            class="as-link-arrow"
-            style="margin-top:10px">{CONTACT_PAGE.asideLink}</a
-          >
+
+          <a class="as-cmap" href={CONTACT_INFO.map.url} rel="noopener" target="_blank">
+            <span class="as-cmap__hq">{CONTACT_INFO.map.hq}</span>
+            <span class="as-cmap__addr">{CONTACT_INFO.address}</span>
+            <span class="as-cmap__cta">{CONTACT_INFO.map.cta} <span aria-hidden="true">→</span></span>
+          </a>
+        </aside>
+
+        <div class="as-ccard">
+          <div class="as-ccard__head">
+            <p class="as-eyebrow">{CONTACT_FORM.tagline}</p>
+            <h2 class="as-h2">{CONTACT_FORM.heading}</h2>
+          </div>
+          <form class="as-fform" id="contact-form" method="post" action="/api/contact">
+            <div class="as-fform__grid">
+              <label class="as-field">
+                <span class="as-field__label">{CONTACT_FORM.fields.company}</span>
+                <input class="as-field__input" type="text" name="company" required maxlength="200" autocomplete="organization" />
+              </label>
+              <label class="as-field">
+                <span class="as-field__label">{CONTACT_FORM.fields.name}</span>
+                <input class="as-field__input" type="text" name="name" required maxlength="200" autocomplete="name" />
+              </label>
+              <label class="as-field">
+                <span class="as-field__label">{CONTACT_FORM.fields.email}</span>
+                <input class="as-field__input" type="email" name="email" required maxlength="254" autocomplete="email" />
+              </label>
+              <label class="as-field">
+                <span class="as-field__label">{CONTACT_FORM.fields.phone}</span>
+                <input class="as-field__input" type="tel" name="phone" maxlength="50" autocomplete="tel" />
+              </label>
+              <label class="as-field as-field--wide">
+                <span class="as-field__label">{CONTACT_FORM.fields.inquiryType}</span>
+                <select class="as-field__input" name="inquiry_type">
+                  {CONTACT_FORM.inquiryOptions.map((opt) => <option value={opt}>{opt}</option>)}
+                </select>
+              </label>
+              <label class="as-field as-field--wide">
+                <span class="as-field__label">{CONTACT_FORM.fields.message}</span>
+                <textarea class="as-field__input" name="message" required maxlength="3000" rows="6"></textarea>
+              </label>
+            </div>
+            <label class="as-fform__hp" aria-hidden="true">
+              Website
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
+            <div class="as-fform__foot">
+              <button type="submit" class="as-btn as-btn--primary">{CONTACT_FORM.submit}</button>
+              <p class="as-fform__status" data-status="idle" aria-live="polite">
+                <span data-when="sent">{CONTACT_FORM.sent}</span>
+                <span data-when="failed">
+                  {CONTACT_FORM.failed}{' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                </span>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -18,7 +18,9 @@ interface Env {
 }
 
 const ALLOWED_ORIGIN = 'https://airsonde.com';
-const MAX = { name: 200, company: 200, email: 254, message: 3000 } as const;
+const MAX = { name: 200, company: 200, email: 254, phone: 50, message: 3000 } as const;
+/** must match CONTACT_FORM.inquiryOptions in src/data/site.ts */
+const INQUIRY_TYPES = ['OEM / ODM', 'White-label', 'General'];
 
 const reply = (status: number, ok: boolean) =>
   new Response(JSON.stringify({ ok }), {
@@ -60,16 +62,20 @@ export const onRequest = async (ctx: { request: Request; env: Env }) => {
   const company = field('company');
   const email = field('email');
   const message = field('message');
+  const phone = field('phone'); // W10-B: optional
+  const inquiryType = field('inquiry_type'); // W10-B: optional, allowlisted
 
   if (!name || !company || !email || !message) return reply(400, false);
   if (
     name.length > MAX.name ||
     company.length > MAX.company ||
     email.length > MAX.email ||
+    phone.length > MAX.phone ||
     message.length > MAX.message
   )
     return reply(400, false);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(400, false);
+  if (inquiryType !== '' && !INQUIRY_TYPES.includes(inquiryType)) return reply(400, false);
 
   const webhook = env.LARK_CONTACT_WEBHOOK;
   if (!webhook) return reply(500, false);
@@ -82,6 +88,8 @@ export const onRequest = async (ctx: { request: Request; env: Env }) => {
         `Name: ${name}`,
         `Company: ${company}`,
         `Email: ${email}`,
+        ...(phone ? [`Phone: ${phone}`] : []),
+        ...(inquiryType ? [`Inquiry type: ${inquiryType}`] : []),
         '',
         message,
       ].join('\n'),
