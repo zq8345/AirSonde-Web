@@ -18,7 +18,7 @@ import heroImg from '../assets/photos/hero-joe-workspace-clean.webp';
 export const HERO_PHOTO = {
   src: heroImg,
   alt: 'Man working at a desk with an AirSonde air quality monitor beside his laptop',
-  focus: '32% 50%',
+  focus: '32% 40%', // y40: image rides lower, the device drops ~12px clear of the copy at 1440
   /** 'banner' = image speaks, copy sr-only · 'banner-clean' = cleaned wall,
    *  compact visible headline · 'scene' = normal text-over-wash hero */
   mode: 'banner-clean' as 'banner' | 'banner-clean' | 'scene',

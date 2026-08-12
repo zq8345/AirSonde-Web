@@ -2133,3 +2133,18 @@ select.as-field__input {
 .as-hero--bannerclean .as-hero__title {
   max-width: 18ch;
 }
+
+/* banner-clean, closing move: the text-block pin stole the CTA's anchor, so
+   the CTA goes back into flow right under the headline; tighter rhythm plus
+   focus-y at 40% (image rides lower, device drops ~12px at 1440) buys the
+   clearance. Verified against real device pixels, not just box estimates. */
+.as-hero--bannerclean .as-hero__text {
+  top: calc(var(--as-header-h) + 10px);
+}
+.as-hero--bannerclean .as-hero__title {
+  margin-top: 8px;
+}
+.as-hero--bannerclean .as-hero__cta {
+  position: static;
+  margin: 10px 0 0;
+}
