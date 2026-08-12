@@ -2043,3 +2043,13 @@ select.as-field__input {
 .as-hero--banner .as-hero__in {
   min-height: 100%;
 }
+
+/* Final word on the banner CTA: three flex attempts died to %-min-height
+   resolution and axis flips, so the buttons are simply pinned to the hero.
+   left mirrors the container inset (24px, or centred offset above 1240px). */
+.as-hero--banner .as-hero__cta {
+  position: absolute;
+  bottom: 18px;
+  left: calc(max(0px, (100vw - 1240px) / 2) + 24px);
+  margin: 0;
+}
