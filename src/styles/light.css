@@ -371,11 +371,11 @@ ol {
 .as-nav a:hover {
   color: var(--as-ink);
 }
-/* 0-a (Joe): current-section state — now that links are green, the current
-   one goes ink so the active state still reads as different. */
+/* 0-a (Joe, revised): the current section stays green — bold + underline
+   carry the state, no colour change. */
 .as-nav a[aria-current='page'] {
-  color: var(--as-ink);
-  font-weight: 700;
+  color: var(--as-accent);
+  font-weight: 800;
 }
 .as-nav a[aria-current='page']::after {
   content: '';
@@ -2370,12 +2370,31 @@ select.as-field__input {
    worst-case title contrast was 2.13 (text landed on plant/table), and at
    narrow widths the crop pushes the person under the text. A left-weighted
    veil fixes it at every width without hiding the scene or the device. */
+/* Joe: the full-frame veil washed out the model and the device. It is now
+   confined to the copy band — horizontally gone by 58%, vertically masked
+   out by 62% — so the person (x>58%) and the device on the desk (y>60%)
+   keep their full contrast. */
 .as-heroover__scrim {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, 0.28) 88%, var(--as-bg) 100%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.88) 30%, rgba(255, 255, 255, 0.5) 52%, rgba(255, 255, 255, 0.12) 72%, rgba(255, 255, 255, 0) 88%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(255, 255, 255, 0.72) 26%,
+    rgba(255, 255, 255, 0.34) 44%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 44%, transparent 62%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 44%, transparent 62%);
+}
+/* the page-base fade at the very bottom stays, but as its own thin layer */
+.as-heroover::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 12%;
+  background: linear-gradient(180deg, rgba(236, 238, 241, 0) 0%, var(--as-bg) 100%);
+  pointer-events: none;
 }
 /* keep the block in the upper band so the buttons never sit on the device */
 .as-heroover__in {
@@ -2385,11 +2404,18 @@ select.as-field__input {
   padding-top: calc(var(--as-header-h) + 6vh);
 }
 @media (max-width: 1023px) {
-  /* narrower crops bring the person left — widen the opaque part of the veil */
+  /* narrower crops bring the person left — the veil reaches further across
+     but still dies out before the bottom half where the device sits */
   .as-heroover__scrim {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.12) 30%, rgba(255, 255, 255, 0.4) 86%, var(--as-bg) 100%),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.92) 46%, rgba(255, 255, 255, 0.7) 70%, rgba(255, 255, 255, 0.3) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.84) 40%,
+      rgba(255, 255, 255, 0.5) 66%,
+      rgba(255, 255, 255, 0) 84%
+    );
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 58%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 58%);
   }
 }
 @media (max-width: 767px) {
@@ -2405,4 +2431,89 @@ select.as-field__input {
 }
 .as-heroover .as-hero__cta {
   margin-top: 18px;
+}
+
+/* ---- phone menu button (Joe) ---------------------------------------------- */
+.as-burger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--as-line2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+}
+.as-burger span,
+.as-burger span::before,
+.as-burger span::after {
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  margin-left: -9px;
+  border-radius: 2px;
+  background: var(--as-accent);
+  transition: transform 0.22s var(--as-ease), opacity 0.16s;
+}
+.as-burger span {
+  top: 50%;
+  margin-top: -1px;
+}
+.as-burger span::before,
+.as-burger span::after {
+  content: '';
+  left: 0;
+  margin-left: 0;
+}
+.as-burger span::before {
+  top: -6px;
+}
+.as-burger span::after {
+  top: 6px;
+}
+.as-burger.is-open span {
+  background: transparent;
+}
+.as-burger.is-open span::before {
+  transform: translateY(6px) rotate(45deg);
+}
+.as-burger.is-open span::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 767px) {
+  .as-burger {
+    display: block;
+  }
+  .as-nav {
+    position: absolute;
+    top: calc(var(--as-header-h) - 6px);
+    right: 16px;
+    left: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: #fff;
+    border: 1px solid var(--as-line);
+    border-radius: var(--as-radius);
+    box-shadow: 0 18px 40px -18px rgba(16, 20, 24, 0.22);
+    padding: 6px;
+    display: none;
+  }
+  .as-nav.is-open {
+    display: flex;
+  }
+  .as-nav a {
+    padding: 13px 14px;
+    border-radius: var(--as-radius-s);
+    font-size: var(--as-fs-body);
+  }
+  .as-nav a[aria-current='page']::after {
+    display: none;
+  }
+  .as-nav a:hover {
+    background: var(--as-tile);
+  }
 }

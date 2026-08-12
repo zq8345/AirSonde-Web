@@ -100,14 +100,24 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
             loading="eager"
           />
         </a>
-        <nav aria-label="Primary" class="as-nav">
+        <nav aria-label="Primary" class="as-nav" id="as-nav">
           {NAV.map((item) => (
             <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
               {item.label}
             </a>
           ))}
         </nav>
-        <a href="/contact" class="as-btn as-btn--primary">Get a quote</a>
+        {/* phones get a menu button instead of the inline links (Joe) */}
+        <button
+          type="button"
+          class="as-burger"
+          id="as-burger"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="as-nav"
+        >
+          <span aria-hidden="true"></span>
+        </button>
       </div>
     </header>
 
@@ -144,6 +154,27 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
     </footer>
 
     <script>
+      // Phone menu (Joe): the links collapse behind a button under 768px.
+      const burger = document.getElementById('as-burger');
+      const nav = document.getElementById('as-nav');
+      if (burger && nav) {
+        const setOpen = (open: boolean) => {
+          nav.classList.toggle('is-open', open);
+          burger.classList.toggle('is-open', open);
+          burger.setAttribute('aria-expanded', String(open));
+        };
+        burger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setOpen(!nav.classList.contains('is-open'));
+        });
+        document.addEventListener('click', (e) => {
+          if (!nav.contains(e.target as Node)) setOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setOpen(false);
+        });
+      }
+
       // §3.3: transparent header floats over the hero, drops onto white glass
       // once the page scrolls (threshold 12px, same as wanew's w3.js).
       const header = document.getElementById('as-header');
