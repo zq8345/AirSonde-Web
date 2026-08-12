@@ -553,8 +553,18 @@ ol {
 .as-pcard:hover .as-stage img {
   transform: scale(1.05);
 }
+/* W6 card follow-up (Joe, wanew reference): photo area runs flush to the
+   card edge — no inner margin, no second frame — and the text block is its
+   own #f4f5f7 segment. Colour does the separating, not borders. */
+.as-pcard .as-stage {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
 .as-pcard__body {
-  padding: 6px 16px 18px;
+  flex: 1;
+  background: var(--as-tile);
+  padding: 14px 16px 18px;
 }
 .as-pcard__meta {
   font-size: var(--as-fs-micro);
