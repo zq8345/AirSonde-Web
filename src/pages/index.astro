@@ -21,7 +21,7 @@ import {
 import { ABOUT_EXPECT, ABOUT_HERO, ABOUT_QUALITY, ABOUT_STATS } from '../data/about';
 import { SCENES_DATA } from '../data/solutions';
 import { GUIDES } from '../data/guides';
-import { categoryLabel, getPublishedProducts, resolveProductImage } from '../lib/products';
+import { categoryLabel, getPublishedProducts, headlineSensors, resolveProductImage } from '../lib/products';
 import factoryPhoto from '../assets/photos/factory/factory-assembly.webp';
 
 const products = await getPublishedProducts();
@@ -172,6 +172,13 @@ const whyCards = [
                   {categoryLabel(product.data.category)} · {product.data.model}
                 </span>
                 <span class="as-pcard__name">{product.data.name}</span>
+                {headlineSensors(product).length > 0 && (
+                  <span class="as-pcard__chips">
+                    {headlineSensors(product).map((chip) => (
+                      <span>{chip}</span>
+                    ))}
+                  </span>
+                )}
               </span>
             </a>
           ))

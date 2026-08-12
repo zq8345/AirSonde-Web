@@ -2251,3 +2251,21 @@ select.as-field__input {
   font-weight: 800;
   color: var(--as-ink);
 }
+
+/* 七条之3: sensor chips a buyer can scan on the card */
+.as-pcard__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.as-pcard__chips span {
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--as-ink2);
+  border: 1px solid var(--as-line2);
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: #fff;
+}
