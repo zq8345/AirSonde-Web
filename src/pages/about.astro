@@ -131,14 +131,13 @@ const schemas = [
         }
       </div>
 
+      {/* 🔴 no cert names, no badges — 总工裁定 2026-08-12: scoped-per-programme
+          wording only, until real per-model documents exist */}
       <div style="margin-top:44px">
         <h3 style="font-size:var(--as-fs-h3);font-weight:700;color:var(--as-ink)">
           {ABOUT_COMPLIANCE.heading}
         </h3>
         <p class="as-sub">{ABOUT_COMPLIANCE.body}</p>
-        <div class="as-certstrip">
-          {ABOUT_COMPLIANCE.badges.map((badge) => <span class="as-certbadge">{badge}</span>)}
-        </div>
       </div>
     </div>
   </section>

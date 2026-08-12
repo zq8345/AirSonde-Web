@@ -5,9 +5,11 @@
  * - The six factory numbers are REAL figures from Joe's manufacturing group
  *   (same set wanew.com/about publishes) — authorized by Joe 2026-08-11 for
  *   AirSonde as the group's IAQ product line.
- * - FCC / CE / RoHS / ISO 9001 appear ONLY as company-level compliance
- *   capability. No per-model certificate is claimed anywhere: those documents
- *   are not in hand, and B2B buyers ask for certificate numbers.
+ * - 🔴 总工裁定 2026-08-12: NO certification names anywhere on this site —
+ *   not as badges, not as "engineered for X routes", not "under ISO 9001".
+ *   Softened wording is still a capability implication. The only honest line
+ *   is "certification is scoped per programme/model" with zero names, until
+ *   the factory hands over real per-model documents.
  */
 
 import heroImg from '../assets/photos/factory/factory-assembly.webp';
@@ -106,9 +108,8 @@ export const ABOUT_QUALITY = {
 } as const;
 
 export const ABOUT_COMPLIANCE = {
-  heading: 'Compliance engineering',
-  body: 'Engineered for FCC, CE and RoHS routes under ISO 9001 quality management. Your model’s certification is scoped per programme.',
-  badges: ['FCC', 'CE', 'RoHS', 'ISO 9001'],
+  heading: 'Certification',
+  body: 'Certification is scoped per programme and per model. The route your market requires is agreed in writing before anything is built.',
 } as const;
 
 export const ABOUT_SERVICES = {
@@ -176,7 +177,7 @@ export const ABOUT_FAQ = {
     },
     {
       q: 'Are the monitors certified?',
-      a: 'Engineered for FCC, CE and RoHS routes under ISO 9001 quality management. Your model’s certification is scoped per programme.',
+      a: 'Certification is scoped per programme and per model — agreed before production, with documents provided once the factory confirms them.',
     },
     {
       q: 'Will AirSonde appear anywhere on our product?',
