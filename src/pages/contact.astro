@@ -77,21 +77,14 @@ const schemas = [
             </li>
           </ul>
 
-          <div class="as-channels">
-            <div class="as-channel">
-              <span class="as-channel__label">{CONTACT_CHANNELS.whatsapp.label}</span>
-              <a class="as-channel__value" href={CONTACT_CHANNELS.whatsapp.href} rel="noopener">
-                {CONTACT_CHANNELS.whatsapp.value}
-              </a>
-            </div>
-            <div class="as-channel" data-wechat>
-              <span class="as-channel__label">{CONTACT_CHANNELS.wechat.label}</span>
-              <button
-                type="button"
-                class="as-channel__value as-channel__btn as-wechat-btn"
-                aria-expanded="false"
-              >
-                {CONTACT_CHANNELS.wechat.id}
+          {/* 七条之7: channels are BUTTONS, not a text table (wanew 对位) */}
+          <div class="as-chrow">
+            <a class="as-chbtn" href={CONTACT_CHANNELS.whatsapp.href} rel="noopener">
+              {CONTACT_CHANNELS.whatsapp.label}
+            </a>
+            <div class="as-chwrap" data-wechat>
+              <button type="button" class="as-chbtn as-wechat-btn" aria-expanded="false">
+                {CONTACT_CHANNELS.wechat.label}
               </button>
               <div class="as-wechat-pop">
                 <Image src={wechatQr} alt={CONTACT_CHANNELS.wechat.scanHint} widths={[180, 360]} sizes="180px" loading="lazy" />
@@ -106,12 +99,9 @@ const schemas = [
                 </button>
               </div>
             </div>
-            <div class="as-channel">
-              <span class="as-channel__label">{CONTACT_CHANNELS.phone.label}</span>
-              <a class="as-channel__value" href={CONTACT_CHANNELS.phone.href}>
-                {CONTACT_CHANNELS.phone.value}
-              </a>
-            </div>
+            <a class="as-chbtn" href={CONTACT_CHANNELS.phone.href}>
+              {CONTACT_CHANNELS.phone.value}
+            </a>
           </div>
 
           <a class="as-cmap" href={CONTACT_INFO.map.url} rel="noopener" target="_blank">
@@ -123,8 +113,8 @@ const schemas = [
 
         <div class="as-ccard">
           <div class="as-ccard__head">
-            <p class="as-eyebrow">{CONTACT_FORM.tagline}</p>
-            <h2 class="as-h2">{CONTACT_FORM.heading}</h2>
+            <h2 class="as-h2" style="margin-top:0">{CONTACT_FORM.heading}</h2>
+            <p class="as-sub" style="margin-top:8px">{CONTACT_FORM.tagline}</p>
           </div>
           <form class="as-fform" id="contact-form" method="post" action="/api/contact">
             <div class="as-fform__grid">
@@ -168,6 +158,7 @@ const schemas = [
                 </span>
               </p>
             </div>
+            <p class="as-fform__privacy">{CONTACT_FORM.privacy}</p>
           </form>
         </div>
       </div>

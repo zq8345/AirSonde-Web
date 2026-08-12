@@ -231,9 +231,11 @@ export const CONTACT_CHANNELS = {
  * address — never a fake success. The "website" field is a honeypot.
  */
 export const CONTACT_FORM = {
-  /** reuses the ask-intro line — existing verified copy */
+  /** reuses the ask-intro line — existing verified copy (rendered as a
+   *  normal-case subline, not an uppercase eyebrow — 总工七条之7) */
   tagline: 'The more you answer up front, the sooner you get something concrete.',
   heading: 'Leave a message online',
+  privacy: 'Used only to reply to your enquiry.',
   fields: {
     name: 'Name',
     company: 'Company',
