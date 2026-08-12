@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AirSonde mark (dark backgrounds)">
+  <!-- 声波环 mark, dark-background variant — BRAND dark = #5DCAA5 (总工定).
+       Same frozen geometry as logo-mark.svg; only the colour differs. -->
+  <circle cx="32" cy="32" r="7.5" fill="#5DCAA5"/>
+  <circle cx="32" cy="32" r="17" fill="none" stroke="#5DCAA5" stroke-width="4.6"
+          stroke-linecap="round" stroke-dasharray="89 18" transform="rotate(-56 32 32)"/>
+  <circle cx="32" cy="32" r="27" fill="none" stroke="#5DCAA5" stroke-width="4.6"
+          stroke-linecap="round" stroke-dasharray="141 29" transform="rotate(-56 32 32)" opacity="0.55"/>
+</svg>
