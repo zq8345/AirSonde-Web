@@ -6,21 +6,22 @@
  * certification words: new labels must not shift those counts.
  */
 
-// Joe 插队 2026-08-12: trial of his own banner ("放到首页 hero 位置看看").
-// hero-composite-a.webp stays in the repo — Joe may switch back after seeing
-// it. Joe picked this image BECAUSE our product is in it (left-centre desk),
-// so banner mode lets the image speak: no wash, our copy goes sr-only (the
-// banner carries its own baked headline), CTAs sit in the empty lower-left,
-// and focus keeps the DEVICE in frame on phones. Switching mode back to
-// 'scene' restores the normal text-over-wash hero.
-import heroImg from '../assets/photos/hero-joe-workspace.webp';
+// Joe 插队 2026-08-12: his banner, evolved. He picked the image BECAUSE our
+// product is in it; hiding our headline behind sr-only left the supplier's
+// baked consumer copy as the page's visible title (总工: B2B 定位句不能被
+// 顶替). 'banner-clean' is the both-ways version: the baked text is painted
+// out at build time (scripts/clean-hero-banner.mjs), our own compact headline
+// returns on the cleaned wall, the device stays fully in frame. All three
+// assets remain: hero-composite-a / hero-joe-workspace / -clean.
+import heroImg from '../assets/photos/hero-joe-workspace-clean.webp';
 
 export const HERO_PHOTO = {
   src: heroImg,
   alt: 'Man working at a desk with an AirSonde air quality monitor beside his laptop',
   focus: '32% 50%',
-  /** 'banner' = image carries its own copy; 'scene' = our text over the wash */
-  mode: 'banner' as 'banner' | 'scene',
+  /** 'banner' = image speaks, copy sr-only · 'banner-clean' = cleaned wall,
+   *  compact visible headline · 'scene' = normal text-over-wash hero */
+  mode: 'banner-clean' as 'banner' | 'banner-clean' | 'scene',
 } as const;
 
 /** W9 §2 — products section (wanew "Design by Wanew" slot): curated eight,

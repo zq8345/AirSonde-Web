@@ -60,7 +60,13 @@ const whyCards = [
       Banner mode (Joe's trial): the image carries its own headline and shows
       the product, so our copy goes sr-only and only the CTAs overlay. */}
   <section
-    class:list={['as-hero', { 'as-hero--banner': HERO_PHOTO.mode === 'banner' }]}
+    class:list={[
+      'as-hero',
+      {
+        'as-hero--banner': HERO_PHOTO.mode === 'banner',
+        'as-hero--bannerclean': HERO_PHOTO.mode === 'banner-clean',
+      },
+    ]}
     style={`--hero-focus: ${HERO_PHOTO.focus}`}
   >
     <Image

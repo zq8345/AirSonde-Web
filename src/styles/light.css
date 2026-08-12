@@ -2053,3 +2053,43 @@ select.as-field__input {
   left: calc(max(0px, (100vw - 1240px) / 2) + 24px);
   margin: 0;
 }
+
+/* banner-clean: baked text painted out at build time, so OUR headline comes
+   back — compact (h1 tier, no subline) so the whole block stays clear of the
+   device box below it. Same no-wash discipline as banner mode. */
+.as-hero--bannerclean .as-hero__wash {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 88%, var(--as-bg) 100%);
+}
+.as-hero--bannerclean .as-hero__in {
+  padding-top: calc(var(--as-header-h) + 24px);
+}
+.as-hero--bannerclean .as-hero__title {
+  font-size: var(--as-fs-h1);
+  margin-top: 12px;
+  max-width: 18ch;
+}
+.as-hero--bannerclean .as-hero__sub {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.as-hero--bannerclean .as-hero__cta {
+  margin-top: 16px;
+}
+@media (max-width: 767px) {
+  /* taller hero pushes the projected device box down far enough for the
+     stacked compact buttons to clear it (geometry re-measured on deploy) */
+  .as-hero--bannerclean {
+    min-height: 580px;
+  }
+  .as-hero--bannerclean .as-hero__cta {
+    gap: 8px;
+  }
+  .as-hero--bannerclean .as-hero__cta .as-btn {
+    min-height: 42px;
+    padding: 0 18px;
+  }
+}

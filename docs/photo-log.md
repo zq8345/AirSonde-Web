@@ -86,3 +86,11 @@ AS-D16-style monitor beside a laptop, headline text BAKED INTO the left side
 ⚠️ real identifiable model, no release on file (asset-review question 17);
 flagged to 总工, not blocked (Joe's call). `hero-composite-a.webp` retained
 for switching back.
+
+### hero-joe-workspace-clean.webp (2026-08-12)
+
+Same Joe-supplied banner with the baked marketing text painted out by
+`scripts/clean-hero-banner.mjs` (row-interpolated wall fill, x55-545 /
+y140-340, verified seamless). Exists so our own headline can sit on the
+cleaned wall while the device stays visible. Portrait-release caveat from
+the parent asset carries over unchanged.
