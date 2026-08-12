@@ -2365,3 +2365,35 @@ select.as-field__input {
     white-space: normal;
   }
 }
+
+/* Copy on the photo needs a guaranteed backing: at 1440 the measured
+   worst-case title contrast was 2.13 (text landed on plant/table), and at
+   narrow widths the crop pushes the person under the text. A left-weighted
+   veil fixes it at every width without hiding the scene or the device. */
+.as-heroover__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 26%, rgba(255, 255, 255, 0.28) 88%, var(--as-bg) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.88) 30%, rgba(255, 255, 255, 0.5) 52%, rgba(255, 255, 255, 0.12) 72%, rgba(255, 255, 255, 0) 88%);
+}
+/* keep the block in the upper band so the buttons never sit on the device */
+.as-heroover__in {
+  align-items: flex-start;
+}
+.as-heroover__text {
+  padding-top: calc(var(--as-header-h) + 6vh);
+}
+@media (max-width: 1023px) {
+  /* narrower crops bring the person left — widen the opaque part of the veil */
+  .as-heroover__scrim {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.12) 30%, rgba(255, 255, 255, 0.4) 86%, var(--as-bg) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.92) 46%, rgba(255, 255, 255, 0.7) 70%, rgba(255, 255, 255, 0.3) 100%);
+  }
+}
+@media (max-width: 767px) {
+  .as-heroover__text {
+    padding-top: calc(var(--as-header-h) + 3vh);
+  }
+}
