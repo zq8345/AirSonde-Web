@@ -61,14 +61,17 @@ const whyCards = [
       positioning copy sits below at its full display tier. Other modes keep
       the overlay hero. */}
   {
-    HERO_PHOTO.mode === 'banner-split' ? (
+    HERO_PHOTO.mode === 'banner-split' || HERO_PHOTO.mode === 'banner-under' ? (
       <>
-        <section class="as-herosplit">
+        <section
+          class:list={['as-herosplit', { 'as-herosplit--under': HERO_PHOTO.mode === 'banner-under' }]}
+          style={`--hero-focus: ${HERO_PHOTO.focus}`}
+        >
           <Image
             src={HERO_PHOTO.src}
             alt={HERO_PHOTO.alt}
             class="as-herosplit__img"
-            widths={[768, 1280, 1600]}
+            widths={[768, 1280, 1600, 2400]}
             sizes="100vw"
             loading="eager"
             fetchpriority="high"

@@ -2273,3 +2273,19 @@ select.as-field__input {
   padding: 3px 9px;
   background: #fff;
 }
+
+/* banner-under (Joe 2026-08-12): nav floats OVER the full-bleed hero image.
+   The header keeps its transparent-until-scrolled behaviour, so the image
+   starts at y=0 and the top of the frame is the empty wall the nav sits on. */
+.as-herosplit--under {
+  padding-top: 0;
+}
+.as-herosplit--under .as-herosplit__img {
+  object-position: var(--hero-focus, 50% 42%);
+  max-height: 74vh;
+}
+@media (max-width: 767px) {
+  .as-herosplit--under .as-herosplit__img {
+    max-height: 62vh;
+  }
+}

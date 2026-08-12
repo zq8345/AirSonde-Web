@@ -94,3 +94,11 @@ Same Joe-supplied banner with the baked marketing text painted out by
 y140-340, verified seamless). Exists so our own headline can sit on the
 cleaned wall while the device stays visible. Portrait-release caveat from
 the parent asset carries over unchanged.
+
+### hero-workspace-v2.webp (2026-08-12)
+
+Second Joe-supplied hero (`C:\Download\airsonde-hero-3820x2160.png`, 7.9MB
+PNG → 2400px webp, 73KB). Same workspace scene, no baked marketing text,
+wider empty wall, device on the desk at left. Runs full-bleed with the nav
+floating over it (Joe's instruction). Portrait-release caveat unchanged:
+identifiable model, no release on file. Previous heroes stay in the repo.

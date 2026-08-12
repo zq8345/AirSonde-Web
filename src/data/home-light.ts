@@ -13,17 +13,19 @@
 // out at build time (scripts/clean-hero-banner.mjs), our own compact headline
 // returns on the cleaned wall, the device stays fully in frame. All three
 // assets remain: hero-composite-a / hero-joe-workspace / -clean.
-import heroImg from '../assets/photos/hero-joe-workspace-clean.webp';
+// Joe 2026-08-12 (第二张图): 3820×2160 workspace shot, no baked text, wide
+// empty wall on the left — the nav now floats over it (his instruction), so
+// the hero goes back to full-bleed with the header transparent above it.
+import heroImg from '../assets/photos/hero-workspace-v2.webp';
 
 export const HERO_PHOTO = {
   src: heroImg,
   alt: 'Man working at a desk with an AirSonde air quality monitor beside his laptop',
-  focus: '32% 40%',
-  /** 'banner-split' = 图归图字归字 (七条之2): full-bleed image, headline at
-   *  full d1 tier in a white block below · 'banner' = image speaks, copy
-   *  sr-only · 'banner-clean' = compact headline on the cleaned wall ·
-   *  'scene' = normal text-over-wash hero */
-  mode: 'banner-split' as 'banner' | 'banner-clean' | 'banner-split' | 'scene',
+  focus: '50% 42%',
+  /** 'banner-under' = nav floats over a full-bleed image, copy in the white
+   *  block below · 'banner-split' = image below the solid header ·
+   *  'banner' / 'banner-clean' / 'scene' = earlier overlay modes */
+  mode: 'banner-under' as 'banner' | 'banner-clean' | 'banner-split' | 'banner-under' | 'scene',
 } as const;
 
 /** W9 §2 — products section (wanew "Design by Wanew" slot): curated eight,
