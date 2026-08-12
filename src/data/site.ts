@@ -67,12 +67,15 @@ export const META = {
 
 /** Hero — the positioning has to be said by the page, not by the name. */
 export const HERO = {
-  eyebrow: 'Indoor Air Quality · OEM / ODM Manufacturing',
+  // W9 §1: hero mirrors wanew's skeleton — eyebrow / H1 / ONE subline / two
+  // buttons. `tagline` is no longer rendered but stays as the frozen W1
+  // positioning line (sensor set now lives in the chips band below the hero).
+  eyebrow: 'Independent manufacturer · OEM / ODM',
   headline: 'Indoor Air Quality Monitors, Built for Your Brand',
   tagline: 'OEM / ODM manufacturing · White-label ready · CO2 · PM2.5 · HCHO · TVOC',
   body: 'IAQ monitors shipped under your name — housing, firmware, packaging.',
-  primaryCta: { label: 'See the products', href: '/products' },
-  secondaryCta: { label: 'What we can build', href: '/about' },
+  primaryCta: { label: 'Request a quote', href: '/contact' },
+  secondaryCta: { label: 'Browse products', href: '/products' },
 } as const;
 
 export const SENSOR_CHIPS = [

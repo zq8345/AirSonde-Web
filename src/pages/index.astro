@@ -50,11 +50,8 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     <div class="as-container as-hero__in">
       <div class="as-hero__text">
         <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
-        <h1 class="as-hero__title">
-          <span class="as-hero__brand">{SITE.brand}</span> — {HERO.headline}
-        </h1>
-        <p class="as-hero__tagline">{HERO.tagline}</p>
-        <p class="as-hero__body">{HERO.body}</p>
+        <h1 class="as-hero__title">{HERO.headline}</h1>
+        <p class="as-hero__sub">{HERO.body}</p>
         <div class="as-hero__cta">
           <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
             {HERO.primaryCta.label}

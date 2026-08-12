@@ -6,28 +6,19 @@
  * shift those counts.
  */
 
-import heroImg from '../assets/photos/hero-living-room.jpg';
+import heroImg from '../assets/photos/hero-composite-a.webp';
 import sceneHome from '../assets/photos/scene-home.jpg';
 import sceneOffice from '../assets/photos/scene-office.jpg';
 import sceneSchool from '../assets/photos/scene-school.jpg';
 import sceneIndustrial from '../assets/photos/scene-industrial.jpg';
 
 export const HERO_PHOTO = {
+  // W6②: the scene now CONTAINS the product (AS-D3 composited onto the coffee
+  // table by scripts/build-hero-composite.mjs) — the W4 floating-card overlay
+  // is retired per Joe. Focus keeps the table and device in frame.
   src: heroImg,
-  alt: 'Bright living room with grey sofa and a large palm plant by the window',
-  /** §3.2d --hero-focus: subject (sofa + plant) sits centre-right */
-  focus: '62% 48%',
-} as const;
-
-/**
- * Hero product (改令三): the hero must show one of our units. The 38 supplier
- * photos have no usable in-scene shot (the one lifestyle photo shows
- * unreleased children — asset-review bans it), so the hero composites the
- * scene photo with this product on a floating stage card. Label is the model
- * code only: it adds no keyword noise to the audited copy counts.
- */
-export const HERO_PRODUCT = {
-  slug: 'co2-tvoc-hcho-desktop-monitor',
+  alt: 'Living room with an AirSonde air quality monitor standing on the coffee table',
+  focus: '55% 56%',
 } as const;
 
 /** Featured strip — hand-picked, not the catalogue (§3.6 curation rule). */

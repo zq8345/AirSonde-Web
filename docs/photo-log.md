@@ -58,3 +58,21 @@ No in-scene supplier photo passed review — the only lifestyle shot in the
   release on file.
 - `photo-1616593871468` (living room): fireplace with open flame — an odd
   frame for an air-quality brand.
+
+## Rendered hero composites (W6② → W9 §1, 2026-08-12)
+
+Joe retired the floating-card hero ("傻子设计") — the scene must CONTAIN the
+product. `scripts/build-hero-composite.mjs` renders these: border-connected
+flood fill cuts the listing photo's white background (interior housing whites
+survive), then the cutout lands on a real surface in the scene with a soft
+elliptical contact shadow. Source photos and product renders are assets
+already logged above — no new photography.
+
+| File | Scene | Product | Placement |
+|---|---|---|---|
+| `hero-composite-a.webp` | `hero-living-room.jpg` | AS-D3 desktop monitor | coffee table, centre-right |
+| `hero-composite-b.webp` | `scene-home.jpg` | AS-D3 desktop monitor | TV console (weakest — scale reads small) |
+| `hero-composite-c.webp` | `scene-office.jpg` | AS-D16 large-display | office desk, right |
+
+A ships as the production hero; A/B/C go to a preview branch for Joe to pick
+(视觉判断归 Joe). Regenerate with `node scripts/build-hero-composite.mjs`.

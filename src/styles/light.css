@@ -372,44 +372,6 @@ ol {
   flex: 1 1 auto;
   min-width: 0;
 }
-/* Joe (via 总工, 改令三): the hero must show our product. No usable in-scene
-   supplier photo passed asset-review, so this is the sanctioned composite —
-   the product on a floating light-stage card over the scene photo, never a
-   bare white image pasted onto the photo. */
-.as-hero__product {
-  flex: 0 0 300px;
-  background: #fff;
-  border: 1px solid var(--as-line);
-  border-radius: var(--as-radius);
-  padding: 12px;
-  box-shadow: var(--as-elev-card);
-  transition:
-    transform 0.25s var(--as-ease),
-    box-shadow 0.25s var(--as-ease);
-}
-.as-hero__product:hover {
-  transform: translateY(-4px);
-}
-.as-hero__product .as-stage {
-  margin: 0;
-}
-.as-hero__product-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 6px 2px;
-  font-size: var(--as-fs-small);
-  font-weight: 600;
-  color: var(--as-ink2);
-}
-.as-hero__product-meta .as-arw {
-  color: var(--as-accent);
-}
-@media (max-width: 1023px) {
-  .as-hero__product {
-    flex-basis: 240px;
-  }
-}
 .as-hero__eyebrow {
   display: inline-flex;
   align-items: center;
@@ -432,21 +394,13 @@ ol {
   font-weight: 800;
   color: var(--as-ink);
 }
-.as-hero__brand {
-  color: var(--as-accent);
-}
-.as-hero__tagline {
+/* W9 §1: one subline, wanew's hero grammar — 18px lead under the display H1 */
+.as-hero__sub {
   margin-top: 18px;
   max-width: 52ch;
   font-size: var(--as-fs-lead);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--as-ink);
-}
-.as-hero__body {
-  margin-top: 12px;
-  max-width: 52ch;
-  font-size: var(--as-fs-body);
-  color: var(--as-ink2);
 }
 .as-hero__cta {
   margin-top: 30px;
@@ -465,11 +419,6 @@ ol {
     flex-direction: column;
     align-items: flex-start;
     gap: 26px;
-  }
-  .as-hero__product {
-    flex-basis: auto;
-    width: min(230px, 70%);
-    align-self: flex-end;
   }
   /* On a phone the text spans the full photo width, so the side gradient's
      bright zone no longer covers it. Measured on real pixels: worst-case
