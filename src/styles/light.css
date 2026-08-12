@@ -2024,3 +2024,11 @@ select.as-field__input {
     padding-bottom: 12px;
   }
 }
+
+/* ...and the text block itself must stop growing on the column axis, or it
+   fills the hero and its content stays top-flowed (measured again at 375). */
+@media (max-width: 767px) {
+  .as-hero--banner .as-hero__text {
+    flex: 0 0 auto;
+  }
+}
