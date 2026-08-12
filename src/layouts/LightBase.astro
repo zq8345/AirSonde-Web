@@ -7,9 +7,11 @@
  * The 15 untouched pages keep Base.astro — do not point them here before
  * Joe approves the sample.
  */
+import { Image } from 'astro:assets';
 import '../styles/light.css';
 import { NAV, SITE } from '../data/site';
 import { organisationSchema, websiteSchema } from '../lib/jsonld';
+import wordmarkGreen from '../assets/airsonde-wordmark-green.png';
 
 interface Props {
   title?: string;
@@ -47,9 +49,11 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {/* ?v=v11 busts the cached old-logo icons — browsers hold favicons hard */}
+    <link rel="icon" href="/favicon.svg?v=v11" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=v11" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-192.png?v=v11" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=v11" />
     <meta name="theme-color" content="#ffffff" />
 
     <meta property="og:type" content="website" />
@@ -85,16 +89,16 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
 
     <header class="as-header" id="as-header">
       <div class="as-header__in">
-        <a href="/" class="as-brand">
-          {/* 声波环 mark — geometry frozen by 总工 2026-08-11 (方案A), colour = --as-accent */}
-          <svg class="as-brand__mark" viewBox="0 0 64 64" aria-hidden="true">
-            <circle cx="32" cy="32" r="7.5" fill="currentColor"></circle>
-            <circle cx="32" cy="32" r="17" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="89 18" transform="rotate(-56 32 32)"></circle>
-            <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="141 29" transform="rotate(-56 32 32)" opacity="0.55"></circle>
-          </svg>
-          <span class="as-brand__word"
-            ><span class="as-brand__air">Air</span><span class="as-brand__sonde">Sonde</span></span
-          >
+        {/* v11 wordmark (总工 定稿 2026-08-12) replaces the drawn mark + text */}
+        <a href="/" class="as-brand" aria-label={SITE.brand}>
+          <Image
+            src={wordmarkGreen}
+            alt={SITE.brand}
+            class="as-brand__logo"
+            widths={[240, 480]}
+            sizes="150px"
+            loading="eager"
+          />
         </a>
         <nav aria-label="Primary" class="as-nav">
           {NAV.map((item) => (
@@ -116,14 +120,14 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
         <div class="as-footer__grid">
           <div>
             <span class="as-brand">
-              <svg class="as-brand__mark" viewBox="0 0 64 64" aria-hidden="true">
-                <circle cx="32" cy="32" r="7.5" fill="currentColor"></circle>
-                <circle cx="32" cy="32" r="17" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="89 18" transform="rotate(-56 32 32)"></circle>
-                <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="141 29" transform="rotate(-56 32 32)" opacity="0.55"></circle>
-              </svg>
-              <span class="as-brand__word"
-                ><span class="as-brand__air">Air</span><span class="as-brand__sonde">Sonde</span></span
-              >
+              <Image
+                src={wordmarkGreen}
+                alt={SITE.brand}
+                class="as-brand__logo"
+                widths={[240, 480]}
+                sizes="150px"
+                loading="lazy"
+              />
             </span>
             <p class="as-footer__blurb">
               OEM / ODM manufacturing of indoor air quality monitors for brands, importers and

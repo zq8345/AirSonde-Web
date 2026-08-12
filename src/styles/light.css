@@ -342,22 +342,17 @@ ol {
   gap: 10.5px;
   color: var(--as-ink);
 }
-.as-brand__mark {
-  width: 30px;
+/* v11 wordmark, 1686×351 → 4.8:1. 30px tall keeps the old brand block's
+   optical weight in the 68px header; footer matches. */
+.as-brand__logo {
+  width: auto;
   height: 30px;
-  color: var(--as-accent);
   flex: 0 0 auto;
 }
-.as-brand__word {
-  font-size: var(--as-fs-lead);
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-.as-brand__air {
-  font-weight: 400;
-}
-.as-brand__sonde {
-  font-weight: 500;
+@media (max-width: 640px) {
+  .as-brand__logo {
+    height: 26px;
+  }
 }
 .as-nav {
   display: flex;
