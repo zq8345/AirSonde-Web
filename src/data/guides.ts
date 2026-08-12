@@ -203,6 +203,8 @@ export const GUIDES_HUB = {
   },
   eyebrow: 'Guides',
   heading: 'Indoor air quality, for buyers',
-  intro:
-    'Working notes for people specifying monitors, not marketing copy. Written from the enquiries we actually get.',
+  // Provenance discipline (总工 2026-08-11): with zero enquiries to date, a
+  // present-tense "written from the enquiries we get" is a checkable false
+  // claim. Stance statements are fine; origin claims must be true.
+  intro: 'Working notes for people specifying indoor air quality monitors — not marketing copy.',
 } as const;
