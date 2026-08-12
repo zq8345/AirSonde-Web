@@ -76,22 +76,16 @@ const whyCards = [
           fetchpriority="high"
         />
         <div class="as-heroover__scrim" aria-hidden="true"></div>
+        {/* Joe: eyebrow pill and the CTA pair come off the hero — headline and
+            one subline only, sitting lower on the wall. */}
         <div class="as-container as-heroover__in">
           <div class="as-heroover__text">
-            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
             <h1 class="as-heroover__title">
               {HERO.headline.split(/,\s+/).map((line, i, all) => (
                 <span class="as-heroover__line">{i < all.length - 1 ? `${line},` : line}</span>
               ))}
             </h1>
             <p class="as-heroover__sub">{HERO.body}</p>
-            <div class="as-hero__cta">
-              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-                {HERO.primaryCta.label}
-                <span class="as-arw" aria-hidden="true">→</span>
-              </a>
-              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
-            </div>
           </div>
         </div>
       </section>
