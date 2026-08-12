@@ -23,6 +23,14 @@ bot check mid-session and we stopped browsing rather than solve it); the
 source pages above are the canonical record. Attribution is appreciated but
 not required by the licence.
 
+## Hero composite (改令三, 2026-08-11)
+
+The hero shows `hero-living-room.jpg` (above) as the scene plus our own
+product render `src/assets/products/co2-tvoc-hcho-desktop-monitor.webp`
+(AS-D3, supplier asset already in the repo) on a floating light-stage card.
+No in-scene supplier photo passed review — the only lifestyle shot in the
+38 shows unreleased children and stays banned.
+
 ## Rejected during selection (why they failed docs/asset-review.md)
 
 - `photo-1594235048794` (office desks): **ViewSonic wordmarks** visible on

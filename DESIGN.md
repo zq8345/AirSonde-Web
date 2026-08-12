@@ -28,6 +28,27 @@ starlink.com,理由不迁移。」
 | hero scrim | `rgba(10,12,15,α)` 系收敛进深底 | **白 wash** `rgba(255,255,255,α)` 系收敛进 `#fff` 页底,文字用墨色 | §2.1 scrim 规则的浅色镜像 |
 | 摄影题材 | 星空/越野/屋顶(Starlink 语境) | **居家/办公/教室/仓储室内**(产品的实际使用场景) | 定位不同;留档见 `docs/photo-log.md` |
 
+## Logo(方案A「声波环」,Joe 定稿 2026-08-11,几何由总工冻结 —— 照抄,不重设计)
+
+- **几何**(viewBox 0 0 64 64,两版都是):
+  - 标准 mark(≥40px):点 r7.5;内环 r17 sw4.6 dash`89 18`;外环 r27 sw4.6 dash`141 29` opacity.55;两环 `rotate(-56)`(开口朝右上 = 空气流入,且避免像 Wi-Fi 图标)
+  - **降级版(≤32px,favicon)**:砍外环加粗 —— 点 r9;单环 r22 sw7 dash`115 24` rotate(-56)
+- **颜色**:浅底 = `--as-accent #0C7A6B`(**logo 与站点 accent 同一个变量,不许两个值**);深底 = `#5DCAA5`
+- **字标**:Inter,`Air` 400 + `Sonde` 500,墨 `#101418`,字距 -0.5px;mark 与字标间距 ≈ 0.35 × mark 高
+- **文件**:`src/assets/brand/logo-mark.svg` / `logo-lockup.svg`(字形已转 path,外发不依赖字体;重生成 `node scripts/build-brand.mjs`)/ `logo-dark.svg`;`public/favicon.svg` + `favicon-{16,32,48}.png` + `apple-touch-icon.png`
+- 站内消费:header/footer 内联 mark(`currentColor` 取 `--as-accent`)+ HTML 字标(Inter 已自托管)
+
+## 新令牌:浮层投影
+
+`--as-elev-card`:`0 24px 48px -16px rgba(16,20,24,.22), 0 6px 16px -6px rgba(16,20,24,.10)`
+—— wanew §2.6 `--w3-elev-card` 的浅色镜像。**只用于浮层**(hero 产品卡);普通卡片仍靠边框+底色,照 §2.4。
+
+## Hero 产品合成(改令三,Joe:「hero 图里应该有我们的产品」)
+
+38 张供应商图无一张合格的实景照(唯一生活场景照含无授权儿童,asset-review 禁用)⇒ 走批准的
+第二条路:场景照片为底 + 产品放**浅色图台浮层卡**(白底卡 + `--as-elev-card`)浮于其上。
+⛔ 白底产品图**裸叠**在照片上 = 露拼接痕,禁。卡上文字只放型号(不加关键词噪音)。
+
 ## 对比度实测(2026-08-11,WCAG 2.x,脚本算值)
 
 | 前景 | 白底 #fff | tile #f4f5f7 |
@@ -39,6 +60,19 @@ starlink.com,理由不迁移。」
 | 白字 on 按钮 hover `#2a323c` | 12.96 | — |
 
 ⚠️ 每个前景取**最不利背景**读数(wanew §8.15):accent 的判定值是 4.80(tile 面),不是 5.23。
+
+⚠️ **`#4d5762` 在 tile 面上 = 6.74 是【已知值,不是缺陷】**(总工裁定 2026-08-11):
+≥7 那条线是 wanew 给**白卡正文**定的;tile 是另一个面,wanew 自己在同组合上出的就是 6.74,
+≥4.5 合规。**与 wanew 逐值一致 > 单点加严** —— 别当缺陷修。
+
+## 改版批次的标准判据(总工升格 2026-08-11)
+
+**「分支产物 vs 主干干净构建逐字节 diff」是每个改版批次的必跑仪器**,理由是两条肉眼永远看不见的缺陷:
+1. **Tailwind 把项目里所有文件的英文单词当候选类名扫描 —— markdown 文档和代码注释也在内。**
+   文档里写个 "blur 14px",共享样式表就多一个 `.blur`,hash 变,**16 个没动过的页面 `<link>` 全变**。
+   防御:纯文档用 `@source not` 排除(global.css);代码注释措辞避开工具类单词(legacy-home-classes.ts 文件头)。
+2. **基线必须来自干净构建**(worktree + 全新 install),增量 dist 的陈旧产物当基线会报出成批假差异 ——
+   仪器先校准,读数才算数。
 
 ## 新组件登记(首页样板)
 

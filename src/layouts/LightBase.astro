@@ -31,6 +31,8 @@ const allSchemas = [organisationSchema(), websiteSchema()];
     <link rel="canonical" href={canonical} />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#ffffff" />
 
     <meta property="og:type" content="website" />
@@ -65,8 +67,15 @@ const allSchemas = [organisationSchema(), websiteSchema()];
     <header class="as-header" id="as-header">
       <div class="as-header__in">
         <a href="/" class="as-brand">
-          <span class="as-brand__dot" aria-hidden="true"></span>
-          {SITE.brand}
+          {/* 声波环 mark — geometry frozen by 总工 2026-08-11 (方案A), colour = --as-accent */}
+          <svg class="as-brand__mark" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="7.5" fill="currentColor"></circle>
+            <circle cx="32" cy="32" r="17" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="89 18" transform="rotate(-56 32 32)"></circle>
+            <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="141 29" transform="rotate(-56 32 32)" opacity="0.55"></circle>
+          </svg>
+          <span class="as-brand__word"
+            ><span class="as-brand__air">Air</span><span class="as-brand__sonde">Sonde</span></span
+          >
         </a>
         <nav aria-label="Primary" class="as-nav">
           {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -84,8 +93,14 @@ const allSchemas = [organisationSchema(), websiteSchema()];
         <div class="as-footer__grid">
           <div>
             <span class="as-brand">
-              <span class="as-brand__dot" aria-hidden="true"></span>
-              {SITE.brand}
+              <svg class="as-brand__mark" viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="32" cy="32" r="7.5" fill="currentColor"></circle>
+                <circle cx="32" cy="32" r="17" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="89 18" transform="rotate(-56 32 32)"></circle>
+                <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-dasharray="141 29" transform="rotate(-56 32 32)" opacity="0.55"></circle>
+              </svg>
+              <span class="as-brand__word"
+                ><span class="as-brand__air">Air</span><span class="as-brand__sonde">Sonde</span></span
+              >
             </span>
             <p class="as-footer__blurb">
               OEM / ODM manufacturing of indoor air quality monitors for brands, importers and

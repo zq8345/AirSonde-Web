@@ -19,6 +19,17 @@ export const HERO_PHOTO = {
   focus: '62% 48%',
 } as const;
 
+/**
+ * Hero product (改令三): the hero must show one of our units. The 38 supplier
+ * photos have no usable in-scene shot (the one lifestyle photo shows
+ * unreleased children — asset-review bans it), so the hero composites the
+ * scene photo with this product on a floating stage card. Label is the model
+ * code only: it adds no keyword noise to the audited copy counts.
+ */
+export const HERO_PRODUCT = {
+  slug: 'co2-tvoc-hcho-desktop-monitor',
+} as const;
+
 /** Featured strip — hand-picked, not the catalogue (§3.6 curation rule). */
 export const FEATURED = {
   eyebrow: 'Featured',

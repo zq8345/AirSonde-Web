@@ -16,7 +16,7 @@ import {
   SITE,
   VALUE_PROPS,
 } from '../data/site';
-import { FEATURED, FORM_FACTORS, HERO_PHOTO, SCENES } from '../data/home-light';
+import { FEATURED, FORM_FACTORS, HERO_PHOTO, HERO_PRODUCT, SCENES } from '../data/home-light';
 import { categoryLabel, getPublishedProducts, resolveProductImage } from '../lib/products';
 
 const products = await getPublishedProducts();
@@ -31,6 +31,9 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
   count: products.filter((p) => p.data.category === tile.category).length,
   image: resolveProductImage(bySlug.get(tile.imageFrom)!.data.images.main),
 }));
+
+const heroProduct = bySlug.get(HERO_PRODUCT.slug)!;
+const heroProductImage = resolveProductImage(heroProduct.data.images.main);
 ---
 
 <LightBase title={META.home.title} description={META.home.description}>
@@ -47,19 +50,37 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     />
     <div class="as-hero__wash" aria-hidden="true"></div>
     <div class="as-container as-hero__in">
-      <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
-      <h1 class="as-hero__title">
-        <span class="as-hero__brand">{SITE.brand}</span> — {HERO.headline}
-      </h1>
-      <p class="as-hero__tagline">{HERO.tagline}</p>
-      <p class="as-hero__body">{HERO.body}</p>
-      <div class="as-hero__cta">
-        <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-          {HERO.primaryCta.label}
-          <span class="as-arw" aria-hidden="true">→</span>
-        </a>
-        <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+      <div class="as-hero__text">
+        <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
+        <h1 class="as-hero__title">
+          <span class="as-hero__brand">{SITE.brand}</span> — {HERO.headline}
+        </h1>
+        <p class="as-hero__tagline">{HERO.tagline}</p>
+        <p class="as-hero__body">{HERO.body}</p>
+        <div class="as-hero__cta">
+          <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
+            {HERO.primaryCta.label}
+            <span class="as-arw" aria-hidden="true">→</span>
+          </a>
+          <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+        </div>
       </div>
+
+      <a class="as-hero__product" href={`/products/${heroProduct.data.slug}`}>
+        <span class="as-stage">
+          <Image
+            src={heroProductImage}
+            alt={heroProduct.data.name}
+            widths={[320, 480, 640]}
+            sizes="(min-width: 768px) 300px, 230px"
+            loading="eager"
+          />
+        </span>
+        <span class="as-hero__product-meta">
+          {heroProduct.data.model}
+          <span class="as-arw" aria-hidden="true">→</span>
+        </span>
+      </a>
     </div>
   </section>
 

@@ -30,6 +30,8 @@
   --as-accent: #0c7a6b;        /* AIRSONDE: brand teal deepened for light bg (was #12b39f).
                                   Measured: 5.23:1 on #fff, 4.80:1 on tile — see DESIGN.md overlay */
   --as-scrim: rgba(255, 255, 255, 0.92); /* AIRSONDE: hero wash — light mirror of W3's rgba(10,12,15,α) scrim family */
+  --as-elev-card: 0 24px 48px -16px rgba(16, 20, 24, 0.22), 0 6px 16px -6px rgba(16, 20, 24, 0.1);
+                               /* AIRSONDE: light mirror of --w3-elev-card — floating layers only (hero product card) */
 
   /* ── ten-step type scale — DESIGN.md §2.2, values verbatim ── */
   --as-fs-micro: 11px;
@@ -276,21 +278,31 @@ ol {
   justify-content: space-between;
   gap: 16px;
 }
+/* Brand lockup — mark colour = --as-accent (one variable with the site
+   accent, 总工 rule); wordmark Inter Air=400 / Sonde=500, tracking -0.5px,
+   gap ≈ 0.35 × mark height. */
 .as-brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: var(--as-fs-lead);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  gap: 10.5px;
   color: var(--as-ink);
 }
-.as-brand__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--as-accent);
-  box-shadow: 0 0 0 4px rgba(12, 122, 107, 0.15);
+.as-brand__mark {
+  width: 30px;
+  height: 30px;
+  color: var(--as-accent);
+  flex: 0 0 auto;
+}
+.as-brand__word {
+  font-size: var(--as-fs-lead);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.as-brand__air {
+  font-weight: 400;
+}
+.as-brand__sonde {
+  font-weight: 500;
 }
 .as-nav {
   display: flex;
@@ -349,6 +361,51 @@ ol {
   width: 100%;
   padding-top: calc(var(--as-header-h) + 42px);
   padding-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.as-hero__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+/* Joe (via 总工, 改令三): the hero must show our product. No usable in-scene
+   supplier photo passed asset-review, so this is the sanctioned composite —
+   the product on a floating light-stage card over the scene photo, never a
+   bare white image pasted onto the photo. */
+.as-hero__product {
+  flex: 0 0 300px;
+  background: #fff;
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  padding: 12px;
+  box-shadow: var(--as-elev-card);
+  transition:
+    transform 0.25s var(--as-ease),
+    box-shadow 0.25s var(--as-ease);
+}
+.as-hero__product:hover {
+  transform: translateY(-4px);
+}
+.as-hero__product .as-stage {
+  margin: 0;
+}
+.as-hero__product-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 6px 2px;
+  font-size: var(--as-fs-small);
+  font-weight: 600;
+  color: var(--as-ink2);
+}
+.as-hero__product-meta .as-arw {
+  color: var(--as-accent);
+}
+@media (max-width: 1023px) {
+  .as-hero__product {
+    flex-basis: 240px;
+  }
 }
 .as-hero__eyebrow {
   display: inline-flex;
@@ -400,6 +457,16 @@ ol {
   }
   .as-hero__title {
     max-width: 100%;
+  }
+  .as-hero__in {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+  }
+  .as-hero__product {
+    flex-basis: auto;
+    width: min(230px, 70%);
+    align-self: flex-end;
   }
   /* On a phone the text spans the full photo width, so the side gradient's
      bright zone no longer covers it. Measured on real pixels: worst-case
