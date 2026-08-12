@@ -1,189 +1,107 @@
 ---
 /**
- * 层次样例 v2 — PREVIEW BRANCH ONLY (never merges). Joe 裁定 v1 的抠图方案
- * 无意义（以后统一上传白底图），改为：白底图原样不动，四周衬灰，灰度由
- * 实测决定。本页展示实测数字 + 按数字选出的灰。
+ * 层次样例 v3 — PREVIEW BRANCH ONLY (never merges). Joe 二次澄清：灰的是
+ * **容器外——整个页面的背景色**；容器内不动（产品图满铺到边，白底就白）。
+ * 本页用生产现行的卡片（as-pcard，零改动）放在两档实测灰的页面底上对比。
  *
- * 实测（23 张产品图边缘取样）：白底图背景 L* ≈ 98–100；
- * 现状 #f4f5f7 = L* 96.5（Δ3.5 → 融为一体）；
- * 样例衬底 #e6e9ed = L* 92.2（Δ≈7.8）；交替带 #eceef1 = L* 94.0（Δ≈6.0）。
+ * 实测：白底图背景 L* ≈ 98–100；现状页面底 #fff（L* 100）与照片同白 → 融。
+ * 候选页面底：#eceef1（L* 94.0，Δ≈6）/ #e6e9ed（L* 92.2，Δ≈7.8）。
  */
 import { Image } from 'astro:assets';
 import LightBase from '../layouts/LightBase.astro';
-import productImg from '../assets/products/co2-tvoc-hcho-desktop-monitor.webp';
+import img1 from '../assets/products/co2-tvoc-hcho-desktop-monitor.webp';
+import img2 from '../assets/products/wide-screen-co2-monitor.webp';
+import img3 from '../assets/products/portable-co-alarm.webp';
+
+const cards = [
+  { img: img1, meta: 'Desktop · AS-D3', name: 'CO2 / TVOC / HCHO desktop monitor with traffic-light display' },
+  { img: img2, meta: 'Desktop · AS-D9', name: 'Wide-screen CO2 monitor with ambient light bar' },
+  { img: img3, meta: 'Portable · AS-P1', name: 'Portable CO alarm with clip mount' },
+];
 ---
 
 <LightBase
   title="Visual sample — internal"
-  description="Internal sample of the grey-mat product card and the deepened band step. Not a public page."
+  description="Internal sample: page background grey outside the containers, containers untouched. Not a public page."
   noindex
 >
-  <section class="as-section" style="padding-top:120px;padding-bottom:48px">
+  <section style="background:#fff;padding:120px 0 64px">
     <div class="as-container">
       <div class="as-sechead">
-        <p class="as-eyebrow">Internal sample v2</p>
-        <h1 class="as-h2">白底图不动，四周衬灰 · 老 vs 新</h1>
+        <p class="as-eyebrow">Internal sample v3</p>
+        <h1 class="as-h2">页面底色调灰，容器一律不动 · 三档对比</h1>
         <p class="as-sub">
-          实测：白底产品图背景 L* ≈ 98–100。现状灰 #f4f5f7 只有 L* 96.5（差 3.5，融）；
-          样例照片衬底 #e6e9ed（L* 92.2，差 ≈7.8），区块交替带 #eceef1（L* 94.0，差 ≈6.0）。
+          卡片是生产现行的（照片满铺到边、灰文字区，零改动）。变的只有页面背景：
+          白底图背景实测 L* 98–100，页面底从 #fff 依次换成 #eceef1（Δ≈6）和 #e6e9ed（Δ≈7.8）。
         </p>
       </div>
-
-      <div class="vs-pair">
-        <figure>
-          <figcaption>现状：白底图直接贴白卡白页，三层同白</figcaption>
-          <a class="as-pcard" href="#" onclick="return false">
-            <span class="as-stage">
-              <Image src={productImg} alt="old" widths={[480]} sizes="380px" loading="eager" />
-            </span>
-            <span class="as-pcard__body">
-              <span class="as-pcard__meta">Desktop · AS-D3</span>
-              <span class="as-pcard__name">CO2 / TVOC / HCHO desktop monitor with traffic-light display</span>
-            </span>
-          </a>
-        </figure>
-
-        <figure>
-          <figcaption>样例：同一张白底图原样，照片衬 #e6e9ed 灰底成层；文字区白；轻投影 + hover</figcaption>
-          <a class="vs-card" href="#" onclick="return false">
-            <span class="vs-card__stage">
-              <Image src={productImg} alt="new" widths={[480]} sizes="340px" loading="eager" />
-            </span>
-            <span class="vs-card__body">
-              <span class="as-pcard__meta">Desktop · AS-D3</span>
-              <span class="vs-card__name">CO2 / TVOC / HCHO desktop monitor with traffic-light display</span>
-              <span class="vs-chips">
-                <span>CO2</span><span>TVOC</span><span>HCHO</span>
+      <p class="vs-label">① 现状：页面底 #fff —— 白底图与页面融为一体</p>
+      <div class="as-pgrid" style="max-width:1000px">
+        {
+          cards.map((c) => (
+            <a class="as-pcard" href="#" onclick="return false">
+              <span class="as-stage">
+                <Image src={c.img} alt={c.name} widths={[480]} sizes="320px" loading="eager" />
               </span>
-            </span>
-          </a>
-        </figure>
+              <span class="as-pcard__body">
+                <span class="as-pcard__meta">{c.meta}</span>
+                <span class="as-pcard__name">{c.name}</span>
+              </span>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <section class="vs-band-old">
+  <section style="background:#eceef1;padding:64px 0">
     <div class="as-container">
-      <p class="vs-bandlabel">现状交替带 #f4f5f7（Δ3.5）—— 白卡在其上，几乎分不出</p>
-      <div class="vs-mini">白卡 + 发丝线</div>
+      <p class="vs-label">② 推荐：页面底 #eceef1（L* 94.0，Δ≈6）—— 卡片浮出，整体仍轻</p>
+      <div class="as-pgrid" style="max-width:1000px">
+        {
+          cards.map((c) => (
+            <a class="as-pcard" href="#" onclick="return false">
+              <span class="as-stage">
+                <Image src={c.img} alt={c.name} widths={[480]} sizes="320px" loading="eager" />
+              </span>
+              <span class="as-pcard__body">
+                <span class="as-pcard__meta">{c.meta}</span>
+                <span class="as-pcard__name">{c.name}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 
-  <section class="vs-band-new">
+  <section style="background:#e6e9ed;padding:64px 0 120px">
     <div class="as-container">
-      <p class="vs-bandlabel">样例交替带 #eceef1（Δ6.0）—— 白卡清晰浮出，不需要阴影</p>
-      <div class="vs-mini">白卡 + 发丝线</div>
-    </div>
-  </section>
-
-  <section style="background:#fff;padding:48px 0 96px">
-    <div class="as-container">
-      <p class="vs-bandlabel">白区块上的白卡：发丝线 + 极轻投影（alpha .04–.07）分层</p>
-      <div class="vs-mini vs-mini--shadow">白卡 + 发丝线 + 轻投影</div>
+      <p class="vs-label">③ 备选：页面底 #e6e9ed（L* 92.2，Δ≈7.8）—— 分层更重一档</p>
+      <div class="as-pgrid" style="max-width:1000px">
+        {
+          cards.map((c) => (
+            <a class="as-pcard" href="#" onclick="return false">
+              <span class="as-stage">
+                <Image src={c.img} alt={c.name} widths={[480]} sizes="320px" loading="eager" />
+              </span>
+              <span class="as-pcard__body">
+                <span class="as-pcard__meta">{c.meta}</span>
+                <span class="as-pcard__name">{c.name}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 </LightBase>
 
 <style>
-  .vs-pair {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 380px));
-    gap: 40px;
-  }
-  @media (max-width: 767px) {
-    .vs-pair {
-      grid-template-columns: 1fr;
-    }
-  }
-  .vs-pair figcaption {
-    font-size: var(--as-fs-compact);
-    color: var(--as-ink2);
-    margin-bottom: 12px;
-    max-width: 42ch;
-  }
-  .vs-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--as-line);
-    border-radius: var(--as-radius);
-    background: #fff;
-    overflow: hidden;
-    box-shadow:
-      0 10px 24px -14px rgba(16, 20, 24, 0.07),
-      0 2px 6px -2px rgba(16, 20, 24, 0.04);
-    transition:
-      transform 0.25s var(--as-ease),
-      box-shadow 0.25s var(--as-ease);
-  }
-  .vs-card:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 16px 32px -14px rgba(16, 20, 24, 0.11),
-      0 3px 8px -2px rgba(16, 20, 24, 0.05);
-  }
-  /* the mat: measured grey around the untouched white-bg photo */
-  .vs-card__stage {
-    display: block;
-    background: #e6e9ed;
-    padding: 18px;
-  }
-  .vs-card__stage img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: var(--as-radius-s);
-  }
-  .vs-card__body {
-    display: block;
-    padding: 14px 16px 18px;
-    background: #fff;
-  }
-  .vs-card__name {
-    display: block;
-    margin-top: 6px;
+  .vs-label {
     font-size: var(--as-fs-compact);
     font-weight: 600;
     color: var(--as-ink);
-  }
-  .vs-chips {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-  }
-  .vs-chips span {
-    font-size: var(--as-fs-micro);
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: var(--as-ink2);
-    border: 1px solid var(--as-line2);
-    border-radius: 999px;
-    padding: 3px 9px;
-  }
-  .vs-band-old {
-    background: #f4f5f7;
-    padding: 48px 0;
-  }
-  .vs-band-new {
-    background: #eceef1;
-    padding: 48px 0;
-  }
-  .vs-bandlabel {
-    font-size: var(--as-fs-compact);
-    color: var(--as-ink2);
-    margin-bottom: 14px;
-  }
-  .vs-mini {
-    background: #fff;
-    border: 1px solid var(--as-line);
-    border-radius: var(--as-radius);
-    padding: 26px;
-    max-width: 380px;
-    font-weight: 600;
-    color: var(--as-ink);
-  }
-  .vs-mini--shadow {
-    box-shadow:
-      0 10px 24px -14px rgba(16, 20, 24, 0.07),
-      0 2px 6px -2px rgba(16, 20, 24, 0.04);
+    margin-bottom: 16px;
   }
 </style>
