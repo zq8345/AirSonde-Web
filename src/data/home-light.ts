@@ -8,16 +8,19 @@
 
 // Joe 插队 2026-08-12: trial of his own banner ("放到首页 hero 位置看看").
 // hero-composite-a.webp stays in the repo — Joe may switch back after seeing
-// it. ⚠️ The banner has text baked into its left side; focus pushes right so
-// the crop favours the model/device, but at wide viewports the baked text
-// still shows under our copy layer — that collision is part of what Joe is
-// evaluating.
+// it. Joe picked this image BECAUSE our product is in it (left-centre desk),
+// so banner mode lets the image speak: no wash, our copy goes sr-only (the
+// banner carries its own baked headline), CTAs sit in the empty lower-left,
+// and focus keeps the DEVICE in frame on phones. Switching mode back to
+// 'scene' restores the normal text-over-wash hero.
 import heroImg from '../assets/photos/hero-joe-workspace.webp';
 
 export const HERO_PHOTO = {
   src: heroImg,
-  alt: 'Man working at a desk with an air quality monitor beside his laptop',
-  focus: '80% 50%',
+  alt: 'Man working at a desk with an AirSonde air quality monitor beside his laptop',
+  focus: '32% 50%',
+  /** 'banner' = image carries its own copy; 'scene' = our text over the wash */
+  mode: 'banner' as 'banner' | 'scene',
 } as const;
 
 /** W9 §2 — products section (wanew "Design by Wanew" slot): curated eight,

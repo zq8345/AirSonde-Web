@@ -56,8 +56,13 @@ const whyCards = [
 ---
 
 <LightBase title={META.home.title} description={META.home.description}>
-  {/* 1 ── photo hero (§3.2d) — the scene contains the product (W9 §1) */}
-  <section class="as-hero" style={`--hero-focus: ${HERO_PHOTO.focus}`}>
+  {/* 1 ── photo hero (§3.2d) — the scene contains the product (W9 §1).
+      Banner mode (Joe's trial): the image carries its own headline and shows
+      the product, so our copy goes sr-only and only the CTAs overlay. */}
+  <section
+    class:list={['as-hero', { 'as-hero--banner': HERO_PHOTO.mode === 'banner' }]}
+    style={`--hero-focus: ${HERO_PHOTO.focus}`}
+  >
     <Image
       src={HERO_PHOTO.src}
       alt={HERO_PHOTO.alt}

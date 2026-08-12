@@ -468,6 +468,29 @@ ol {
   font-weight: 500;
   color: var(--as-ink);
 }
+/* Banner mode (Joe's supplied hero): the image carries its own headline and
+   product shot — kill the wash so nothing whites the device out, hide our
+   copy visually (H1 stays in the DOM for crawlers), keep only the CTAs,
+   parked in the empty lower-left of the banner. */
+.as-hero--banner .as-hero__wash {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 88%, var(--as-bg) 100%);
+}
+.as-hero--banner .as-hero__eyebrow,
+.as-hero--banner .as-hero__title,
+.as-hero--banner .as-hero__sub {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.as-hero--banner .as-hero__in {
+  align-items: flex-end;
+}
+.as-hero--banner .as-hero__cta {
+  margin-bottom: 26px;
+}
 .as-hero__cta {
   margin-top: 30px;
   display: flex;
