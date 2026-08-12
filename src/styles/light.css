@@ -180,6 +180,31 @@ ol {
   color: var(--as-ink);
   margin-top: 14px;
 }
+/* W9: wanew's homepage section titles sit on the d2 (48px) tier, not h2 —
+   verified on live w3.css. Inner pages keep .as-h2 at 28px. */
+.as-d2 {
+  font-size: var(--as-fs-d2);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--as-ink);
+  margin-top: 14px;
+}
+/* subsection tier inside a section — two steps below d2 (wanew .w3-h3) */
+.as-h3 {
+  font-size: var(--as-fs-h2);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--as-ink);
+}
+.as-sechead--row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 .as-sub {
   margin-top: 14px;
   max-width: 64ch;
@@ -1531,4 +1556,204 @@ textarea.as-field__input {
 [data-as-reveal].is-in {
   opacity: 1;
   transform: none;
+}
+
+/* ---- W9 homepage sections (wanew skeleton) -------------------------------- */
+/* §2: curated eight, 2×4 on desktop */
+.as-pgrid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1023px) {
+  .as-pgrid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 559px) {
+  .as-pgrid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+/* §3: form-factor rail is a subsection INSIDE the products block */
+.as-formrail__title {
+  margin: 56px 0 24px;
+}
+
+/* §4: scene tabs + one big panel */
+.as-scenetabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.as-scenetab {
+  border: 1px solid var(--as-line2);
+  background: #fff;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font: inherit;
+  font-size: var(--as-fs-compact);
+  font-weight: 600;
+  color: var(--as-ink2);
+  cursor: pointer;
+  transition:
+    background 0.2s var(--as-ease),
+    color 0.2s var(--as-ease),
+    border-color 0.2s var(--as-ease);
+}
+.as-scenetab:hover {
+  border-color: var(--as-ink);
+  color: var(--as-ink);
+}
+.as-scenetab.is-active {
+  background: var(--as-ink);
+  border-color: var(--as-ink);
+  color: #fff;
+}
+.as-scenestage {
+  position: relative;
+}
+.as-scenepanel {
+  display: none;
+  position: relative;
+  border-radius: var(--as-radius);
+  overflow: hidden;
+  /* §3.2d vh-capped photo panel */
+  height: clamp(320px, 56vh, 560px);
+}
+.as-scenepanel.is-active {
+  display: block;
+}
+.as-scenepanel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* caption sits on a dark scrim — photo overlay keeps the W3 scrim family
+   even on the light theme; contrast measured on real pixels */
+.as-scenepanel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(10, 12, 15, 0.78) 0%,
+    rgba(10, 12, 15, 0.38) 34%,
+    rgba(10, 12, 15, 0) 62%
+  );
+}
+.as-scenepanel__cap {
+  position: absolute;
+  z-index: 1;
+  left: 28px;
+  right: 28px;
+  bottom: 24px;
+  display: block;
+}
+.as-scenepanel__eyebrow {
+  display: block;
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+.as-scenepanel__line {
+  display: block;
+  margin-top: 8px;
+  max-width: 40ch;
+  font-size: var(--as-fs-h3);
+  font-weight: 700;
+  color: #fff;
+}
+.as-scenepanel__more {
+  display: inline-flex;
+  margin-top: 12px;
+  font-size: var(--as-fs-compact);
+  font-weight: 600;
+  color: #fff;
+}
+.as-scenepanel:hover .as-scenepanel__more {
+  text-decoration: underline;
+}
+
+/* §5: about band — full-width head, photo left, copy + stats right */
+.as-abhead {
+  margin-bottom: 36px;
+}
+.as-abgrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 44px;
+  align-items: center;
+}
+.as-abgrid__media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--as-radius);
+  border: 1px solid var(--as-line);
+}
+.as-stats--home {
+  grid-template-columns: repeat(2, 1fr);
+  margin: 28px 0;
+}
+@media (max-width: 899px) {
+  .as-abgrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* §6: four advantage cards — shared frame + hairline dividers (wanew .w3-why) */
+.as-why {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  background: #fff;
+  overflow: hidden;
+}
+.as-whycard {
+  padding: 26px 24px 30px;
+  border-left: 1px solid var(--as-line);
+}
+.as-whycard:first-child {
+  border-left: 0;
+}
+.as-whycard h3 {
+  font-size: var(--as-fs-body);
+  font-weight: 650;
+  color: var(--as-ink);
+}
+.as-whycard p {
+  margin-top: 10px;
+  font-size: var(--as-fs-compact);
+  color: var(--as-ink2);
+}
+@media (max-width: 1023px) {
+  .as-why {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .as-whycard {
+    border-top: 1px solid var(--as-line);
+  }
+  .as-whycard:nth-child(-n + 2) {
+    border-top: 0;
+  }
+  .as-whycard:nth-child(odd) {
+    border-left: 0;
+  }
+}
+@media (max-width: 559px) {
+  .as-why {
+    grid-template-columns: 1fr;
+  }
+  .as-whycard {
+    border-left: 0;
+    border-top: 1px solid var(--as-line);
+  }
+  .as-whycard:first-child {
+    border-top: 0;
+  }
 }

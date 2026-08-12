@@ -29,6 +29,9 @@ export interface Scene {
   meta: { title: string; description: string };
   heading: string;
   intro: string;
+  /** W9 §4: one-line caption on the homepage scene panel — compressed from
+   *  `intro`, single source with the scene page. */
+  homeLine: string;
   pains: { title: string; body: string }[];
   productSlugs: string[];
   productsHeading: string;
@@ -46,6 +49,7 @@ export const SCENES_DATA: Scene[] = [
     },
     heading: 'Home',
     intro: 'One glance, one question — is the air in here fine? It has to read like a clock, not an instrument.',
+    homeLine: 'One glance, one question — is the air in here fine?',
     pains: [
       {
         title: 'New furniture and renovation',
@@ -79,6 +83,7 @@ export const SCENES_DATA: Scene[] = [
     },
     heading: 'Office',
     intro: 'Meeting rooms fill with people and empty of fresh air. The wall needs a number that says when to pause.',
+    homeLine: 'Meeting rooms fill with people and empty of fresh air.',
     pains: [
       {
         title: 'Full meeting rooms',
@@ -112,6 +117,7 @@ export const SCENES_DATA: Scene[] = [
     },
     heading: 'School',
     intro: 'Thirty people, windows shut through winter. The display has to read from the back row.',
+    homeLine: 'Thirty people, windows shut through winter.',
     pains: [
       {
         title: 'Occupancy in a sealed room',
@@ -145,6 +151,7 @@ export const SCENES_DATA: Scene[] = [
     },
     heading: 'Industrial',
     intro: 'Readings where the work happens — on a wall, or in a hand walking the floor.',
+    homeLine: 'Readings where the work happens — on a wall, or in a hand walking the floor.',
     pains: [
       {
         title: 'Spot checks across a large floor',

@@ -1,41 +1,62 @@
 ---
 /**
- * W4 light-theme homepage sample. Copy is rendered VERBATIM from site.ts —
- * the accepted assertions (OEM/ODM counts, banned-word zeros) live on that
- * text. New sections take their labels from home-light.ts only.
+ * Homepage — W9: full-page mirror of wanew.com's eight-section skeleton
+ * (structure/order/type tiers; light theme stays — 学骨架不学肤色).
+ * Copy is rendered VERBATIM from site.ts / about.ts / solutions.ts /
+ * guides.ts — the accepted assertions (OEM/ODM counts, banned-word zeros)
+ * live on that text. Section labels come from home-light.ts only.
  */
 import { Image } from 'astro:assets';
 import LightBase from '../layouts/LightBase.astro';
+import { CONTACT, HERO, HOME_SECTIONS, META, SENSOR_CHIPS, SITE, VALUE_PROPS } from '../data/site';
 import {
-  CAPABILITIES,
-  CONTACT,
-  HERO,
-  HOME_SECTIONS,
-  META,
-  SENSOR_CHIPS,
-  SITE,
-  VALUE_PROPS,
-} from '../data/site';
-import { FEATURED, FORM_FACTORS, HERO_PHOTO, SCENES } from '../data/home-light';
+  ABOUT_HOME,
+  CTA_HOME,
+  GUIDES_HOME,
+  HERO_PHOTO,
+  PRODUCTS_HOME,
+  SCENES_HOME,
+  WHY_HOME,
+} from '../data/home-light';
+import { ABOUT_EXPECT, ABOUT_HERO, ABOUT_QUALITY, ABOUT_STATS } from '../data/about';
 import { SCENES_DATA } from '../data/solutions';
+import { GUIDES } from '../data/guides';
 import { categoryLabel, getPublishedProducts, resolveProductImage } from '../lib/products';
+import factoryPhoto from '../assets/photos/factory/factory-assembly.webp';
 
 const products = await getPublishedProducts();
 const bySlug = new Map(products.map((p) => [p.data.slug, p]));
 
-const featured = FEATURED.slugs
+const curated = PRODUCTS_HOME.slugs
   .map((slug) => bySlug.get(slug))
   .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
-const formTiles = FORM_FACTORS.tiles.map((tile) => ({
-  ...tile,
-  count: products.filter((p) => p.data.category === tile.category).length,
-  image: resolveProductImage(bySlug.get(tile.imageFrom)!.data.images.main),
-}));
+/* §3 tiles grow from the live categories — never hardcoded */
+const categories = [...new Set(products.map((p) => p.data.category))];
+const formTiles = categories.map((category) => {
+  const preferred = PRODUCTS_HOME.formFactorImages[category];
+  const rep = (preferred && bySlug.get(preferred)) || products.find((p) => p.data.category === category)!;
+  return {
+    category,
+    label: categoryLabel(category),
+    count: products.filter((p) => p.data.category === category).length,
+    image: resolveProductImage(rep.data.images.main),
+  };
+});
+
+/* §5 — wanew shows four stats; ours are the About page's first four (同源) */
+const homeStats = ABOUT_STATS.items.slice(0, 4);
+
+/* §6 — four cards composed from existing verified sentences only */
+const whyCards = [
+  ...VALUE_PROPS.map((p) => ({ title: p.title, body: p.body })),
+  { title: WHY_HOME.qualityTitle, body: ABOUT_QUALITY.intro },
+  { title: WHY_HOME.supportTitle, body: `${ABOUT_EXPECT.items[0]} ${ABOUT_EXPECT.items[1]}` },
+];
 ---
 
 <LightBase title={META.home.title} description={META.home.description}>
-  {/* 1 ── photo hero (§3.2d) */}
+  {/* 1 ── photo hero (§3.2d) — the scene contains the product (W9 §1) */}
   <section class="as-hero" style={`--hero-focus: ${HERO_PHOTO.focus}`}>
     <Image
       src={HERO_PHOTO.src}
@@ -64,7 +85,8 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     </div>
   </section>
 
-  {/* existing sensor-chip copy, restyled as a slim band */}
+  {/* sensor-chip band — kept under the hero (not a wanew section; it carries
+      the sensing enumeration that left the hero tagline) */}
   <div class="as-container">
     <ul class="as-chips">
       {
@@ -78,27 +100,27 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     </ul>
   </div>
 
-  {/* 2 ── featured strip (curated, §3.6) */}
+  {/* 2+3 ── products: curated eight, 2×4, All-products top-right; form-factor
+      rail is an h3 subsection INSIDE this block (wanew: 先看货,机型是另一条路) */}
   <section class="as-section" id="featured">
     <div class="as-container">
-      <div class="as-sechead">
-        <p class="as-eyebrow">{FEATURED.eyebrow}</p>
-        <h2 class="as-h2">{FEATURED.heading}</h2>
+      <div class="as-sechead as-sechead--row">
+        <div>
+          <p class="as-eyebrow">{PRODUCTS_HOME.eyebrow}</p>
+          <h2 class="as-d2">{PRODUCTS_HOME.heading}</h2>
+        </div>
+        <a class="as-link-arrow" href="/products">{PRODUCTS_HOME.allLink}</a>
       </div>
-      <div class="as-pgrid">
+      <div class="as-pgrid as-pgrid--4">
         {
-          featured.map((product) => (
-            <a
-              class="as-pcard"
-              href={`/products/${product.data.slug}`}
-              data-as-reveal
-            >
+          curated.map((product) => (
+            <a class="as-pcard" href={`/products/${product.data.slug}`} data-as-reveal>
               <span class="as-stage">
                 <Image
                   src={resolveProductImage(product.data.images.main)}
                   alt={product.data.name}
                   widths={[320, 480, 640]}
-                  sizes="(min-width: 980px) 380px, (min-width: 560px) 45vw, 90vw"
+                  sizes="(min-width: 980px) 280px, (min-width: 560px) 45vw, 90vw"
                   loading="lazy"
                 />
               </span>
@@ -112,16 +134,7 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
           ))
         }
       </div>
-    </div>
-  </section>
-
-  {/* 3 ── browse by form factor */}
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <p class="as-eyebrow">{FORM_FACTORS.eyebrow}</p>
-        <h2 class="as-h2">{FORM_FACTORS.heading}</h2>
-      </div>
+      <h3 class="as-h3 as-formrail__title">{PRODUCTS_HOME.formFactorHeading}</h3>
       <div class="as-forms">
         {
           formTiles.map((tile) => (
@@ -141,20 +154,53 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     </div>
   </section>
 
-  {/* 4 ── scenes band */}
-  <section class="as-section">
+  {/* 4 ── scene tabs + one big panel (W8 spec, wanew "For every environment").
+      wanew separates same-bg sections with hairlines; our light constitution
+      (§3.2c) forbids hairlines — tonal alternation carries the separation. */}
+  <section class="as-section as-band--alt">
     <div class="as-container">
       <div class="as-sechead">
-        <p class="as-eyebrow">{SCENES.eyebrow}</p>
-        <h2 class="as-h2">{SCENES.heading}</h2>
+        <p class="as-eyebrow">{SCENES_HOME.eyebrow}</p>
+        <h2 class="as-d2">{SCENES_HOME.heading}</h2>
+        <p class="as-sub">{SCENES_HOME.sub}</p>
       </div>
-      {/* cards link into /solutions/ now that the section exists (改令四) */}
-      <div class="as-scenes">
+      <div class="as-scenetabs" role="tablist" aria-label={SCENES_HOME.heading} data-as-scenes>
         {
-          SCENES_DATA.map((scene) => (
-            <a class="as-scene" href={`/solutions/${scene.slug}/`} data-as-reveal>
-              <Image src={scene.photo.src} alt={scene.photo.alt} widths={[420, 640]} sizes="(min-width: 980px) 300px, (min-width: 560px) 45vw, 90vw" loading="lazy" />
-              <span class="as-scene__label">{scene.label}</span>
+          SCENES_DATA.map((scene, i) => (
+            <button
+              type="button"
+              class:list={['as-scenetab', { 'is-active': i === 0 }]}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              data-scene={String(i)}
+            >
+              {scene.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <div class="as-container">
+      <div class="as-scenestage" data-as-scenes-stage>
+        {
+          SCENES_DATA.map((scene, i) => (
+            <a
+              class:list={['as-scenepanel', { 'is-active': i === 0 }]}
+              data-scene={String(i)}
+              href={`/solutions/${scene.slug}/`}
+            >
+              <Image
+                src={scene.photo.src}
+                alt={scene.photo.alt}
+                widths={[1280, 1600]}
+                sizes="(min-width: 1200px) 1140px, 94vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+              <span class="as-scenepanel__cap">
+                <span class="as-scenepanel__eyebrow">{scene.label}</span>
+                <span class="as-scenepanel__line">{scene.homeLine}</span>
+                <span class="as-scenepanel__more">{SCENES_HOME.readMore} →</span>
+              </span>
             </a>
           ))
         }
@@ -162,18 +208,57 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     </div>
   </section>
 
-  {/* 5 ── how we work with brands (existing copy) */}
-  <section id={HOME_SECTIONS.whatWeDo.id} class="as-section as-band--alt">
+  {/* 5 ── about band (wanew "We make what we sell"): head full-width, photo
+      left, copy + four stats right — facts imported from about.ts (同源) */}
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-abhead">
+        <p class="as-eyebrow">{ABOUT_HOME.eyebrow}</p>
+        <h2 class="as-d2">{ABOUT_HERO.heading}</h2>
+      </div>
+      <div class="as-abgrid">
+        <div class="as-abgrid__media">
+          <Image
+            src={factoryPhoto}
+            alt={ABOUT_HERO.photo.alt}
+            widths={[640, 960]}
+            sizes="(min-width: 980px) 540px, 94vw"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <p class="as-sub">{ABOUT_HERO.lead}</p>
+          <div class="as-stats as-stats--home">
+            {
+              homeStats.map((s) => (
+                <div class="as-stat">
+                  <div class="as-stat__value">{s.value}</div>
+                  <div class="as-stat__label">{s.label}</div>
+                </div>
+              ))
+            }
+          </div>
+          <a href="/about" class="as-link-arrow">{ABOUT_HOME.learnMore}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 6 ── why band (wanew "Our Advantages"), four cards from existing copy.
+      🔴 wanew's FCC/CE/RoHS cert strip is NOT ported — zero-cert red line. */}
+  <section id={HOME_SECTIONS.capabilities.id} class="as-section as-band--alt">
     <div class="as-container">
       <div class="as-sechead">
-        <h2 class="as-h2">{HOME_SECTIONS.whatWeDo.heading}</h2>
+        <p class="as-eyebrow">{WHY_HOME.eyebrow}</p>
+        <h2 class="as-d2">{WHY_HOME.heading}</h2>
+        <p class="as-sub">{HOME_SECTIONS.capabilities.intro}</p>
       </div>
-      <div class="as-cards2">
+      <div class="as-why">
         {
-          VALUE_PROPS.map((prop) => (
-            <article class="as-panelcard">
-              <h3>{prop.title}</h3>
-              <p>{prop.body}</p>
+          whyCards.map((card) => (
+            <article class="as-whycard">
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
             </article>
           ))
         }
@@ -181,40 +266,69 @@ const formTiles = FORM_FACTORS.tiles.map((tile) => ({
     </div>
   </section>
 
-  {/* 6 ── what we can build (existing copy) */}
-  <section id={HOME_SECTIONS.capabilities.id} class="as-section">
+  {/* 7 ── guides (three W5 articles), same card language as /guides/ */}
+  <section class="as-section">
     <div class="as-container">
       <div class="as-sechead">
-        <h2 class="as-h2">{HOME_SECTIONS.capabilities.heading}</h2>
-        <p class="as-sub">{HOME_SECTIONS.capabilities.intro}</p>
+        <p class="as-eyebrow">{GUIDES_HOME.eyebrow}</p>
+        <h2 class="as-d2">{GUIDES_HOME.heading}</h2>
       </div>
-      <dl class="as-caps">
+      <div class="as-ggrid">
         {
-          CAPABILITIES.map((item) => (
-            <div class="as-cap">
-              <dt>{item.title}</dt>
-              <dd>{item.body}</dd>
-            </div>
+          GUIDES.map((guide) => (
+            <a class="as-gcard" href={`/guides/${guide.slug}/`}>
+              <span class="as-gcard__eyebrow">{guide.eyebrow}</span>
+              <span class="as-gcard__title" style="display:block">{guide.title}</span>
+              <span class="as-gcard__sum" style="display:block">{guide.description}</span>
+              <span class="as-gcard__arw" aria-hidden="true">Read →</span>
+            </a>
           ))
         }
-      </dl>
-      <p style="margin-top:40px">
-        <a href="/about" class="as-link-arrow">How a programme runs</a>
+      </div>
+      <p style="margin-top:32px">
+        <a class="as-link-arrow" href="/guides/">{GUIDES_HOME.viewAll} →</a>
       </p>
     </div>
   </section>
 
-  {/* 7 ── enquiry CTA (existing copy) */}
+  {/* 8 ── contact CTA band — wires into the W7 form on /contact/ */}
   <section id={HOME_SECTIONS.contact.id} class="as-section" style="padding-top:0">
     <div class="as-container">
       <div class="as-cta">
-        <h2 class="as-cta__title">{CONTACT.title}</h2>
+        <p class="as-eyebrow">{CTA_HOME.eyebrow}</p>
+        <h2 class="as-cta__title as-d2">{CONTACT.title}</h2>
         <p class="as-cta__body">{CONTACT.body}</p>
         <div class="as-cta__actions">
-          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
-          <a href="/contact" class="as-btn as-btn--ghost">What to send us</a>
+          <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
+            {HERO.primaryCta.label}
+            <span class="as-arw" aria-hidden="true">→</span>
+          </a>
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--ghost">{SITE.email}</a>
         </div>
       </div>
     </div>
   </section>
 </LightBase>
+
+<script>
+  // W9 §4 scene tabs — same behaviour as wanew's (user-driven, no auto-rotate)
+  const wrap = document.querySelector('[data-as-scenes]');
+  const stage = document.querySelector('[data-as-scenes-stage]');
+  if (wrap && stage) {
+    const tabs = wrap.querySelectorAll<HTMLButtonElement>('.as-scenetab');
+    const panels = stage.querySelectorAll<HTMLElement>('.as-scenepanel');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const id = tab.getAttribute('data-scene');
+        tabs.forEach((t) => {
+          const on = t === tab;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+        });
+        panels.forEach((p) => {
+          p.classList.toggle('is-active', p.getAttribute('data-scene') === id);
+        });
+      });
+    });
+  }
+</script>
