@@ -2013,3 +2013,14 @@ select.as-field__input {
   background-size: 6px 6px;
   background-repeat: no-repeat;
 }
+
+/* banner-mode phones: the 767px hero rules flip the flex axis to column, so
+   bottom-anchoring needs justify-content there (align-items no longer maps
+   to the vertical). Slimmer padding buys the stack room BELOW the device
+   box (measured: stack top must clear y=365 of 487). */
+@media (max-width: 767px) {
+  .as-hero--banner .as-hero__in {
+    justify-content: flex-end;
+    padding-bottom: 12px;
+  }
+}
