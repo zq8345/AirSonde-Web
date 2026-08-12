@@ -24,6 +24,7 @@
     "Display": "Large tile-layout colour panel",
     "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
   },
+  "moq": 1000,
   "images": {
     "main": "products/16in1-large-display-monitor.webp"
   },
