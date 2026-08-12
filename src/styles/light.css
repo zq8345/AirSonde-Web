@@ -529,8 +529,13 @@ ol {
   transform: translateY(-4px);
   border-color: var(--as-line2);
 }
+/* W6①: the media area is white with a hairline boundary — no grey tile
+   inside a white card (that read as three nested layers). Source images are
+   trimmed to the product bounding box at build time, so 92% here means the
+   PRODUCT fills ≥80% of the area, not a white-margined photo. */
 .as-stage {
-  background: var(--as-tile);
+  background: #fff;
+  border: 1px solid var(--as-line);
   border-radius: var(--as-radius-s);
   margin: 10px;
   aspect-ratio: 1 / 1;
@@ -540,8 +545,8 @@ ol {
   overflow: hidden;
 }
 .as-stage img {
-  width: 85%;
-  height: 85%;
+  width: 92%;
+  height: 92%;
   object-fit: contain;
   transition: transform 0.4s var(--as-ease);
 }

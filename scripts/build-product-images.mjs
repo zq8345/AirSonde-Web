@@ -83,14 +83,21 @@ for (const file of files) {
   }
   const name = MAP[key];
   const target = path.join(OUT, DRAFT.has(name) ? '_draft' : '', `${name}.webp`);
-  const image = sharp(path.join(SRC, file));
-  const meta = await image.metadata();
-  await image
+  // W6①: listing photos carry huge blank margins, which is what produced the
+  // picture-in-picture look on cards. Trim to the product's bounding box at
+  // build time (originals stay untouched); the card CSS then scales the
+  // product to fill its media area.
+  const trimmed = await sharp(path.join(SRC, file)).trim({ threshold: 12 }).toBuffer();
+  const meta = await sharp(trimmed).metadata();
+  await sharp(trimmed)
     .resize({ width: Math.min(meta.width ?? MAX_WIDTH, MAX_WIDTH), withoutEnlargement: true })
     .webp({ quality: 82, effort: 5 })
     .toFile(target);
   const { size } = await stat(target);
-  console.log(`${file}  ->  ${path.basename(target)}  (${Math.round(size / 1024)} KB)`);
+  const orig = await sharp(path.join(SRC, file)).metadata();
+  console.log(
+    `${file}  ->  ${path.basename(target)}  ${orig.width}x${orig.height} -> ${meta.width}x${meta.height}  (${Math.round(size / 1024)} KB)`,
+  );
   done += 1;
 }
 
