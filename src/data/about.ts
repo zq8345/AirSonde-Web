@@ -31,15 +31,14 @@ export const ABOUT_HERO = {
   },
   eyebrow: 'About AirSonde',
   heading: 'A product line, backed by a factory',
-  lead: 'AirSonde is the indoor air quality line of an established Shenzhen manufacturing group. The brand is new; the production floor behind it is not.',
+  lead: 'The IAQ line of an established Shenzhen manufacturing group. The brand is new; the floor behind it is not.',
 } as const;
 
 export const ABOUT_STORY = {
   heading: 'Why AirSonde exists',
   paragraphs: [
-    'Brands and importers keep meeting the same wall: consumer-grade air quality monitors are easy to find, but a manufacturing partner who will build them under your name — and stay out of your market — is not.',
-    'AirSonde packages what our group has done for fifteen years — OEM and ODM electronics manufacturing — into one focused programme for indoor air quality monitors: CO2, carbon monoxide, particulate, formaldehyde and TVOC sensing, in desktop and portable form factors.',
-    'You bring the market and the brand. The factory brings tooling, assembly, calibration and quality control that already run at production scale.',
+    'Monitors are easy to find. A manufacturer who builds them under your name — and stays out of your market — is not.',
+    'You bring the market and the brand. The factory brings fifteen years of OEM/ODM electronics production, running at scale.',
   ],
 } as const;
 
@@ -58,7 +57,7 @@ export const ABOUT_STATS = {
 
 export const ABOUT_FACTORY = {
   heading: 'Inside the facility',
-  intro: 'The same floor that builds our group’s other product lines builds AirSonde monitors.',
+  intro: 'The same floor that builds our group’s other lines builds AirSonde.',
   photos: [
     { src: imgCnc, alt: 'Injection moulding and machining hall', caption: 'Tooling & moulding' },
     { src: imgQc, alt: 'Engineer at a test bench with measurement instruments', caption: 'Testing' },
@@ -70,34 +69,34 @@ export const ABOUT_FACTORY = {
 
 export const ABOUT_QUALITY = {
   heading: 'How quality is controlled',
-  intro: 'Five checkpoints between incoming components and a sealed carton.',
+  intro: 'Five checkpoints between components and a sealed carton.',
   steps: [
     {
       title: 'Incoming inspection',
-      body: 'Components and sensor modules are checked against specification before they reach the line.',
+      body: 'Components checked against spec before the line.',
     },
     {
       title: 'In-process checks',
-      body: 'Stations along the assembly line verify fit, soldering and connections as units are built.',
+      body: 'Fit, soldering and connections verified in-line.',
     },
     {
       title: 'Functional testing',
-      body: 'Every unit powers on, reads its sensors and reports plausible values before it moves on.',
+      body: 'Every unit powers on and reads plausible values.',
     },
     {
       title: 'Final inspection',
-      body: 'Sampled finished goods are inspected against the agreed spec — housing, display, firmware identity.',
+      body: 'Finished goods sampled against the agreed spec.',
     },
     {
       title: 'Packing verification',
-      body: 'Your packaging, manuals and labelling are confirmed before cartons are sealed.',
+      body: 'Packaging and labelling confirmed before sealing.',
     },
   ],
 } as const;
 
 export const ABOUT_COMPLIANCE = {
   heading: 'Compliance engineering',
-  body: 'The group engineers products for FCC, CE, RoHS routes and operates under ISO 9001 quality management. Certification for your specific model and market is scoped as part of your programme.',
+  body: 'Engineered for FCC, CE and RoHS routes under ISO 9001 quality management. Your model’s certification is scoped per programme.',
   badges: ['FCC', 'CE', 'RoHS', 'ISO 9001'],
 } as const;
 
@@ -106,12 +105,12 @@ export const ABOUT_SERVICES = {
   cards: [
     {
       title: 'OEM — build to your spec',
-      body: 'You arrive with a finished specification, industrial design or an existing product. We industrialise it and build it under your brand.',
+      body: 'You arrive with a finished spec or product. We industrialise and build it under your brand.',
       points: ['Your design and BOM', 'Tooling and production setup', 'Your packaging and identity'],
     },
     {
       title: 'ODM — start from our platforms',
-      body: 'You start from one of our reference monitors and we adapt sensing, enclosure, display and firmware to your market.',
+      body: 'Start from a reference monitor; we adapt sensing, enclosure, display and firmware.',
       points: ['Reference platform selection', 'Sensing set and firmware adapted', 'Ships as your product'],
     },
   ],
@@ -123,22 +122,22 @@ export const ABOUT_PROCESS = {
     {
       step: '01',
       title: 'Tell us the programme',
-      body: 'Target market, the sensing set you need, the volumes you are planning and any certification route your importer requires.',
+      body: 'Market, sensing set, volumes, certification route.',
     },
     {
       step: '02',
       title: 'We come back with a build path',
-      body: 'Which platform fits, what changes it needs, what that implies for lead times, and where the decisions that cost money actually are.',
+      body: 'Which platform fits, what changes cost, what lead times follow.',
     },
     {
       step: '03',
       title: 'Specification and samples',
-      body: 'Sensing, enclosure, display and firmware branding are fixed in writing before anything is built. Samples follow.',
+      body: 'Fixed in writing before anything is built. Samples follow.',
     },
     {
       step: '04',
       title: 'Production under your brand',
-      body: 'Your name on the housing, the display, the app and the box. Nothing on the finished unit points back to us.',
+      body: 'Your name on housing, display, app and box. Nothing points back to us.',
     },
   ],
 } as const;
@@ -146,13 +145,13 @@ export const ABOUT_PROCESS = {
 export const ABOUT_EXPECT = {
   heading: 'What to expect',
   items: [
-    'A reply from an engineer, not an autoresponder — normally within two business days.',
-    'Straight answers on what a change costs and how long it takes, before you commit.',
-    'White-label discipline: nothing on the finished unit, its app or its packaging points back to us.',
+    'An engineer replies, normally within two business days.',
+    'Straight answers on cost and time, before you commit.',
+    'White-label discipline: nothing points back to us.',
   ],
 } as const;
 
 export const ABOUT_CTA = {
   heading: 'Scope a programme with the factory behind it',
-  body: 'Send the market, the sensing set and the volumes. We will come back with a build path and lead times.',
+  body: 'Send the market, the sensing set and the volumes.',
 } as const;

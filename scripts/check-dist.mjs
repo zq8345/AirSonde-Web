@@ -55,6 +55,17 @@ for (const slug of draftSlugs) {
   }
 }
 
+// 2b. positioning words must stay on the crawlable homepage (W6③ baseline:
+//     counts may fall with copy edits, but never to zero — the words are the
+//     positioning itself, W1 §定位文案).
+{
+  const home = await readFile('dist/index.html', 'utf8');
+  for (const word of ['OEM', 'ODM', 'white-label', 'IAQ']) {
+    const count = home.split(word).length - 1;
+    if (count === 0) failures.push(`dist/index.html: positioning word "${word}" count is 0`);
+  }
+}
+
 // 3. every page needs a unique title and description, and the sitemap must
 //    list exactly the indexable pages — no more, no fewer.
 const htmlFiles = files.filter((f) => f.endsWith('.html'));

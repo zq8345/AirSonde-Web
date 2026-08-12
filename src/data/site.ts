@@ -50,11 +50,6 @@ export const META = {
     description:
       'Desktop, portable and handheld indoor air quality monitors available for OEM and ODM production: CO2, CO, PM1.0, PM2.5, PM10, HCHO and TVOC sensing, built under your brand.',
   },
-  capabilities: {
-    title: 'OEM / ODM Capabilities — White-Label IAQ Manufacturing | AirSonde',
-    description:
-      'How an AirSonde OEM or ODM programme runs: sensing set, hardware, firmware and app branding, and what we need from you before we can quote.',
-  },
   contact: {
     title: 'Contact — Start an OEM / ODM Programme | AirSonde',
     description:
@@ -75,7 +70,7 @@ export const HERO = {
   eyebrow: 'Indoor Air Quality · OEM / ODM Manufacturing',
   headline: 'Indoor Air Quality Monitors, Built for Your Brand',
   tagline: 'OEM / ODM manufacturing · White-label ready · CO2 · PM2.5 · HCHO · TVOC',
-  body: 'We build IAQ monitors that ship under your name — your housing, your firmware branding, your packaging.',
+  body: 'IAQ monitors shipped under your name — housing, firmware, packaging.',
   primaryCta: { label: 'See the products', href: '/products' },
   secondaryCta: { label: 'What we can build', href: '/about' },
 } as const;
@@ -97,7 +92,7 @@ export const HOME_SECTIONS = {
   capabilities: {
     id: 'capabilities',
     heading: 'What we can build for you',
-    intro: 'Every unit is specified with you up front. The list below is where most programmes start.',
+    intro: 'Every unit is specified with you up front.',
   },
   contact: {
     id: 'contact',
@@ -108,12 +103,12 @@ export const VALUE_PROPS = [
   {
     title: 'White-label ready',
     body:
-      'Your brand on the housing, the display, the app and the box. Nothing on the finished unit points back to us.',
+      'Your brand on the housing, display, app and box. Nothing points back to us.',
   },
   {
     title: 'OEM and ODM',
     body:
-      'Bring us a finished spec and we build to it (OEM), or start from our reference designs and we adapt sensing, enclosure and firmware to your market (ODM).',
+      'Bring a finished spec (OEM), or adapt one of our reference designs (ODM).',
   },
 ] as const;
 
@@ -121,22 +116,22 @@ export const CAPABILITIES = [
   {
     title: 'Sensing',
     body:
-      'CO2, carbon monoxide, particulate matter, formaldehyde, TVOC, temperature and humidity. The sensing set is specified per programme and varies by model.',
+      'CO2, CO, particulate, HCHO, TVOC, temperature and humidity — specified per programme.',
   },
   {
     title: 'Hardware',
-    body: 'Desktop, portable and handheld form factors. Enclosure, display and battery options scoped per programme.',
+    body: 'Desktop, portable and handheld. Enclosure, display and battery scoped per programme.',
   },
   {
     title: 'Firmware & app',
-    body: 'Your branding in the UI, your thresholds and alerting logic, and connectivity options to match your product.',
+    body: 'Your branding, your thresholds, your connectivity.',
   },
 ] as const;
 
 export const CONTACT = {
   title: 'Tell us what you want to put your name on',
   body:
-    'The details that move a programme forward are the target market, the sensing set and the volumes you are planning. We come back with a build path and lead times.',
+    'Send the market, the sensing set and the volumes. We come back with a build path and lead times.',
 } as const;
 
 /* -------------------------------------------------------------------------
@@ -147,60 +142,18 @@ export const PRODUCTS_PAGE = {
   eyebrow: 'Products',
   heading: 'Monitors we build under your brand',
   intro:
-    'These are the platforms most OEM and ODM programmes start from. Housing, display, firmware branding and the sensing set are all specified with you — nothing here is fixed.',
+    'The platforms most programmes start from. Housing, display, firmware and sensing are specified with you.',
   filterLabel: 'Filter by category',
   emptyState: 'No products in that category yet.',
   detailCta: {
     body:
-      'Every unit is specified with you before anything is built — sensing set, enclosure, display, firmware branding and packaging. Tell us the target market and the volumes and we will come back with a build path.',
+      'Specified with you before anything is built. Send the market and volumes; we come back with a build path.',
   },
   sectionHeadings: {
     sensing: 'Sensing',
     highlights: 'What it is',
     specs: 'At a glance',
   },
-} as const;
-
-/* -------------------------------------------------------------------------
- * /capabilities
- * ---------------------------------------------------------------------- */
-
-export const CAPABILITIES_PAGE = {
-  eyebrow: 'Capabilities',
-  heading: 'OEM and ODM, start to finished goods',
-  intro:
-    'Bring us a finished spec and we build to it. Or start from one of our platforms and we adapt the sensing, the enclosure and the firmware to your market. Either way the unit ships as yours.',
-  specHeading: 'What we specify with you',
-  processHeading: 'How a programme runs',
-  ctaHeading: 'Ready to scope one?',
-  ctaBody:
-    'Send the market, the sensing set and the volumes. We will come back with a build path and lead times.',
-  branding: {
-    title: 'Branding',
-    body: 'Housing, on-screen identity, app and packaging carry your brand, not ours.',
-  },
-  steps: [
-    {
-      step: '01',
-      title: 'Tell us the programme',
-      body: 'Target market, the sensing set you need, the volumes you are planning and any certification route your importer requires.',
-    },
-    {
-      step: '02',
-      title: 'We come back with a build path',
-      body: 'Which platform fits, what changes it needs, what that implies for lead times, and where the decisions that cost money actually are.',
-    },
-    {
-      step: '03',
-      title: 'Specification and samples',
-      body: 'Sensing, enclosure, display and firmware branding are fixed in writing before anything is built. Samples follow.',
-    },
-    {
-      step: '04',
-      title: 'Production under your brand',
-      body: 'Your name on the housing, the display, the app and the box. Nothing on the finished unit points back to us.',
-    },
-  ],
 } as const;
 
 /* -------------------------------------------------------------------------
@@ -211,16 +164,16 @@ export const CONTACT_PAGE = {
   eyebrow: 'Contact',
   askHeading: 'What to put in the first email',
   askIntro:
-    'The more of this you can answer up front, the sooner we can give you something concrete rather than a brochure.',
+    'The more you answer up front, the sooner you get something concrete.',
   asideHeading: 'Enquiries',
   asideBody:
-    'Not sure which platform fits? Send the requirement rather than a product code — the platform is the easy part.',
+    'Not sure which platform? Send the requirement — the platform is the easy part.',
   asideLink: 'Browse the products',
   ask: [
-    'The market you are selling into, and who the importer of record will be',
-    'The sensing set you need — CO2, CO, PM1.0 / PM2.5 / PM10, HCHO, TVOC, temperature and humidity',
-    'Form factor: desktop, portable, handheld, or something you have already designed',
-    'Volumes for the first order and what you expect annually',
+    'Target market and importer of record',
+    'Sensing set — CO2, CO, PM, HCHO, TVOC, temperature and humidity',
+    'Form factor — desktop, portable, handheld or your own design',
+    'First-order and annual volumes',
     'Any certification route your channel requires',
   ],
 } as const;
@@ -251,7 +204,7 @@ export const NOT_FOUND_PAGE = {
   eyebrow: 'Error 404',
   heading: 'That page does not exist',
   body:
-    'The address may be mistyped, or the page may have moved. Everything on the site is reachable from the homepage.',
+    'The address may be mistyped or moved. Everything is reachable from the homepage.',
   cta: 'Back to the homepage',
   suggestionsHeading: 'Try one of these',
 } as const;
