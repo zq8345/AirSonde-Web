@@ -1,0 +1,183 @@
+---
+/**
+ * 层次改造 + 产品图规范化的合并样例 — PREVIEW BRANCH ONLY (never merges).
+ * One product card and one band, old vs new, per 总工's sample-first gate:
+ * - staged product image (flood-fill cutout → grey stage + contact shadow)
+ * - stage grey / body white (§6.3 the right way round), light elevation
+ * - band alternation deepened from #f4f5f7 (Δ11) to #e9ebef (Δ~20)
+ * - sensor chips on the card (七条 之3 preview)
+ */
+import { Image } from 'astro:assets';
+import LightBase from '../layouts/LightBase.astro';
+import stagedImg from '../assets/products/_staged/co2-tvoc-hcho-desktop-monitor.webp';
+import originalImg from '../assets/products/co2-tvoc-hcho-desktop-monitor.webp';
+---
+
+<LightBase
+  title="Visual sample — internal"
+  description="Internal sample of the staged product card and the deepened band step. Not a public page."
+  noindex
+>
+  <section class="as-section" style="padding-top:120px">
+    <div class="as-container">
+      <div class="as-sechead">
+        <p class="as-eyebrow">Internal sample</p>
+        <h1 class="as-h2">产品卡 + 区块层次 · 老 vs 新</h1>
+      </div>
+
+      <div class="vs-pair">
+        <figure>
+          <figcaption>现状：原图白底进白图台，四层同白</figcaption>
+          <a class="as-pcard" href="#" onclick="return false">
+            <span class="as-stage">
+              <Image src={originalImg} alt="old" widths={[480]} sizes="380px" loading="eager" />
+            </span>
+            <span class="as-pcard__body">
+              <span class="as-pcard__meta">Desktop · AS-D3</span>
+              <span class="as-pcard__name">CO2 / TVOC / HCHO desktop monitor with traffic-light display</span>
+            </span>
+          </a>
+        </figure>
+
+        <figure>
+          <figcaption>样例：抠图上灰台 + 接触投影，文字区回白，轻投影 + hover 抬升，传感器芯片</figcaption>
+          <a class="vs-card" href="#" onclick="return false">
+            <span class="vs-card__stage">
+              <Image src={stagedImg} alt="new" widths={[480, 800]} sizes="380px" loading="eager" />
+            </span>
+            <span class="vs-card__body">
+              <span class="as-pcard__meta">Desktop · AS-D3</span>
+              <span class="vs-card__name">CO2 / TVOC / HCHO desktop monitor with traffic-light display</span>
+              <span class="vs-chips">
+                <span>CO2</span><span>TVOC</span><span>HCHO</span>
+              </span>
+            </span>
+          </a>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="vs-band-old">
+    <div class="as-container">
+      <p class="vs-bandlabel">现状交替带 #f4f5f7（与白差 11 级灰）—— 白卡在其上</p>
+      <div class="vs-mini">白卡 + 发丝线</div>
+    </div>
+  </section>
+
+  <section class="vs-band-new">
+    <div class="as-container">
+      <p class="vs-bandlabel">样例交替带 #e9ebef（差 ~20 级）—— 白卡在其上，无需阴影即可分层</p>
+      <div class="vs-mini">白卡 + 发丝线</div>
+    </div>
+  </section>
+
+  <section style="background:#fff;padding:48px 0">
+    <div class="as-container">
+      <p class="vs-bandlabel">白区块上的白卡：发丝线 + 极轻投影（alpha .05 级）才能分层</p>
+      <div class="vs-mini vs-mini--shadow">白卡 + 发丝线 + 轻投影</div>
+    </div>
+  </section>
+</LightBase>
+
+<style>
+  .vs-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 380px));
+    gap: 40px;
+  }
+  @media (max-width: 767px) {
+    .vs-pair {
+      grid-template-columns: 1fr;
+    }
+  }
+  .vs-pair figcaption {
+    font-size: var(--as-fs-compact);
+    color: var(--as-ink2);
+    margin-bottom: 12px;
+    max-width: 40ch;
+  }
+  /* the proposed card */
+  .vs-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--as-line);
+    border-radius: var(--as-radius);
+    background: #fff;
+    overflow: hidden;
+    box-shadow:
+      0 10px 24px -14px rgba(16, 20, 24, 0.07),
+      0 2px 6px -2px rgba(16, 20, 24, 0.04);
+    transition:
+      transform 0.25s var(--as-ease),
+      box-shadow 0.25s var(--as-ease);
+  }
+  .vs-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 16px 32px -14px rgba(16, 20, 24, 0.11),
+      0 3px 8px -2px rgba(16, 20, 24, 0.05);
+  }
+  .vs-card__stage {
+    display: block;
+    background: var(--as-tile);
+  }
+  .vs-card__stage img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .vs-card__body {
+    display: block;
+    padding: 14px 16px 18px;
+    background: #fff;
+  }
+  .vs-card__name {
+    display: block;
+    margin-top: 6px;
+    font-size: var(--as-fs-compact);
+    font-weight: 600;
+    color: var(--as-ink);
+  }
+  .vs-chips {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .vs-chips span {
+    font-size: var(--as-fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--as-ink2);
+    border: 1px solid var(--as-line2);
+    border-radius: 999px;
+    padding: 3px 9px;
+  }
+  .vs-band-old {
+    background: #f4f5f7;
+    padding: 48px 0;
+  }
+  .vs-band-new {
+    background: #e9ebef;
+    padding: 48px 0;
+  }
+  .vs-bandlabel {
+    font-size: var(--as-fs-compact);
+    color: var(--as-ink2);
+    margin-bottom: 14px;
+  }
+  .vs-mini {
+    background: #fff;
+    border: 1px solid var(--as-line);
+    border-radius: var(--as-radius);
+    padding: 26px;
+    max-width: 380px;
+    font-weight: 600;
+    color: var(--as-ink);
+  }
+  .vs-mini--shadow {
+    box-shadow:
+      0 10px 24px -14px rgba(16, 20, 24, 0.07),
+      0 2px 6px -2px rgba(16, 20, 24, 0.04);
+  }
+</style>
