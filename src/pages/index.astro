@@ -56,45 +56,77 @@ const whyCards = [
 ---
 
 <LightBase title={META.home.title} description={META.home.description}>
-  {/* 1 ── photo hero (§3.2d) — the scene contains the product (W9 §1).
-      Banner mode (Joe's trial): the image carries its own headline and shows
-      the product, so our copy goes sr-only and only the CTAs overlay. */}
-  <section
-    class:list={[
-      'as-hero',
-      {
-        'as-hero--banner': HERO_PHOTO.mode === 'banner',
-        'as-hero--bannerclean': HERO_PHOTO.mode === 'banner-clean',
-      },
-    ]}
-    style={`--hero-focus: ${HERO_PHOTO.focus}`}
-  >
-    <Image
-      src={HERO_PHOTO.src}
-      alt={HERO_PHOTO.alt}
-      class="as-hero__img"
-      widths={[768, 1280, 1600]}
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div class="as-hero__wash" aria-hidden="true"></div>
-    <div class="as-container as-hero__in">
-      <div class="as-hero__text">
-        <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
-        <h1 class="as-hero__title">{HERO.headline}</h1>
-        <p class="as-hero__sub">{HERO.body}</p>
-        <div class="as-hero__cta">
-          <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-            {HERO.primaryCta.label}
-            <span class="as-arw" aria-hidden="true">→</span>
-          </a>
-          <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+  {/* 1 ── hero. banner-split (七条之2, 图归图字归字): the image runs
+      full-bleed with nothing on it — product and scene untouched — and the
+      positioning copy sits below at its full display tier. Other modes keep
+      the overlay hero. */}
+  {
+    HERO_PHOTO.mode === 'banner-split' ? (
+      <>
+        <section class="as-herosplit">
+          <Image
+            src={HERO_PHOTO.src}
+            alt={HERO_PHOTO.alt}
+            class="as-herosplit__img"
+            widths={[768, 1280, 1600]}
+            sizes="100vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </section>
+        <section class="as-herosplit__copy">
+          <div class="as-container">
+            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
+            <h1 class="as-herosplit__title">{HERO.headline}</h1>
+            <p class="as-hero__sub">{HERO.body}</p>
+            <div class="as-hero__cta">
+              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
+                {HERO.primaryCta.label}
+                <span class="as-arw" aria-hidden="true">→</span>
+              </a>
+              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+            </div>
+          </div>
+        </section>
+      </>
+    ) : (
+      <section
+        class:list={[
+          'as-hero',
+          {
+            'as-hero--banner': HERO_PHOTO.mode === 'banner',
+            'as-hero--bannerclean': HERO_PHOTO.mode === 'banner-clean',
+          },
+        ]}
+        style={`--hero-focus: ${HERO_PHOTO.focus}`}
+      >
+        <Image
+          src={HERO_PHOTO.src}
+          alt={HERO_PHOTO.alt}
+          class="as-hero__img"
+          widths={[768, 1280, 1600]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="as-hero__wash" aria-hidden="true" />
+        <div class="as-container as-hero__in">
+          <div class="as-hero__text">
+            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
+            <h1 class="as-hero__title">{HERO.headline}</h1>
+            <p class="as-hero__sub">{HERO.body}</p>
+            <div class="as-hero__cta">
+              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
+                {HERO.primaryCta.label}
+                <span class="as-arw" aria-hidden="true">→</span>
+              </a>
+              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+            </div>
+          </div>
         </div>
-      </div>
-
-    </div>
-  </section>
+      </section>
+    )
+  }
 
   {/* sensor-chip band — kept under the hero (not a wanew section; it carries
       the sensing enumeration that left the hero tagline) */}

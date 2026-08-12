@@ -2225,3 +2225,29 @@ select.as-field__input {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- banner-split hero (七条之2: 图归图,字归字) ----------------------------- */
+.as-herosplit {
+  padding-top: var(--as-header-h); /* light banner, solid page above the fold */
+  background: var(--as-bg);
+}
+.as-herosplit__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 58vh;
+  object-fit: cover;
+  object-position: 32% 30%;
+}
+.as-herosplit__copy {
+  padding: 44px 0 10px;
+}
+.as-herosplit__title {
+  margin-top: 14px;
+  max-width: 17ch;
+  font-size: var(--as-fs-d1);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--as-ink);
+}
