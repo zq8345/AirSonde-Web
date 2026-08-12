@@ -953,6 +953,127 @@ ol {
   }
 }
 
+/* ---- guides: article template (W3 §3.2b — single column ~820px, no full
+   width) and hub cards --------------------------------------------------- */
+.as-article {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.as-article__head {
+  padding-top: calc(var(--as-header-h) + 42px);
+}
+.as-article__title {
+  margin-top: 14px;
+  font-size: var(--as-fs-d2);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--as-ink);
+}
+.as-article__intro {
+  margin-top: 16px;
+  font-size: var(--as-fs-lead);
+  line-height: 1.6;
+  color: var(--as-ink2);
+}
+.as-article__body {
+  margin-top: 40px;
+}
+.as-article__body h2 {
+  margin-top: 40px;
+  font-size: var(--as-fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: var(--as-ink);
+}
+.as-article__body p {
+  margin-top: 14px;
+  font-size: var(--as-fs-body);
+  line-height: 1.75;
+  color: var(--as-ink2);
+}
+.as-article__body ul {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+.as-article__body ul li {
+  display: flex;
+  gap: 10px;
+  font-size: var(--as-fs-body);
+  line-height: 1.6;
+  color: var(--as-ink2);
+}
+.as-article__body ul li::before {
+  content: '';
+  margin-top: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--as-accent);
+  flex: 0 0 auto;
+}
+.as-article__rel {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+
+.as-gcard {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  padding: 24px 26px;
+  transition:
+    transform 0.25s var(--as-ease),
+    border-color 0.25s;
+}
+.as-gcard:hover {
+  transform: translateY(-4px);
+  border-color: var(--as-line2);
+}
+.as-gcard__eyebrow {
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--as-accent);
+}
+.as-gcard__title {
+  margin-top: 8px;
+  font-size: var(--as-fs-lead);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--as-ink);
+}
+.as-gcard__sum {
+  margin-top: 8px;
+  font-size: var(--as-fs-compact);
+  line-height: 1.6;
+  color: var(--as-ink2);
+}
+.as-gcard__arw {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--as-accent);
+  font-weight: 600;
+  font-size: var(--as-fs-compact);
+}
+.as-ggrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 899px) {
+  .as-ggrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---- products: filter pills (W3 §3.6 chip mirrored to light) --------------- */
 .as-filterbar {
   display: flex;

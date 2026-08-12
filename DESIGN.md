@@ -82,6 +82,11 @@ as-btn(--primary/--ghost) / as-link-arrow / as-eyebrow / as-sechead / as-brand(_
 [data-as-reveal]` —— 全部只在 `light.css` 定义,
 禁止页面内联样式发明第二种写法。新组件/新令牌照本文件头部规则:**同 commit 登记**。
 
+Guides 文章模板新增(2026-08-11 W5):`as-article(__head/__title/__intro/__body/__rel)`
+(正文单列 max-width 820px 居中,照 wanew §3.2b,⛔满宽;节标题 h2 = h3 档 21px)/
+`as-gcard(__eyebrow/__title/__sum/__arw)` + `as-ggrid`(指南卡,hub 与 solutions 相关指南位共用)。
+文章 JSON-LD = `Article`(author/publisher 均 `@id` 指回 Organization)+ BreadcrumbList。
+
 About 页新增(2026-08-11):`as-hero--page`(信息页矮版照片 hero,clamp(400px,46vh,560px) 照 §3.2d)/
 `as-stats+as-stat`(1px 发丝网格拼接数据格,W3 §3.6 .w3-stats 的浅色版)/
 `as-gallery`(6 列非对称工厂影像墙,前两张跨 3、其余跨 2,≤719px 单列 —— .about-facwall 的浅色版)/

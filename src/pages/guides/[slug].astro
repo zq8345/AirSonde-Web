@@ -1,0 +1,126 @@
+---
+/**
+ * /guides/[slug]/ — W5 article template. Single ~820px column (wanew §3.2b),
+ * Article + BreadcrumbList JSON-LD, product cards from the data layer only,
+ * links into the matching solutions pages, enquiry CTA at the foot.
+ */
+import type { GetStaticPaths } from 'astro';
+import LightBase from '../../layouts/LightBase.astro';
+import LightProductCard from '../../components/LightProductCard.astro';
+import { SITE } from '../../data/site';
+import { GUIDES } from '../../data/guides';
+import { SCENES_DATA } from '../../data/solutions';
+import { breadcrumbSchema } from '../../lib/jsonld';
+import { getPublishedProducts } from '../../lib/products';
+
+export const getStaticPaths = (async () => {
+  return GUIDES.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}) satisfies GetStaticPaths;
+
+const { guide } = Astro.props;
+
+const products = await getPublishedProducts();
+const bySlug = new Map(products.map((p) => [p.data.slug, p]));
+const cards = guide.productSlugs.map((slug) => {
+  const product = bySlug.get(slug);
+  if (!product) throw new Error(`guides/${guide.slug}: unknown product slug "${slug}"`);
+  return product;
+});
+
+const scenes = guide.solutionSlugs.map((slug) => {
+  const scene = SCENES_DATA.find((s) => s.slug === slug);
+  if (!scene) throw new Error(`guides/${guide.slug}: unknown solution slug "${slug}"`);
+  return scene;
+});
+
+const url = `${SITE.url}/guides/${guide.slug}/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${url}#article`,
+  headline: guide.title,
+  description: guide.description,
+  datePublished: guide.datePublished,
+  inLanguage: 'en',
+  mainEntityOfPage: url,
+  author: { '@id': `${SITE.url}/#organization` },
+  publisher: { '@id': `${SITE.url}/#organization` },
+};
+
+const schemas = [
+  articleSchema,
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Guides', url: `${SITE.url}/guides/` },
+    { name: guide.title, url },
+  ]),
+];
+---
+
+<LightBase title={guide.metaTitle} description={guide.description} schemas={schemas}>
+  <article>
+    <header class="as-article as-article__head">
+      <nav aria-label="Breadcrumb" class="as-crumb">
+        <a href="/guides/">Guides</a>
+        <span class="as-crumb__sep">/</span>
+        <span>{guide.eyebrow}</span>
+      </nav>
+      <h1 class="as-article__title">{guide.title}</h1>
+      <p class="as-article__intro">{guide.intro}</p>
+    </header>
+
+    <div class="as-article as-article__body">
+      {
+        guide.sections.map((section) => (
+          <>
+            {section.heading && <h2>{section.heading}</h2>}
+            {section.paragraphs?.map((p) => <p>{p}</p>)}
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            )}
+          </>
+        ))
+      }
+
+      <h2>Where this applies</h2>
+      <div class="as-article__rel">
+        {
+          scenes.map((scene) => (
+            <a href={`/solutions/${scene.slug}/`} class="as-link-arrow">
+              Solutions · {scene.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </article>
+
+  <section class="as-section as-band--alt" style="margin-top:72px">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{guide.productsHeading}</h2>
+      </div>
+      <div class="as-pgrid">
+        {cards.map((product) => <LightProductCard product={product} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-cta">
+        <h2 class="as-cta__title">{guide.cta.heading}</h2>
+        <p class="as-cta__body">{guide.cta.body}</p>
+        <div class="as-cta__actions">
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+          <a href="/contact" class="as-btn as-btn--ghost">What to send us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LightBase>

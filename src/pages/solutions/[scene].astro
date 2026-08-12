@@ -5,6 +5,7 @@ import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { SITE } from '../../data/site';
 import { SCENES_DATA, SOLUTIONS_CTA } from '../../data/solutions';
+import { GUIDES } from '../../data/guides';
 import { breadcrumbSchema } from '../../lib/jsonld';
 import { getPublishedProducts } from '../../lib/products';
 
@@ -23,6 +24,10 @@ const fits = scene.productSlugs.map((slug) => {
   if (!product) throw new Error(`solutions/${scene.slug}: unknown product slug "${slug}"`);
   return product;
 });
+
+// The guides slot left open in W4: articles declare which scenes they serve,
+// so this page just queries — one source, no second list to drift.
+const relatedGuides = GUIDES.filter((g) => g.solutionSlugs.includes(scene.slug));
 
 const schemas = [
   breadcrumbSchema([
@@ -79,7 +84,32 @@ const schemas = [
     </div>
   </section>
 
-  <section class="as-section">
+  {
+    relatedGuides.length > 0 && (
+      <section class="as-section">
+        <div class="as-container">
+          <div class="as-sechead">
+            <h2 class="as-h2">Related guides</h2>
+          </div>
+          <div class="as-ggrid">
+            {relatedGuides.map((guide) => (
+              <a class="as-gcard" href={`/guides/${guide.slug}/`}>
+                <span class="as-gcard__eyebrow">{guide.eyebrow}</span>
+                <span class="as-gcard__title" style="display:block">
+                  {guide.title}
+                </span>
+                <span class="as-gcard__arw" aria-hidden="true">
+                  Read →
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="as-section as-band--alt">
     <div class="as-container">
       <div class="as-cta">
         <h2 class="as-cta__title">{SOLUTIONS_CTA.heading}</h2>
