@@ -2104,3 +2104,17 @@ select.as-field__input {
 .as-hero--bannerclean .as-hero__title {
   max-width: 28ch;
 }
+
+/* banner-clean round 3: at 1440 the image is exactly viewport-wide (zero
+   focus slack) and the ghost button rode onto the device. Pin the CTA row
+   to the section bottom — below the whole device box — and make the section
+   the anchor by un-positioning the wrapper for this mode. */
+.as-hero--bannerclean .as-hero__in {
+  position: static;
+}
+.as-hero--bannerclean .as-hero__cta {
+  position: absolute;
+  bottom: 18px;
+  left: calc(max(0px, (100vw - 1240px) / 2) + 24px);
+  margin: 0;
+}
