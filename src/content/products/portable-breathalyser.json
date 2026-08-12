@@ -7,8 +7,8 @@
     "alcohol"
   ],
   "images": {
-    "main": "products/_draft/portable-breathalyser.webp"
+    "main": "products/portable-breathalyser.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Wholesale-White-Portable-Breathalyzer-Air-Blowing_1600654038700.html",
-  "status": "draft"
+  "status": "published"
 }

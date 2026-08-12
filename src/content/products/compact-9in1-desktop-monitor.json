@@ -15,8 +15,8 @@
     "AQI"
   ],
   "images": {
-    "main": "products/_draft/compact-9in1-desktop-monitor.webp"
+    "main": "products/compact-9in1-desktop-monitor.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Monitor-Detector_1601124548595.html",
-  "status": "draft"
+  "status": "published"
 }

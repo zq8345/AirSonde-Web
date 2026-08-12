@@ -7,8 +7,8 @@
     "radiation"
   ],
   "images": {
-    "main": "products/_draft/geiger-counter.webp"
+    "main": "products/geiger-counter.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Portable-Geiger-Counter-X-ray-Beta_1600947771077.html",
-  "status": "draft"
+  "status": "published"
 }

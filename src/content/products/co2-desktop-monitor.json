@@ -9,8 +9,8 @@
     "humidity"
   ],
   "images": {
-    "main": "products/_draft/co2-desktop-monitor.webp"
+    "main": "products/co2-desktop-monitor.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Detector-Monitor-Analyzer_1600437309820.html",
-  "status": "draft"
+  "status": "published"
 }

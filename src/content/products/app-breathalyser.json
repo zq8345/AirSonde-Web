@@ -7,8 +7,8 @@
     "alcohol"
   ],
   "images": {
-    "main": "products/_draft/app-breathalyser.webp"
+    "main": "products/app-breathalyser.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/AK13B-APP-Control-Dutch-Alcohol-Detector_1600655238665.html",
-  "status": "draft"
+  "status": "published"
 }

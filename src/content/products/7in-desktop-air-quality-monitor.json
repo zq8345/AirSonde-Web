@@ -15,8 +15,8 @@
     "AQI"
   ],
   "images": {
-    "main": "products/_draft/7in-desktop-air-quality-monitor.webp"
+    "main": "products/7in-desktop-air-quality-monitor.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/16-in-1-Home-Air-Quality_1601819421475.html",
-  "status": "draft"
+  "status": "published"
 }

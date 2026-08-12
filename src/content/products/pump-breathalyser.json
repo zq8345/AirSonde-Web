@@ -7,8 +7,8 @@
     "alcohol"
   ],
   "images": {
-    "main": "products/_draft/pump-breathalyser.webp"
+    "main": "products/pump-breathalyser.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Portable-Pump-Type-Alcohol-Tester-Accurate_1601845522777.html",
-  "status": "draft"
+  "status": "published"
 }

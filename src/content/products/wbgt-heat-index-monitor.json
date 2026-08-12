@@ -9,8 +9,8 @@
     "humidity"
   ],
   "images": {
-    "main": "products/_draft/wbgt-heat-index-monitor.webp"
+    "main": "products/wbgt-heat-index-monitor.webp"
   },
   "supplierRef": "https://www.alibaba.com/product-detail/New-Arrival-WBGT-Heat-Index-Monitor_1601845577029.html",
-  "status": "draft"
+  "status": "published"
 }
