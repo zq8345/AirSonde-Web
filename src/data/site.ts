@@ -33,6 +33,7 @@ export const SITE = {
 // ship. Capabilities is no longer a section — /capabilities/ 301s to /about/.
 export const NAV = [
   { label: 'Products', href: '/products' },
+  { label: 'Solutions', href: '/solutions' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ] as const;

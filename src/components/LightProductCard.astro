@@ -1,0 +1,32 @@
+---
+/**
+ * Light-theme product card — same classes the homepage featured strip uses,
+ * so the look is defined once in light.css.
+ */
+import { Image } from 'astro:assets';
+import { categoryLabel, resolveProductImage, type Product } from '../lib/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const { slug, name, model, category, images } = product.data;
+const image = resolveProductImage(images.main);
+---
+
+<a class="as-pcard" href={`/products/${slug}`}>
+  <span class="as-stage">
+    <Image
+      src={image}
+      alt={name}
+      widths={[320, 480, 640]}
+      sizes="(min-width: 980px) 380px, (min-width: 560px) 45vw, 90vw"
+      loading="lazy"
+    />
+  </span>
+  <span class="as-pcard__body">
+    <span class="as-pcard__meta">{categoryLabel(category)} · {model}</span>
+    <span class="as-pcard__name">{name}</span>
+  </span>
+</a>

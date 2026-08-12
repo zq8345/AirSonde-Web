@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import type { GetStaticPaths } from 'astro';
+import LightBase from '../../layouts/LightBase.astro';
+import LightProductCard from '../../components/LightProductCard.astro';
+import { SITE } from '../../data/site';
+import { SCENES_DATA, SOLUTIONS_CTA } from '../../data/solutions';
+import { breadcrumbSchema } from '../../lib/jsonld';
+import { getPublishedProducts } from '../../lib/products';
+
+export const getStaticPaths = (async () => {
+  return SCENES_DATA.map((scene) => ({ params: { scene: scene.slug }, props: { scene } }));
+}) satisfies GetStaticPaths;
+
+const { scene } = Astro.props;
+
+const products = await getPublishedProducts();
+const bySlug = new Map(products.map((p) => [p.data.slug, p]));
+// A scene listing a slug that no longer exists must fail the build, not
+// render a hole (contract C1 rule 4 discipline).
+const fits = scene.productSlugs.map((slug) => {
+  const product = bySlug.get(slug);
+  if (!product) throw new Error(`solutions/${scene.slug}: unknown product slug "${slug}"`);
+  return product;
+});
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Solutions', url: `${SITE.url}/solutions/` },
+    { name: scene.label, url: `${SITE.url}/solutions/${scene.slug}/` },
+  ]),
+];
+---
+
+<LightBase title={scene.meta.title} description={scene.meta.description} schemas={schemas}>
+  <section class="as-hero as-hero--page">
+    <Image
+      src={scene.photo.src}
+      alt={scene.photo.alt}
+      class="as-hero__img"
+      widths={[768, 1280, 1600]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="as-hero__wash" aria-hidden="true"></div>
+    <div class="as-container as-hero__in">
+      <p class="as-hero__eyebrow">Solutions · {scene.label}</p>
+      <h1 class="as-hero__title">{scene.heading}</h1>
+      <p class="as-hero__lead">{scene.intro}</p>
+    </div>
+  </section>
+
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-steps as-steps--three">
+        {
+          scene.pains.map((pain, i) => (
+            <div class="as-step">
+              <div class="as-step__n">{String(i + 1).padStart(2, '0')}</div>
+              <h3>{pain.title}</h3>
+              <p>{pain.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="as-section as-band--alt">
+    <div class="as-container">
+      <div class="as-sechead">
+        <h2 class="as-h2">{scene.productsHeading}</h2>
+      </div>
+      <div class="as-pgrid as-pgrid--four">
+        {fits.map((product) => <LightProductCard product={product} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="as-section">
+    <div class="as-container">
+      <div class="as-cta">
+        <h2 class="as-cta__title">{SOLUTIONS_CTA.heading}</h2>
+        <p class="as-cta__body">{SOLUTIONS_CTA.body}</p>
+        <div class="as-cta__actions">
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+          <a href="/contact" class="as-btn as-btn--ghost">What to send us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LightBase>

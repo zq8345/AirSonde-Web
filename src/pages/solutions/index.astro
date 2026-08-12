@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import LightBase from '../../layouts/LightBase.astro';
+import { SITE } from '../../data/site';
+import { SCENES_DATA, SOLUTIONS_CTA, SOLUTIONS_HUB } from '../../data/solutions';
+import { breadcrumbSchema } from '../../lib/jsonld';
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE.url}/` },
+    { name: 'Solutions', url: `${SITE.url}/solutions/` },
+  ]),
+];
+---
+
+<LightBase
+  title={SOLUTIONS_HUB.meta.title}
+  description={SOLUTIONS_HUB.meta.description}
+  schemas={schemas}
+>
+  <section class="as-section" style="padding-bottom:48px">
+    <div class="as-container as-pagehead">
+      <p class="as-eyebrow">{SOLUTIONS_HUB.eyebrow}</p>
+      <h1 class="as-pagehead__title">{SOLUTIONS_HUB.heading}</h1>
+      <p class="as-pagehead__lead">{SOLUTIONS_HUB.intro}</p>
+    </div>
+  </section>
+
+  <section class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <div class="as-scenes">
+        {
+          SCENES_DATA.map((scene) => (
+            <a class="as-scene" href={`/solutions/${scene.slug}/`}>
+              <Image
+                src={scene.photo.src}
+                alt={scene.photo.alt}
+                widths={[420, 640]}
+                sizes="(min-width: 980px) 300px, (min-width: 560px) 45vw, 90vw"
+                loading="eager"
+              />
+              <span class="as-scene__label">{scene.label}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="as-section" style="padding-top:0">
+    <div class="as-container">
+      <div class="as-cta">
+        <h2 class="as-cta__title">{SOLUTIONS_CTA.heading}</h2>
+        <p class="as-cta__body">{SOLUTIONS_CTA.body}</p>
+        <div class="as-cta__actions">
+          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+          <a href="/contact" class="as-btn as-btn--ghost">What to send us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LightBase>

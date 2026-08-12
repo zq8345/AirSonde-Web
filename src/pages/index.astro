@@ -17,6 +17,7 @@ import {
   VALUE_PROPS,
 } from '../data/site';
 import { FEATURED, FORM_FACTORS, HERO_PHOTO, HERO_PRODUCT, SCENES } from '../data/home-light';
+import { SCENES_DATA } from '../data/solutions';
 import { categoryLabel, getPublishedProducts, resolveProductImage } from '../lib/products';
 
 const products = await getPublishedProducts();
@@ -168,13 +169,14 @@ const heroProductImage = resolveProductImage(heroProduct.data.images.main);
         <p class="as-eyebrow">{SCENES.eyebrow}</p>
         <h2 class="as-h2">{SCENES.heading}</h2>
       </div>
+      {/* cards link into /solutions/ now that the section exists (改令四) */}
       <div class="as-scenes">
         {
-          SCENES.cards.map((scene) => (
-            <figure class="as-scene" data-as-reveal>
-              <Image src={scene.src} alt={scene.alt} widths={[420, 640]} sizes="(min-width: 980px) 300px, (min-width: 560px) 45vw, 90vw" loading="lazy" />
-              <figcaption class="as-scene__label">{scene.label}</figcaption>
-            </figure>
+          SCENES_DATA.map((scene) => (
+            <a class="as-scene" href={`/solutions/${scene.slug}/`} data-as-reveal>
+              <Image src={scene.photo.src} alt={scene.photo.alt} widths={[420, 640]} sizes="(min-width: 980px) 300px, (min-width: 560px) 45vw, 90vw" loading="lazy" />
+              <span class="as-scene__label">{scene.label}</span>
+            </a>
           ))
         }
       </div>

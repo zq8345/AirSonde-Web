@@ -569,9 +569,19 @@ ol {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.as-pgrid--four {
+  grid-template-columns: repeat(4, 1fr);
+}
+.as-steps--three {
+  grid-template-columns: repeat(3, 1fr);
+}
 @media (max-width: 979px) {
-  .as-pgrid {
+  .as-pgrid,
+  .as-pgrid--four {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .as-steps--three {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 559px) {
