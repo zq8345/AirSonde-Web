@@ -1636,11 +1636,14 @@ textarea.as-field__input {
   content: '';
   position: absolute;
   inset: 0;
+  /* stops tuned on real pixels 2026-08-12: with the first recipe (0.78/0.38@34%)
+     the Industrial line hit 3.57 and the eyebrows 2.1–2.9. This one measures
+     worst-case 6.94 (eyebrow) / 7.9 (line) across all four scenes at 1440. */
   background: linear-gradient(
     0deg,
-    rgba(10, 12, 15, 0.78) 0%,
-    rgba(10, 12, 15, 0.38) 34%,
-    rgba(10, 12, 15, 0) 62%
+    rgba(10, 12, 15, 0.9) 0%,
+    rgba(10, 12, 15, 0.6) 40%,
+    rgba(10, 12, 15, 0) 72%
   );
 }
 .as-scenepanel__cap {
@@ -1657,7 +1660,7 @@ textarea.as-field__input {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
+  color: #fff; /* 0.85 alpha measured 2.1–2.9 over the photos — full white */
 }
 .as-scenepanel__line {
   display: block;
