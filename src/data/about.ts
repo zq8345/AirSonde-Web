@@ -35,6 +35,7 @@ export const ABOUT_HERO = {
 } as const;
 
 export const ABOUT_STORY = {
+  kicker: 'Built with intent',
   heading: 'Why AirSonde exists',
   paragraphs: [
     'Monitors are easy to find. A manufacturer who builds them under your name — and stays out of your market — is not.',
@@ -55,15 +56,25 @@ export const ABOUT_STATS = {
   ],
 } as const;
 
+/** W10: photo under the story statement + the where-line (wanew ab8-story). */
+export const ABOUT_WHERE = {
+  photo: { src: imgOffice, alt: 'Engineering and sales office' },
+  label: 'Engineering & manufacturing',
+  place: 'Shenzhen · Greater Bay Area',
+} as const;
+
+/** W10: six labelled tiles (wanew "Manufacturing Capability" grid — same
+ *  reviewed factory set, no Starlink product close-ups). */
 export const ABOUT_FACTORY = {
-  heading: 'Inside the facility',
+  heading: 'Manufacturing capability',
   intro: 'The same floor that builds our group’s other lines builds AirSonde.',
   photos: [
-    { src: imgCnc, alt: 'Injection moulding and machining hall', caption: 'Tooling & moulding' },
-    { src: imgQc, alt: 'Engineer at a test bench with measurement instruments', caption: 'Testing' },
-    { src: imgWarehouse, alt: 'Racked warehouse aisle with boxed stock', caption: 'Warehousing' },
-    { src: imgShipping, alt: 'Palletised cartons staged for dispatch', caption: 'Dispatch' },
-    { src: imgOffice, alt: 'Engineering and sales office', caption: 'Engineering & support' },
+    { src: heroImg, alt: 'Assembly line at the manufacturing facility', caption: 'Assembly line' },
+    { src: imgCnc, alt: 'Injection moulding and machining hall', caption: 'Machining' },
+    { src: imgOffice, alt: 'Engineering and sales office', caption: 'R&D & office' },
+    { src: imgQc, alt: 'Engineer at a test bench with measurement instruments', caption: 'QC & testing' },
+    { src: imgWarehouse, alt: 'Racked warehouse aisle with boxed stock', caption: 'Warehouse' },
+    { src: imgShipping, alt: 'Palletised cartons staged for dispatch', caption: 'Packing & dispatch' },
   ],
 } as const;
 
@@ -148,6 +159,29 @@ export const ABOUT_EXPECT = {
     'An engineer replies, normally within two business days.',
     'Straight answers on cost and time, before you commit.',
     'White-label discipline: nothing points back to us.',
+  ],
+} as const;
+
+/**
+ * W10: three honest Q&As (wanew "Compatibility & FAQ" slot). Answers are
+ * existing verified sentences from this file — only the questions are new.
+ */
+export const ABOUT_FAQ = {
+  kicker: 'Straight answers',
+  heading: 'FAQ',
+  items: [
+    {
+      q: 'Who actually builds AirSonde monitors?',
+      a: 'The IAQ line of an established Shenzhen manufacturing group. The brand is new; the floor behind it is not.',
+    },
+    {
+      q: 'Are the monitors certified?',
+      a: 'Engineered for FCC, CE and RoHS routes under ISO 9001 quality management. Your model’s certification is scoped per programme.',
+    },
+    {
+      q: 'Will AirSonde appear anywhere on our product?',
+      a: 'Your name on housing, display, app and box. Nothing points back to us.',
+    },
   ],
 } as const;
 

@@ -1760,3 +1760,107 @@ textarea.as-field__input {
     border-top: 0;
   }
 }
+
+/* ---- W10 about page (wanew ab8 skeleton) ---------------------------------- */
+.as-abstory {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 44px;
+  align-items: end;
+  margin-bottom: 40px;
+}
+.as-abstory__body p {
+  font-size: var(--as-fs-lead);
+  line-height: 1.65;
+  color: var(--as-ink2);
+}
+.as-abstory__body p + p {
+  margin-top: 14px;
+}
+.as-abmedia img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--as-radius);
+  border: 1px solid var(--as-line);
+}
+.as-abwhere {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  font-size: var(--as-fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--as-ink2);
+}
+.as-abwhere b {
+  font-size: var(--as-fs-compact);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--as-ink);
+}
+@media (max-width: 899px) {
+  .as-abstory {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+.as-factory {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.as-factory figure {
+  position: relative;
+  border-radius: var(--as-radius);
+  overflow: hidden;
+  border: 1px solid var(--as-line);
+}
+.as-factory img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.as-factory figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: var(--as-fs-small);
+  font-weight: 600;
+  color: var(--as-ink);
+}
+@media (max-width: 899px) {
+  .as-factory {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 559px) {
+  .as-factory {
+    grid-template-columns: 1fr;
+  }
+}
+.as-faq {
+  max-width: 760px;
+}
+.as-faq li {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--as-line);
+}
+.as-faq li:first-child {
+  padding-top: 0;
+}
+.as-faq h3 {
+  font-size: var(--as-fs-body);
+  font-weight: 650;
+  color: var(--as-ink);
+}
+.as-faq p {
+  margin-top: 8px;
+  color: var(--as-ink2);
+}

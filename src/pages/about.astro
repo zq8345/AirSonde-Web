@@ -1,8 +1,11 @@
 ---
 /**
- * /about/ — W4 page 2. Absorbs the former /capabilities/ content per 改令四
- * (Capabilities is no longer a top-level section; /capabilities/ 301s here).
- * Every sentence renders from src/data/about.ts.
+ * /about/ — W10: rebuilt on wanew.com/about's nine-section skeleton
+ * (page-header / story+media+where / capability tiles+stats / quality /
+ * OEM-ODM / FAQ / CTA). Light theme stays; every sentence renders from
+ * src/data/about.ts. 🔴 wanew's COMPLIANCE & TESTING cert strip is NOT
+ * ported — our own verified compliance-engineering block (company-level
+ * routes + per-model qualifier) stays instead.
  */
 import { Image } from 'astro:assets';
 import LightBase from '../layouts/LightBase.astro';
@@ -10,15 +13,15 @@ import { SITE } from '../data/site';
 import {
   ABOUT_COMPLIANCE,
   ABOUT_CTA,
-  ABOUT_EXPECT,
   ABOUT_FACTORY,
+  ABOUT_FAQ,
   ABOUT_HERO,
   ABOUT_META,
-  ABOUT_PROCESS,
   ABOUT_QUALITY,
   ABOUT_SERVICES,
   ABOUT_STATS,
   ABOUT_STORY,
+  ABOUT_WHERE,
 } from '../data/about';
 import { breadcrumbSchema } from '../lib/jsonld';
 
@@ -31,7 +34,7 @@ const schemas = [
 ---
 
 <LightBase title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas}>
-  {/* hero — real factory photo (§3.2d info-page hero) */}
+  {/* 1 ── photo hero (§3.2d info-page hero) */}
   <section class="as-hero as-hero--page" style={`--hero-focus: ${ABOUT_HERO.photo.focus}`}>
     <Image
       src={ABOUT_HERO.photo.src}
@@ -50,25 +53,52 @@ const schemas = [
     </div>
   </section>
 
-  {/* story */}
+  {/* 2+3 ── story: kicker + statement | body, then media + where-line */}
   <section class="as-section">
     <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_STORY.heading}</h2>
+      <div class="as-abstory">
+        <div>
+          <p class="as-eyebrow">{ABOUT_STORY.kicker}</p>
+          <h2 class="as-d2">{ABOUT_STORY.heading}</h2>
+        </div>
+        <div class="as-abstory__body">
+          {ABOUT_STORY.paragraphs.map((p) => <p>{p}</p>)}
+        </div>
       </div>
-      <div class="as-checklist" style="gap:18px;max-width:70ch">
-        {ABOUT_STORY.paragraphs.map((p) => <p style="font-size:var(--as-fs-body);line-height:1.7">{p}</p>)}
-      </div>
+      <figure class="as-abmedia">
+        <Image
+          src={ABOUT_WHERE.photo.src}
+          alt={ABOUT_WHERE.photo.alt}
+          widths={[960, 1400]}
+          sizes="(min-width: 1200px) 1140px, 94vw"
+          loading="lazy"
+        />
+      </figure>
+      <p class="as-abwhere">
+        {ABOUT_WHERE.label}
+        <b>{ABOUT_WHERE.place}</b>
+      </p>
     </div>
   </section>
 
-  {/* stats — real group figures */}
+  {/* 4+5 ── manufacturing capability: six labelled tiles + the six figures */}
   <section class="as-section as-band--alt">
     <div class="as-container">
       <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_STATS.heading}</h2>
+        <h2 class="as-d2">{ABOUT_FACTORY.heading}</h2>
+        <p class="as-sub">{ABOUT_FACTORY.intro}</p>
       </div>
-      <div class="as-stats">
+      <div class="as-factory">
+        {
+          ABOUT_FACTORY.photos.map((photo) => (
+            <figure data-as-reveal>
+              <Image src={photo.src} alt={photo.alt} widths={[480, 760]} sizes="(min-width: 900px) 30vw, (min-width: 560px) 45vw, 94vw" loading="lazy" />
+              <figcaption>{photo.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <div class="as-stats" style="margin-top:44px">
         {
           ABOUT_STATS.items.map((s) => (
             <div class="as-stat">
@@ -81,31 +111,12 @@ const schemas = [
     </div>
   </section>
 
-  {/* factory gallery */}
+  {/* 6 ── quality process. 🔴 wanew's cert strip is not ported; our verified
+      compliance-engineering block (with the per-model qualifier) stays. */}
   <section class="as-section">
     <div class="as-container">
       <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_FACTORY.heading}</h2>
-        <p class="as-sub">{ABOUT_FACTORY.intro}</p>
-      </div>
-      <div class="as-gallery">
-        {
-          ABOUT_FACTORY.photos.map((photo) => (
-            <figure data-as-reveal>
-              <Image src={photo.src} alt={photo.alt} widths={[480, 760]} sizes="(min-width: 720px) 50vw, 100vw" loading="lazy" />
-              <figcaption>{photo.caption}</figcaption>
-            </figure>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* quality process */}
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_QUALITY.heading}</h2>
+        <h2 class="as-d2">{ABOUT_QUALITY.heading}</h2>
         <p class="as-sub">{ABOUT_QUALITY.intro}</p>
       </div>
       <div class="as-steps">
@@ -132,11 +143,11 @@ const schemas = [
     </div>
   </section>
 
-  {/* OEM / ODM services */}
-  <section class="as-section">
+  {/* 7 ── OEM / ODM services (wanew ab8-oem two-card grid) */}
+  <section class="as-section as-band--alt">
     <div class="as-container">
       <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_SERVICES.heading}</h2>
+        <h2 class="as-d2">{ABOUT_SERVICES.heading}</h2>
       </div>
       <div class="as-cards2">
         {
@@ -156,47 +167,38 @@ const schemas = [
     </div>
   </section>
 
-  {/* programme flow (from the former capabilities page) */}
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_PROCESS.heading}</h2>
-      </div>
-      <div class="as-steps">
-        {
-          ABOUT_PROCESS.steps.map((item) => (
-            <div class="as-step">
-              <div class="as-step__n">{item.step}</div>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* what to expect */}
+  {/* 8 ── FAQ — three honest answers, existing sentences */}
   <section class="as-section">
     <div class="as-container">
       <div class="as-sechead">
-        <h2 class="as-h2">{ABOUT_EXPECT.heading}</h2>
+        <p class="as-eyebrow">{ABOUT_FAQ.kicker}</p>
+        <h2 class="as-d2">{ABOUT_FAQ.heading}</h2>
       </div>
-      <ul class="as-checklist">
-        {ABOUT_EXPECT.items.map((item) => <li>{item}</li>)}
+      <ul class="as-faq">
+        {
+          ABOUT_FAQ.items.map((item) => (
+            <li>
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </section>
 
-  {/* CTA */}
+  {/* 9 ── CTA */}
   <section class="as-section" style="padding-top:0">
     <div class="as-container">
       <div class="as-cta">
         <h2 class="as-cta__title">{ABOUT_CTA.heading}</h2>
         <p class="as-cta__body">{ABOUT_CTA.body}</p>
         <div class="as-cta__actions">
-          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
-          <a href="/products" class="as-btn as-btn--ghost">Browse the products</a>
+          <a href="/contact" class="as-btn as-btn--primary">
+            Request a quote
+            <span class="as-arw" aria-hidden="true">→</span>
+          </a>
+          <a href="/products" class="as-btn as-btn--ghost">All products</a>
         </div>
       </div>
     </div>
