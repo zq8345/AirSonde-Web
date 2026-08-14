@@ -2622,3 +2622,44 @@ select.as-field__input {
 .as-hero--page .as-hero__eyebrow {
   background: rgba(255, 255, 255, 0.92);
 }
+
+/* ---- About story block, tightened (Joe: 文字多而杂乱) --------------------- */
+/* Measured cause: after the photo came out, a 133px text block sat above
+   192px of emptiness, and nothing lined up on a shared grid. Fix: one 5/7
+   grid that the heading, the body AND the where-line all sit on, bigger
+   body type, and the dead space cut. */
+.as-abstory {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: baseline;
+}
+.as-abstory__body p {
+  font-size: var(--as-fs-lead);
+  line-height: 1.6;
+  max-width: 56ch;
+  color: var(--as-ink2);
+}
+.as-abstory__body p + p {
+  margin-top: 18px;
+}
+/* the where-line becomes the closing row OF that grid, not a floating strip */
+.as-abwhere {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: baseline;
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--as-line);
+}
+@media (max-width: 899px) {
+  .as-abstory,
+  .as-abwhere {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+/* close the gap the photo used to fill */
+.as-abstory-section {
+  padding-bottom: 40px;
+}
