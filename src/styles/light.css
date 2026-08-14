@@ -2612,3 +2612,11 @@ select.as-field__input {
   padding: 28px 24px;
   gap: 24px 16px;
 }
+
+/* The eyebrow pill's own backing is what caps its contrast (brand green tops
+   out at 5.23 on pure white). At 0.72 alpha over a busy hero it measured
+   4.29 on /products/; 0.92 buys back the headroom without looking like a
+   solid chip. */
+.as-hero--page .as-hero__eyebrow {
+  background: rgba(255, 255, 255, 0.92);
+}
