@@ -19,7 +19,10 @@ import {
 } from '../data/site';
 import { breadcrumbSchema } from '../lib/jsonld';
 import wechatQr from '../assets/photos/wechat-qr.webp';
-import heroPhoto from '../assets/photos/scene-office.jpg';
+// W14: Joe supplied a rendered reception scene. The previous office photo
+// stays in the repo — swap the two imports below to revert in one line.
+import heroPhoto from '../assets/photos/contact-support-hero.webp';
+// import heroPhoto from '../assets/photos/scene-office.jpg';
 
 const schemas = [
   breadcrumbSchema([
@@ -31,12 +34,12 @@ const schemas = [
 
 <LightBase title={META.contact.title} description={META.contact.description} schemas={schemas}>
   {/* 1 ── photo page-header (wanew page-header 对位, §3.2d) */}
-  <section class="as-hero as-hero--page" style="--hero-focus: 50% 45%">
+  <section class="as-hero as-hero--page" style="--hero-focus: 62% 46%">
     <Image
       src={heroPhoto}
-      alt="Office where AirSonde enquiries are answered"
+      alt="Reception area with staff at their desks"
       class="as-hero__img"
-      widths={[768, 1280, 1600]}
+      widths={[768, 1280, 1600, 2400]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"

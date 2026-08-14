@@ -12,6 +12,10 @@
  *   the factory hands over real per-model documents.
  */
 
+// W13: Joe supplied a rendered industrial-park view for the About hero. The
+// real production-line photo stays imported below — flip HERO_SOURCE back to
+// 'production-line' to revert in one line.
+import heroPark from '../assets/photos/about-hero-industrial-park.webp';
 import heroImg from '../assets/photos/factory/factory-assembly.webp';
 import imgCnc from '../assets/photos/factory/factory-cnc.webp';
 import imgQc from '../assets/photos/factory/factory-qc.webp';
@@ -25,12 +29,24 @@ export const ABOUT_META = {
     'AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group: 15+ years of OEM/ODM production, 150+ staff, in-house tooling, assembly and QC.',
 } as const;
 
+/** 'industrial-park' = Joe's rendered view · 'production-line' = the real photo */
+const HERO_SOURCE: 'industrial-park' | 'production-line' = 'industrial-park';
+
 export const ABOUT_HERO = {
-  photo: {
-    src: heroImg,
-    alt: 'Assembly line at the manufacturing facility behind AirSonde',
-    focus: '50% 42%',
-  },
+  photo:
+    HERO_SOURCE === 'industrial-park'
+      ? {
+          src: heroPark,
+          // ⛔ no wording that turns the render into a factual claim about a
+          // building we own — 总工 W13
+          alt: 'Industrial park exterior',
+          focus: '50% 62%',
+        }
+      : {
+          src: heroImg,
+          alt: 'Assembly line at the manufacturing facility behind AirSonde',
+          focus: '50% 42%',
+        },
   eyebrow: 'About AirSonde',
   heading: 'A product line, backed by a factory',
   lead: 'The IAQ line of an established Shenzhen manufacturing group. The brand is new; the floor behind it is not.',

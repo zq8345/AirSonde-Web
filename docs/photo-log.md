@@ -102,3 +102,23 @@ PNG → 2400px webp, 73KB). Same workspace scene, no baked marketing text,
 wider empty wall, device on the desk at left. Runs full-bleed with the nav
 floating over it (Joe's instruction). Portrait-release caveat unchanged:
 identifiable model, no release on file. Previous heroes stay in the repo.
+
+## Rendered scene images supplied by Joe (W13 / W14, 2026-08-13)
+
+⚠️ Both are **AI-rendered concept images, not photographs of any existing
+site or team**. Recorded here so a future window knows exactly what was
+swapped in — and what to swap back out when the factory supplies real
+photography (question 18 on the factory list asks for real exterior /
+line / assembly / QC / warehouse shots).
+
+| File | Source | Nature | Used for |
+|---|---|---|---|
+| `about-hero-industrial-park.webp` | Joe, `airsonde-headquarters-industrial-park-v4.png` (1672×941) | Rendered/AI building concept — a white plant + office block carrying an `airsonde` sign. **Not a photo of a building we own or occupy.** | /about/ hero |
+| `contact-support-hero.webp` | Joe, `contact-support-hero-v11.png` (1672×941) | Rendered/AI scene concept — reception area, `airsonde` wall sign, three staff figures. **Figures are AI-generated, not real people; not a photo of a real office.** | /contact/ hero |
+
+Both upscaled 1672→2400px (lanczos3 + light sharpen) because the site's
+other heroes are 2400px. ⛔ Per 总工: no page copy may describe either image
+("our headquarters", "our factory", "our support team") — a render with a
+caption becomes a factual claim. The previous real assets stay in the repo:
+`factory/factory-assembly.webp` (About) and `scene-office.jpg` (Contact),
+each revertable by one import line.

@@ -26,20 +26,29 @@ const schemas = [
     </div>
   </section>
 
+  {/* W15: big-image mode — the same panel language as the homepage's
+      "For every environment" band, but all four laid out (this is a
+      dedicated page; hiding three behind tabs would be a step back).
+      Flip LAYOUT to 'tabs' for the homepage-style switcher instead. */}
   <section class="as-section" style="padding-top:0">
     <div class="as-container">
-      <div class="as-scenes">
+      <div class="as-scenestack">
         {
-          SCENES_DATA.map((scene) => (
-            <a class="as-scene" href={`/solutions/${scene.slug}/`}>
+          SCENES_DATA.map((scene, i) => (
+            <a class="as-scenepanel is-active as-scenepanel--stacked" href={`/solutions/${scene.slug}/`}>
               <Image
                 src={scene.photo.src}
                 alt={scene.photo.alt}
-                widths={[420, 640]}
-                sizes="(min-width: 980px) 300px, (min-width: 560px) 45vw, 90vw"
-                loading="eager"
+                widths={[768, 1280, 1600]}
+                sizes="(min-width: 1240px) 1192px, 94vw"
+                quality={72}
+                loading={i === 0 ? 'eager' : 'lazy'}
               />
-              <span class="as-scene__label">{scene.label}</span>
+              <span class="as-scenepanel__cap">
+                <span class="as-scenepanel__eyebrow">{scene.label}</span>
+                <span class="as-scenepanel__line">{scene.homeLine}</span>
+                <span class="as-scenepanel__more">Read more →</span>
+              </span>
             </a>
           ))
         }
