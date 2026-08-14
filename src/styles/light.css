@@ -2209,11 +2209,16 @@ select.as-field__input {
 
 /* ---- 七条之5+6 ------------------------------------------------------------- */
 /* 5: page heroes stop drowning the factory photo — the desktop wash drops to
-   a left-weighted veil (text zone still backed; measured on production). */
-.as-hero--page .as-hero__wash {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.35) 84%, var(--as-bg) 100%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 100%);
+   a left-weighted veil (text zone still backed; measured on production).
+   ⚠️ Desktop only: this selector outranks the phone rule below, so without
+   the media query phones inherited the light veil too — measured 2.45 on the
+   About title at 375 (W13). The phone wash stays the strong one. */
+@media (min-width: 768px) {
+  .as-hero--page .as-hero__wash {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.35) 84%, var(--as-bg) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 100%);
+  }
 }
 /* 6: five quality steps stop breaking 4+1 — five across on wide screens,
    3+2 on middle widths, stacked on phones. */
