@@ -122,3 +122,11 @@ other heroes are 2400px. ⛔ Per 总工: no page copy may describe either image
 caption becomes a factual claim. The previous real assets stay in the repo:
 `factory/factory-assembly.webp` (About) and `scene-office.jpg` (Contact),
 each revertable by one import line.
+
+### products-hero-reception.webp (2026-08-13)
+
+Third Joe-supplied render (`airsonde-factory-reception.png`, 1672×941 →
+2400px webp). Reception desk with an `airsonde` wall sign, a product display
+shelf, and a production hall visible through glass. **AI-rendered concept,
+not a photograph; the person in frame is AI-generated.** Used for the
+/products/ hero. ⛔ Same rule as W13/W14: no page copy may describe it.

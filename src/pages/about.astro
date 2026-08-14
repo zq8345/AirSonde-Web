@@ -23,6 +23,8 @@ import {
   ABOUT_STORY,
   ABOUT_WHERE,
 } from '../data/about';
+// ABOUT_WHERE.photo is no longer rendered here (Joe) — the asset stays in the
+// data file so the where-line and the photo can be restored together.
 import { breadcrumbSchema } from '../lib/jsonld';
 
 const schemas = [
@@ -66,15 +68,8 @@ const schemas = [
           {ABOUT_STORY.paragraphs.map((p) => <p>{p}</p>)}
         </div>
       </div>
-      <figure class="as-abmedia">
-        <Image
-          src={ABOUT_WHERE.photo.src}
-          alt={ABOUT_WHERE.photo.alt}
-          widths={[960, 1400]}
-          sizes="(min-width: 1200px) 1140px, 94vw"
-          loading="lazy"
-        />
-      </figure>
+      {/* Joe: the office photo came off — the same floor is already shown in
+          the capability tiles below. The where-line stays. */}
       <p class="as-abwhere">
         {ABOUT_WHERE.label}
         <b>{ABOUT_WHERE.place}</b>

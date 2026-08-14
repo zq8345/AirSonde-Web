@@ -4,9 +4,13 @@
  * (ItemList + BreadcrumbList), title, description and the client-side
  * category filter behaviour are unchanged from the dark version.
  */
+import { Image } from 'astro:assets';
 import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
+// Joe 2026-08-13: rendered reception scene — see docs/photo-log.md, ⛔ no page
+// copy may describe it as a real place.
+import heroPhoto from '../../assets/photos/products-hero-reception.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
@@ -23,11 +27,22 @@ const schemas = [
 ---
 
 <LightBase title={META.products.title} description={META.products.description} schemas={schemas}>
-  <section class="as-section" style="padding-bottom:0">
-    <div class="as-container as-pagehead">
-      <p class="as-eyebrow">{PRODUCTS_PAGE.eyebrow}</p>
-      <h1 class="as-pagehead__title">{PRODUCTS_PAGE.heading}</h1>
-      <p class="as-pagehead__lead">{PRODUCTS_PAGE.intro}</p>
+  <section class="as-hero as-hero--page" style="--hero-focus: 30% 52%">
+    <Image
+      src={heroPhoto}
+      alt="Reception desk with a display shelf of monitors"
+      class="as-hero__img"
+      widths={[768, 1280, 1600, 2400]}
+      sizes="100vw"
+      quality={72}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="as-hero__wash" aria-hidden="true"></div>
+    <div class="as-container as-hero__in">
+      <p class="as-hero__eyebrow">{PRODUCTS_PAGE.eyebrow}</p>
+      <h1 class="as-hero__title">{PRODUCTS_PAGE.heading}</h1>
+      <p class="as-hero__lead">{PRODUCTS_PAGE.intro}</p>
     </div>
   </section>
 

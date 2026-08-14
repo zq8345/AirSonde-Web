@@ -2571,3 +2571,44 @@ select.as-field__input {
     );
   }
 }
+
+/* ---- About page pass 2 (Joe 2026-08-13) ---------------------------------- */
+/* hero: veil was heavier than this bright render needs, and the title sat
+   too high — both re-measured after the change, not guessed. */
+@media (min-width: 768px) {
+  .as-hero--page .as-hero__wash {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0.3) 86%, var(--as-bg) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.46) 40%, rgba(255, 255, 255, 0.12) 70%, rgba(255, 255, 255, 0) 100%);
+  }
+  .as-hero--page .as-hero__in {
+    padding-top: calc(var(--as-header-h) + 8vh);
+  }
+}
+/* story block: without the photo the two columns carry the section, so give
+   them room and let the where-line close it rather than float mid-air */
+.as-abstory {
+  align-items: start;
+  gap: 56px;
+  margin-bottom: 0;
+}
+.as-abwhere {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--as-line);
+}
+/* the capability tiles are the page's visual centre — let them breathe */
+.as-factory {
+  gap: 20px;
+}
+.as-factory figcaption {
+  background: rgba(255, 255, 255, 0.94);
+}
+/* stats read as one band, not six loose cells */
+.as-stats {
+  background: #fff;
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  padding: 28px 24px;
+  gap: 24px 16px;
+}
