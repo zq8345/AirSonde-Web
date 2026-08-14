@@ -2555,3 +2555,19 @@ select.as-field__input {
     gap: 18px;
   }
 }
+
+/* Stacked panels are much shorter on phones, so the desktop scrim (which
+   only bites below 40%) leaves the caption on bright floor/wall pixels —
+   measured 1.93 worst-case at 375. This recipe was trialled against all
+   four scenes before shipping: worst case 5.68. */
+@media (max-width: 767px) {
+  .as-scenepanel--stacked::after {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 12, 15, 0) 0%,
+      rgba(10, 12, 15, 0.06) 10%,
+      rgba(10, 12, 15, 0.6) 40%,
+      rgba(10, 12, 15, 0.95) 100%
+    );
+  }
+}
