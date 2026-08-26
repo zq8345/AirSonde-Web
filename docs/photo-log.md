@@ -130,17 +130,3 @@ Third Joe-supplied render (`airsonde-factory-reception.png`, 1672×941 →
 shelf, and a production hall visible through glass. **AI-rendered concept,
 not a photograph; the person in frame is AI-generated.** Used for the
 /products/ hero. ⛔ Same rule as W13/W14: no page copy may describe it.
-
-## Children photo removed from the 7-inch monitor (W17 step 1, 2026-08-26)
-
-The supplier listing photo for `7in-desktop-air-quality-monitor` showed two
-identifiable children and a dog in a home setting, with no release on file —
-the site's only real legal exposure, on 16 URLs (listing, its own page, and
-the related-products card on 14 desktop product pages).
-
-**Fixed by cropping to the device**, not by retiring the product: the URL,
-the product and every internal link survive, and the same listing photo still
-backs the same product — only the people are out of frame. Crop is expressed
-in `scripts/build-product-images.mjs` (`CROP['13-']`) so regenerating the
-images cannot bring the children back; the original stays in `originals/`
-for provenance and is never imported by a page.

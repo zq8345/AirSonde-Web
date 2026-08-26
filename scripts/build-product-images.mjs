@@ -54,21 +54,10 @@ const MAP = {
 };
 
 /**
- * W17 step 1 — crops applied BEFORE the trim, as fractions of the original
- * frame. This is the durable half of the children-photo fix: the supplier's
- * listing photo for 13- shows two identifiable children and a dog with no
- * release on file, so the pipeline ships the device only. Fixing just the
- * .webp would be undone the next time this script runs.
- */
-const CROP = {
-  '13-': { left: 0.1533, top: 0.3633, width: 0.7333, height: 0.5867 },
-};
-
-/**
- * Draft membership is read from the product records themselves — it used to
- * be a hardcoded list, which went stale when 11 products were published
- * (04f82b0) and would have written their images into _draft/ where no page
- * looks for them.
+ * Draft membership is read from the product records themselves. It used to be
+ * a hardcoded list, which went stale when 11 products were published
+ * (04f82b0): a run would have written their images into _draft/, where no
+ * page looks for them.
  */
 const CONTENT = 'src/content/products';
 const DRAFT = new Set();
@@ -97,22 +86,7 @@ for (const file of files) {
   // picture-in-picture look on cards. Trim to the product's bounding box at
   // build time (originals stay untouched); the card CSS then scales the
   // product to fill its media area.
-  const crop = CROP[key];
-  let source = sharp(path.join(SRC, file));
-  if (crop) {
-    const dims = await source.metadata();
-    source = sharp(
-      await sharp(path.join(SRC, file))
-        .extract({
-          left: Math.round(dims.width * crop.left),
-          top: Math.round(dims.height * crop.top),
-          width: Math.round(dims.width * crop.width),
-          height: Math.round(dims.height * crop.height),
-        })
-        .toBuffer(),
-    );
-  }
-  const trimmed = await source.trim({ threshold: 12 }).toBuffer();
+  const trimmed = await sharp(path.join(SRC, file)).trim({ threshold: 12 }).toBuffer();
   const meta = await sharp(trimmed).metadata();
   await sharp(trimmed)
     .resize({ width: Math.min(meta.width ?? MAX_WIDTH, MAX_WIDTH), withoutEnlargement: true })
