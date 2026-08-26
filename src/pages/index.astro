@@ -270,12 +270,19 @@ const whyCards = [
               data-scene={String(i)}
               href={`/solutions/${scene.slug}/`}
             >
+              {/* W17 R1+Y7: every panel is lazy — the module sits at y≈2528,
+                  so eager here only bought a 137KB first-screen bill (Y7).
+                  Lazy alone is not enough either: the inactive panels are
+                  display:none, and a lazy image in a hidden subtree is never
+                  requested, not even after it is revealed (measured: no
+                  network entry 4s after the tab was clicked). The tab script
+                  kicks the fetch on activate/hover. */}
               <Image
                 src={scene.photo.src}
                 alt={scene.photo.alt}
                 widths={[1280, 1600]}
                 sizes="(min-width: 1200px) 1140px, 94vw"
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading="lazy"
               />
               <span class="as-scenepanel__cap">
                 <span class="as-scenepanel__eyebrow">{scene.label}</span>
@@ -398,9 +405,29 @@ const whyCards = [
   if (wrap && stage) {
     const tabs = wrap.querySelectorAll<HTMLButtonElement>('.as-scenetab');
     const panels = stage.querySelectorAll<HTMLElement>('.as-scenepanel');
+
+    /**
+     * A lazy <img> inside a display:none subtree is never requested, and
+     * revealing it does not start the request either — the panel just showed
+     * its scrim over nothing. Kick the fetch ourselves when a panel is about
+     * to be shown (and on hover, so the image is usually there by the click).
+     */
+    const ensureLoaded = (panel: HTMLElement | null) => {
+      const img = panel?.querySelector<HTMLImageElement>('img');
+      if (!img || img.complete) return;
+      img.loading = 'eager';
+      const { src, srcset } = img;
+      if (srcset) img.srcset = srcset;
+      img.src = src;
+    };
+    const panelFor = (id: string | null) =>
+      [...panels].find((p) => p.getAttribute('data-scene') === id) ?? null;
+
     tabs.forEach((tab) => {
+      const id = tab.getAttribute('data-scene');
+      tab.addEventListener('pointerenter', () => ensureLoaded(panelFor(id)));
       tab.addEventListener('click', () => {
-        const id = tab.getAttribute('data-scene');
+        ensureLoaded(panelFor(id));
         tabs.forEach((t) => {
           const on = t === tab;
           t.classList.toggle('is-active', on);
