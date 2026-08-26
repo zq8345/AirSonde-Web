@@ -1,5 +1,5 @@
 import { SITE } from '../data/site';
-import type { Product } from './products';
+import { categoryLabel, productTypePhrase, type Product } from './products';
 
 const ORG_ID = `${SITE.url}/#organization`;
 
@@ -43,6 +43,7 @@ export function websiteSchema() {
 
 export function productSchema(product: Product, imageUrls: string[]) {
   const { slug, name, model, category, sensors, highlights, specs } = product.data;
+  const typePhrase = productTypePhrase(category);
 
   return {
     '@context': 'https://schema.org',
@@ -51,10 +52,15 @@ export function productSchema(product: Product, imageUrls: string[]) {
     name,
     sku: model,
     mpn: model,
-    category,
+    // the raw enum is an internal value; only ship it when it names a real
+    // category ('other' names nothing a buyer or a crawler can use)
+    ...(typePhrase ? { category: categoryLabel(category) } : {}),
     url: `${SITE.url}/products/${slug}/`,
     image: imageUrls,
-    description: `${name} (${model}) — ${category} indoor air quality monitor measuring ${sensors.join(', ')}. Manufactured by ${SITE.brand} for OEM and ODM programmes under the customer's own brand.`,
+    description:
+      `${name} (${model}) — ` +
+      (typePhrase ? `${typePhrase} measuring ` : 'measuring ') +
+      `${sensors.join(', ')}. Manufactured by ${SITE.brand} for OEM and ODM programmes under the customer's own brand.`,
     brand: { '@type': 'Brand', name: SITE.brand },
     manufacturer: { '@id': ORG_ID },
     ...(highlights?.length ? { slogan: highlights[0] } : {}),

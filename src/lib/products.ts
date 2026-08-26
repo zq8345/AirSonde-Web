@@ -51,6 +51,29 @@ export function categoryLabel(category: string): string {
 }
 
 /**
+ * W17 R4 — the truthful product-type phrase for machine-readable text.
+ *
+ * 🔴 `other` deliberately has no entry. It is the catch-all bucket holding
+ * breathalysers, a Geiger counter and a heat-index meter; the old schema
+ * interpolated the raw enum into "<category> indoor air quality monitor",
+ * which told every crawler and LLM that a Geiger counter measures indoor air
+ * quality — and leaked the internal word "other" as an English adjective.
+ * When we cannot name the type honestly we say nothing, we do not invent a
+ * fallback word. Single source: this map, used by the schema builders.
+ */
+const PRODUCT_TYPE_PHRASES: Record<string, string> = {
+  desktop: 'desktop indoor air quality monitor',
+  portable: 'portable indoor air quality monitor',
+  'wall-mounted': 'wall-mounted indoor air quality monitor',
+  wearable: 'wearable indoor air quality monitor',
+  industrial: 'industrial indoor air quality monitor',
+};
+
+export function productTypePhrase(category: string): string | null {
+  return PRODUCT_TYPE_PHRASES[category] ?? null;
+}
+
+/**
  * 七条之3: the 2-3 chips a buyer scans on a card. Priority picks the
  * discriminating sensors first; T/RH are never padded in (every unit has
  * them). Products outside the IAQ set (radiation, alcohol) fall back to
