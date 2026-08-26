@@ -11,7 +11,7 @@ import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { PRODUCTS_PAGE, SITE } from '../../data/site';
 import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
-import { categoryLabel, getPublishedProducts, resolveProductImage } from '../../lib/products';
+import { categoryLabel, getPublishedProducts, resolveProductImage, sensorLabels } from '../../lib/products';
 
 export const getStaticPaths = (async () => {
   const products = await getPublishedProducts();
@@ -40,10 +40,10 @@ const relatedHeading =
 const glance =
   specs && Object.keys(specs).length > 0
     ? specs
-    : { Model: model, 'Form factor': categoryLabel(category), Sensing: sensors.join(', ') };
+    : { Model: model, 'Form factor': categoryLabel(category), Sensing: sensorLabels(sensors).join(', ') };
 
 const title = `${name} (${model}) — OEM / ODM | ${SITE.brand}`;
-const description = `${name}, model ${model}. ${sensors.join(', ')} sensing. Built to order for OEM and ODM programmes under your own brand.`;
+const description = `${name}, model ${model}. ${sensorLabels(sensors).join(', ')} sensing. Built to order for OEM and ODM programmes under your own brand.`;
 
 // Absolute URLs of the emitted assets, so structured data points at files that
 // actually exist rather than at the source paths.
@@ -109,7 +109,7 @@ const schemas = [
 
         <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.sensing}</h2>
         <ul class="as-sensor-pills">
-          {sensors.map((sensor) => <li>{sensor}</li>)}
+          {sensorLabels(sensors).map((sensor) => <li>{sensor}</li>)}
         </ul>
 
         {

@@ -1,5 +1,5 @@
 import { SITE } from '../data/site';
-import { categoryLabel, productTypePhrase, type Product } from './products';
+import { categoryLabel, productTypePhrase, sensorLabels, type Product } from './products';
 
 const ORG_ID = `${SITE.url}/#organization`;
 
@@ -60,7 +60,7 @@ export function productSchema(product: Product, imageUrls: string[]) {
     description:
       `${name} (${model}) — ` +
       (typePhrase ? `${typePhrase} measuring ` : 'measuring ') +
-      `${sensors.join(', ')}. Manufactured by ${SITE.brand} for OEM and ODM programmes under the customer's own brand.`,
+      `${sensorLabels(sensors).join(', ')}. Manufactured by ${SITE.brand} for OEM and ODM programmes under the customer's own brand.`,
     brand: { '@type': 'Brand', name: SITE.brand },
     manufacturer: { '@id': ORG_ID },
     ...(highlights?.length ? { slogan: highlights[0] } : {}),
@@ -68,7 +68,7 @@ export function productSchema(product: Product, imageUrls: string[]) {
       {
         '@type': 'PropertyValue',
         name: 'Measured parameters',
-        value: sensors.join(', '),
+        value: sensorLabels(sensors).join(', '),
       },
       ...Object.entries(specs ?? {}).map(([key, value]) => ({
         '@type': 'PropertyValue',

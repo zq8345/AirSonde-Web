@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import taxonomy from '../data/taxonomy.json';
 
 export type Product = CollectionEntry<'products'>;
 
@@ -37,17 +38,36 @@ export function categoriesOf(products: Product[]): string[] {
   return [...new Set(products.map((p) => p.data.category))].sort();
 }
 
-export const CATEGORY_LABELS: Record<string, string> = {
-  desktop: 'Desktop',
-  portable: 'Portable',
-  'wall-mounted': 'Wall-mounted',
-  wearable: 'Wearable',
-  industrial: 'Industrial',
-  other: 'Other',
-};
+/**
+ * Contract v1.4: labels and ordering for both axes come from
+ * src/data/taxonomy.json. ⛔ Do not re-inline them here — the whole point of
+ * that file is that the admin can edit one place.
+ *
+ * Unknown values fall back to the raw value rather than throwing: a record
+ * can only carry a value the build already validated against the same file,
+ * so this branch means "taxonomy edited mid-flight", and a readable string
+ * beats a crash.
+ */
+export const CATEGORY_LABELS: Record<string, string> = Object.fromEntries(
+  taxonomy.categories.map((c) => [c.value, c.label]),
+);
+
+const SENSOR_LABELS: Record<string, string> = Object.fromEntries(
+  taxonomy.sensors.map((s) => [s.value, s.label]),
+);
 
 export function categoryLabel(category: string): string {
   return CATEGORY_LABELS[category] ?? category;
+}
+
+/** Display name for a stored sensor value (contract v1.4). */
+export function sensorLabel(sensor: string): string {
+  return SENSOR_LABELS[sensor] ?? sensor;
+}
+
+/** Stored sensor values rendered as their display names, order preserved. */
+export function sensorLabels(sensors: readonly string[]): string[] {
+  return sensors.map(sensorLabel);
 }
 
 /**

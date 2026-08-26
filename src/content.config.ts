@@ -8,33 +8,28 @@ import { glob } from 'astro/loaders';
  * Required stays required on purpose: a missing field must fail the build, not
  * fall back to "" and ship a silently empty page.
  */
-export const CATEGORIES = [
-  'desktop',
-  'portable',
-  'wall-mounted',
-  'wearable',
-  'industrial',
-  'other',
-] as const;
+/**
+ * Contract v1.4: the allowed values for both taxonomy axes come from
+ * src/data/taxonomy.json — the single source of truth the admin will edit.
+ * ⛔ Do not re-inline these arrays; a second copy is how the two drift apart.
+ *
+ * Deleting a value that a product still stores makes z.enum reject that
+ * record and the build fails. That is deliberate — it is the backstop behind
+ * the admin's delete guard, not an accident.
+ */
+import taxonomy from './data/taxonomy.json';
 
-export const SENSORS = [
-  'CO2',
-  // Added by contract v1.1 (2026-08-10): household CO alarms are indoor air
-  // safety, and neither CO2 nor combustible-gas describes them.
-  'CO',
-  'PM1.0',
-  'PM2.5',
-  'PM10',
-  'HCHO',
-  'TVOC',
-  'temperature',
-  'humidity',
-  'AQI',
-  'radiation',
-  'alcohol',
-  'WBGT',
-  'combustible-gas',
-] as const;
+const byOrder = (a: { order: number }, b: { order: number }) => a.order - b.order;
+
+export const CATEGORIES = taxonomy.categories
+  .slice()
+  .sort(byOrder)
+  .map((c) => c.value) as [string, ...string[]];
+
+export const SENSORS = taxonomy.sensors
+  .slice()
+  .sort(byOrder)
+  .map((s) => s.value) as [string, ...string[]];
 
 const products = defineCollection({
   loader: glob({ pattern: '*.json', base: './src/content/products' }),
