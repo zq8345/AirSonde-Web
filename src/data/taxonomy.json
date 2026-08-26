@@ -1,5 +1,5 @@
 {
-  "$comment": "Contract v1.4 — the single source of truth for the two taxonomy axes. Product records still store the `value`; only the set of allowed values and their display names live here. value is immutable once created (it is in the product data); editing means label/order only; deleting a value that a product still uses fails the build on purpose. Sensor labels start identical to their values so nothing user-facing changed on the day this moved here.",
+  "$comment": "Contract v1.4 — the single source of truth for the two taxonomy axes. Product records still store the `value`; only the set of allowed values and their display names live here. value is immutable once created (it is in the product data); editing means label/order only. 🔴 Deleting a value that products still use does NOT reliably fail the website build: measured 2026-08-26, the enum only rejects those records when the content store starts cold, and editing this file alone does not trigger re-validation — so the delete guard in the admin is the only real defence, not a second line behind the build. Sensor labels start identical to their values so nothing user-facing changed on the day this moved here.",
   "categories": [
     {
       "value": "desktop",

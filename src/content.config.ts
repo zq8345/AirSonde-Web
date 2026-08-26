@@ -13,9 +13,13 @@ import { glob } from 'astro/loaders';
  * src/data/taxonomy.json — the single source of truth the admin will edit.
  * ⛔ Do not re-inline these arrays; a second copy is how the two drift apart.
  *
- * Deleting a value that a product still stores makes z.enum reject that
- * record and the build fails. That is deliberate — it is the backstop behind
- * the admin's delete guard, not an accident.
+ * 🔴 Do NOT treat this enum as a safety net for deletions. Measured 2026-08-26
+ * (W18 criterion 3): removing a value that products still store only fails the
+ * build when the content store starts cold. Astro re-validates records when
+ * this config file changes — editing taxonomy.json alone does not count, so a
+ * whole catalogue can pass validation that should have rejected it, and the
+ * failure surfaces later, on an unrelated commit, with the cause long gone.
+ * ⇒ The admin's delete guard is the only real defence. Nothing here backs it up.
  */
 import taxonomy from './data/taxonomy.json';
 
