@@ -1197,13 +1197,18 @@ ol {
   padding: 0;
   overflow: hidden;
   display: block;
-  aspect-ratio: 4 / 3;
 }
+/* ⚠️ Measured: forcing a 4:3 card made this WORSE — these products are
+   portrait, so a landscape card filled the height and left half the width
+   empty (52.5% vs the 70.4% it started at). The card takes the image's own
+   proportions instead, so the product fills it; the cap only bites on very
+   tall sources, and contain still guarantees nothing is cropped. */
 .as-pdp__stage img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 70vh;
   display: block;
-  object-fit: contain; /* never crop a product; the card is sized to it */
+  object-fit: contain;
 }
 .as-pdp__thumbs {
   margin-top: 12px;
