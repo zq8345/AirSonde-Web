@@ -6,7 +6,7 @@
  *
  * Run: pnpm images:build
  */
-import { mkdir, readdir, stat } from 'node:fs/promises';
+import { mkdir, readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -53,20 +53,30 @@ const MAP = {
   '17-': 'geiger-counter',
 };
 
-/** Output basenames that belong to draft records. */
-const DRAFT = new Set([
-  '7in-desktop-air-quality-monitor',
-  'mini-co2-desktop-monitor',
-  'co2-desktop-monitor',
-  'compact-9in1-desktop-monitor',
-  'wifi-9in1-desktop-monitor',
-  'wall-mount-co2-tvoc-monitor',
-  'wbgt-heat-index-monitor',
-  'pump-breathalyser',
-  'portable-breathalyser',
-  'app-breathalyser',
-  'geiger-counter',
-]);
+/**
+ * W17 step 1 — crops applied BEFORE the trim, as fractions of the original
+ * frame. This is the durable half of the children-photo fix: the supplier's
+ * listing photo for 13- shows two identifiable children and a dog with no
+ * release on file, so the pipeline ships the device only. Fixing just the
+ * .webp would be undone the next time this script runs.
+ */
+const CROP = {
+  '13-': { left: 0.1533, top: 0.3633, width: 0.7333, height: 0.5867 },
+};
+
+/**
+ * Draft membership is read from the product records themselves — it used to
+ * be a hardcoded list, which went stale when 11 products were published
+ * (04f82b0) and would have written their images into _draft/ where no page
+ * looks for them.
+ */
+const CONTENT = 'src/content/products';
+const DRAFT = new Set();
+for (const name of await readdir(CONTENT)) {
+  if (!name.endsWith('.json')) continue;
+  const record = JSON.parse(await readFile(path.join(CONTENT, name), 'utf8'));
+  if (record.status === 'draft') DRAFT.add(record.slug);
+}
 
 await mkdir(OUT, { recursive: true });
 await mkdir(path.join(OUT, '_draft'), { recursive: true });
@@ -87,7 +97,22 @@ for (const file of files) {
   // picture-in-picture look on cards. Trim to the product's bounding box at
   // build time (originals stay untouched); the card CSS then scales the
   // product to fill its media area.
-  const trimmed = await sharp(path.join(SRC, file)).trim({ threshold: 12 }).toBuffer();
+  const crop = CROP[key];
+  let source = sharp(path.join(SRC, file));
+  if (crop) {
+    const dims = await source.metadata();
+    source = sharp(
+      await sharp(path.join(SRC, file))
+        .extract({
+          left: Math.round(dims.width * crop.left),
+          top: Math.round(dims.height * crop.top),
+          width: Math.round(dims.width * crop.width),
+          height: Math.round(dims.height * crop.height),
+        })
+        .toBuffer(),
+    );
+  }
+  const trimmed = await source.trim({ threshold: 12 }).toBuffer();
   const meta = await sharp(trimmed).metadata();
   await sharp(trimmed)
     .resize({ width: Math.min(meta.width ?? MAX_WIDTH, MAX_WIDTH), withoutEnlargement: true })
