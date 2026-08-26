@@ -30,11 +30,6 @@
       "value": "other",
       "label": "Other",
       "order": 6
-    },
-    {
-      "value": "a",
-      "label": "a",
-      "order": 7
     }
   ],
   "sensors": [
