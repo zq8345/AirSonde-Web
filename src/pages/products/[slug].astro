@@ -29,6 +29,20 @@ const gallery = (images.gallery ?? []).map((path) => ({
   src: resolveProductImage(path),
   path,
 }));
+/**
+ * W19: one ordered list drives the stage and the thumbnail row.
+ * ⚠️ The strip appears only when there really is more than one image — 17 of
+ * the 23 records carry no gallery, and a single thumbnail duplicating the
+ * stage reads as a bug rather than a control.
+ */
+const allImages = [main, ...gallery.map((g) => g.src)];
+const hasThumbs = allImages.length > 1;
+// Full-size URL per image so a thumbnail click can swap the stage without
+// shipping every variant up front (the first image keeps its responsive
+// srcset, which is the LCP path).
+const fullUrls = await Promise.all(
+  allImages.map(async (src) => (await getImage({ src, width: 960, format: 'webp' })).src),
+);
 
 const related = siblings.filter((p) => p.data.category === category).slice(0, 3);
 // "Other other monitors" was live for the 'other' category — special-case it
@@ -81,21 +95,24 @@ const schemas = [
             widths={[480, 720, 960]}
             sizes="(min-width: 1024px) 560px, 90vw"
             loading="eager"
+            data-pdp-main
           />
         </div>
 
         {
-          gallery.length > 0 && (
-            <ul class="as-pdp__thumbs">
-              {gallery.map((item) => (
+          hasThumbs && (
+            <ul class="as-pdp__thumbs" data-pdp-thumbs>
+              {allImages.map((src, i) => (
                 <li>
-                  <Image
-                    src={item.src}
-                    alt={`${name} — alternative view`}
-                    widths={[160, 240]}
-                    sizes="120px"
-                    loading="lazy"
-                  />
+                  <button
+                    type="button"
+                    class:list={['as-pdp__thumb', { 'is-active': i === 0 }]}
+                    data-full={fullUrls[i]}
+                    aria-label={`View image ${i + 1} of ${allImages.length}`}
+                    aria-current={i === 0 ? 'true' : 'false'}
+                  >
+                    <Image src={src} alt="" widths={[160, 240]} sizes="120px" loading="lazy" />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -163,3 +180,26 @@ const schemas = [
     }
   </div>
 </LightBase>
+
+<script>
+  // W19: thumbnails switch the stage image (wanew's behaviour). Swapping the
+  // src means dropping srcset/sizes, otherwise the browser keeps picking from
+  // the old candidate list.
+  const thumbs = document.querySelector<HTMLElement>('[data-pdp-thumbs]');
+  const stage = document.querySelector<HTMLImageElement>('[data-pdp-main]');
+  if (thumbs && stage) {
+    thumbs.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.as-pdp__thumb');
+      const full = button?.dataset.full;
+      if (!button || !full) return;
+      stage.removeAttribute('srcset');
+      stage.removeAttribute('sizes');
+      stage.src = full;
+      for (const other of thumbs.querySelectorAll('.as-pdp__thumb')) {
+        const on = other === button;
+        other.classList.toggle('is-active', on);
+        other.setAttribute('aria-current', String(on));
+      }
+    });
+  }
+</script>
