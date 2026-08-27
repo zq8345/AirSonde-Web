@@ -626,11 +626,17 @@ ol {
   text-transform: uppercase;
   color: var(--as-accent);
 }
+/* W22④ (Joe): the title block always occupies two lines — long titles clamp
+   to two (unchanged), short ones keep the second line's height — so cards in
+   a row end up the same height and the chip rows line up.
+   ⛔ Expressed in lines, never a px height: the type scale steps down at 1023
+   and 767, and a hardcoded number would be wrong the moment it does. */
 .as-pcard__name {
   margin-top: 6px;
   font-size: var(--as-fs-compact);
   font-weight: 600;
   line-height: 1.4;
+  min-height: calc(2 * 1.4em);
   color: var(--as-ink);
   display: -webkit-box;
   -webkit-line-clamp: 2;
