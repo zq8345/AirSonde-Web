@@ -1,7 +1,7 @@
 {
   "slug": "compact-9in1-desktop-monitor",
-  "name": "Compact 9-in-1 Desktop Monitor",
-  "model": "AS-D9M",
+  "name": "AK16C-Compact 9-in-1 Desktop Monitor",
+  "model": "AK16C",
   "category": "desktop",
   "sensors": [
     "CO2",
@@ -12,10 +12,18 @@
     "TVOC",
     "temperature",
     "humidity",
-    "AQI"
+    "AQI",
+    "Time"
   ],
   "images": {
-    "main": "products/compact-9in1-desktop-monitor.webp"
+    "main": "products/compact-9in1-desktop-monitor.webp",
+    "gallery": [
+      "products/compact-9in1-desktop-monitor-2.webp",
+      "products/compact-9in1-desktop-monitor-3.webp",
+      "products/compact-9in1-desktop-monitor-4.webp",
+      "products/compact-9in1-desktop-monitor-5.webp",
+      "products/compact-9in1-desktop-monitor-6.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Monitor-Detector_1601124548595.html",
   "status": "published"
