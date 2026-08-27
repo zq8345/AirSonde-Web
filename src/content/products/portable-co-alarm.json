@@ -1,7 +1,7 @@
 {
   "slug": "portable-co-alarm",
-  "name": "Portable Carbon Monoxide Alarm",
-  "model": "AS-P1C",
+  "name": "AK18-Portable Carbon Monoxide Alarm",
+  "model": "AK18",
   "category": "portable",
   "sensors": [
     "CO"
