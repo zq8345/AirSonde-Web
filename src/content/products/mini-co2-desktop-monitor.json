@@ -11,7 +11,10 @@
     "humidity"
   ],
   "images": {
-    "main": "products/mini-co2-desktop-monitor.webp"
+    "main": "products/mini-co2-desktop-monitor.webp",
+    "gallery": [
+      "products/mini-co2-desktop-monitor-2.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Analyzer-Monitor-Quality-Detector_1600310647343.html",
   "status": "published"
