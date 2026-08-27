@@ -1233,6 +1233,10 @@ ol {
   gap: 48px;
   align-items: start;
   margin-top: 30px;
+  /* W26: the h1's line cap. Set here so the two-column rule and the narrow
+     layout can differ — on one column the right side is not competing with
+     anything, so a longer title costs nothing. */
+  --as-pdp-title-lines: 6;
 }
 /* ⚠️ Measured: without this the single-row thumbnail strip pushed the whole
    page to 716px at a 375 viewport instead of scrolling inside itself — a grid
@@ -1352,6 +1356,14 @@ ol {
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: thin;
+  /* ⚠️ W26 measured: the strip was 88px on most records and 98px on the two
+     whose nine thumbnails overflow — the scrollbar's own height — so the left
+     column came out 672px on some products and 682px on others. A fixed height
+     makes it one number whatever the image count and whatever the platform
+     does with scrollbars (overlay ones take no space at all).
+     ⚠️ `scrollbar-gutter: stable` was tried first and measured inert here:
+     the non-overflowing strips stayed 88px. Not left in. */
+  height: 100px;
   padding-bottom: 4px;
 }
 .as-pdp__thumbs li {
@@ -1387,6 +1399,9 @@ ol {
     width: 68px;
     height: 68px;
   }
+  .as-pdp__thumbs {
+    height: 84px;
+  }
 }
 .as-pdp__meta {
   font-size: var(--as-fs-micro);
@@ -1402,6 +1417,15 @@ ol {
   letter-spacing: -0.02em;
   font-weight: 700;
   color: var(--as-ink);
+  /* W26: capped at N lines with an ellipsis so no record can push the right
+     column past the (now constant) left one. ⛔ Display only — the element
+     still contains the whole title, and <title>, the meta description and
+     Product.name are untouched. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--as-pdp-title-lines);
+  line-clamp: var(--as-pdp-title-lines);
+  overflow: hidden;
 }
 /* W23③: robustness against the long titles the catalogue really carries — the
    201-char record ran to 8 lines at 1440 and pushed the sensing pills and the
@@ -1508,22 +1532,34 @@ ol {
 @media (min-width: 900px) {
   .as-pdp {
     align-items: stretch;
+    /* ⚠️ Two, from measurement, not taste. The left column is a constant 684px
+       here. The tallest right column across all 24 records is 659.86px with a
+       two-line title — 24.14px of headroom — and a third line costs about
+       40px. So a three-line cap would let a record that renders fine today
+       overflow the moment its title grew by one line. Two lines is the largest
+       cap that holds for every record in the catalogue.
+       ⚠️ The binding factor is not really the title: the same right column is
+       also driven by the sensor pills and the spec rows, which the admin
+       edits. A line cap bounds the title's contribution, not theirs. */
+    --as-pdp-title-lines: 2;
   }
   .as-pdp__media,
   .as-pdp__info {
     display: flex;
     flex-direction: column;
   }
-  /* ⚠️ The frame is a fixed square now, so it must NOT flex — stretching it
-     would be exactly the aspect-ratio break the square is there to prevent.
-     The column's slack goes between the frame and the strip instead, which
-     also pins the strip to the bottom edge. */
+  /* ⚠️ The frame is a fixed square, so it must NOT flex — stretching it would
+     be exactly the aspect-ratio break the square is there to prevent. */
   .as-pdp__media .as-pdp__stage {
     flex: 0 0 auto;
   }
-  .as-pdp__media .as-pdp__thumbs {
-    margin-top: auto;
-  }
+  /* ⚠️ W26 removed `margin-top: auto` from the thumbnail strip. It pinned the
+     strip to the bottom of a column that had been stretched to match the right
+     one — so the gap between the frame and the strip was
+     (right column height − frame − strip), i.e. it grew with the title and
+     differed from product to product. The strip follows the frame at a fixed
+     12px now, which makes the LEFT column a constant height, and the right
+     column is what adapts to it. */
   .as-pdp__info .as-spec {
     margin-bottom: 32px;
   }
