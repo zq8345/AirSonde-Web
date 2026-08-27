@@ -228,16 +228,23 @@ const schemas = [
         other.setAttribute('aria-current', String(on));
       }
       if (!scrollIntoView) return;
-      // Keep the active thumbnail inside the strip's own scroll box; using
-      // the element's offset rather than scrollIntoView avoids yanking the
-      // whole page when the strip is already visible.
+      // Keep the active thumbnail inside the strip's own scroll box; working
+      // from the element's offset rather than scrollIntoView avoids yanking
+      // the whole page when the strip is already visible.
+      // ⚠️ Measured: assigning scrollLeft does nothing while the element has
+      // scroll-behavior: smooth — it stayed at 0 even 800ms later. scrollTo()
+      // is the call that actually moves it.
       const strip = thumbs.getBoundingClientRect();
       const item = button.getBoundingClientRect();
+      let left = thumbs.scrollLeft;
       if (item.left < strip.left) {
-        thumbs.scrollLeft += item.left - strip.left - 12;
+        left += item.left - strip.left - 12;
       } else if (item.right > strip.right) {
-        thumbs.scrollLeft += item.right - strip.right + 12;
+        left += item.right - strip.right + 12;
+      } else {
+        return;
       }
+      thumbs.scrollTo({ left, behavior: 'smooth' });
     };
 
     thumbs.addEventListener('click', (event) => {
