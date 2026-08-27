@@ -1,7 +1,7 @@
 {
   "slug": "compact-square-air-quality-monitor",
-  "name": "Compact Square Air Quality Monitor",
-  "model": "AS-D9C",
+  "name": "AK23B-Compact Square Air Quality Monitor",
+  "model": "AK23B",
   "category": "desktop",
   "sensors": [
     "CO2",
@@ -12,7 +12,8 @@
     "TVOC",
     "temperature",
     "humidity",
-    "AQI"
+    "AQI",
+    "Time"
   ],
   "highlights": [
     "Square footprint, small enough for a desk or shelf",
@@ -27,7 +28,10 @@
   "images": {
     "main": "products/compact-square-air-quality-monitor.webp",
     "gallery": [
-      "products/compact-square-air-quality-monitor-2.webp"
+      "products/compact-square-air-quality-monitor-3.webp",
+      "products/compact-square-air-quality-monitor-4.webp",
+      "products/compact-square-air-quality-monitor-5.webp",
+      "products/compact-square-air-quality-monitor-6.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Electrochemistry-HCHO-Infrared-CO2-Tester-Indoor_1601288804636.html",
