@@ -1192,6 +1192,13 @@ ol {
   align-items: start;
   margin-top: 30px;
 }
+/* ⚠️ Measured: without this the single-row thumbnail strip pushed the whole
+   page to 716px at a 375 viewport instead of scrolling inside itself — a grid
+   item's default min-width is its content, so the track's minmax(0, 1fr)
+   alone does not contain it. */
+.as-pdp > * {
+  min-width: 0;
+}
 /* W19 (Joe, ref wanew product pages): the product filled a little over half
    its card because the card's own 28px padding stacked on top of the white
    margin baked into the source photo, and a 440px cap held it back on top of
