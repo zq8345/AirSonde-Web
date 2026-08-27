@@ -168,10 +168,10 @@ export const PRODUCTS_PAGE = {
     'The platforms most programmes start from. Housing, display, firmware and sensing are specified with you.',
   filterLabel: 'Filter by category',
   emptyState: 'No products in that category yet.',
-  detailCta: {
-    body:
-      'Specified with you before anything is built. Send the market and volumes; we come back with a build path.',
-  },
+  /* W26: `detailCta.body` was deleted with the panel it filled. Grepped first —
+     the product detail page was its only reader, so keeping it would have left
+     a string that renders nowhere, which this repo has revived by accident
+     twice. */
   sectionHeadings: {
     sensing: 'Sensing',
     highlights: 'What it is',

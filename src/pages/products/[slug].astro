@@ -168,13 +168,13 @@ const schemas = [
           }
         </dl>
 
-        <div class="as-pdp__cta">
-          <p>{PRODUCTS_PAGE.detailCta.body}</p>
-          <a href="/contact" class="as-btn as-btn--primary">
-            Enquire about {model}
-            <span class="as-arw" aria-hidden="true">→</span>
-          </a>
-        </div>
+        {/* W26: the enquiry line and its grey panel are gone; the button is
+            the whole of the column's foot and is what aligns with the
+            thumbnail strip. */}
+        <a href="/contact" class="as-btn as-btn--primary as-pdp__enquire">
+          Enquire about {model}
+          <span class="as-arw" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
 

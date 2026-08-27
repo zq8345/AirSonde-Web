@@ -1501,19 +1501,12 @@ ol {
   font-size: var(--as-fs-compact);
   color: var(--as-ink);
 }
-.as-pdp__cta {
+/* W26: the enquiry button stands on its own — the grey panel and the line of
+   copy above it are gone. `align-self` keeps it at its own width inside the
+   column, which stretches its items by default. */
+.as-pdp__enquire {
   margin-top: 32px;
-  background: var(--as-tile);
-  border-radius: var(--as-radius);
-  padding: 24px 26px;
-}
-.as-pdp__cta p {
-  font-size: var(--as-fs-compact);
-  line-height: 1.65;
-  color: var(--as-ink2);
-}
-.as-pdp__cta .as-btn {
-  margin-top: 16px;
+  align-self: flex-start;
 }
 @media (max-width: 899px) {
   .as-pdp {
@@ -1532,16 +1525,20 @@ ol {
 @media (min-width: 900px) {
   .as-pdp {
     align-items: stretch;
-    /* ⚠️ Two, from measurement, not taste. The left column is a constant 684px
-       here. The tallest right column across all 24 records is 659.86px with a
-       two-line title — 24.14px of headroom — and a third line costs about
-       40px. So a three-line cap would let a record that renders fine today
-       overflow the moment its title grew by one line. Two lines is the largest
-       cap that holds for every record in the catalogue.
-       ⚠️ The binding factor is not really the title: the same right column is
-       also driven by the sensor pills and the spec rows, which the admin
-       edits. A line cap bounds the title's contribution, not theirs. */
-    --as-pdp-title-lines: 2;
+    /* ⚠️ Re-derived after the enquiry panel came out, not carried over from
+       when it was there. Measured across all 24 records: every cap from 2 to 6
+       leaves every record inside its left column, because the tightest record
+       (61.92px of headroom) has a ONE-line title — its right column is driven
+       by sensor pills and spec rows, which no line cap touches. So the
+       geometry no longer picks the number.
+       Three is chosen for the reason Joe asked for a cap at all: it takes the
+       201-character record from six rendered lines to three. The longest title
+       still keeps 178.85px of headroom at this cap.
+       ⚠️ Residual, stated rather than hidden: at three lines a record that is
+       one line today and grew to three could overflow by about 18px. Two lines
+       would remove that; the durable fix is a floor under the left column, not
+       a tighter cap. */
+    --as-pdp-title-lines: 3;
   }
   .as-pdp__media,
   .as-pdp__info {
@@ -1563,7 +1560,7 @@ ol {
   .as-pdp__info .as-spec {
     margin-bottom: 32px;
   }
-  .as-pdp__info .as-pdp__cta {
+  .as-pdp__info .as-pdp__enquire {
     margin-top: auto;
   }
 }
