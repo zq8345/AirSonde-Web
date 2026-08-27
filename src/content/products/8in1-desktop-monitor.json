@@ -1,7 +1,7 @@
 {
   "slug": "8in1-desktop-monitor",
-  "name": "8-in-1 Desktop Air Quality Monitor",
-  "model": "AS-D8",
+  "name": "AK16-8-in-1 Desktop Air Quality Monitor",
+  "model": "AK16",
   "category": "desktop",
   "sensors": [
     "CO2",
