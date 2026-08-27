@@ -1,9 +1,10 @@
 {
   "slug": "handheld-air-quality-analyser",
-  "name": "Handheld Air Quality Analyser",
-  "model": "AS-P9",
+  "name": "AK33-Handheld Air Quality Analyser",
+  "model": "AK33",
   "category": "portable",
   "sensors": [
+    "CO2",
     "PM1.0",
     "PM2.5",
     "PM10",
@@ -11,7 +12,9 @@
     "TVOC",
     "temperature",
     "humidity",
-    "AQI"
+    "AQI",
+    "Time",
+    "Data-History"
   ],
   "highlights": [
     "One-hand housing with a ribbed grip and wrist strap post",
@@ -24,7 +27,17 @@
     "Readings": "PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
   },
   "images": {
-    "main": "products/handheld-air-quality-analyser.webp"
+    "main": "products/handheld-air-quality-analyser.webp",
+    "gallery": [
+      "products/handheld-air-quality-analyser-2.webp",
+      "products/handheld-air-quality-analyser-3.webp",
+      "products/handheld-air-quality-analyser-4.webp",
+      "products/handheld-air-quality-analyser-5.webp",
+      "products/handheld-air-quality-analyser-6.webp",
+      "products/handheld-air-quality-analyser-7.webp",
+      "products/handheld-air-quality-analyser-8.webp",
+      "products/handheld-air-quality-analyser-9.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Portable-Air-Quality-Detector-CO2-Formaldehyde_1601819328164.html",
   "status": "published"
