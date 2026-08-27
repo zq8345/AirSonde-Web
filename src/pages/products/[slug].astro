@@ -97,6 +97,21 @@ const schemas = [
             loading="eager"
             data-pdp-main
           />
+          {/* W22①: real <button>s, so they are tabbable and fire on Enter —
+              the thumbnails alone were mouse-only. Rendered only when there
+              is something to page through. */}
+          {
+            hasThumbs && (
+              <>
+                <button type="button" class="as-pdp__nav as-pdp__nav--prev" data-pdp-prev aria-label="Previous image">
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <button type="button" class="as-pdp__nav as-pdp__nav--next" data-pdp-next aria-label="Next image">
+                  <span aria-hidden="true">›</span>
+                </button>
+              </>
+            )
+          }
         </div>
 
         {
@@ -129,19 +144,6 @@ const schemas = [
           {sensorLabels(sensors).map((sensor) => <li>{sensor}</li>)}
         </ul>
 
-        {
-          highlights && highlights.length > 0 && (
-            <>
-              <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.highlights}</h2>
-              <ul class="as-pdp__list">
-                {highlights.map((line) => (
-                  <li>{line}</li>
-                ))}
-              </ul>
-            </>
-          )
-        }
-
         <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.specs}</h2>
         <dl class="as-spec">
           {
@@ -164,6 +166,23 @@ const schemas = [
       </div>
     </div>
 
+    {/* W22②: the highlights are full paragraphs on real records — 7 of them,
+        up to 382 characters — and in the right column they stretched it to
+        1540px against the images' 762px. They get the full width instead.
+        ⛔ Copy untouched; this moves the block, nothing else. */}
+    {
+      highlights && highlights.length > 0 && (
+        <section class="as-pdp__about">
+          <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.highlights}</h2>
+          <ul class="as-pdp__list">
+            {highlights.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
     {
       related.length > 0 && (
         <section style="margin-top:88px">
@@ -185,21 +204,49 @@ const schemas = [
   // W19: thumbnails switch the stage image (wanew's behaviour). Swapping the
   // src means dropping srcset/sizes, otherwise the browser keeps picking from
   // the old candidate list.
+  // W22: the same state is now driven by prev/next buttons too, and the strip
+  // is a single scrolling row — so selecting an image must also bring its
+  // thumbnail into view, or paging past the visible ones looks broken.
   const thumbs = document.querySelector<HTMLElement>('[data-pdp-thumbs]');
   const stage = document.querySelector<HTMLImageElement>('[data-pdp-main]');
   if (thumbs && stage) {
-    thumbs.addEventListener('click', (event) => {
-      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.as-pdp__thumb');
+    const buttons = [...thumbs.querySelectorAll<HTMLButtonElement>('.as-pdp__thumb')];
+    let index = 0;
+
+    const show = (next: number, scrollIntoView: boolean) => {
+      const clamped = (next + buttons.length) % buttons.length;
+      const button = buttons[clamped];
       const full = button?.dataset.full;
       if (!button || !full) return;
+      index = clamped;
       stage.removeAttribute('srcset');
       stage.removeAttribute('sizes');
       stage.src = full;
-      for (const other of thumbs.querySelectorAll('.as-pdp__thumb')) {
+      for (const other of buttons) {
         const on = other === button;
         other.classList.toggle('is-active', on);
         other.setAttribute('aria-current', String(on));
       }
+      if (!scrollIntoView) return;
+      // Keep the active thumbnail inside the strip's own scroll box; using
+      // the element's offset rather than scrollIntoView avoids yanking the
+      // whole page when the strip is already visible.
+      const strip = thumbs.getBoundingClientRect();
+      const item = button.getBoundingClientRect();
+      if (item.left < strip.left) {
+        thumbs.scrollLeft += item.left - strip.left - 12;
+      } else if (item.right > strip.right) {
+        thumbs.scrollLeft += item.right - strip.right + 12;
+      }
+    };
+
+    thumbs.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.as-pdp__thumb');
+      if (!button) return;
+      show(buttons.indexOf(button), false);
     });
+
+    document.querySelector('[data-pdp-prev]')?.addEventListener('click', () => show(index - 1, true));
+    document.querySelector('[data-pdp-next]')?.addEventListener('click', () => show(index + 1, true));
   }
 </script>

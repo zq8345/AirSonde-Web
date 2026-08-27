@@ -1210,11 +1210,65 @@ ol {
   display: block;
   object-fit: contain;
 }
+/* W22①: paging controls on the stage. Dark ink on white glass rather than a
+   white arrow — these products are photographed on white, so a light arrow
+   disappears (contrast measured on the real pixels, not assumed). */
+.as-pdp__stage {
+  position: relative;
+}
+.as-pdp__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--as-line2);
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--as-ink);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px -4px rgba(16, 20, 24, 0.28);
+  transition:
+    background 0.2s var(--as-ease),
+    border-color 0.2s var(--as-ease);
+}
+.as-pdp__nav:hover {
+  background: #fff;
+  border-color: var(--as-ink);
+}
+.as-pdp__nav--prev {
+  left: 12px;
+}
+.as-pdp__nav--next {
+  right: 12px;
+}
+@media (max-width: 559px) {
+  .as-pdp__nav {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+}
+
+/* W22③: one row that scrolls, never a second row — nine thumbnails used to
+   wrap and the strip stopped reading as a strip. */
 .as-pdp__thumbs {
   margin-top: 12px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
+.as-pdp__thumbs li {
+  flex: 0 0 auto;
 }
 .as-pdp__thumb {
   width: 84px;
@@ -2688,4 +2742,34 @@ select.as-field__input {
 /* close the gap the photo used to fill */
 .as-abstory-section {
   padding-bottom: 40px;
+}
+
+/* W22②: highlights become a full-width block under the two columns. On the
+   real records these are paragraphs (7 of them, up to 382 characters), which
+   is why the right column had grown to twice the height of the images. */
+.as-pdp__about {
+  margin-top: 56px;
+  background: #fff;
+  border: 1px solid var(--as-line);
+  border-radius: var(--as-radius);
+  padding: 34px 36px 38px;
+}
+.as-pdp__about .as-pdp__h {
+  margin-top: 0;
+}
+.as-pdp__about .as-pdp__list {
+  columns: 2;
+  column-gap: 44px;
+}
+.as-pdp__about .as-pdp__list li {
+  break-inside: avoid;
+  max-width: 62ch;
+}
+@media (max-width: 899px) {
+  .as-pdp__about {
+    padding: 26px 22px 30px;
+  }
+  .as-pdp__about .as-pdp__list {
+    columns: 1;
+  }
 }
