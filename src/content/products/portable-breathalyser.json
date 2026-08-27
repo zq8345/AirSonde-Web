@@ -1,13 +1,19 @@
 {
   "slug": "portable-breathalyser",
-  "name": "Portable Breathalyser",
-  "model": "AS-X-ALC2",
+  "name": "AK13A-Portable Breathalyser",
+  "model": "AK13A",
   "category": "other",
   "sensors": [
     "alcohol"
   ],
   "images": {
-    "main": "products/portable-breathalyser.webp"
+    "main": "products/portable-breathalyser.webp",
+    "gallery": [
+      "products/portable-breathalyser-2.webp",
+      "products/portable-breathalyser-3.webp",
+      "products/portable-breathalyser-4.webp",
+      "products/portable-breathalyser-5.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Wholesale-White-Portable-Breathalyzer-Air-Blowing_1600654038700.html",
   "status": "published"
