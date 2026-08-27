@@ -1,7 +1,7 @@
 {
   "slug": "hcho-desktop-monitor",
-  "name": "Desktop Formaldehyde Monitor",
-  "model": "AS-D1H",
+  "name": "AK11C-Desktop Formaldehyde Monitor",
+  "model": "AK11C",
   "category": "desktop",
   "sensors": [
     "HCHO",
