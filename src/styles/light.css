@@ -1185,16 +1185,38 @@ ol {
   margin: 0 8px;
   color: var(--as-line2);
 }
-/* W23②: a trail answers "where am I", so the current page's name stays on one
-   line however long the product title is (one measured record is 201 chars and
-   wrapped the trail onto two lines). Display only — the BreadcrumbList JSON-LD
-   still carries the full name, and the full text is in the title attribute. */
+/* W23②: the trail is a way back plus the model. The title used to be repeated
+   here in full — 201 characters on one record, which ran to 2 lines at 1440 and
+   5 at 375. The model is short and identifies the product on its own, so the
+   BreadcrumbList JSON-LD now says the same string rather than a second copy of
+   the title (which is still in the h1, <title>, og:title and Product.name). */
 .as-crumb {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   white-space: nowrap;
 }
-.as-crumb a,
+.as-crumb__back {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--as-line);
+  border-radius: 999px;
+  padding: 6px 14px 6px 11px;
+  background: #fff;
+  color: var(--as-ink2);
+  transition:
+    border-color 0.2s var(--as-ease),
+    color 0.2s var(--as-ease);
+}
+.as-crumb__back:hover {
+  border-color: var(--as-accent);
+  color: var(--as-accent);
+}
+.as-crumb__arw {
+  font-size: 15px;
+  line-height: 1;
+}
 .as-crumb__sep {
   flex: 0 0 auto;
 }
@@ -1202,6 +1224,8 @@ ol {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 600;
+  color: var(--as-ink);
 }
 .as-pdp {
   display: grid;
@@ -1277,6 +1301,30 @@ ol {
 }
 .as-pdp__nav--next {
   right: 12px;
+}
+/* W23: the arrows appear on hover — but only where hover actually exists.
+   ⚠️ Gated on `hover: hover`, not on viewport width: a touch device has no
+   hover and the thumbnail strip is not an equivalent way to page (it scrolls
+   sideways), so hiding them there would remove the only control. ⚠️ Opacity
+   only, never `visibility` or `display` — a hidden element cannot take focus,
+   and these buttons must stay reachable by Tab. :focus-within on the stage
+   covers the keyboard case: tabbing to an arrow reveals it without hovering. */
+@media (hover: hover) {
+  /* ⚠️ Measured: opacity is deliberately NOT transitioned. With a fade, the
+     revealed state depends on the animation clock actually running — and when
+     it does not, the arrows sit at opacity 0 while pointer-events has already
+     flipped to auto: invisible but clickable, worse than either state. Whether
+     a control can be seen must not depend on an animation. The colour
+     transitions stay; they are cosmetic and gate nothing. */
+  .as-pdp__nav {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .as-pdp__stage:hover .as-pdp__nav,
+  .as-pdp__stage:focus-within .as-pdp__nav {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 @media (max-width: 559px) {
   .as-pdp__nav {
@@ -1439,6 +1487,36 @@ ol {
   .as-pdp {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+}
+/* W23: the two columns end level. Both stretch to the taller one; the enquiry
+   panel is pushed to the bottom of the right column and the thumbnail strip to
+   the bottom of the left, with the image card taking the slack in between.
+   ⚠️ The image itself is never stretched — it keeps its natural rendered size
+   and is centred in the card, so nothing can distort and the product does not
+   shrink inside an over-tall frame. The slack shows as space in the card.
+   ⚠️ Two columns only: below 900px the grid is a single column and there is no
+   such thing as equal height, so none of this applies there. */
+@media (min-width: 900px) {
+  .as-pdp {
+    align-items: stretch;
+  }
+  .as-pdp__media,
+  .as-pdp__info {
+    display: flex;
+    flex-direction: column;
+  }
+  .as-pdp__media .as-pdp__stage {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .as-pdp__info .as-spec {
+    margin-bottom: 32px;
+  }
+  .as-pdp__info .as-pdp__cta {
+    margin-top: auto;
   }
 }
 

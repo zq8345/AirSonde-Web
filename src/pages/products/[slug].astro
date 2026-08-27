@@ -73,24 +73,30 @@ const schemas = [
   breadcrumbSchema([
     { name: 'Home', url: `${SITE.url}/` },
     { name: 'Products', url: `${SITE.url}/products/` },
-    { name, url: `${SITE.url}/products/${product.data.slug}/` },
+    // W23②: the visible trail's last step is the model, so the structured data
+    // says the same thing rather than a second copy of the full title — that is
+    // still carried by the h1, <title>, og:title and Product.name.
+    { name: model, url: `${SITE.url}/products/${product.data.slug}/` },
   ]),
 ];
 ---
 
 <LightBase title={title} description={description} schemas={schemas} ogImage={schemaImages[0]}>
   <div class="as-container" style="padding-top:calc(var(--as-header-h) + 26px);padding-bottom:72px">
-    {/* W23②: the trail says where you are, not the whole title again — the
-        current page's name is clamped to one line in CSS. ⛔ Display only:
-        the BreadcrumbList schema above still carries the full name. */}
+    {/* W23②: a way back plus the model, not a second copy of the title — the
+        model is short, stable and identifies the product on its own. ⛔ Display
+        only: it reads the existing `model` field, nothing is written. */}
     <nav aria-label="Breadcrumb" class="as-crumb">
-      <a href="/products">Products</a>
+      <a href="/products" class="as-crumb__back">
+        <span class="as-crumb__arw" aria-hidden="true">←</span>
+        Products
+      </a>
       <span class="as-crumb__sep">/</span>
-      <span class="as-crumb__current" title={name}>{name}</span>
+      <span class="as-crumb__current">{model}</span>
     </nav>
 
     <div class="as-pdp">
-      <div>
+      <div class="as-pdp__media">
         <div class="as-pdp__stage">
           <Image
             src={main}
@@ -138,7 +144,7 @@ const schemas = [
         }
       </div>
 
-      <div>
+      <div class="as-pdp__info">
         <p class="as-pdp__meta">{categoryLabel(category)} · {model}</p>
         {/* W23③: 23 of the 24 records are ≤46 characters and keep the full h1;
             only a genuinely long title steps down one notch. Threshold sits in
