@@ -15,11 +15,10 @@
     "⚠️ 链接不在这里：mailto: / wa.me / tel: 全部由 site.ts 从 contact.phone 与 contact.email",
     "   **派生**。这样改了号码不可能漏改链接 —— 那种不一致没有任何症状，直到有人点了它。"
   ],
-
   "seo": {
     "defaultTitle": "AirSonde — OEM / ODM Indoor Air Quality Monitors",
     "defaultDescription": "AirSonde manufactures white-label indoor air quality monitors for brands and importers. OEM and ODM production for CO2, PM2.5, PM10, HCHO and TVOC sensing.",
-    "organisationDescription": "AirSonde is an OEM and ODM manufacturer of indoor air quality monitors, producing desktop and portable CO2, particulate, formaldehyde and TVOC monitors under its customers’ own brands.",
+    "organisationDescription": "Indoor air quality monitors built under your own brand — OEM and ODM production. Desktop, portable and handheld; CO2, particulate, HCHO and TVOC sensing.",
     "pages": {
       "home": {
         "title": "AirSonde — OEM / ODM Indoor Air Quality Monitors",
@@ -39,7 +38,6 @@
       }
     }
   },
-
   "contact": {
     "email": "sales@airsonde.com",
     "phone": "+86 186 8116 0111",
@@ -48,7 +46,6 @@
     "hours": "Mon–Fri 9:00–18:00 (GMT+8)",
     "response": "Within 1 business day"
   },
-
   "home": {
     "hero": {
       "eyebrow": "Independent manufacturer · OEM / ODM",
