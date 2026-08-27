@@ -1,12 +1,12 @@
 {
   "slug": "mini-co2-desktop-monitor",
-  "name": "Mini Desktop CO2 Monitor",
-  "model": "AS-D3S",
+  "name": "AK4-Mini Desktop CO2 Monitor",
+  "model": "AK4",
   "category": "desktop",
   "sensors": [
     "CO2",
-    "TVOC",
     "HCHO",
+    "TVOC",
     "temperature",
     "humidity"
   ],
