@@ -107,6 +107,11 @@
       "value": "Light",
       "label": "Light",
       "order": 15
+    },
+    {
+      "value": "Time",
+      "label": "Time",
+      "order": 16
     }
   ]
 }
