@@ -1,7 +1,7 @@
 {
   "slug": "9in1-desktop-air-quality-monitor",
-  "name": "9-in-1 Desktop Air Quality Monitor",
-  "model": "AS-D9",
+  "name": "AK23-1 Desktop Air Quality Monitor",
+  "model": "AK23",
   "category": "desktop",
   "sensors": [
     "CO2",
@@ -12,7 +12,8 @@
     "TVOC",
     "temperature",
     "humidity",
-    "AQI"
+    "AQI",
+    "Time"
   ],
   "highlights": [
     "Particulate, gas and comfort readings on a single dashboard",
@@ -27,7 +28,9 @@
   "images": {
     "main": "products/9in1-desktop-air-quality-monitor.webp",
     "gallery": [
-      "products/9in1-desktop-air-quality-monitor-2.webp"
+      "products/9in1-desktop-air-quality-monitor-3.webp",
+      "products/9in1-desktop-air-quality-monitor-4.webp",
+      "products/9in1-desktop-air-quality-monitor-5.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Indoor-Air-Quality-Monitor-WIFI-Smart_1601805161103.html",
