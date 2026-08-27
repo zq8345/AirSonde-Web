@@ -14,7 +14,8 @@
     "humidity",
     "AQI",
     "Light",
-    "Time"
+    "Time",
+    "Data-History"
   ],
   "highlights": [
     "Full-width panel laid out as tiles rather than segments",
