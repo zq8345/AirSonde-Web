@@ -1185,6 +1185,24 @@ ol {
   margin: 0 8px;
   color: var(--as-line2);
 }
+/* W23②: a trail answers "where am I", so the current page's name stays on one
+   line however long the product title is (one measured record is 201 chars and
+   wrapped the trail onto two lines). Display only — the BreadcrumbList JSON-LD
+   still carries the full name, and the full text is in the title attribute. */
+.as-crumb {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+.as-crumb a,
+.as-crumb__sep {
+  flex: 0 0 auto;
+}
+.as-crumb__current {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .as-pdp {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1328,6 +1346,14 @@ ol {
   letter-spacing: -0.02em;
   font-weight: 700;
   color: var(--as-ink);
+}
+/* W23③: robustness against the long titles the catalogue really carries — the
+   201-char record ran to 8 lines at 1440 and pushed the sensing pills and the
+   enquiry CTA below the fold. One step down the existing scale (h1 → h2), not
+   a new size and not fluid scaling. ⛔ The copy itself is untouched. */
+.as-pdp__title--long {
+  font-size: var(--as-fs-h2);
+  line-height: 1.2;
 }
 .as-pdp__h {
   margin-top: 30px;
@@ -2770,19 +2796,23 @@ select.as-field__input {
 .as-pdp__about .as-pdp__h {
   margin-top: 0;
 }
+/* ⚠️ `columns: 2` did nothing here — the base .as-pdp__list is display: grid,
+   and a grid container ignores CSS multi-column. Measured: the copy sat in a
+   single narrow run with half the card empty. Two grid tracks instead, which
+   is what the surrounding layout language already uses. */
 .as-pdp__about .as-pdp__list {
-  columns: 2;
-  column-gap: 44px;
-}
-.as-pdp__about .as-pdp__list li {
-  break-inside: avoid;
-  max-width: 62ch;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 44px;
+  align-items: start;
 }
 @media (max-width: 899px) {
   .as-pdp__about {
     padding: 26px 22px 30px;
   }
+  /* Below 900px two tracks would be ~300px each — about five words a line,
+     worse than one column. Back to a single track (grid, not `columns: 1`,
+     which a grid container ignores). */
   .as-pdp__about .as-pdp__list {
-    columns: 1;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

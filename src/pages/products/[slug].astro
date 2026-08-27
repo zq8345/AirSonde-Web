@@ -80,10 +80,13 @@ const schemas = [
 
 <LightBase title={title} description={description} schemas={schemas} ogImage={schemaImages[0]}>
   <div class="as-container" style="padding-top:calc(var(--as-header-h) + 26px);padding-bottom:72px">
+    {/* W23②: the trail says where you are, not the whole title again — the
+        current page's name is clamped to one line in CSS. ⛔ Display only:
+        the BreadcrumbList schema above still carries the full name. */}
     <nav aria-label="Breadcrumb" class="as-crumb">
       <a href="/products">Products</a>
       <span class="as-crumb__sep">/</span>
-      <span>{name}</span>
+      <span class="as-crumb__current" title={name}>{name}</span>
     </nav>
 
     <div class="as-pdp">
@@ -137,7 +140,10 @@ const schemas = [
 
       <div>
         <p class="as-pdp__meta">{categoryLabel(category)} · {model}</p>
-        <h1 class="as-pdp__title">{name}</h1>
+        {/* W23③: 23 of the 24 records are ≤46 characters and keep the full h1;
+            only a genuinely long title steps down one notch. Threshold sits in
+            the measured gap (46 → 201), so it is not a hair-trigger. */}
+        <h1 class:list={['as-pdp__title', { 'as-pdp__title--long': name.length > 70 }]}>{name}</h1>
 
         <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.sensing}</h2>
         <ul class="as-sensor-pills">
