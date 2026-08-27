@@ -102,6 +102,11 @@
       "value": "combustible-gas",
       "label": "combustible-gas",
       "order": 14
+    },
+    {
+      "value": "Light",
+      "label": "Light",
+      "order": 15
     }
   ]
 }
