@@ -1,13 +1,20 @@
 {
   "slug": "geiger-counter",
-  "name": "Portable Geiger Counter",
-  "model": "AS-X-RAD",
+  "name": "AK19-Portable Geiger Counter",
+  "model": "AK19",
   "category": "other",
   "sensors": [
     "radiation"
   ],
   "images": {
-    "main": "products/geiger-counter.webp"
+    "main": "products/geiger-counter.webp",
+    "gallery": [
+      "products/geiger-counter-2.webp",
+      "products/geiger-counter-3.webp",
+      "products/geiger-counter-4.webp",
+      "products/geiger-counter-5.webp",
+      "products/geiger-counter-6.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Portable-Geiger-Counter-X-ray-Beta_1600947771077.html",
   "status": "published"
