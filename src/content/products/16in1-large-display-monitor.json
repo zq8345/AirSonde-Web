@@ -1,7 +1,7 @@
 {
   "slug": "16in1-large-display-monitor",
   "name": "AK34-16-in-1 Large-Display Air Quality Monitor",
-  "model": "AK34",
+  "model": "AK34-1",
   "category": "desktop",
   "sensors": [
     "CO2",
