@@ -1,0 +1,38 @@
+{
+  "slug": "ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time",
+  "name": "AK34-18 in 1 Air Quality Monitor Indoor,15D & 24H History, 7\" TFT CO2 Monitor True NDIR CO₂ & External Sensors,9 AQI + 7 Alerts Tester, CO2, TVOC, PM2.5 PM1.0 PM10, HCHO Temperature Humidity AQI & Time",
+  "model": "AK34",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "CO",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC"
+  ],
+  "highlights": [
+    "【18-in-1 Professional Air Quality Monitoring】 Combines 9 essential measurements, 7 color-coded alerts, and dual history modes in one professional air quality monitor. Monitor CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, Temperature, Humidity, AQI, and Time from a single device. Ideal for monitoring indoor air in homes, nurseries, basements, offices, classrooms, and during wildfire season",
+    "【24-Hour & 15-Day Trend History 】 Unlike basic indoor air quality monitors, this air quality monitor records both 24-hour and 15-day trend history, making it easy to identify pollution patterns, compare daily changes and improve ventilation habits. A smarter air quality tester that helps you make data-driven decisions",
+    "【True NDIR CO2 Sensor & External Sensors】Features a professional-grade True NDIR CO2 sensor and high-precision external sensors for enhanced accuracy. Unlike semiconductor-based sensors, True NDIR technology delivers reliable CO₂ readings in this professional CO2 monitor, helping you improve ventilation, comfort, and overall indoor air quality",
+    "【7\" TFT Display with Smart Visual Alerts 】 The large 7-inch color display presents all key readings at a glance. Three-color AQI indicators and audible alarms instantly notify you when indoor conditions worsen, making this an intuitive aqi monitor indoor for everyday monitoring",
+    "【5000mAh Battery, Up to 8 Hours 】 Powered by a built-in 5000mAh battery for up to 8 hours of portable operation. Move your air quality meter between bedrooms, basements, offices or garages",
+    "【 Automatic Day & Night Themes 】 Automatically switches between day and night themes with multiple brightness levels for comfortable viewing around the clock. Easy on your eyes at night while remaining bright and readable during the day",
+    "【What You Get & Customer Support】 Package Includes: 1 x Air Quality Monitor, 1 x Charging Adapter, 1 x USB-C Cable, 1 x FAQ Card and 1 x User Manual. Our dedicated customer support team is ready to assist you within 24 hours whenever you need help"
+  ],
+  "images": {
+    "main": "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time.webp",
+    "gallery": [
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-2.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-3.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-4.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-5.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-6.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-7.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-8.webp",
+      "products/_draft/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time-9.webp"
+    ]
+  },
+  "status": "draft"
+}
