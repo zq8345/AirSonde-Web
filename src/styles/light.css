@@ -1253,15 +1253,23 @@ ol {
   overflow: hidden;
   display: block;
 }
-/* ⚠️ Measured: forcing a 4:3 card made this WORSE — these products are
-   portrait, so a landscape card filled the height and left half the width
-   empty (52.5% vs the 70.4% it started at). The card takes the image's own
-   proportions instead, so the product fills it; the cap only bites on very
-   tall sources, and contain still guarantees nothing is cropped. */
+/* Every product's image frame is the same square, so the pages look like one
+   catalogue rather than each page sizing itself to whichever photo it happens
+   to hold. Measured before this: the frame was 560, 606, 723 and 816px tall on
+   four different records at the same 1440 viewport.
+   ⚠️ This replaces the earlier "card follows the image's own proportions" rule
+   (W19). That maximised how much of the frame the product filled — measured
+   here at 99.6% on the portrait sources — and consistency costs some of it
+   back: a landscape source now letterboxes top and bottom, a portrait one left
+   and right. That trade is deliberate.
+   ⛔ `contain`, never `cover` — cover would fill the square by cropping the
+   product, which is not a better number, it is a wrong picture. */
+.as-pdp__stage {
+  aspect-ratio: 1 / 1;
+}
 .as-pdp__stage img {
   width: 100%;
-  height: auto;
-  max-height: 70vh;
+  height: 100%;
   display: block;
   object-fit: contain;
 }
@@ -1506,11 +1514,15 @@ ol {
     display: flex;
     flex-direction: column;
   }
+  /* ⚠️ The frame is a fixed square now, so it must NOT flex — stretching it
+     would be exactly the aspect-ratio break the square is there to prevent.
+     The column's slack goes between the frame and the strip instead, which
+     also pins the strip to the bottom edge. */
   .as-pdp__media .as-pdp__stage {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .as-pdp__media .as-pdp__thumbs {
+    margin-top: auto;
   }
   .as-pdp__info .as-spec {
     margin-bottom: 32px;
