@@ -112,6 +112,11 @@
       "value": "Time",
       "label": "Time",
       "order": 16
+    },
+    {
+      "value": "Radon",
+      "label": "Radon",
+      "order": 17
     }
   ]
 }
