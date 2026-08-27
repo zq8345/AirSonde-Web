@@ -245,6 +245,15 @@ const schemas = [
         return;
       }
       thumbs.scrollTo({ left, behavior: 'smooth' });
+      // ⚠️ Measured: smooth scrolling does not always run (it never advanced
+      // at all in the environment this was verified in). Whether the active
+      // thumbnail is reachable must not depend on an animation, so snap to
+      // the target if the animation has not taken it there.
+      window.setTimeout(() => {
+        if (Math.abs(thumbs.scrollLeft - left) > 4) {
+          thumbs.scrollTo({ left, behavior: 'instant' as ScrollBehavior });
+        }
+      }, 420);
     };
 
     thumbs.addEventListener('click', (event) => {
