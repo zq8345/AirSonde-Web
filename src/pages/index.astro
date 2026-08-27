@@ -233,15 +233,26 @@ const whyCards = [
       <h3 class="as-h3 as-formrail__title">{PRODUCTS_HOME.formFactorHeading}</h3>
       <div class="as-forms">
         {
+          /* W27: a vertical card. The name and the count are direct children
+             of the tile, each its own block — as two inline spans with nothing
+             between them they ran together as one text flow ("Desktop16
+             models") and broke wherever the line ended.
+             ⚠️ The count is a bare number now, so the link's accessible name
+             would read "Desktop 16". The aria-label restores what the removed
+             word carried; it is not rendered text. */
           formTiles.map((tile) => (
-            <a class="as-form-tile" href="/products">
+            <a class="as-form-tile" href="/products" aria-label={`${tile.label} — ${tile.count} products`}>
               <span class="as-stage">
-                <Image src={tile.image} alt={tile.label} widths={[160, 240]} sizes="116px" loading="lazy" />
+                <Image
+                  src={tile.image}
+                  alt=""
+                  widths={[240, 360, 480]}
+                  sizes="(min-width: 1024px) 240px, (min-width: 720px) 45vw, 90vw"
+                  loading="lazy"
+                />
               </span>
-              <span>
-                <span class="as-form-tile__name">{tile.label}</span>
-                <span class="as-form-tile__count">{tile.count} models</span>
-              </span>
+              <span class="as-form-tile__name">{tile.label}</span>
+              <span class="as-form-tile__count">{tile.count}</span>
               <span class="as-form-tile__arw" aria-hidden="true">→</span>
             </a>
           ))

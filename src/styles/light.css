@@ -676,19 +676,30 @@ ol {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 559px) {
+/* ⚠️ W27 moved the single-column breakpoint from 559px to 479px, and merged
+   away a second, redundant one that had been sitting at 719px doing the same
+   thing. Now the tile is a vertical card its image frame is a square the width
+   of the card, so one column at 719px measured a 622px-tall picture per tile —
+   taller than the whole row it replaced. Two columns keep the square sane;
+   below 480px there is not room for two, and one column measures 278px. */
+@media (max-width: 479px) {
   .as-forms {
     grid-template-columns: 1fr;
   }
 }
+/* W27: a vertical card, same family as the product cards above it. It was a
+   horizontal row — 116px image, then the text, then the arrow pushed right by
+   `margin-left: auto` — which put the name, the count and the arrow in
+   competition for one line. Stacking them removes the competition and makes
+   the four cards equal height by construction rather than by luck. */
 .as-form-tile {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  align-items: stretch;
   border: 1px solid var(--as-line);
   border-radius: var(--as-radius);
   background: #fff;
-  padding: 16px 18px;
+  padding: 14px 16px 16px;
   transition:
     transform 0.25s var(--as-ease),
     border-color 0.25s;
@@ -697,37 +708,52 @@ ol {
   transform: translateY(-3px);
   border-color: var(--as-line2);
 }
+/* One square frame per card, the same size on all four, with the picture
+   contained inside a consistent inset. ⚠️ This can only equalise the FRAME —
+   the four source images carry different amounts of their own white margin, so
+   some products still read smaller than others inside an identical box. That
+   is in the files, not in the layout, and is reported rather than cropped. */
 .as-form-tile .as-stage {
-  flex: 0 0 116px;
+  flex: 0 0 auto;
+  width: 100%;
   aspect-ratio: 1 / 1;
-  margin: 0;
+  margin: 0 0 14px;
+  background: var(--as-tile);
+  border-color: transparent;
 }
+.as-form-tile .as-stage img {
+  width: 84%;
+  height: 84%;
+}
+/* ⚠️ `display: block` is the whole point: both of these were inline, so they
+   sat in one continuous text flow with no space between them ("Desktop16") and
+   wrapped wherever the line ran out. The old `margin-top: 4px` on the count
+   never did anything either — inline boxes ignore vertical margins. */
 .as-form-tile__name {
+  display: block;
   font-size: var(--as-fs-h3);
+  line-height: 1.25;
   font-weight: 700;
   color: var(--as-ink);
 }
 .as-form-tile__count {
+  display: block;
   margin-top: 4px;
   font-size: var(--as-fs-small);
   color: var(--as-ink2);
   font-variant-numeric: tabular-nums;
 }
 .as-form-tile__arw {
-  margin-left: auto;
+  display: block;
+  margin-top: 14px;
   color: var(--as-accent);
   font-size: var(--as-fs-lead);
+  line-height: 1;
   transition: transform 0.25s var(--as-ease);
 }
 .as-form-tile:hover .as-form-tile__arw {
   transform: translateX(4px);
 }
-@media (max-width: 719px) {
-  .as-forms {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ---- scenes band (photo cards) ------------------------------------------- */
 .as-scenes {
   display: grid;
