@@ -1,7 +1,7 @@
 {
   "slug": "7in-desktop-air-quality-monitor",
-  "name": "AK-35-7-inch Desktop Air Quality Monitor",
-  "model": "AK-35",
+  "name": "AK35-7-inch Desktop Air Quality Monitor",
+  "model": "AK35",
   "category": "desktop",
   "sensors": [
     "CO2",
@@ -12,7 +12,8 @@
     "TVOC",
     "temperature",
     "humidity",
-    "AQI"
+    "AQI",
+    "Time"
   ],
   "images": {
     "main": "products/7in-desktop-air-quality-monitor.webp",
