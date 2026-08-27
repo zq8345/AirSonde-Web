@@ -24,7 +24,13 @@
     "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity"
   },
   "images": {
-    "main": "products/8in1-desktop-monitor.webp"
+    "main": "products/8in1-desktop-monitor.webp",
+    "gallery": [
+      "products/8in1-desktop-monitor-2.webp",
+      "products/8in1-desktop-monitor-3.webp",
+      "products/8in1-desktop-monitor-4.webp",
+      "products/8in1-desktop-monitor-5.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Portable-8-In1-Gas-Detector-with_1600890784164.html",
   "status": "published"
