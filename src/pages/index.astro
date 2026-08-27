@@ -8,7 +8,7 @@
  */
 import { Image } from 'astro:assets';
 import LightBase from '../layouts/LightBase.astro';
-import { CONTACT, HERO, HOME_SECTIONS, META, SENSOR_CHIPS, SITE, VALUE_PROPS } from '../data/site';
+import { CONTACT, FEATURED_SLUGS, HERO, HOME_SECTIONS, META, SENSOR_CHIPS, SITE, VALUE_PROPS } from '../data/site';
 import {
   ABOUT_HOME,
   CTA_HOME,
@@ -27,9 +27,24 @@ import factoryPhoto from '../assets/photos/factory/factory-assembly.webp';
 const products = await getPublishedProducts();
 const bySlug = new Map(products.map((p) => [p.data.slug, p]));
 
-const curated = PRODUCTS_HOME.slugs
-  .map((slug) => bySlug.get(slug))
-  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+/**
+ * W25: the featured set comes from site-content.json, which the admin can
+ * write; the array's order is the display order and the count is not fixed at
+ * eight — the grid flows.
+ * ⚠️ A slug that matches nothing is skipped rather than failing the build:
+ * unpublishing a product from the admin must never take the site's build down.
+ * But it used to be skipped in silence, which meant the homepage could quietly
+ * drop to seven tiles with nobody told. It says which ones now.
+ */
+const missingFeatured = FEATURED_SLUGS.filter((slug) => !bySlug.has(slug));
+if (missingFeatured.length > 0) {
+  console.warn(
+    `[home] ${missingFeatured.length} featured slug(s) in site-content.json match no published product and will not render: ${missingFeatured.join(', ')}`,
+  );
+}
+const curated = FEATURED_SLUGS.map((slug) => bySlug.get(slug)).filter(
+  (p): p is NonNullable<typeof p> => Boolean(p),
+);
 
 /* §3 tiles grow from the live categories — never hardcoded */
 const categories = [...new Set(products.map((p) => p.data.category))];

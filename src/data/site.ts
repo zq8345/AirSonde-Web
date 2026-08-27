@@ -125,6 +125,16 @@ export const HOME_SECTIONS = {
 
 export const VALUE_PROPS = content.home.valueProps;
 
+/**
+ * W25: which products the homepage features, and in what order — the array's
+ * order IS the display order. It used to be a hardcoded array in
+ * home-light.ts, where the admin could not reach it.
+ * ⚠️ These are product slugs, not copy: a slug that matches nothing renders
+ * one tile fewer. index.astro warns by name at build time when that happens;
+ * the guard that matters lives in the admin, which knows before you unpublish.
+ */
+export const FEATURED_SLUGS: readonly string[] = content.home.featuredSlugs;
+
 /** ⚠️ 当前**没有任何页面 import 它**（实测产出页 0 处）。故意不接后台，见上面的理由。 */
 export const CAPABILITIES = [
   {

@@ -43,16 +43,13 @@ export const PRODUCTS_HOME = {
   eyebrow: 'Products',
   heading: 'Built to carry your name',
   allLink: 'All products',
-  slugs: [
-    'co2-tvoc-hcho-desktop-monitor',
-    'wide-screen-co2-monitor',
-    '16in1-large-display-monitor',
-    'oval-wifi-air-quality-monitor',
-    'wifi-widescreen-air-quality-monitor',
-    'portrait-aqi-desktop-monitor',
-    'handheld-air-quality-analyser',
-    'portable-co-alarm',
-  ],
+  /**
+   * ⚠️ W25: the eight featured slugs used to live here. They are now
+   * `home.featuredSlugs` in site-content.json (exported as `FEATURED_SLUGS`),
+   * because the admin can write that file and cannot write this one. Which
+   * products the homepage shows is the admin's to change; the section's own
+   * labels below are not.
+   */
   formFactorHeading: 'Shop by form factor',
   /** preferred representative image per category; categories themselves are
    *  derived from the live product data, never hardcoded */

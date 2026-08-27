@@ -70,6 +70,16 @@
     "contactBlock": {
       "title": "Tell us what you want to put your name on",
       "body": "Send the market, the sensing set and the volumes. We come back with a build path and lead times."
-    }
+    },
+    "featuredSlugs": [
+      "co2-tvoc-hcho-desktop-monitor",
+      "wide-screen-co2-monitor",
+      "16in1-large-display-monitor",
+      "oval-wifi-air-quality-monitor",
+      "wifi-widescreen-air-quality-monitor",
+      "portrait-aqi-desktop-monitor",
+      "handheld-air-quality-analyser",
+      "portable-co-alarm"
+    ]
   }
 }
