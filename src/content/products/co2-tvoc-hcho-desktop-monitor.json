@@ -1,7 +1,7 @@
 {
   "slug": "co2-tvoc-hcho-desktop-monitor",
-  "name": "AK3/4-Desktop CO2, TVOC & Formaldehyde Monitor",
-  "model": "AK3/4",
+  "name": "AK3-Desktop CO2, TVOC & Formaldehyde Monitor",
+  "model": "AK3",
   "category": "desktop",
   "sensors": [
     "CO2",
