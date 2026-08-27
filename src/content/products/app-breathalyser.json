@@ -1,7 +1,7 @@
 {
   "slug": "app-breathalyser",
-  "name": "AK13-App-Connected Breathalyser",
-  "model": "AK13",
+  "name": "AK13B-App-Connected Breathalyser",
+  "model": "AK13B",
   "category": "other",
   "sensors": [
     "alcohol"
