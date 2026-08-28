@@ -18,15 +18,19 @@ import {
   productHref,
   resolveProductImage,
   sensorLabels,
+  tryResolveProductImage,
 } from '../../lib/products';
 
 /**
  * W29: the address is the model, not the record's slug. The slug is still the
  * record's identity in the content collection and in the admin — it just
  * stopped being the URL.
- * ⚠️ Two products sharing a model would silently give one of them the other's
- * page. `modelPath` already rejects characters that cannot be a URL; this
- * rejects the collision, by name, before anything is generated.
+ * ⚠️ The duplicate check below is now unreachable from anything an admin does
+ * — getPublishedProducts drops the second record and names both, so two of
+ * them can no longer arrive here. It stays as an invariant guard: if it ever
+ * fires it means that filter has a bug, which is a programming error, and a
+ * throw is the right answer to those. It is not the guard against Joe typing
+ * a duplicate model; that one belongs in the admin, at the moment he types it.
  */
 export const getStaticPaths = (async () => {
   const products = await getPublishedProducts();
@@ -53,10 +57,18 @@ const { product, siblings } = Astro.props;
 const { name, model, category, sensors, highlights, specs, images } = product.data;
 
 const main = resolveProductImage(images.main);
-const gallery = (images.gallery ?? []).map((path) => ({
-  src: resolveProductImage(path),
-  path,
-}));
+// ⚠️ A gallery file that has not arrived yet costs one thumbnail, not the
+// page and not the build. (The main image is different: a record missing it
+// never reaches this page — getPublishedProducts drops it.)
+const missingGallery = (images.gallery ?? []).filter((path) => !tryResolveProductImage(path));
+if (missingGallery.length > 0) {
+  console.warn(
+    `[products/${product.data.slug}] ${missingGallery.length} gallery image(s) are not in src/assets/ and are skipped: ${missingGallery.join(', ')}`,
+  );
+}
+const gallery = (images.gallery ?? [])
+  .map((path) => ({ src: tryResolveProductImage(path), path }))
+  .filter((g): g is { src: ImageMetadata; path: string } => g.src !== null);
 /**
  * W19: one ordered list drives the stage and the thumbnail row.
  * ⚠️ The strip appears only when there really is more than one image — 17 of

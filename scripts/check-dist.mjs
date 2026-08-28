@@ -6,7 +6,7 @@
  * the build output. Grepping dist/ is the only check that cannot be fooled by
  * the source looking right.
  */
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const DIST = 'dist';
@@ -177,6 +177,22 @@ console.log(
   `  redirects: ${migration.routes.length} frozen URL(s) × 2 forms — ` +
     `${missingRules.length} missing, ${wrongTarget.length} mismatched, ${danglingTarget.length} dangling`,
 );
+
+// Merge the dangling list into the diagnostics the build wrote. This is the
+// only step that knows what the redirect targets resolved to, and a warning
+// that lives only in this log is a warning nobody reads.
+const diagnosticsPath = `${DIST}/build-diagnostics.json`;
+try {
+  const diagnostics = JSON.parse(await readFile(diagnosticsPath, 'utf8'));
+  diagnostics.danglingRedirects = danglingTarget;
+  await writeFile(diagnosticsPath, `${JSON.stringify(diagnostics, null, 2)}\n`);
+  console.log(
+    `  diagnostics: ${diagnostics.skippedProducts} skipped product(s), ` +
+      `${danglingTarget.length} dangling redirect(s) -> ${diagnosticsPath}`,
+  );
+} catch (error) {
+  failures.push(`could not merge dangling redirects into ${diagnosticsPath}: ${error.message}`);
+}
 
 if (failures.length) {
   console.error(`\n✗ dist check failed (${failures.length}):`);

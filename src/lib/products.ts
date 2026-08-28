@@ -12,10 +12,19 @@ const IMAGES = import.meta.glob<{ default: ImageMetadata }>('/src/assets/product
   eager: true,
 });
 
+/** `products/foo.webp` -> the imported asset, or null if the file is not there. */
+export function tryResolveProductImage(relativePath: string): ImageMetadata | null {
+  return IMAGES[`/src/assets/${relativePath}`]?.default ?? null;
+}
+
 /**
  * `products/foo.webp` -> the imported asset.
- * Throws rather than falling back: a missing image must fail the build, not
- * ship a card with a broken <img>.
+ *
+ * ⚠️ Still throws, but it can no longer be reached by anything an admin does:
+ * getPublishedProducts() drops a record whose main image is missing before any
+ * page sees it. A throw here now means a programming error, which is what a
+ * throw is for. It used to mean "someone saved a product before its image
+ * finished uploading", and that took the whole site's build down.
  */
 export function resolveProductImage(relativePath: string): ImageMetadata {
   const mod = IMAGES[`/src/assets/${relativePath}`];
@@ -27,10 +36,95 @@ export function resolveProductImage(relativePath: string): ImageMetadata {
   return mod.default;
 }
 
-/** Published products only — draft records never reach a page. */
+/**
+ * Everything a build skipped and why. Collected once, read by
+ * /_diagnostics.json so it leaves the build log — which nobody reads. On
+ * 2026-08-28 a warning that existed only in the log let the site sit frozen
+ * for nine hours.
+ */
+export type Skip = { slug: string; model: string; reason: string; detail: string };
+const skips: Skip[] = [];
+export function buildSkips(): Skip[] {
+  return skips;
+}
+
+let cache: Product[] | null = null;
+
+/**
+ * Published, and actually publishable.
+ *
+ * ⚠️ The three checks below used to throw. Measured 2026-08-28: one dangling
+ * slug froze the whole site for nine hours, and the only signal was a build
+ * log. The asymmetry decides it — skipping one record leaves one page missing
+ * while everything else keeps shipping; failing the build stops everything and
+ * tells nobody. Neither is silent: each skip is named on stderr and lands in
+ * /_diagnostics.json.
+ *
+ * ⛔ This is the single place products are filtered, so a skipped record is
+ * absent from the sitemap, the list, the homepage and the related strips at
+ * once — rather than each of those needing its own patch and drifting.
+ *
+ * ⚠️ The real guard for a duplicate or malformed model belongs in the admin,
+ * at the moment Joe types it: he sees it, it costs one save, and he knows
+ * which step caused it. That is dispatched separately.
+ */
 export async function getPublishedProducts(): Promise<Product[]> {
-  const products = await getCollection('products', ({ data }) => data.status === 'published');
-  return products.sort((a, b) => a.data.name.localeCompare(b.data.name));
+  if (cache) return cache;
+  const products = (await getCollection('products', ({ data }) => data.status === 'published')).sort(
+    (a, b) => a.data.name.localeCompare(b.data.name),
+  );
+
+  const byPath = new Map<string, Product>();
+  const keep: Product[] = [];
+  for (const product of products) {
+    const { slug, model, images } = product.data;
+
+    if (!tryResolveProductImage(images.main)) {
+      skips.push({
+        slug,
+        model,
+        reason: 'missing-image',
+        detail: `main image "${images.main}" is not in src/assets/`,
+      });
+      continue;
+    }
+
+    let path: string;
+    try {
+      path = modelPath(model);
+    } catch {
+      skips.push({
+        slug,
+        model,
+        reason: 'unusable-model',
+        detail: `model ${JSON.stringify(model)} cannot be a URL (needs [a-z0-9-] after lowercasing and "/"->"-")`,
+      });
+      continue;
+    }
+
+    // ⚠️ Deterministic and stated, not "whichever came first by accident":
+    // records are sorted by name above, and the FIRST one in that order keeps
+    // the address. Both are named, because the one that loses its page is the
+    // half nobody would otherwise notice.
+    const held = byPath.get(path);
+    if (held) {
+      skips.push({
+        slug,
+        model,
+        reason: 'duplicate-model',
+        detail: `/products/${path}/ is already taken by "${held.data.slug}"; kept the record whose name sorts first ("${held.data.name}"), skipped this one ("${product.data.name}")`,
+      });
+      continue;
+    }
+    byPath.set(path, product);
+    keep.push(product);
+  }
+
+  for (const s of skips) {
+    console.warn(`[products] skipped "${s.slug}" (${s.reason}): ${s.detail}`);
+  }
+  cache = keep;
+  return keep;
 }
 
 /** Categories that actually have published products, in a stable order. */
