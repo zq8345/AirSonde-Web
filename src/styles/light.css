@@ -1139,7 +1139,11 @@ ol {
 .as-gcard__eyebrow {
   font-size: var(--as-fs-micro);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  /* W35-A1: this is an eyebrow, and the other two eyebrows (.as-eyebrow,
+     .as-scenepanel__eyebrow) track at 0.22em — 0.14em here was the one role
+     split across two values (audit 2026-08-28 A1). The 0.14em that remains
+     elsewhere belongs to the meta/label roles, which are a different tier. */
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--as-accent);
 }
