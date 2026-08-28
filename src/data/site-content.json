@@ -76,13 +76,13 @@
       "8in1-desktop-monitor",
       "9in1-desktop-air-quality-monitor",
       "co2-tvoc-hcho-desktop-monitor",
-      "wide-screen-co2-monitor",
       "16in1-large-display-monitor",
       "oval-wifi-air-quality-monitor",
       "wifi-widescreen-air-quality-monitor",
       "portrait-aqi-desktop-monitor",
       "handheld-air-quality-analyser",
-      "portable-co-alarm"
+      "portable-co-alarm",
+      "wbgt-heat-index-monitor"
     ]
   }
 }
