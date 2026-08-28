@@ -102,6 +102,18 @@ a {
   color: inherit;
   text-decoration: none;
 }
+/* W35 (audit 2026-08-28): form controls do not inherit font-family, so every
+   button/input class that forgot to say so rendered in Arial — including the
+   site's only enquiry Submit. Four classes had patched it locally with
+   `font: inherit`; this is the class-level fix. family only, NOT the `font`
+   shorthand: the shorthand also swaps line-height to the body's 1.6 and would
+   silently change control geometry that was tuned under UA metrics. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
 h1,
 h2,
 h3,
