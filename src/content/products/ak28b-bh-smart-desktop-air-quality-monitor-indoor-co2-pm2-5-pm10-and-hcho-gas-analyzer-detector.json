@@ -1,7 +1,7 @@
 {
   "slug": "ak28b-bh-smart-desktop-air-quality-monitor-indoor-co2-pm2-5-pm10-and-hcho-gas-analyzer-detector",
-  "name": "AK28B/BH-Smart Desktop Air Quality Monitor – Indoor CO2, PM2.5, PM10, and HCHO Gas Analyzer/Detector",
-  "model": "AK28B/BH",
+  "name": "AK28B-Smart Desktop Air Quality Monitor – Indoor CO2, PM2.5, PM10, and HCHO Gas Analyzer/Detector",
+  "model": "AK28B",
   "category": "desktop",
   "sensors": [
     "CO2",
