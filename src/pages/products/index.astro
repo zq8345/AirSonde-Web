@@ -8,10 +8,10 @@ import { Image } from 'astro:assets';
 import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
-// Generated sample-room scene. It is a brand image, not documentary evidence
-// of a real AirSonde facility, so page copy must not describe it as such.
-// The earlier reception renders remain in the repo for easy rollback.
-import heroPhoto from '../../assets/photos/products-hero-showroom-v1.webp';
+// Generated brand showroom scene. It is a brand image, not documentary
+// evidence of a real AirSonde facility, so page copy must not describe it as
+// such. Earlier showroom/reception renders remain for easy comparison.
+import heroPhoto from '../../assets/photos/products-hero-showroom-v2.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
@@ -31,7 +31,7 @@ const schemas = [
   <section class="as-hero as-hero--page" style="--hero-focus: 50% 52%">
     <Image
       src={heroPhoto}
-      alt="Product sample room with air-quality monitors on illuminated shelves"
+      alt="Showroom with air-quality monitors on a central display island and on lit wall shelves"
       class="as-hero__img"
       widths={[768, 1280, 1600, 2400]}
       sizes="100vw"
