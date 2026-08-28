@@ -3091,3 +3091,24 @@ select.as-field__input {
 .as-hero--cap28 {
   min-height: max(clamp(400px, 46vh, 560px), calc(100vw / 2.8));
 }
+
+/**
+ * Scene-page eyebrow pill (总工 queue ⑤): all four scene photos put something
+ * dark under "Solutions · <scene>" and the worst-rendition contrast read
+ * 2.1-4.1 — under the 4.5 floor on every page (three badly, office by a
+ * hair). The photos are ambience shots that will not be recomposed, so the
+ * text gets its own ground instead: the .as-scene__tag recipe (white pill +
+ * blur) that already carries 11px text over photos elsewhere on the site.
+ * ⛔ The eyebrow's colour itself is untouched — that is brand-level and
+ * 总工-gated.
+ * ⚠️ 0.94, not the tag's 0.88: over a worst-case black pixel 0.88 white
+ * computes to 4.05 against the accent teal — still under the floor. 0.94
+ * computes to 4.67 with no blur assumed (blur only averages, it cannot
+ * darken below the fill), so the floor holds even on a black background.
+ */
+.as-hero--scene .as-hero__eyebrow {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
