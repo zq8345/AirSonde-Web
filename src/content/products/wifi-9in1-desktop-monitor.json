@@ -1,7 +1,7 @@
 {
   "slug": "wifi-9in1-desktop-monitor",
-  "name": "Wi-Fi 9-in-1 Desktop Monitor",
-  "model": "AS-D9W",
+  "name": "AK16C-Wi-Fi 9-in-1 Desktop Monitor",
+  "model": "AK16C",
   "category": "desktop",
   "sensors": [
     "CO2",
@@ -12,10 +12,18 @@
     "TVOC",
     "temperature",
     "humidity",
-    "AQI"
+    "AQI",
+    "Time"
   ],
   "images": {
-    "main": "products/wifi-9in1-desktop-monitor.webp"
+    "main": "products/wifi-9in1-desktop-monitor.webp",
+    "gallery": [
+      "products/wifi-9in1-desktop-monitor-2.webp",
+      "products/wifi-9in1-desktop-monitor-3.webp",
+      "products/wifi-9in1-desktop-monitor-4.webp",
+      "products/wifi-9in1-desktop-monitor-5.webp",
+      "products/wifi-9in1-desktop-monitor-6.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/9-In-1-Indoor-Air-Quality_1601202603359.html",
   "status": "published"
