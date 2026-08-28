@@ -18,3 +18,14 @@ pnpm-debug.log*
 .claude/
 # wrangler pages dev cache (W7 local function testing)
 .wrangler/
+
+# W31 (2026-08-28): the .png sources Joe drops next to each rendered photo.
+# Nothing imports them, so they never reach a build — they are 2 MB each of
+# repository weight for no shipped byte.
+# ⚠️ Ignoring them makes a png-without-webp SILENT, which is the failure mode
+# this repo has spent a day removing. scripts/check-dist.mjs warns by name when
+# a photo has a .png and no matching .webp.
+# ⚠️ That warning can only fire where the .png exists — locally. CI never sees
+# an ignored file, so this is a local safety net, not a CI one.
+# ⛔ Deliberately narrow: photos only, not a blanket *.png.
+src/assets/photos/*.png

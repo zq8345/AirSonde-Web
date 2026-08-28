@@ -114,6 +114,41 @@ if (sitemapFiles.length === 0) {
 }
 
 /**
+ * A photo dropped in as .png with no .webp beside it.
+ *
+ * ⚠️ This exists because .gitignore now hides src/assets/photos/*.png. Ignoring
+ * them stops 2 MB files entering the repo for no shipped byte, but it also
+ * means a png-only drop would be committed by nobody and noticed by nobody —
+ * the person who added it would just see the site unchanged and wonder. That
+ * silence is the thing the ignore would otherwise buy at too high a price.
+ *
+ * ⚠️ It can only fire where the .png actually is, which is a working copy.
+ * CI never sees an ignored file, so this is a local net, not a CI one — say so
+ * rather than let someone assume the build is watching for them.
+ *
+ * ⛔ Warns, never fails: an unused source file is not a reason to stop a
+ * deployment.
+ */
+{
+  const PHOTOS = 'src/assets/photos';
+  let entries = [];
+  try {
+    entries = await readdir(PHOTOS);
+  } catch {
+    entries = [];
+  }
+  const orphanPngs = entries
+    .filter((name) => name.toLowerCase().endsWith('.png'))
+    .filter((name) => !entries.includes(name.replace(/\.png$/i, '.webp')));
+  if (orphanPngs.length > 0) {
+    console.warn(
+      `  ⚠ ${orphanPngs.length} photo(s) in ${PHOTOS}/ are .png with no .webp beside them, so nothing can import them and they are gitignored: ${orphanPngs.join(', ')}`,
+    );
+  }
+  console.log(`  photos: ${entries.filter((n) => /\.png$/i.test(n)).length} png, ${orphanPngs.length} without a webp`);
+}
+
+/**
  * Internal links must carry the trailing slash.
  *
  * ⚠️ Measured 2026-08-28: 426 of them did not, and the host answered each with

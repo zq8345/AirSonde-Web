@@ -8,15 +8,10 @@ import { Image } from 'astro:assets';
 import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
-// Joe 2026-08-13: rendered reception scene — see docs/photo-log.md, ⛔ no page
-// copy may describe it as a real place.
-// W31 (Joe, 2026-08-28): swapped to his v3 render. The display shelf now holds
-// actual monitors with lit screens rather than blank white boxes.
-// ⚠️ v3 is 1672×941 where the previous render was 2400×1351 — same framing
-// ratio, 30% less resolution, so the largest variant Astro can emit is 1672
-// wide. Reported rather than worked around: ⛔ the image bytes are his.
-// ⚠️ The old file stays in the repo — he may want it back.
-import heroPhoto from '../../assets/photos/products-hero-reception-v3.webp';
+// Generated sample-room scene. It is a brand image, not documentary evidence
+// of a real AirSonde facility, so page copy must not describe it as such.
+// The earlier reception renders remain in the repo for easy rollback.
+import heroPhoto from '../../assets/photos/products-hero-showroom-v1.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
@@ -33,10 +28,10 @@ const schemas = [
 ---
 
 <LightBase title={META.products.title} description={META.products.description} schemas={schemas}>
-  <section class="as-hero as-hero--page" style="--hero-focus: 30% 52%">
+  <section class="as-hero as-hero--page" style="--hero-focus: 50% 52%">
     <Image
       src={heroPhoto}
-      alt="Reception desk with a display shelf of monitors"
+      alt="Product sample room with air-quality monitors on illuminated shelves"
       class="as-hero__img"
       widths={[768, 1280, 1600, 2400]}
       sizes="100vw"
