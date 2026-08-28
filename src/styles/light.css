@@ -845,7 +845,11 @@ ol {
 }
 .as-stat__value {
   font-size: var(--as-fs-h2);
-  font-weight: 700;
+  /* W35-B2: 800, not 700 — at 700 these numbers were typographically
+     identical to the h2 tier (24/26/28 across breakpoints, audit B2), so a
+     stat and a section heading could not be told apart. Weight separates the
+     roles without spending a size tier; tabular-nums was already here. */
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--as-ink);
   font-variant-numeric: tabular-nums;
@@ -1939,6 +1943,11 @@ textarea.as-field__input {
 /* §3: form-factor rail is a subsection INSIDE the products block */
 .as-formrail__title {
   margin: 56px 0 24px;
+  /* W35-B4: the h3 tier proper (21px), not .as-h3's 28px — at 28 this h3 sat
+     a full tier ABOVE the guide articles' h2 (21px), inverting the hierarchy
+     across pages (audit B4). .as-h3 keeps its constitutional definition; this
+     is its only consumer and the override is the role's, not the tier's. */
+  font-size: var(--as-fs-h3);
 }
 
 /* §4: scene tabs + one big panel */
