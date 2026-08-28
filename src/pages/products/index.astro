@@ -11,10 +11,11 @@ import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
 // Generated brand showroom scene. It is a brand image, not documentary
 // evidence of a real AirSonde facility, so page copy must not describe it as
 // such. Earlier showroom/reception renders remain for easy comparison.
-// W38 (2026-08-28): v5, 2880x1200 (2.400:1), same spec as the homepage hero —
-// quiet wall across the left 56%, wall shelves and display island on the
-// right. ⚠️ Joe is still iterating on this render, so v2 stays on disk.
-import heroPhoto from '../../assets/photos/products-hero-showroom-v5.webp';
+// 2026-08-28: v6, 2880x1200 (2.400:1), same spec as the homepage hero —
+// Joe's declared final take. Panelled wall with downlights on the left,
+// wall shelves and display island on the right. v2 stays on disk as the
+// fallback until Joe signs off on this one in place.
+import heroPhoto from '../../assets/photos/products-hero-showroom-v6.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
@@ -32,26 +33,28 @@ const schemas = [
 
 <LightBase title={META.products.title} description={META.products.description} schemas={schemas}>
   <!--
-    focus, measured on this render rather than carried over from v2:
-    the "airsonde" wordmark sits at x 69.7-75.8%, y 29.4-31.9%, and it is the
+    focus, measured on this render (v6) rather than carried over from v5:
+    the "airsonde" wordmark sits at x 70.5-76.5%, y 34.5-37.1%, and it is the
     element that must survive every crop (the v2 hero cut it at 1680 and up).
-    · Y 34%: at 2560x400 — the harshest crop, only 37.5% of the image height
-      survives — the visible band is y 21.3-58.8%, leaving 8.1 points above the
-      wordmark. 52% put that band at 32.5% and cut it.
-    · X 72% below 768px: there the crop is horizontal, not vertical, and only
-      ~39% of the image WIDTH is visible. X 50% clips the wordmark's right edge
-      by 6.3 points; 72% keeps it whole with 5.9 to spare and still opens on
-      quiet wall at the left.
+    · Y 50%: under the 2.8 cap the desktop crop is a fixed ~13.5% of the
+      height, so the wordmark is safe at any Y (top margin 27.7 points at 50);
+      50 balances the ceiling light track against the island's floor glow —
+      both survive. (v5 needed Y 34 because its wordmark sat 5 points higher
+      and the box was uncapped when it shipped.)
+    · X 72% below 768px: there the crop is horizontal and only ~39% of the
+      image WIDTH is visible. X 50% would clip the wordmark's right edge;
+      72% keeps it whole with 6.4 points to spare and the copy still opens on
+      the panelled wall. (Checked by cropping the visible rectangle.)
   -->
   <!-- as-hero--openright: 蒙版 B — the wash fades out by x 78% so the display
        island shows through; the text side (0-38%) is unchanged. -->
   <section
     class="as-hero as-hero--page as-hero--openright as-hero--cap28"
-    style="--hero-focus: 50% 34%; --hero-focus-narrow: 72% 34%"
+    style="--hero-focus: 50% 50%; --hero-focus-narrow: 72% 50%"
   >
     <Image
       src={heroPhoto}
-      alt="Empty showroom wall in warm daylight, with air-quality monitors arranged on two lit wall shelves under the airsonde wordmark and on a rounded display island below"
+      alt="Showroom with a panelled, downlit wall on the left and air-quality monitors on two lit wall shelves under the airsonde wordmark, more models on a rounded display island below"
       class="as-hero__img"
       widths={[768, 1280, 1600, 2400]}
       sizes="100vw"
