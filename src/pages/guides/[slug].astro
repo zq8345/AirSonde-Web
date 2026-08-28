@@ -21,11 +21,21 @@ const { guide } = Astro.props;
 
 const products = await getPublishedProducts();
 const bySlug = new Map(products.map((p) => [p.data.slug, p]));
-const cards = guide.productSlugs.map((slug) => {
-  const product = bySlug.get(slug);
-  if (!product) throw new Error(`guides/${guide.slug}: unknown product slug "${slug}"`);
-  return product;
-});
+/**
+ * ⚠️ A curated slug that matches nothing is skipped, not thrown on. This threw
+ * until 2026-08-28, when deleting one product from the admin took the whole
+ * site's build down for nine hours — production kept serving the deleted page
+ * because no build had succeeded since. Unpublishing a product must never be
+ * able to stop the site from building.
+ * ⛔ Silence is the other failure, so the missing ones are named on stderr.
+ */
+const missingCards = guide.productSlugs.filter((slug) => !bySlug.has(slug));
+if (missingCards.length > 0) {
+  console.warn(
+    `[guides/${guide.slug}] ${missingCards.length} curated product slug(s) match no published product and are skipped: ${missingCards.join(', ')}`,
+  );
+}
+const cards = guide.productSlugs.map((slug) => bySlug.get(slug)).filter((p) => p !== undefined);
 
 const scenes = guide.solutionSlugs.map((slug) => {
   const scene = SCENES_DATA.find((s) => s.slug === slug);

@@ -11,12 +11,40 @@ import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { PRODUCTS_PAGE, SITE } from '../../data/site';
 import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
-import { categoryLabel, getPublishedProducts, resolveProductImage, sensorLabels } from '../../lib/products';
+import {
+  categoryLabel,
+  getPublishedProducts,
+  modelPath,
+  productHref,
+  resolveProductImage,
+  sensorLabels,
+} from '../../lib/products';
 
+/**
+ * W29: the address is the model, not the record's slug. The slug is still the
+ * record's identity in the content collection and in the admin — it just
+ * stopped being the URL.
+ * ⚠️ Two products sharing a model would silently give one of them the other's
+ * page. `modelPath` already rejects characters that cannot be a URL; this
+ * rejects the collision, by name, before anything is generated.
+ */
 export const getStaticPaths = (async () => {
   const products = await getPublishedProducts();
+  const seen = new Map<string, string>();
+  for (const product of products) {
+    const path = modelPath(product.data.model);
+    const previous = seen.get(path);
+    if (previous) {
+      throw new Error(
+        `[products] two published products both want /products/${path}/: ` +
+          `"${previous}" and "${product.data.slug}" (model ${JSON.stringify(product.data.model)}). ` +
+          `Models are addresses now, so they have to be unique — rename one in the admin.`,
+      );
+    }
+    seen.set(path, product.data.slug);
+  }
   return products.map((product) => ({
-    params: { slug: product.data.slug },
+    params: { slug: modelPath(product.data.model) },
     props: { product, siblings: products.filter((p) => p.data.slug !== product.data.slug) },
   }));
 }) satisfies GetStaticPaths;
@@ -76,7 +104,7 @@ const schemas = [
     // W23②: the visible trail's last step is the model, so the structured data
     // says the same thing rather than a second copy of the full title — that is
     // still carried by the h1, <title>, og:title and Product.name.
-    { name: model, url: `${SITE.url}/products/${product.data.slug}/` },
+    { name: model, url: `${SITE.url}${productHref(product)}` },
   ]),
 ];
 ---

@@ -1,0 +1,109 @@
+{
+  "$comment": [
+    "W29 · 2026-08-28 — the product URL moved from the record slug to the model.",
+    "This file is the FROZEN baseline of that move: it is committed, and the build",
+    "gate in scripts/check-dist.mjs compares public/_redirects against THIS list.",
+    "",
+    "⛔ Do not regenerate it from src/content/products/. A gate whose baseline is",
+    "rebuilt from the thing it tests cannot fail: delete a record and the record",
+    "quietly leaves the criterion with it. The baseline has to sit outside the",
+    "thing being measured.",
+    "",
+    "⚠️ Adding a product later needs nothing here — it never had an old URL. A",
+    "product whose MODEL is later renamed does: its old rule then points at a page",
+    "that no longer exists, which the gate reports as a warning (not a failure —",
+    "an admin edit must not be able to stop the site building)."
+  ],
+  "frozenAt": "2026-08-28",
+  "note": "from = the URL that was live before the move; to = the URL now.",
+  "routes": [
+    {
+      "from": "/products/16in1-large-display-monitor/",
+      "to": "/products/ak34-1/"
+    },
+    {
+      "from": "/products/7in-desktop-air-quality-monitor/",
+      "to": "/products/ak35/"
+    },
+    {
+      "from": "/products/8in1-desktop-monitor/",
+      "to": "/products/ak16/"
+    },
+    {
+      "from": "/products/9in1-desktop-air-quality-monitor/",
+      "to": "/products/ak23/"
+    },
+    {
+      "from": "/products/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time/",
+      "to": "/products/ak34/"
+    },
+    {
+      "from": "/products/app-breathalyser/",
+      "to": "/products/ak13b/"
+    },
+    {
+      "from": "/products/co2-desktop-monitor/",
+      "to": "/products/ak8/"
+    },
+    {
+      "from": "/products/co2-tvoc-hcho-desktop-monitor/",
+      "to": "/products/ak3/"
+    },
+    {
+      "from": "/products/compact-9in1-desktop-monitor/",
+      "to": "/products/ak16c/"
+    },
+    {
+      "from": "/products/compact-square-air-quality-monitor/",
+      "to": "/products/ak23b/"
+    },
+    {
+      "from": "/products/geiger-counter/",
+      "to": "/products/ak19/"
+    },
+    {
+      "from": "/products/handheld-air-quality-analyser/",
+      "to": "/products/ak33/"
+    },
+    {
+      "from": "/products/hcho-desktop-monitor/",
+      "to": "/products/ak11c/"
+    },
+    {
+      "from": "/products/mini-co2-desktop-monitor/",
+      "to": "/products/ak4/"
+    },
+    {
+      "from": "/products/oval-wifi-air-quality-monitor/",
+      "to": "/products/ak30/"
+    },
+    {
+      "from": "/products/portable-breathalyser/",
+      "to": "/products/ak13a/"
+    },
+    {
+      "from": "/products/portable-co-alarm/",
+      "to": "/products/ak18a/"
+    },
+    {
+      "from": "/products/portrait-aqi-desktop-monitor/",
+      "to": "/products/ak16d/"
+    },
+    {
+      "from": "/products/pump-breathalyser/",
+      "to": "/products/ak38/"
+    },
+    {
+      "from": "/products/wall-mount-co2-tvoc-monitor/",
+      "to": "/products/ak18b/"
+    },
+    {
+      "from": "/products/wbgt-heat-index-monitor/",
+      "to": "/products/ak36/"
+    },
+    {
+      "from": "/products/wifi-widescreen-air-quality-monitor/",
+      "to": "/products/ak22a/"
+    }
+  ]
+}

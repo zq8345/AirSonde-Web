@@ -17,13 +17,21 @@ const { scene } = Astro.props;
 
 const products = await getPublishedProducts();
 const bySlug = new Map(products.map((p) => [p.data.slug, p]));
-// A scene listing a slug that no longer exists must fail the build, not
-// render a hole (contract C1 rule 4 discipline).
-const fits = scene.productSlugs.map((slug) => {
-  const product = bySlug.get(slug);
-  if (!product) throw new Error(`solutions/${scene.slug}: unknown product slug "${slug}"`);
-  return product;
-});
+/**
+ * ⚠️ This used to fail the build on a slug that no longer exists — the note
+ * here said a scene "must fail the build, not render a hole". Measured
+ * 2026-08-28: deleting one product from the admin then took the whole site
+ * down for nine hours, and production went on serving the deleted page because
+ * no build had succeeded since. A hole in one strip is the smaller failure.
+ * ⛔ But not a silent one: the skipped slugs are named on stderr.
+ */
+const missingFits = scene.productSlugs.filter((slug) => !bySlug.has(slug));
+if (missingFits.length > 0) {
+  console.warn(
+    `[solutions/${scene.slug}] ${missingFits.length} curated product slug(s) match no published product and are skipped: ${missingFits.join(', ')}`,
+  );
+}
+const fits = scene.productSlugs.map((slug) => bySlug.get(slug)).filter((p) => p !== undefined);
 
 // The guides slot left open in W4: articles declare which scenes they serve,
 // so this page just queries — one source, no second list to drift.

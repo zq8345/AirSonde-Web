@@ -32,3 +32,55 @@
 # the same assertion 2-3 times consistently before believing it. When a reading
 # contradicts expectation, suspect propagation before suspecting the code.
 # ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# W29 (2026-08-28): product URLs moved from the record slug to the model.
+# Generated from src/data/slug-migration.json, which is the frozen baseline
+# the build gate checks this file against. Both forms are listed: without
+# them the bare path would take a 308 to the trailing-slash form first and
+# only then this 301 — two hops for every inbound link that omits the slash.
+# ---------------------------------------------------------------------------
+/products/16in1-large-display-monitor /products/ak34-1/ 301
+/products/16in1-large-display-monitor/ /products/ak34-1/ 301
+/products/7in-desktop-air-quality-monitor /products/ak35/ 301
+/products/7in-desktop-air-quality-monitor/ /products/ak35/ 301
+/products/8in1-desktop-monitor /products/ak16/ 301
+/products/8in1-desktop-monitor/ /products/ak16/ 301
+/products/9in1-desktop-air-quality-monitor /products/ak23/ 301
+/products/9in1-desktop-air-quality-monitor/ /products/ak23/ 301
+/products/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time /products/ak34/ 301
+/products/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time/ /products/ak34/ 301
+/products/app-breathalyser /products/ak13b/ 301
+/products/app-breathalyser/ /products/ak13b/ 301
+/products/co2-desktop-monitor /products/ak8/ 301
+/products/co2-desktop-monitor/ /products/ak8/ 301
+/products/co2-tvoc-hcho-desktop-monitor /products/ak3/ 301
+/products/co2-tvoc-hcho-desktop-monitor/ /products/ak3/ 301
+/products/compact-9in1-desktop-monitor /products/ak16c/ 301
+/products/compact-9in1-desktop-monitor/ /products/ak16c/ 301
+/products/compact-square-air-quality-monitor /products/ak23b/ 301
+/products/compact-square-air-quality-monitor/ /products/ak23b/ 301
+/products/geiger-counter /products/ak19/ 301
+/products/geiger-counter/ /products/ak19/ 301
+/products/handheld-air-quality-analyser /products/ak33/ 301
+/products/handheld-air-quality-analyser/ /products/ak33/ 301
+/products/hcho-desktop-monitor /products/ak11c/ 301
+/products/hcho-desktop-monitor/ /products/ak11c/ 301
+/products/mini-co2-desktop-monitor /products/ak4/ 301
+/products/mini-co2-desktop-monitor/ /products/ak4/ 301
+/products/oval-wifi-air-quality-monitor /products/ak30/ 301
+/products/oval-wifi-air-quality-monitor/ /products/ak30/ 301
+/products/portable-breathalyser /products/ak13a/ 301
+/products/portable-breathalyser/ /products/ak13a/ 301
+/products/portable-co-alarm /products/ak18a/ 301
+/products/portable-co-alarm/ /products/ak18a/ 301
+/products/portrait-aqi-desktop-monitor /products/ak16d/ 301
+/products/portrait-aqi-desktop-monitor/ /products/ak16d/ 301
+/products/pump-breathalyser /products/ak38/ 301
+/products/pump-breathalyser/ /products/ak38/ 301
+/products/wall-mount-co2-tvoc-monitor /products/ak18b/ 301
+/products/wall-mount-co2-tvoc-monitor/ /products/ak18b/ 301
+/products/wbgt-heat-index-monitor /products/ak36/ 301
+/products/wbgt-heat-index-monitor/ /products/ak36/ 301
+/products/wifi-widescreen-air-quality-monitor /products/ak22a/ 301
+/products/wifi-widescreen-air-quality-monitor/ /products/ak22a/ 301

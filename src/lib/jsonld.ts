@@ -1,5 +1,5 @@
 import { SITE } from '../data/site';
-import { categoryLabel, productTypePhrase, sensorLabels, type Product } from './products';
+import { categoryLabel, productHref, productTypePhrase, sensorLabels, type Product } from './products';
 
 const ORG_ID = `${SITE.url}/#organization`;
 
@@ -42,20 +42,24 @@ export function websiteSchema() {
 }
 
 export function productSchema(product: Product, imageUrls: string[]) {
-  const { slug, name, model, category, sensors, highlights, specs } = product.data;
+  const { name, model, category, sensors, highlights, specs } = product.data;
+  // W29: the product's address is its model, so the machine-readable url and
+  // @id follow it. ⚠️ @id changing means crawlers see a new entity id for an
+  // existing product — that is inherent to the move, not an oversight.
+  const path = productHref(product);
   const typePhrase = productTypePhrase(category);
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    '@id': `${SITE.url}/products/${slug}/#product`,
+    '@id': `${SITE.url}${path}#product`,
     name,
     sku: model,
     mpn: model,
     // the raw enum is an internal value; only ship it when it names a real
     // category ('other' names nothing a buyer or a crawler can use)
     ...(typePhrase ? { category: categoryLabel(category) } : {}),
-    url: `${SITE.url}/products/${slug}/`,
+    url: `${SITE.url}${path}`,
     image: imageUrls,
     description:
       `${name} (${model}) — ` +
@@ -102,7 +106,7 @@ export function itemListSchema(products: Product[]) {
       '@type': 'ListItem',
       position: index + 1,
       name: product.data.name,
-      url: `${SITE.url}/products/${product.data.slug}/`,
+      url: `${SITE.url}${productHref(product)}`,
     })),
   };
 }

@@ -4,19 +4,23 @@
  * so the look is defined once in light.css.
  */
 import { Image } from 'astro:assets';
-import { categoryLabel, headlineSensors, resolveProductImage, type Product } from '../lib/products';
+import { categoryLabel, headlineSensors, productHref, resolveProductImage, type Product } from '../lib/products';
 
 interface Props {
   product: Product;
 }
 
 const { product } = Astro.props;
-const { slug, name, model, category, images } = product.data;
+const { name, model, category, images } = product.data;
 const image = resolveProductImage(images.main);
 const chips = headlineSensors(product);
+// W29: the model is the address, and the trailing slash is part of it — every
+// card used to link to /products/x, which the host answered with a 308 to
+// /products/x/. 125 internal links were paying for that hop.
+const href = productHref(product);
 ---
 
-<a class="as-pcard" href={`/products/${slug}`}>
+<a class="as-pcard" href={href}>
   <span class="as-stage">
     <Image
       src={image}

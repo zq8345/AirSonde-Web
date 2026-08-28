@@ -115,3 +115,31 @@ export function headlineSensors(product: Product, max = 3): string[] {
     .slice(0, 2)
     .map((s) => CHIP_LABELS[s] ?? s.charAt(0).toUpperCase() + s.slice(1));
 }
+
+/**
+ * W29: the product page's address is its model, lowercased, with any "/"
+ * turned into "-". The slug is still the record's identity in the content
+ * collection and in the admin; it just stopped being the URL.
+ *
+ * ⚠️ This throws rather than mangling. A model carrying a space, a dot or any
+ * other character outside [a-z0-9-] would otherwise become a URL that is
+ * quietly wrong — or worse, one that collides with another product's. The
+ * build stopping with the offending model named is the only outcome that
+ * cannot be missed. Measured 2026-08-28: all 22 records are clean.
+ */
+export function modelPath(model: string): string {
+  const path = String(model).toLowerCase().replace(/\//g, '-');
+  if (!/^[a-z0-9-]+$/.test(path)) {
+    throw new Error(
+      `[products] model ${JSON.stringify(model)} does not make a usable URL: ` +
+        `"${path}" contains characters outside [a-z0-9-]. ` +
+        `Rename the model in the admin, or widen the rule in modelPath().`,
+    );
+  }
+  return path;
+}
+
+/** Canonical path of a product page, trailing slash included. */
+export function productHref(product: Product): string {
+  return `/products/${modelPath(product.data.model)}/`;
+}

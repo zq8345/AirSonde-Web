@@ -113,6 +113,71 @@ if (sitemapFiles.length === 0) {
   console.log(`  sitemap: ${urls} URL(s) == ${indexable} indexable page(s)`);
 }
 
+/**
+ * W29 gate — every URL that was live before the slug→model move must still
+ * have a redirect rule.
+ *
+ * 🔴 The baseline is src/data/slug-migration.json, which is COMMITTED, and is
+ * deliberately not rebuilt here from src/content/products/. A gate that
+ * regenerates its own baseline from the thing it measures cannot fail: delete
+ * a record and the record leaves the criterion with it. The baseline has to
+ * sit outside the thing being measured.
+ *
+ * Missing rule => failure (that is a developer slip, and it is the only
+ * warning anyone gets — the site has no 404 telemetry, so a missed redirect
+ * would otherwise surface as visitors hitting a hard 404).
+ * Target page gone => warning, not failure. That happens when a model is
+ * renamed from the admin, and an admin edit must never stop the site building.
+ */
+const migration = JSON.parse(await readFile('src/data/slug-migration.json', 'utf8'));
+const redirectsText = await readFile('public/_redirects', 'utf8');
+const redirectRules = redirectsText
+  .split('\n')
+  .map((l) => l.trim())
+  .filter((l) => l && !l.startsWith('#'))
+  .map((l) => {
+    const [from, to, code] = l.split(/\s+/);
+    return { from, to, code };
+  });
+const ruleFor = new Map(redirectRules.map((r) => [r.from, r]));
+
+const missingRules = [];
+const wrongTarget = [];
+const danglingTarget = [];
+for (const route of migration.routes) {
+  for (const form of [route.from, route.from.replace(/\/$/, '')]) {
+    const rule = ruleFor.get(form);
+    if (!rule) {
+      missingRules.push(form);
+      continue;
+    }
+    if (rule.to !== route.to) wrongTarget.push(`${form} -> ${rule.to} (expected ${route.to})`);
+    if (rule.code !== '301') wrongTarget.push(`${form} has code ${rule.code}, expected 301`);
+  }
+  const page = `${DIST}${route.to}index.html`.replace(/\/+/g, '/');
+  if (!files.some((f) => f.replace(/\\/g, '/') === page)) danglingTarget.push(`${route.from} -> ${route.to} (no page built)`);
+}
+if (missingRules.length) {
+  failures.push(
+    `${missingRules.length} frozen URL(s) have no rule in public/_redirects: ${missingRules.slice(0, 6).join(', ')}${missingRules.length > 6 ? ' …' : ''}`,
+  );
+}
+if (wrongTarget.length) {
+  failures.push(`${wrongTarget.length} redirect rule(s) disagree with the frozen list: ${wrongTarget.slice(0, 4).join('; ')}`);
+}
+if (danglingTarget.length) {
+  console.warn(
+    `  ⚠ ${danglingTarget.length} redirect(s) point at a page that is no longer built ` +
+      `(a model was probably renamed): ${danglingTarget.slice(0, 4).join('; ')}`,
+  );
+}
+// ⚠️ Say what was actually found. An "all present" line printed above a
+// failure is a line nobody can trust again.
+console.log(
+  `  redirects: ${migration.routes.length} frozen URL(s) × 2 forms — ` +
+    `${missingRules.length} missing, ${wrongTarget.length} mismatched, ${danglingTarget.length} dangling`,
+);
+
 if (failures.length) {
   console.error(`\n✗ dist check failed (${failures.length}):`);
   for (const line of failures.slice(0, 40)) console.error(`  - ${line}`);

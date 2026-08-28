@@ -21,7 +21,13 @@ import {
 import { ABOUT_EXPECT, ABOUT_HERO, ABOUT_QUALITY, ABOUT_STATS } from '../data/about';
 import { SCENES_DATA } from '../data/solutions';
 import { GUIDES } from '../data/guides';
-import { categoryLabel, getPublishedProducts, headlineSensors, resolveProductImage } from '../lib/products';
+import {
+  categoryLabel,
+  getPublishedProducts,
+  headlineSensors,
+  productHref,
+  resolveProductImage,
+} from '../lib/products';
 import factoryPhoto from '../assets/photos/factory/factory-assembly.webp';
 
 const products = await getPublishedProducts();
@@ -203,7 +209,7 @@ const whyCards = [
       <div class="as-pgrid as-pgrid--4">
         {
           curated.map((product) => (
-            <a class="as-pcard" href={`/products/${product.data.slug}`} data-as-reveal>
+            <a class="as-pcard" href={productHref(product)} data-as-reveal>
               <span class="as-stage">
                 <Image
                   src={resolveProductImage(product.data.images.main)}
