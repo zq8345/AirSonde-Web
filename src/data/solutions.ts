@@ -99,8 +99,9 @@ export const SCENES_DATA: Scene[] = [
       },
     ],
     productsHeading: 'Platforms that fit the office',
+    // Joe 2026-08-28: three, not four — the deleted product's entry goes rather
+    // than being replaced.
     productSlugs: [
-      'wide-screen-co2-monitor',
       'oval-wifi-air-quality-monitor',
       'wifi-widescreen-air-quality-monitor',
       'co2-tvoc-hcho-desktop-monitor',
@@ -133,11 +134,11 @@ export const SCENES_DATA: Scene[] = [
       },
     ],
     productsHeading: 'Platforms that fit the classroom',
+    // Joe 2026-08-28: three, not four — as with office.
     productSlugs: [
       '16in1-large-display-monitor',
       '8in1-desktop-monitor',
       'portrait-aqi-desktop-monitor',
-      'wide-screen-co2-monitor',
     ],
   },
   {

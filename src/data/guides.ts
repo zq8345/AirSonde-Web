@@ -137,7 +137,13 @@ export const GUIDES: Guide[] = [
       },
     ],
     productsHeading: 'Platforms built for occupied rooms',
-    productSlugs: ['wide-screen-co2-monitor', '16in1-large-display-monitor', '8in1-desktop-monitor'],
+    // Joe 2026-08-28: AK22A · AK34 · AK16, in that order. AK34-1 came out on
+    // purpose, and the deleted product went with it.
+    productSlugs: [
+      'wifi-widescreen-air-quality-monitor',
+      'ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time',
+      '8in1-desktop-monitor',
+    ],
     solutionSlugs: ['office', 'school'],
     cta: {
       heading: 'Scoping an office or classroom rollout?',
