@@ -14,7 +14,8 @@
     "temperature",
     "humidity",
     "AQI",
-    "Time"
+    "Time",
+    "APP"
   ],
   "highlights": [
     "Portrait layout with the AQI scale running across the top",
