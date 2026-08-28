@@ -16,12 +16,20 @@
 // Joe 2026-08-12 (第二张图): 3820×2160 workspace shot, no baked text, wide
 // empty wall on the left — the nav now floats over it (his instruction), so
 // the hero goes back to full-bleed with the header transparent above it.
-import heroImg from '../assets/photos/hero-workspace-v2.webp';
+import heroImg from '../assets/photos/home-hero-ak34-family-v1.webp';
 
 export const HERO_PHOTO = {
   src: heroImg,
-  alt: 'Man working at a desk with an AirSonde air quality monitor beside his laptop',
-  focus: '50% 42%',
+  alt: 'AK34 monitor on a living-room table showing CO2, temperature, humidity and particulate readings, with a family behind it',
+  focus: '55% 50%',
+  /**
+   * ⚠️ 375 shows only 26% of this image's width, so it needs its own focus.
+   * Measured: at 55% that window lands on the device's dark screen and the
+   * overlaid title scores 1.17 — unreadable. At 35% it sits on the empty wall
+   * and the same title scores 12.8, with the device entering from the right
+   * edge (checked by cropping the visible rectangle and looking at it).
+   */
+  focusNarrow: '35% 50%',
   /** 'banner-over' (Joe): nav AND copy both float over the full-bleed image,
    *  headline stepped down and broken into exactly two lines on the empty
    *  wall · 'banner-under' = copy in the white block below · others = earlier

@@ -86,7 +86,10 @@ const whyCards = [
       /* Joe: copy sits ON the image, stepped down, headline in exactly two
          lines — split on the comma so the break is data-driven, not a manual
          <br> that would rot if the sentence changes. */
-      <section class="as-heroover" style={`--hero-focus: ${HERO_PHOTO.focus}`}>
+      <section
+        class="as-heroover"
+        style={`--hero-focus: ${HERO_PHOTO.focus}; --hero-focus-narrow: ${HERO_PHOTO.focusNarrow ?? HERO_PHOTO.focus}`}
+      >
         <Image
           src={HERO_PHOTO.src}
           alt={HERO_PHOTO.alt}

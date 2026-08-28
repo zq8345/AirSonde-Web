@@ -2591,6 +2591,24 @@ select.as-field__input {
   object-fit: cover;
   object-position: var(--hero-focus, 50% 42%);
 }
+/**
+ * ⚠️ A narrow viewport sees a completely different slice of a wide hero, so it
+ * needs its own focus. Measured on the AK34 living-room render (2880×1200) at
+ * 375: the container is 0.62:1, so only 26% of the image width is on screen.
+ * The desktop focus of 55% puts that window over the device's dark screen and
+ * the overlaid title measured 1.17 against it — unreadable. At 35% the window
+ * sits on the empty wall and the same title measures 12.8, with the device
+ * entering from the right edge.
+ * ⚠️ The override sets object-position on the IMG, which carries no inline
+ * style. Redefining --hero-focus would not work: it is set inline on the
+ * section, and an inline custom property beats a stylesheet rule on the same
+ * element. (Written that way first; it had no effect.)
+ */
+@media (max-width: 559px) {
+  .as-heroover__img {
+    object-position: var(--hero-focus-narrow, var(--hero-focus, 50% 50%));
+  }
+}
 .as-heroover__in {
   position: absolute;
   inset: 0;
