@@ -2657,7 +2657,15 @@ select.as-field__input {
    the plant on the left or the person on the right */
 .as-heroover__title {
   margin-top: 12px;
-  font-size: clamp(26px, 3.1vw, 42px);
+  /* W35 (总工 定值): floor raised 26 -> 32. At 26 the homepage h1 was the
+     smallest h1 on the site and sat two tiers under the section d2 (48px) —
+     the page's own title outranked by its chapters. 42 stays the ceiling
+     (the wall constraint that set it is unchanged); the floor now binds
+     below ~1032px. Remeasured on the live image at 375: same 5 rendered
+     lines as at 26px (the "exactly two lines" contract is the two spans, and
+     they wrapped identically before), widest line 351px of 375, text block
+     bottom 49.2% -> 52.5% of the hero, worst-glyph contrast 12.64. */
+  font-size: clamp(32px, 3.1vw, 42px);
   line-height: 1.1;
   letter-spacing: -0.02em;
   font-weight: 800;
