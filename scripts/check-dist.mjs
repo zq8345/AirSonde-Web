@@ -7,7 +7,11 @@
  * the source looking right.
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import path from 'node:path';
+
+const run = promisify(execFile);
 
 const DIST = 'dist';
 const CONTENT = 'src/content/products';
@@ -114,13 +118,22 @@ if (sitemapFiles.length === 0) {
 }
 
 /**
- * A photo dropped in as .png with no .webp beside it.
+ * A .png dropped in with no .webp beside it, in a directory where .png is
+ * gitignored — src/assets/photos/ and design/.
  *
- * ⚠️ This exists because .gitignore now hides src/assets/photos/*.png. Ignoring
- * them stops 2 MB files entering the repo for no shipped byte, but it also
- * means a png-only drop would be committed by nobody and noticed by nobody —
- * the person who added it would just see the site unchanged and wonder. That
- * silence is the thing the ignore would otherwise buy at too high a price.
+ * ⚠️ This exists because .gitignore hides src/assets/photos/*.png and
+ * design/*.png. Ignoring them stops multi-MB files entering the repo for no
+ * shipped byte, but it also means a png-only drop would be committed by nobody
+ * and noticed by nobody — the person who added it would just see the site
+ * unchanged and wonder. That silence is the thing the ignore would otherwise
+ * buy at too high a price.
+ *
+ * 🔴 The predicate is "git does not track it AND no .webp beside it", NOT
+ * "no .webp beside it". design/ holds 10 tracked logo/favicon .png files that
+ * legitimately have no .webp; the naive rule warns about all ten, every build,
+ * and its own message ("they are gitignored") would be false about them. A
+ * warning that is wrong ten times out of ten is a warning nobody reads.
+ * Tracked-ness is asked of `git ls-files`, not inferred from the path.
  *
  * ⚠️ It can only fire where the .png actually is, which is a working copy.
  * CI never sees an ignored file, so this is a local net, not a CI one — say so
@@ -130,22 +143,42 @@ if (sitemapFiles.length === 0) {
  * deployment.
  */
 {
-  const PHOTOS = 'src/assets/photos';
-  let entries = [];
+  const PNG_DIRS = ['src/assets/photos', 'design'];
+
+  let tracked = new Set();
   try {
-    entries = await readdir(PHOTOS);
+    const { stdout } = await run('git', ['ls-files', '-z'], { maxBuffer: 1 << 24 });
+    tracked = new Set(stdout.split('\0').filter(Boolean));
   } catch {
-    entries = [];
+    // Not a working copy (a CI tarball, a vendored export). With no index to
+    // ask, every .png reads as untracked; say so instead of warning falsely.
+    console.log('  png/webp: skipped (no git index here — this net is local only)');
+    tracked = null;
   }
-  const orphanPngs = entries
-    .filter((name) => name.toLowerCase().endsWith('.png'))
-    .filter((name) => !entries.includes(name.replace(/\.png$/i, '.webp')));
-  if (orphanPngs.length > 0) {
-    console.warn(
-      `  ⚠ ${orphanPngs.length} photo(s) in ${PHOTOS}/ are .png with no .webp beside them, so nothing can import them and they are gitignored: ${orphanPngs.join(', ')}`,
-    );
+
+  if (tracked) {
+    for (const dir of PNG_DIRS) {
+      let entries = [];
+      try {
+        entries = await readdir(dir);
+      } catch {
+        continue;
+      }
+      const pngs = entries.filter((name) => /\.png$/i.test(name));
+      const orphans = pngs
+        .filter((name) => !entries.includes(name.replace(/\.png$/i, '.webp')))
+        .filter((name) => !tracked.has(`${dir}/${name}`));
+      if (orphans.length > 0) {
+        console.warn(
+          `  ⚠ ${orphans.length} file(s) in ${dir}/ are an untracked .png with no .webp beside them, so nothing can import them and git cannot see them: ${orphans.join(', ')}`,
+        );
+      }
+      const trackedPngs = pngs.filter((name) => tracked.has(`${dir}/${name}`)).length;
+      console.log(
+        `  png/webp ${dir}/: ${pngs.length} png (${trackedPngs} tracked, ${pngs.length - trackedPngs} ignored), ${orphans.length} untracked without a webp`,
+      );
+    }
   }
-  console.log(`  photos: ${entries.filter((n) => /\.png$/i.test(n)).length} png, ${orphanPngs.length} without a webp`);
 }
 
 /**

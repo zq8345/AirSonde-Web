@@ -29,3 +29,15 @@ pnpm-debug.log*
 # an ignored file, so this is a local safety net, not a CI one.
 # ⛔ Deliberately narrow: photos only, not a blanket *.png.
 src/assets/photos/*.png
+
+# W37 follow-up (2026-08-28): the same thing happens in design/, where Joe drops
+# the 2880x1200 masters (4-6 MB .png beside a ~100 KB .webp). Only the .webp is
+# ever copied into src/assets/ and shipped.
+# ⛔ NOT a blanket ignore of design/: that directory also holds the logo and
+# favicon set, which are archival and must stay tracked.
+# ⚠️ 10 of the .png files already in this directory ARE tracked (the logo and
+# favicon renders). A gitignore rule does not untrack anything, so they are
+# unaffected — but that also means this pattern would silently stop tracking
+# them if one were ever `git rm --cached`ed. Verified after adding: all 13
+# design/ entries still listed by `git ls-files design/`.
+design/*.png
