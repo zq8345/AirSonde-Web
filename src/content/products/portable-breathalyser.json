@@ -7,10 +7,10 @@
     "alcohol"
   ],
   "images": {
-    "main": "products/portable-breathalyser.webp",
+    "main": "products/portable-breathalyser-3.webp",
     "gallery": [
+      "products/portable-breathalyser.webp",
       "products/portable-breathalyser-2.webp",
-      "products/portable-breathalyser-3.webp",
       "products/portable-breathalyser-4.webp",
       "products/portable-breathalyser-5.webp"
     ]
