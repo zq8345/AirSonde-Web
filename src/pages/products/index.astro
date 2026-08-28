@@ -11,7 +11,10 @@ import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
 // Generated brand showroom scene. It is a brand image, not documentary
 // evidence of a real AirSonde facility, so page copy must not describe it as
 // such. Earlier showroom/reception renders remain for easy comparison.
-import heroPhoto from '../../assets/photos/products-hero-showroom-v2.webp';
+// W38 (2026-08-28): v5, 2880x1200 (2.400:1), same spec as the homepage hero —
+// quiet wall across the left 56%, wall shelves and display island on the
+// right. ⚠️ Joe is still iterating on this render, so v2 stays on disk.
+import heroPhoto from '../../assets/photos/products-hero-showroom-v5.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
@@ -28,10 +31,22 @@ const schemas = [
 ---
 
 <LightBase title={META.products.title} description={META.products.description} schemas={schemas}>
-  <section class="as-hero as-hero--page" style="--hero-focus: 50% 52%">
+  <!--
+    focus, measured on this render rather than carried over from v2:
+    the "airsonde" wordmark sits at x 69.7-75.8%, y 29.4-31.9%, and it is the
+    element that must survive every crop (the v2 hero cut it at 1680 and up).
+    · Y 34%: at 2560x400 — the harshest crop, only 37.5% of the image height
+      survives — the visible band is y 21.3-58.8%, leaving 8.1 points above the
+      wordmark. 52% put that band at 32.5% and cut it.
+    · X 72% below 768px: there the crop is horizontal, not vertical, and only
+      ~39% of the image WIDTH is visible. X 50% clips the wordmark's right edge
+      by 6.3 points; 72% keeps it whole with 5.9 to spare and still opens on
+      quiet wall at the left.
+  -->
+  <section class="as-hero as-hero--page" style="--hero-focus: 50% 34%; --hero-focus-narrow: 72% 34%">
     <Image
       src={heroPhoto}
-      alt="Showroom with air-quality monitors on a central display island and on lit wall shelves"
+      alt="Empty showroom wall in warm daylight, with air-quality monitors arranged on two lit wall shelves under the airsonde wordmark and on a rounded display island below"
       class="as-hero__img"
       widths={[768, 1280, 1600, 2400]}
       sizes="100vw"

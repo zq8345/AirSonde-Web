@@ -2983,3 +2983,26 @@ select.as-field__input {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/**
+ * W38: the same narrow-viewport problem as the homepage hero, one page over.
+ * At 375 the products hero is 375×400, so `cover` scales the 2880×1200 render
+ * to fit the HEIGHT and only ~39% of its width is on screen — a horizontal
+ * crop, not the vertical one every desktop width gets.
+ * Measured on the v5 render: the "airsonde" wordmark sits at x 69.7-75.8%, and
+ * the desktop focus of 50% puts the window at x 30.5-69.5%, cutting the
+ * wordmark's right edge by 6.3 points. 72% moves the window to 42.7-81.7% —
+ * wordmark whole with 5.9 points to spare, and the copy still opens on quiet
+ * wall.
+ * ⚠️ Breakpoint is 767px, not the homepage's 559px, on purpose: with the
+ * desktop focus the wordmark's right margin reaches zero at ~495px wide, so a
+ * 559px switch would leave a 495-559 band that is technically uncut and
+ * effectively grazing. 767 is also where this hero's copy goes full-width.
+ * ⚠️ Set on the IMG. --hero-focus is an inline custom property on the section,
+ * and an inline custom property beats a stylesheet rule on the same element.
+ */
+@media (max-width: 767px) {
+  .as-hero__img {
+    object-position: var(--hero-focus-narrow, var(--hero-focus, 50% 50%));
+  }
+}
