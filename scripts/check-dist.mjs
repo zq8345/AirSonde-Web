@@ -430,6 +430,7 @@ try {
   await writeFile(diagnosticsPath, `${JSON.stringify(diagnostics, null, 2)}\n`);
   console.log(
     `  diagnostics: ${diagnostics.skippedProducts} skipped product(s), ` +
+      `${diagnostics.skippedCuratedRefs ?? 0} dangling curated ref(s), ` +
       `${danglingTarget.length} dangling redirect(s) -> ${diagnosticsPath}`,
   );
 } catch (error) {

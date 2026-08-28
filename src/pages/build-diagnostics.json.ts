@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { buildSkips, getPublishedProducts } from '../lib/products';
+import { curatedRefSkips } from '../lib/curated';
 
 /**
  * A machine-readable list of what this build left out.
@@ -20,7 +21,21 @@ import { buildSkips, getPublishedProducts } from '../lib/products';
 export const GET: APIRoute = async () => {
   // Call this first: the skip list is filled in while products are resolved.
   const products = await getPublishedProducts();
-  const skips = buildSkips();
+
+  /**
+   * W33: both skip channels, each row tagged with `kind`.
+   * - "product": a product that could not enter the build (missing image,
+   *   duplicate model, …) — collected by getPublishedProducts().
+   * - "curated-ref": a hand-curated slug (featured tiles, guide cards, scene
+   *   strips, form-factor images) matching no published product — DERIVED here
+   *   from the same data arrays those pages render, not collected from the
+   *   pages: Astro guarantees no page build order, so a collector filled
+   *   during their renders could be read before any of them ran.
+   */
+  const skips = [
+    ...buildSkips().map((s) => ({ kind: 'product' as const, ...s })),
+    ...curatedRefSkips(new Set(products.map((p) => p.data.slug))),
+  ];
 
   return new Response(
     JSON.stringify(
@@ -28,7 +43,8 @@ export const GET: APIRoute = async () => {
         $comment:
           'What this build left out. Written by src/pages/build-diagnostics.json.ts; danglingRedirects is merged in by scripts/check-dist.mjs after the build.',
         publishedProducts: products.length,
-        skippedProducts: skips.length,
+        skippedProducts: skips.filter((s) => s.kind === 'product').length,
+        skippedCuratedRefs: skips.filter((s) => s.kind === 'curated-ref').length,
         skips,
         danglingRedirects: [],
       },
