@@ -23,6 +23,9 @@ import type { APIRoute } from 'astro';
  * confident of a state that is not true — so the flip is verified after
  * deploying, without a cache-buster.
  *
+ * ⚠️ Verified on production 2026-08-28: the sha flipped 45s after a push,
+ * read without a cache-buster, and again on the next commit.
+ *
  * ⚠️ Outside Cloudflare (a local `pnpm build`) the variable is absent and this
  * says "local". That means "not built by CI", NOT "production is stale".
  */
