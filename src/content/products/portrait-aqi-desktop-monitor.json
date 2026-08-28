@@ -1,7 +1,7 @@
 {
   "slug": "portrait-aqi-desktop-monitor",
   "name": "AK16D-CO/DH-CO/DA-CO/DAH-CO-Portrait AQI Desktop Monitor",
-  "model": "AK16D-CO/DH-CO/DA-CO/DAH-CO",
+  "model": "AK16D",
   "category": "desktop",
   "sensors": [
     "CO2",
