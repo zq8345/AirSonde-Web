@@ -11,8 +11,22 @@
 # fired. It does not break the other rules; it just does nothing.
 #
 # So www -> apex has to be a zone-level Redirect Rule in Cloudflare, not a line
-# in this file. Add path rules below as the site grows (CF Pages caps this file
-# at ~140 rules).
+# in this file. Add path rules below as the site grows.
+#
+# 🔴 规则条数上限 —— 文档与产出不一致，以产出为准。两个数都留在这里，
+#    ⛔ 删掉任何一半都会误导下一个人：
+#
+#    · Cloudflare 文档：静态 2,000 + 动态 100 = 2,100 条，每条 ≤1,000 字符
+#      https://developers.cloudflare.com/pages/configuration/redirects/
+#    · wanew.com 生产实测（2026-07-26/27，同为 CF Pages）：处理在第 ~100 条
+#      **active 规则**处截断。边界有实证：active pos 100 → 301 ✓ ；pos 103 → 404 ✗
+#      ⚠️ 按 active 规则序号切 —— **删注释和空行不解决**（实测过）
+#      ⚠️ 曾让一批 301 长期 404 并被缓存掩盖：**截断是静默的，构建不报错**
+#
+#    ⇒ 工作上限硬守 <100。⛔ 不许因为文档写着 2,000 就放宽。
+#    ⚠️ 那个 100 测自 wanew，**未在 airsonde 复现**。所以真正的保护不是这个数，
+#      而是 scripts/verify-redirects.mjs：上线后逐条验每条规则真的到达它该到的地方。
+#      无论真值是多少，第一条失效的规则都会当场红。
 
 # Capabilities stopped being a top-level section on 2026-08-11 (Joe's六大板块
 # IA); its content lives in /about/ now.
@@ -32,55 +46,3 @@
 # the same assertion 2-3 times consistently before believing it. When a reading
 # contradicts expectation, suspect propagation before suspecting the code.
 # ---------------------------------------------------------------------------
-
-# ---------------------------------------------------------------------------
-# W29 (2026-08-28): product URLs moved from the record slug to the model.
-# Generated from src/data/slug-migration.json, which is the frozen baseline
-# the build gate checks this file against. Both forms are listed: without
-# them the bare path would take a 308 to the trailing-slash form first and
-# only then this 301 — two hops for every inbound link that omits the slash.
-# ---------------------------------------------------------------------------
-/products/16in1-large-display-monitor /products/ak34-1/ 301
-/products/16in1-large-display-monitor/ /products/ak34-1/ 301
-/products/7in-desktop-air-quality-monitor /products/ak35/ 301
-/products/7in-desktop-air-quality-monitor/ /products/ak35/ 301
-/products/8in1-desktop-monitor /products/ak16/ 301
-/products/8in1-desktop-monitor/ /products/ak16/ 301
-/products/9in1-desktop-air-quality-monitor /products/ak23/ 301
-/products/9in1-desktop-air-quality-monitor/ /products/ak23/ 301
-/products/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time /products/ak34/ 301
-/products/ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time/ /products/ak34/ 301
-/products/app-breathalyser /products/ak13b/ 301
-/products/app-breathalyser/ /products/ak13b/ 301
-/products/co2-desktop-monitor /products/ak8/ 301
-/products/co2-desktop-monitor/ /products/ak8/ 301
-/products/co2-tvoc-hcho-desktop-monitor /products/ak3/ 301
-/products/co2-tvoc-hcho-desktop-monitor/ /products/ak3/ 301
-/products/compact-9in1-desktop-monitor /products/ak16c/ 301
-/products/compact-9in1-desktop-monitor/ /products/ak16c/ 301
-/products/compact-square-air-quality-monitor /products/ak23b/ 301
-/products/compact-square-air-quality-monitor/ /products/ak23b/ 301
-/products/geiger-counter /products/ak19/ 301
-/products/geiger-counter/ /products/ak19/ 301
-/products/handheld-air-quality-analyser /products/ak33/ 301
-/products/handheld-air-quality-analyser/ /products/ak33/ 301
-/products/hcho-desktop-monitor /products/ak11c/ 301
-/products/hcho-desktop-monitor/ /products/ak11c/ 301
-/products/mini-co2-desktop-monitor /products/ak4/ 301
-/products/mini-co2-desktop-monitor/ /products/ak4/ 301
-/products/oval-wifi-air-quality-monitor /products/ak30/ 301
-/products/oval-wifi-air-quality-monitor/ /products/ak30/ 301
-/products/portable-breathalyser /products/ak13a/ 301
-/products/portable-breathalyser/ /products/ak13a/ 301
-/products/portable-co-alarm /products/ak18a/ 301
-/products/portable-co-alarm/ /products/ak18a/ 301
-/products/portrait-aqi-desktop-monitor /products/ak16d/ 301
-/products/portrait-aqi-desktop-monitor/ /products/ak16d/ 301
-/products/pump-breathalyser /products/ak38/ 301
-/products/pump-breathalyser/ /products/ak38/ 301
-/products/wall-mount-co2-tvoc-monitor /products/ak18b/ 301
-/products/wall-mount-co2-tvoc-monitor/ /products/ak18b/ 301
-/products/wbgt-heat-index-monitor /products/ak36/ 301
-/products/wbgt-heat-index-monitor/ /products/ak36/ 301
-/products/wifi-widescreen-air-quality-monitor /products/ak22a/ 301
-/products/wifi-widescreen-air-quality-monitor/ /products/ak22a/ 301

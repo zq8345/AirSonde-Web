@@ -6,7 +6,7 @@
   "packageManager": "pnpm@11.21.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-dist.mjs",
+    "build": "astro build && node scripts/build-redirects.mjs && node scripts/check-dist.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "images:build": "node scripts/build-product-images.mjs"

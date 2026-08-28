@@ -177,9 +177,13 @@ console.log(
  * renamed from the admin, and an admin edit must never stop the site building.
  */
 const migration = JSON.parse(await readFile('src/data/slug-migration.json', 'utf8'));
-const redirectsText = await readFile('public/_redirects', 'utf8');
+const renames = JSON.parse(await readFile('src/data/model-renames.json', 'utf8'));
+// ⚠️ Reads the SHIPPED file, not public/_redirects: the product block is
+// generated during the build, so the source no longer contains it. The thing
+// worth asserting on is the artefact that actually gets served.
+const redirectsText = await readFile(`${DIST}/_redirects`, 'utf8');
 const redirectRules = redirectsText
-  .split('\n')
+  .split(/\r?\n/)
   .map((l) => l.trim())
   .filter((l) => l && !l.startsWith('#'))
   .map((l) => {
@@ -188,21 +192,144 @@ const redirectRules = redirectsText
   });
 const ruleFor = new Map(redirectRules.map((r) => [r.from, r]));
 
+/**
+ * W30-A budget gate. ⚠️ Counts ACTIVE RULE ORDINALS, not file lines: the
+ * measured truncation on wanew.com cut at roughly the 100th active rule, and
+ * deleting comments did not move it. See the note at the top of
+ * public/_redirects for both the documented quota and the measured behaviour.
+ */
+const RULE_BUDGET_WARN = 85;
+const RULE_BUDGET_FAIL = 100;
+if (redirectRules.length >= RULE_BUDGET_FAIL) {
+  failures.push(
+    `${redirectRules.length} active redirect rules — at or past the measured truncation point (~${RULE_BUDGET_FAIL}). ` +
+      `Rules beyond it are silently ignored and 404. Halve the count by dropping the bare form ` +
+      `(EMIT_BARE_FORM in scripts/build-redirects.mjs), or move older ones to Bulk Redirects.`,
+  );
+} else if (redirectRules.length >= RULE_BUDGET_WARN) {
+  console.warn(
+    `  ⚠ ${redirectRules.length} active redirect rules — approaching the measured ceiling of ~${RULE_BUDGET_FAIL}. ` +
+      `About ${Math.floor((RULE_BUDGET_FAIL - redirectRules.length) / 2)} more rename(s) fit.`,
+  );
+}
+
+/**
+ * Where an address lives today, following the rename ledger.
+ * ⚠️ Deliberately implemented here rather than imported from
+ * build-redirects.mjs. Sharing the resolver would mean a bug in it produced
+ * the same wrong answer on both sides and this gate would agree with the
+ * mistake. Two independent walks of the same committed data disagree when one
+ * of them is wrong, which is the entire point of having a gate.
+ */
+const renameEdge = new Map(renames.routes.map((r, index) => [r.from, { to: r.to, index }]));
+// ⚠️ Same SEMANTICS as the generator — a model renamed back to an earlier
+// value leaves a cycle, and the later rename supersedes the earlier one — but
+// written independently. Sharing the code would let one bug produce the same
+// wrong answer twice; sharing only the rule lets the two disagree when either
+// is wrong. (They did disagree the first time, which is how the missing
+// supersede rule here was found.)
+for (;;) {
+  let cycle = null;
+  for (const start of renameEdge.keys()) {
+    const path = [start];
+    let at = start;
+    while (renameEdge.has(at)) {
+      at = renameEdge.get(at).to;
+      if (path.includes(at)) {
+        cycle = path.slice(path.indexOf(at));
+        break;
+      }
+      path.push(at);
+    }
+    if (cycle) break;
+  }
+  if (!cycle) break;
+  renameEdge.delete(cycle.reduce((a, b) => (renameEdge.get(a).index <= renameEdge.get(b).index ? a : b)));
+}
+const resolveAddress = (start) => {
+  const seen = new Set([start]);
+  let at = start;
+  while (renameEdge.has(at)) {
+    at = renameEdge.get(at).to;
+    if (seen.has(at)) return null; // cycle breaking failed — a bug, not data
+    seen.add(at);
+  }
+  return at;
+};
+
+/**
+ * The rename ledger's own three assertions.
+ * ⚠️ Its baseline cannot be regenerated from the products — it records what a
+ * model used to be, which today's data no longer contains. That is what makes
+ * it usable as a baseline at all.
+ */
+const renameMissing = [];
+const renameStillLive = [];
+const renameLiveAgain = [];
+for (const route of renames.routes) {
+  // ⚠️ An address renamed away and later renamed back is live again: it must
+  // NOT have a rule (that would be a redirect to itself) and it SHOULD serve a
+  // page. Both of the assertions below would be exactly backwards for it.
+  if (resolveAddress(route.from) === route.from) {
+    renameLiveAgain.push(route.from);
+    continue;
+  }
+  for (const form of [route.from, route.from.replace(/\/$/, '')]) {
+    if (!ruleFor.get(form)) renameMissing.push(form);
+  }
+  // A "renamed" address that still serves a page was not a rename.
+  const page = `${DIST}${route.from}index.html`.replace(/\/+/g, '/');
+  if (files.some((f) => f.replace(/\\/g, '/') === page)) renameStillLive.push(route.from);
+}
+if (renameMissing.length) {
+  failures.push(
+    `${renameMissing.length} renamed URL(s) from model-renames.json have no rule: ${renameMissing.slice(0, 6).join(', ')}`,
+  );
+}
+if (renameStillLive.length) {
+  failures.push(
+    `${renameStillLive.length} address(es) in model-renames.json still serve a page, so they were not renamed: ${renameStillLive.join(', ')}`,
+  );
+}
+const selfRedirects = redirectRules.filter((r) => r.from === r.to || `${r.from}/` === r.to);
+if (selfRedirects.length) {
+  failures.push(
+    `${selfRedirects.length} rule(s) redirect to themselves (an infinite loop): ${selfRedirects.map((r) => r.from).slice(0, 4).join(', ')}`,
+  );
+}
+console.log(
+  `  renames: ${renames.routes.length} in the ledger — ${renameMissing.length} without a rule, ` +
+    `${renameStillLive.length} still serving, ${selfRedirects.length} self-redirect(s)`,
+);
+
+
 const missingRules = [];
 const wrongTarget = [];
 const danglingTarget = [];
 for (const route of migration.routes) {
+  const expected = resolveAddress(route.to);
+  if (expected === null) {
+    failures.push(`model-renames.json loops while resolving ${route.to}`);
+    continue;
+  }
+  // A frozen route whose product was later renamed back onto its own old
+  // address resolves to itself; the generator drops that rule, so the gate
+  // must not then demand it.
+  if (expected === route.from) continue;
   for (const form of [route.from, route.from.replace(/\/$/, '')]) {
     const rule = ruleFor.get(form);
     if (!rule) {
       missingRules.push(form);
       continue;
     }
-    if (rule.to !== route.to) wrongTarget.push(`${form} -> ${rule.to} (expected ${route.to})`);
+    if (rule.to !== expected) wrongTarget.push(`${form} -> ${rule.to} (expected ${expected})`);
     if (rule.code !== '301') wrongTarget.push(`${form} has code ${rule.code}, expected 301`);
   }
-  const page = `${DIST}${route.to}index.html`.replace(/\/+/g, '/');
-  if (!files.some((f) => f.replace(/\\/g, '/') === page)) danglingTarget.push(`${route.from} -> ${route.to} (no page built)`);
+  // ⚠️ Against the RESOLVED target, not the frozen one: after a rename the
+  // frozen address is expected to be gone, and complaining about that would
+  // make this warning fire on every correctly-handled rename.
+  const page = `${DIST}${expected}index.html`.replace(/\/+/g, '/');
+  if (!files.some((f) => f.replace(/\\/g, '/') === page)) danglingTarget.push(`${route.from} -> ${expected} (no page built)`);
 }
 if (missingRules.length) {
   failures.push(
