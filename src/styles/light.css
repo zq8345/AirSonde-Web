@@ -1481,13 +1481,19 @@ ol {
   font-size: var(--as-fs-h2);
   line-height: 1.2;
 }
+/* W35-B3 (总工 定值 21px): these are the PDP's section headings — Sensing,
+   Highlights, Specifications — and they rendered as 11px uppercase eyebrows,
+   byte-identical to form-field labels and card meta (audit B3: an <h2>
+   SMALLER than the body text beside it). Now the h3 tier with the article-h2
+   voice: heading ink, no tracking, no uppercase — the eyebrow costume goes
+   with the eyebrow size. */
 .as-pdp__h {
   margin-top: 30px;
-  font-size: var(--as-fs-micro);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--as-ink2);
+  font-size: var(--as-fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: var(--as-ink);
 }
 .as-sensor-pills {
   margin-top: 12px;
