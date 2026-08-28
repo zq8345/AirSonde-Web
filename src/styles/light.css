@@ -3006,3 +3006,26 @@ select.as-field__input {
     object-position: var(--hero-focus-narrow, var(--hero-focus, 50% 50%));
   }
 }
+
+/**
+ * 蒙版 B (Joe's ruling, W36 follow-up): keep the left side of the wash at full
+ * strength — the copy lives there — but fade it out sooner, so the display
+ * island and shelves (x≈58-95% of the frame) read as a showroom instead of
+ * through a veil.
+ * Wash alpha over the island, base rule vs this one (horizontal layer):
+ *   x 58%:  0.63 -> 0.30      x 70%:  0.49 -> 0.12      x 95%:  0.22 -> 0
+ * The 0-38% span is byte-identical to the base rule — B's contract is that
+ * the text side does not move.
+ * ⚠️ Scoped to a modifier because .as-hero__wash is shared by the about and
+ * contact heroes, which keep the base veil.
+ * ⚠️ min-width guard, not just the modifier: below 768px a media rule swaps in
+ * the near-uniform phone wash (0,2,0), and this selector (0,3,0) would beat it
+ * — the phone veil is a readability net, not island cover, and stays.
+ */
+@media (min-width: 768px) {
+  .as-hero--openright .as-hero__wash {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0.55) 86%, var(--as-bg) 100%),
+      linear-gradient(90deg, var(--as-scrim) 0%, rgba(255, 255, 255, 0.88) 38%, rgba(255, 255, 255, 0.3) 58%, rgba(255, 255, 255, 0) 78%);
+  }
+}
