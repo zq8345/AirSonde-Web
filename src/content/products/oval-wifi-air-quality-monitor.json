@@ -1,7 +1,7 @@
 {
   "slug": "oval-wifi-air-quality-monitor",
-  "name": "AK29-Oval Wi-Fi Air Quality Monitor",
-  "model": "AK29",
+  "name": "AK30-Oval Wi-Fi Air Quality Monitor",
+  "model": "AK30",
   "category": "desktop",
   "sensors": [
     "CO2",
@@ -13,8 +13,7 @@
     "temperature",
     "humidity",
     "AQI",
-    "Time",
-    "Radon"
+    "Time"
   ],
   "highlights": [
     "Rounded housing that reads as furniture rather than instrumentation",
@@ -29,11 +28,13 @@
   "images": {
     "main": "products/oval-wifi-air-quality-monitor.webp",
     "gallery": [
-      "products/oval-wifi-air-quality-monitor-2.webp",
-      "products/oval-wifi-air-quality-monitor-3.webp",
-      "products/oval-wifi-air-quality-monitor-4.webp",
-      "products/oval-wifi-air-quality-monitor-5.webp",
-      "products/oval-wifi-air-quality-monitor-6.webp"
+      "products/oval-wifi-air-quality-monitor-7.webp",
+      "products/oval-wifi-air-quality-monitor-8.webp",
+      "products/oval-wifi-air-quality-monitor-9.webp",
+      "products/oval-wifi-air-quality-monitor-10.webp",
+      "products/oval-wifi-air-quality-monitor-11.webp",
+      "products/oval-wifi-air-quality-monitor-12.webp",
+      "products/oval-wifi-air-quality-monitor-13.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/New-16-in-1-Air-Quality_1601805270556.html",
