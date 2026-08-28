@@ -1,15 +1,23 @@
 {
   "slug": "wbgt-heat-index-monitor",
-  "name": "WBGT Heat Index Monitor",
-  "model": "AS-X-WBGT",
+  "name": "AK36-WBGT Heat Index Monitor",
+  "model": "AK36",
   "category": "other",
   "sensors": [
-    "WBGT",
     "temperature",
-    "humidity"
+    "humidity",
+    "WBGT",
+    "Time"
   ],
   "images": {
-    "main": "products/wbgt-heat-index-monitor.webp"
+    "main": "products/wbgt-heat-index-monitor.webp",
+    "gallery": [
+      "products/wbgt-heat-index-monitor-2.webp",
+      "products/wbgt-heat-index-monitor-3.webp",
+      "products/wbgt-heat-index-monitor-4.webp",
+      "products/wbgt-heat-index-monitor-5.webp",
+      "products/wbgt-heat-index-monitor-6.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/New-Arrival-WBGT-Heat-Index-Monitor_1601845577029.html",
   "status": "published"
