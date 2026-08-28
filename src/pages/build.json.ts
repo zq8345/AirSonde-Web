@@ -16,6 +16,12 @@ import type { APIRoute } from 'astro';
  * every page on every commit, which would make a byte-for-byte dist comparison
  * — the criterion used to prove a refactor changed nothing — useless.
  *
+ * 🔴 It still costs one file: `builtAt` differs on every build, so dist/build.json
+ * is never byte-identical between two builds. Any future "the output did not
+ * change" comparison MUST exclude dist/build.json, or it will report one
+ * CHANGED file forever and someone will have to re-explain it every time. That
+ * is the whole reason this is one file rather than a meta tag in all 36 pages.
+ *
  * ⚠️ Caching: measured on production before writing this, Cloudflare Pages
  * already serves JSON as `public, max-age=0, must-revalidate` with
  * `cf-cache-status: DYNAMIC`, so no _headers rule is needed. A build.json

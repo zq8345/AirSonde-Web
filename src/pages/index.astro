@@ -204,7 +204,7 @@ const whyCards = [
           <p class="as-eyebrow">{PRODUCTS_HOME.eyebrow}</p>
           <h2 class="as-d2">{PRODUCTS_HOME.heading}</h2>
         </div>
-        <a class="as-link-arrow" href="/products">{PRODUCTS_HOME.allLink}</a>
+        <a class="as-link-arrow" href="/products/">{PRODUCTS_HOME.allLink}</a>
       </div>
       <div class="as-pgrid as-pgrid--4">
         {
@@ -247,7 +247,7 @@ const whyCards = [
              would read "Desktop 16". The aria-label restores what the removed
              word carried; it is not rendered text. */
           formTiles.map((tile) => (
-            <a class="as-form-tile" href="/products" aria-label={`${tile.label} — ${tile.count} products`}>
+            <a class="as-form-tile" href="/products/" aria-label={`${tile.label} — ${tile.count} products`}>
               <span class="as-stage">
                 <Image
                   src={tile.image}
@@ -358,7 +358,7 @@ const whyCards = [
               ))
             }
           </div>
-          <a href="/about" class="as-link-arrow">{ABOUT_HOME.learnMore}</a>
+          <a href="/about/" class="as-link-arrow">{ABOUT_HOME.learnMore}</a>
         </div>
       </div>
     </div>

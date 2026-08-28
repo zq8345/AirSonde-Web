@@ -114,6 +114,53 @@ if (sitemapFiles.length === 0) {
 }
 
 /**
+ * Internal links must carry the trailing slash.
+ *
+ * ⚠️ Measured 2026-08-28: 426 of them did not, and the host answered each with
+ * a 308 to the slash form — a redirect on every nav click on every page. They
+ * live in templates, so one authoring slip puts hundreds back.
+ *
+ * 🔴 The TOTAL is asserted before the bare count, and both are printed. A
+ * change that deleted the navigation would also drive "bare = 0", and only the
+ * total would show it.
+ *
+ * ⛔ Exempt, and each for a reason rather than by pattern-matching convenience:
+ * external URLs (not ours to normalise), mailto:/tel: (not paths), "#id"
+ * (same page), "/" (already canonical), and anything ending in a file
+ * extension (a file, not a directory route — /favicon.svg must not become
+ * /favicon.svg/).
+ */
+const linkTotals = { total: 0, sitePaths: 0, withSlash: 0, bare: [] };
+for (const file of htmlFiles) {
+  const body = await readFile(file, 'utf8');
+  for (const match of body.matchAll(/href="([^"]*)"/g)) {
+    const href = match[1];
+    linkTotals.total += 1;
+    if (
+      /^(https?:\/\/|mailto:|tel:|#)/i.test(href) ||
+      href === '/' ||
+      !href.startsWith('/') ||
+      /\.[a-z0-9]{2,5}(\?|$)/i.test(href)
+    ) {
+      continue;
+    }
+    linkTotals.sitePaths += 1;
+    if (href.endsWith('/')) linkTotals.withSlash += 1;
+    else linkTotals.bare.push(`${file}: ${href}`);
+  }
+}
+if (linkTotals.bare.length) {
+  const distinct = [...new Set(linkTotals.bare.map((b) => b.split(': ')[1]))];
+  failures.push(
+    `${linkTotals.bare.length} internal link(s) miss the trailing slash and would each cost a 308: ${distinct.slice(0, 6).join(', ')}${distinct.length > 6 ? ' …' : ''}`,
+  );
+}
+console.log(
+  `  links: ${linkTotals.total} href(s) total, ${linkTotals.sitePaths} site path(s) — ` +
+    `${linkTotals.withSlash} with trailing slash, ${linkTotals.bare.length} bare`,
+);
+
+/**
  * W29 gate — every URL that was live before the slug→model move must still
  * have a redirect rule.
  *

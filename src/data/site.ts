@@ -47,11 +47,11 @@ export const SITE = {
 // Only sections that exist get a menu item; Solutions and Guides join as they
 // ship. Capabilities is no longer a section — /capabilities/ 301s to /about/.
 export const NAV = [
-  { label: 'Products', href: '/products' },
-  { label: 'Solutions', href: '/solutions' },
-  { label: 'Guides', href: '/guides' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Products', href: '/products/' },
+  { label: 'Solutions', href: '/solutions/' },
+  { label: 'Guides', href: '/guides/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
 ] as const;
 
 /** Per-page <title> and meta description. Every entry must be unique. */
@@ -91,8 +91,8 @@ export const HERO = {
   body: content.home.hero.body,
   // ⚠️ **href 故意不进 JSON**：文案改错只是难看，链接改错是 404。
   //    后台只给改 label —— 那是它真正想改的东西。
-  primaryCta: { label: content.home.hero.primaryCtaLabel, href: '/contact' },
-  secondaryCta: { label: content.home.hero.secondaryCtaLabel, href: '/products' },
+  primaryCta: { label: content.home.hero.primaryCtaLabel, href: '/contact/' },
+  secondaryCta: { label: content.home.hero.secondaryCtaLabel, href: '/products/' },
 } as const;
 
 export const SENSOR_CHIPS = [
