@@ -122,6 +122,11 @@
       "value": "Data-History",
       "label": "Data-History",
       "order": 18
+    },
+    {
+      "value": "APP",
+      "label": "APP",
+      "order": 19
     }
   ]
 }
