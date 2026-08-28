@@ -10,7 +10,13 @@ import LightProductCard from '../../components/LightProductCard.astro';
 import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
 // Joe 2026-08-13: rendered reception scene — see docs/photo-log.md, ⛔ no page
 // copy may describe it as a real place.
-import heroPhoto from '../../assets/photos/products-hero-reception.webp';
+// W31 (Joe, 2026-08-28): swapped to his v3 render. The display shelf now holds
+// actual monitors with lit screens rather than blank white boxes.
+// ⚠️ v3 is 1672×941 where the previous render was 2400×1351 — same framing
+// ratio, 30% less resolution, so the largest variant Astro can emit is 1672
+// wide. Reported rather than worked around: ⛔ the image bytes are his.
+// ⚠️ The old file stays in the repo — he may want it back.
+import heroPhoto from '../../assets/photos/products-hero-reception-v3.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
 import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
 
