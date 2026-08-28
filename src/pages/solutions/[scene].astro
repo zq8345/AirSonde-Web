@@ -47,7 +47,11 @@ const schemas = [
 ---
 
 <LightBase title={scene.meta.title} description={scene.meta.description} schemas={schemas}>
-  <section class="as-hero as-hero--page">
+  {/* as-hero--cap28 (总工 approved extension): same defect family as the
+      contact hero that shipped with its wordmark cut — these 1.33-1.5:1 scene
+      photos were being sliced to a 4.6:1 sliver at 2560 (71% of the height
+      cropped); the cap pins that at 46-52% instead. */}
+  <section class="as-hero as-hero--page as-hero--cap28">
     <Image
       src={scene.photo.src}
       alt={scene.photo.alt}
