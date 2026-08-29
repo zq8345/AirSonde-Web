@@ -3112,3 +3112,31 @@ select.as-field__input {
   border-radius: 999px;
   padding: 5px 12px;
 }
+
+/**
+ * W39-A (总工 裁决): the school lead's first line ends over the students'
+ * pale sweaters and read 4.31-4.36 across variants at 2560 — the one reading
+ * under the 4.5 floor in the scene swap. Focus cannot move it (the 2560 crop
+ * is vertical; 10 points of Y shift the pixels under the text by <2). So the
+ * wash holds on a little longer.
+ *
+ * 🔴 The recipe below is the PAGE-HERO wash (About pass 2, line ~2911) with
+ * two stops raised — 40%: 0.46 -> 0.49, 70%: 0.12 -> 0.16 — NOT the base
+ * .as-hero__wash. The first cut of this override copied the base recipe and
+ * tripled every reading (school lead 4.31 -> 13.2): the info-page heroes
+ * never use the base wash, `.as-hero--page .as-hero__wash` replaces it, and
+ * an override written against the wrong parent is a silent redesign. Caught
+ * because the before-numbers were on record and a +0.04 stop cannot triple a
+ * ratio. Computed delta at the breach pixel (x 47%): alpha 0.381 -> 0.413,
+ * background relative luminance 0.232 -> ~0.25 — visually imperceptible.
+ * ⚠️ min-width guard, deliberately: below 768px the phone readability wash
+ * applies, and this selector's specificity would override it at every width
+ * without the guard — the same trap the openright modifier had to dodge.
+ */
+@media (min-width: 768px) {
+  .as-hero--scene .as-hero__wash {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0.3) 86%, var(--as-bg) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.49) 40%, rgba(255, 255, 255, 0.16) 70%, rgba(255, 255, 255, 0) 100%);
+  }
+}
