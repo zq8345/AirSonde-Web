@@ -148,6 +148,45 @@ const whyCoda = ABOUT_STORY.paragraphs[0];
           </div>
         </div>
       </section>
+    ) : HERO_PHOTO.mode === 'side' ? (
+      /* W44 方案 2 (Joe「你先试试」): 图文分离 — the copy stands on the page
+         background inside the grid, the image is its own cover panel on the
+         right (below on phones). Zero wash, zero text-over-image: contrast
+         stops being a function of the photograph entirely. */
+      <section
+        class="as-heroside"
+        style={`--hero-focus: ${HERO_PHOTO.focus}; --hero-focus-narrow: ${HERO_PHOTO.focusNarrow ?? HERO_PHOTO.focus}`}
+      >
+        <div class="as-container as-heroside__grid">
+          <div class="as-heroside__text">
+            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
+            <h1 class="as-heroside__title">
+              {HERO.headline.split(/,\s+/).map((line, i, all) => (
+                <span class="as-heroside__line">{i < all.length - 1 ? `${line},` : line}</span>
+              ))}
+            </h1>
+            <p class="as-hero__sub">{HERO.body}</p>
+            <div class="as-hero__cta">
+              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
+                {HERO.primaryCta.label}
+                <span class="as-arw" aria-hidden="true">→</span>
+              </a>
+              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
+            </div>
+          </div>
+          <div class="as-heroside__media">
+            <Image
+              src={HERO_PHOTO.src}
+              alt={HERO_PHOTO.alt}
+              class="as-heroside__img"
+              widths={[768, 1280, 1600, 2400]}
+              sizes="(min-width: 980px) 54vw, 94vw"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+      </section>
     ) : HERO_PHOTO.mode === 'banner-split' || HERO_PHOTO.mode === 'banner-under' ? (
       <>
         <section

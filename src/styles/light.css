@@ -3237,3 +3237,64 @@ select.as-field__input {
     );
   }
 }
+
+/**
+ * W44 方案 2 样板 (Joe「你先试试」, prototype authorized 2026-08-29): 图文分离
+ * hero. The copy stands on the page background in the left column; the image
+ * is its own rounded cover panel on the right — the scene-panel language the
+ * site already speaks. Zero wash, zero text-over-image: readability stops
+ * depending on the photograph, which is exactly what killed the v2 overlay
+ * (title 1.00 over the shelf frames, W41-B).
+ * Every value is an existing token or an already-used tier. The title takes
+ * the d2 tier at weight 800: sections sit at 36/700 since W41-C, so the h1
+ * stays the heaviest first-screen text at every width (宪法 §3).
+ */
+.as-heroside {
+  background: var(--as-bg);
+  padding: calc(var(--as-header-h) + 38px) 0 30px;
+}
+.as-heroside__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 44px;
+  align-items: center;
+}
+.as-heroside__title {
+  margin-top: 14px;
+  font-size: var(--as-fs-d2);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--as-ink);
+}
+.as-heroside__line {
+  display: block;
+}
+.as-heroside__media {
+  position: relative;
+  border-radius: var(--as-radius);
+  overflow: hidden;
+  height: clamp(380px, 52vh, 560px);
+}
+.as-heroside__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--hero-focus, 50% 50%);
+}
+@media (max-width: 979px) {
+  .as-heroside__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+  .as-heroside__media {
+    /* 40vh, not 44: measured at 375x812 — at 44vh the device's bottom edge
+       landed at y833, 21px below the fold; at 40vh it clears it at y~807. */
+    height: clamp(280px, 40vh, 380px);
+  }
+  .as-heroside__img {
+    object-position: var(--hero-focus-narrow, var(--hero-focus, 50% 50%));
+  }
+}
