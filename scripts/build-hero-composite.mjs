@@ -11,6 +11,15 @@
  * Run: node scripts/build-hero-composite.mjs
  * Output: src/assets/photos/hero-composite-{a,b,c}.webp + candidates to
  * scratch for eyeballing.
+ *
+ * ⚠️ ARCHIVED (W41-C): the three scene source images this script reads
+ * (hero-living-room.jpg, scene-home.jpg, scene-office.jpg) were deleted by
+ * Joe on 2026-08-29 — running it now fails at the first composite. To rerun,
+ * restore the sources from git history first:
+ *   git show f488957:src/assets/photos/hero-living-room.jpg > src/assets/photos/hero-living-room.jpg
+ * (same for the other two). The source-path lines below are deliberately
+ * unchanged — the script is dead-archived, and its outputs
+ * (hero-composite-a/b/c.webp) remain tracked assets.
  */
 import sharp from 'sharp';
 
