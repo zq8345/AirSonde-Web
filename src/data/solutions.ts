@@ -6,10 +6,13 @@
  * Copy discipline: generic, defensible IAQ reasoning only — no regulations
  * cited, no thresholds, no certifications, no invented specs.
  */
-import sceneHome from '../assets/photos/scene-home.jpg';
-import sceneOffice from '../assets/photos/scene-office.jpg';
-import sceneSchool from '../assets/photos/scene-school.jpg';
-import sceneIndustrial from '../assets/photos/scene-industrial.jpg';
+// W39 (2026-08-28, Joe): the four ambience-only rooms became staged scenes —
+// people using AirSonde devices, 2880x1200 (2.4:1), same spec as the heroes.
+// The old scene-*.jpg files stay tracked as the one-line revert path.
+import sceneHome from '../assets/photos/scene-home-v1.webp';
+import sceneOffice from '../assets/photos/scene-office-v1.webp';
+import sceneSchool from '../assets/photos/scene-school-v1.webp';
+import sceneIndustrial from '../assets/photos/scene-industrial-v1.webp';
 
 export const SOLUTIONS_HUB = {
   meta: {
@@ -25,7 +28,26 @@ export const SOLUTIONS_HUB = {
 export interface Scene {
   slug: string;
   label: string;
-  photo: { src: ImageMetadata; alt: string };
+  /**
+   * W39: every landing spot crops these 2.4:1 scenes differently — the detail
+   * hero is capped at 2.8 (vertical crop, ~13.5%), the homepage tab panel and
+   * the /solutions/ cards crop horizontally on phones (only 32-48% of the
+   * width survives at 375) — and the subjects sit in a different place in
+   * each render, so ⛔ no shared focus. Every value below was set by cropping
+   * the exact visible rectangle and looking at it, then measuring margins.
+   *   focus       detail hero ≥768 (Y is what matters under the cap)
+   *   focusNarrow detail hero <768 (X is what matters — window ~39% wide)
+   *   panelFocus  homepage panel + /solutions/ cards, all widths (X on
+   *               phones; Y only bites on the /solutions/ cards at desktop,
+   *               where the box is ~2.9:1)
+   */
+  photo: {
+    src: ImageMetadata;
+    alt: string;
+    focus: string;
+    focusNarrow: string;
+    panelFocus: string;
+  };
   meta: { title: string; description: string };
   heading: string;
   intro: string;
@@ -41,7 +63,13 @@ export const SCENES_DATA: Scene[] = [
   {
     slug: 'home',
     label: 'Home',
-    photo: { src: sceneHome, alt: 'Living room with houseplants and a television' },
+    photo: {
+      src: sceneHome,
+      alt: 'AK34 monitor on a wooden sideboard showing CO2 and comfort readings, with parents and a child playing on the living-room floor behind it',
+      focus: '65% 50%',
+      focusNarrow: '90% 50%',
+      panelFocus: '76% 50%',
+    },
     meta: {
       title: 'Home Air Quality Monitors — OEM / ODM | AirSonde',
       description:
@@ -75,7 +103,13 @@ export const SCENES_DATA: Scene[] = [
   {
     slug: 'office',
     label: 'Office',
-    photo: { src: sceneOffice, alt: 'Modern office with a glass meeting room and plants' },
+    photo: {
+      src: sceneOffice,
+      alt: 'Air quality monitor on a long office desk showing PM2.5, CO2 and TVOC readings, with four colleagues meeting by the window behind it',
+      focus: '67% 55%',
+      focusNarrow: '88% 50%',
+      panelFocus: '90% 55%',
+    },
     meta: {
       title: 'Office Air Quality Monitors — OEM / ODM | AirSonde',
       description:
@@ -110,7 +144,13 @@ export const SCENES_DATA: Scene[] = [
   {
     slug: 'school',
     label: 'School',
-    photo: { src: sceneSchool, alt: 'Classroom with rows of desks by sunlit windows' },
+    photo: {
+      src: sceneSchool,
+      alt: 'Large-display air quality monitor on a classroom shelf showing CO2 and comfort readings, with students and a teacher talking at a table by the windows',
+      focus: '63% 50%',
+      focusNarrow: '85% 50%',
+      panelFocus: '88% 50%',
+    },
     meta: {
       title: 'Classroom Air Quality Monitors — OEM / ODM | AirSonde',
       description:
@@ -144,7 +184,15 @@ export const SCENES_DATA: Scene[] = [
   {
     slug: 'industrial',
     label: 'Industrial',
-    photo: { src: sceneIndustrial, alt: 'Clean warehouse interior with polished concrete floor' },
+    photo: {
+      src: sceneIndustrial,
+      /** ⚠️ The subject's head starts at y≈4% of this render — the one scene
+       *  where the crop must hang from the top, not the centre. */
+      alt: 'Technician in safety glasses holding a handheld AirSonde monitor on a production floor, with SMT lines and ventilation ducts behind him',
+      focus: '50% 0%',
+      focusNarrow: '85% 0%',
+      panelFocus: '78% 12%',
+    },
     meta: {
       title: 'Industrial Indoor Air Monitors — OEM / ODM | AirSonde',
       description:

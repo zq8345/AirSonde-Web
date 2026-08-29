@@ -48,10 +48,15 @@ const schemas = [
 
 <LightBase title={scene.meta.title} description={scene.meta.description} schemas={schemas}>
   {/* as-hero--cap28 (总工 approved extension): same defect family as the
-      contact hero that shipped with its wordmark cut — these 1.33-1.5:1 scene
-      photos were being sliced to a 4.6:1 sliver at 2560 (71% of the height
-      cropped); the cap pins that at 46-52% instead. */}
-  <section class="as-hero as-hero--page as-hero--cap28 as-hero--scene">
+      contact hero that shipped with its wordmark cut — the old 1.33-1.5:1
+      scene photos were being sliced to a 4.6:1 sliver at 2560 (71% of the
+      height cropped). The W39 scenes are 2.4:1, so under the cap the vertical
+      crop is a fixed ~13.5% — but the subjects sit differently per render, so
+      the focus comes from the scene record (per-scene, measured). */}
+  <section
+    class="as-hero as-hero--page as-hero--cap28 as-hero--scene"
+    style={`--hero-focus: ${scene.photo.focus}; --hero-focus-narrow: ${scene.photo.focusNarrow}`}
+  >
     <Image
       src={scene.photo.src}
       alt={scene.photo.alt}

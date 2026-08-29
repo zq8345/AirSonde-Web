@@ -312,12 +312,18 @@ const whyCards = [
                   requested, not even after it is revealed (measured: no
                   network entry 4s after the tab was clicked). The tab script
                   kicks the fetch on activate/hover. */}
+              {/* W39: per-scene framing — at 375 this panel shows only ~32%
+                  of the 2.4:1 render's width, and the subjects sit in a
+                  different place in each one. Inline object-position because
+                  the img carries no other inline style and the value is data,
+                  not skin. */}
               <Image
                 src={scene.photo.src}
                 alt={scene.photo.alt}
                 widths={[1280, 1600]}
                 sizes="(min-width: 1200px) 1140px, 94vw"
                 loading="lazy"
+                style={`object-position: ${scene.photo.panelFocus}`}
               />
               <span class="as-scenepanel__cap">
                 <span class="as-scenepanel__eyebrow">{scene.label}</span>

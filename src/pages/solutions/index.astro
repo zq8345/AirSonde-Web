@@ -36,6 +36,9 @@ const schemas = [
         {
           SCENES_DATA.map((scene, i) => (
             <a class="as-scenepanel is-active as-scenepanel--stacked" href={`/solutions/${scene.slug}/`}>
+              {/* W39: same per-scene framing as the homepage panel — these
+                  cards crop ~17% vertically at desktop and show only ~48% of
+                  the width at 375. */}
               <Image
                 src={scene.photo.src}
                 alt={scene.photo.alt}
@@ -43,6 +46,7 @@ const schemas = [
                 sizes="(min-width: 1240px) 1192px, 94vw"
                 quality={72}
                 loading={i === 0 ? 'eager' : 'lazy'}
+                style={`object-position: ${scene.photo.panelFocus}`}
               />
               <span class="as-scenepanel__cap">
                 <span class="as-scenepanel__eyebrow">{scene.label}</span>
