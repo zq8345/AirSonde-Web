@@ -8,7 +8,9 @@
  */
 // W39 (2026-08-28, Joe): the four ambience-only rooms became staged scenes —
 // people using AirSonde devices, 2880x1200 (2.4:1), same spec as the heroes.
-// The old scene-*.jpg files stay tracked as the one-line revert path.
+// ⚠️ The old scene-*.jpg files were cleaned up by Joe on 2026-08-29 (W41-C);
+// reverting now means retrieving them from git history first, e.g.
+//   git show f488957:src/assets/photos/scene-home.jpg
 import sceneHome from '../assets/photos/scene-home-v1.webp';
 import sceneOffice from '../assets/photos/scene-office-v1.webp';
 import sceneSchool from '../assets/photos/scene-school-v1.webp';

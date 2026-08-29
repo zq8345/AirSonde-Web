@@ -20,9 +20,10 @@ import {
 import { breadcrumbSchema } from '../lib/jsonld';
 import wechatQr from '../assets/photos/wechat-qr.webp';
 // W14: Joe supplied a rendered reception scene. The previous office photo
-// stays in the repo — swap the two imports below to revert in one line.
+// (scene-office.jpg) was cleaned up by Joe on 2026-08-29 (W41-C) — reverting
+// now means retrieving it from git history first:
+//   git show f488957:src/assets/photos/scene-office.jpg
 import heroPhoto from '../assets/photos/contact-support-hero.webp';
-// import heroPhoto from '../assets/photos/scene-office.jpg';
 
 const schemas = [
   breadcrumbSchema([
