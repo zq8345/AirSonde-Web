@@ -89,9 +89,13 @@ export const ABOUT_HOME = {
  *  certificates and the zero-certification red line stands. */
 export const WHY_HOME = {
   eyebrow: 'Why AirSonde',
-  heading: 'Our advantages',
-  qualityTitle: 'Quality control',
-  supportTitle: 'Engineering support',
+  /**
+   * W41 (宪法 §5): this section's one job is answering "why not source the
+   * same-looking unit from a marketplace listing?" — the old "Our advantages"
+   * said nothing. ⚠️ The four argument cards live in index.astro, NOT here:
+   * this file must stay free of the positioning words (see header).
+   */
+  heading: 'Why brands come to us directly',
 } as const;
 
 /** W9 §7 — guides section labels; cards come from guides.ts. */

@@ -197,10 +197,21 @@ ol {
   color: var(--as-ink);
   margin-top: 14px;
 }
-/* W9: wanew's homepage section titles sit on the d2 (48px) tier, not h2 —
-   verified on live w3.css. Inner pages keep .as-h2 at 28px. */
+/* W9: wanew's homepage section titles sat on the d2 (48px) tier, verified on
+   live w3.css — and that is exactly what 宪法 §3 now forbids: at 48 every
+   section heading outweighed the hero h1 (42 max), the page's own title
+   outranked by its chapters (audit 倒挂, W41-C).
+   W41-C (总工批机制+判据, 值我定): the section-heading ROLE moves to the h1
+   TIER — var(--as-fs-h1), 36/32/27 across breakpoints. Chosen over a literal
+   in the 36-40 window because it is an existing token (no new size value in
+   the system) and every breakpoint comes with it for free. The d2 TOKEN
+   itself stays 48 and keeps serving true page titles (.as-article__title,
+   .as-pagehead__title), which are h1-role and must stay heaviest on their
+   own pages. Ladder after: hero 42x800 > sections 36x700 > h2 28 > h3 21.
+   ⚠️ 1024-1160px: the hero h1 floor (32) sits under 36 by SIZE; by
+   size x weight the hero still wins (32x800=25600 > 36x700=25200). */
 .as-d2 {
-  font-size: var(--as-fs-d2);
+  font-size: var(--as-fs-h1);
   line-height: 1.06;
   letter-spacing: -0.03em;
   font-weight: 700;
@@ -2087,50 +2098,63 @@ textarea.as-field__input {
 }
 
 /* §6: four advantage cards — shared frame + hairline dividers (wanew .w3-why) */
+/* W41-A: four thin columns could not hold an argument — the section's job
+   (宪法 §5: answer "why not source direct from a marketplace listing") needs
+   room to actually argue. 2×2 of substantial cards; every size/color/radius
+   below is an existing token or an already-used tier — no new values. */
 .as-why {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   border: 1px solid var(--as-line);
   border-radius: var(--as-radius);
   background: #fff;
   overflow: hidden;
 }
 .as-whycard {
-  padding: 26px 24px 30px;
+  padding: 30px 28px 34px;
   border-left: 1px solid var(--as-line);
+  border-top: 1px solid var(--as-line);
 }
-.as-whycard:first-child {
+.as-whycard:nth-child(-n + 2) {
+  border-top: 0;
+}
+.as-whycard:nth-child(odd) {
   border-left: 0;
 }
-.as-whycard h3 {
-  font-size: var(--as-fs-body);
-  font-weight: 650;
-  color: var(--as-ink);
-}
-.as-whycard p {
-  margin-top: 10px;
-  font-size: var(--as-fs-compact);
+/* the number is the card's eyebrow — same 11px/600 tracked tier, ink2 so the
+   accent stays reserved for the section eyebrow above */
+.as-whycard__no {
   color: var(--as-ink2);
 }
-@media (max-width: 1023px) {
-  .as-why {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .as-whycard {
-    border-top: 1px solid var(--as-line);
-  }
-  .as-whycard:nth-child(-n + 2) {
-    border-top: 0;
-  }
-  .as-whycard:nth-child(odd) {
-    border-left: 0;
-  }
+.as-whycard h3 {
+  margin-top: 10px;
+  font-size: var(--as-fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: var(--as-ink);
 }
-@media (max-width: 559px) {
+.as-whycard p:not(.as-whycard__no) {
+  margin-top: 12px;
+  font-size: var(--as-fs-body);
+  line-height: 1.6;
+  max-width: 52ch;
+  color: var(--as-ink2);
+}
+/* closing line: ABOUT_STORY's published sentence, at the lead tier */
+.as-why__coda {
+  margin-top: 28px;
+  font-size: var(--as-fs-lead);
+  font-weight: 500;
+  color: var(--as-ink);
+  max-width: 56ch;
+}
+@media (max-width: 767px) {
   .as-why {
     grid-template-columns: 1fr;
   }
   .as-whycard {
+    padding: 24px 22px 26px;
     border-left: 0;
     border-top: 1px solid var(--as-line);
   }

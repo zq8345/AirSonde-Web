@@ -18,7 +18,7 @@ import {
   SCENES_HOME,
   WHY_HOME,
 } from '../data/home-light';
-import { ABOUT_EXPECT, ABOUT_HERO, ABOUT_QUALITY, ABOUT_STATS } from '../data/about';
+import { ABOUT_EXPECT, ABOUT_HERO, ABOUT_STATS, ABOUT_STORY } from '../data/about';
 import { SCENES_DATA } from '../data/solutions';
 import { GUIDES } from '../data/guides';
 import {
@@ -65,15 +65,50 @@ const formTiles = categories.map((category) => {
   };
 });
 
-/* §5 — wanew shows four stats; ours are the About page's first four (同源) */
-const homeStats = ABOUT_STATS.items.slice(0, 4);
+/* §5 — W41-B (审查问题 E): the six About numbers were repeated wholesale here.
+   Three hardest stay — years, staff, monthly capacity — the photo and the
+   /about/ link carry the rest. About keeps the full set, untouched. */
+const homeStats = [ABOUT_STATS.items[0], ABOUT_STATS.items[1], ABOUT_STATS.items[4]];
 
-/* §6 — four cards composed from existing verified sentences only */
+/* §6 — W41-A (宪法 §5): the section answers "why not source the same-looking
+   unit from a marketplace listing?". 🔴 红线纪律: every factual sentence below
+   is a published sentence from about.ts / site.ts, verbatim or tightened —
+   zero new fact claims. The framing question and card titles are positioning
+   copy (站方定位), which is this window's to draft and 总工's to strike.
+   ⚠️ Dropped from the brief: "English-speaking engineering contact" — no page
+   publishes that claim today, so it does not get invented here. */
+const whyLead = 'The question behind every sourcing decision: what do you get here that a marketplace listing cannot give you?';
 const whyCards = [
-  ...VALUE_PROPS.map((p) => ({ title: p.title, body: p.body })),
-  { title: WHY_HOME.qualityTitle, body: ABOUT_QUALITY.intro },
-  { title: WHY_HOME.supportTitle, body: `${ABOUT_EXPECT.items[0]} ${ABOUT_EXPECT.items[1]}` },
+  {
+    no: '01',
+    title: 'You deal with the factory itself',
+    // published: site default description == ABOUT_HERO lead (about.ts)
+    body: 'AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group: 15+ years of OEM/ODM production, 150+ staff, in-house tooling, assembly and QC.',
+  },
+  {
+    no: '02',
+    title: 'An engineer answers',
+    // published: ABOUT_EXPECT items 1+2, verbatim
+    body: `${ABOUT_EXPECT.items[0]} ${ABOUT_EXPECT.items[1]}`,
+  },
+  {
+    no: '03',
+    title: 'Specifications you can defend',
+    // published: ABOUT_PROCESS step 03 + ABOUT_COMPLIANCE, tightened
+    body: 'The specification is fixed in writing before anything is built. Certification is scoped per programme and per model — the route your market requires is agreed in writing first.',
+  },
+  {
+    no: '04',
+    title: 'Built under your name, as deep as you need',
+    // composed FROM the admin's VALUE_PROPS (not copied): this section is now
+    // the field's only consumer, and hardcoding the sentences here would turn
+    // home.valueProps into a dead admin field — the exact failure site.ts
+    // warns about. The join adds only the ODM depth list from ABOUT_SERVICES.
+    body: `${VALUE_PROPS[1].body.replace(/\.\s*$/, '')} — sensing set, enclosure, display and firmware. ${VALUE_PROPS[0].body}`,
+  },
 ];
+/* published verbatim: ABOUT_STORY.paragraphs[0] — the section's closing line */
+const whyCoda = ABOUT_STORY.paragraphs[0];
 ---
 
 <LightBase title={META.home.title} description={META.home.description}>
@@ -373,25 +408,31 @@ const whyCards = [
     </div>
   </section>
 
-  {/* 6 ── why band (wanew "Our Advantages"), four cards from existing copy.
-      🔴 wanew's FCC/CE/RoHS cert strip is NOT ported — zero-cert red line. */}
+  {/* 6 ── why band, rebuilt (W41-A, 宪法 §5): answers the direct-sourcing
+      question with four numbered arguments composed from published facts.
+      🔴 wanev's FCC/CE/RoHS cert strip is still NOT ported — zero-cert red
+      line stands; card 03 says exactly what the About compliance section
+      says and nothing more. The admin's capabilities intro keeps its slot. */}
   <section id={HOME_SECTIONS.capabilities.id} class="as-section as-band--alt">
     <div class="as-container">
       <div class="as-sechead">
         <p class="as-eyebrow">{WHY_HOME.eyebrow}</p>
         <h2 class="as-d2">{WHY_HOME.heading}</h2>
+        <p class="as-sub">{whyLead}</p>
         <p class="as-sub">{HOME_SECTIONS.capabilities.intro}</p>
       </div>
       <div class="as-why">
         {
           whyCards.map((card) => (
             <article class="as-whycard">
+              <p class="as-eyebrow as-whycard__no">{card.no}</p>
               <h3>{card.title}</h3>
               <p>{card.body}</p>
             </article>
           ))
         }
       </div>
+      <p class="as-why__coda">{whyCoda}</p>
     </div>
   </section>
 
