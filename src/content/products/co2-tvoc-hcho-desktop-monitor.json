@@ -11,9 +11,12 @@
     "humidity"
   ],
   "highlights": [
-    "Three live readings with good / ok / poor bands on one screen",
-    "Compact desktop housing, vented on both sides",
-    "Rechargeable, battery level on display"
+    "Real-Time Indoor Air Quality Monitor: Tracks key air metrics in real-time, including CO2, Formaldehyde (HCHO), TVOC, temperature, and humidity. Stay informed about unseen air pollution and take steps to create a healthier living environment that promotes your family's well-being.",
+    "High-Precision Sensor: This air quality monitor integrates a high-performance sensor with a dual-ventilation structure, providing fast and stable feedback. A clear color display enhances readability for at-a-glance air quality data.",
+    "Visual Air Quality Notifications: This indoor air quality monitor provides on-screen indicators when air readings change noticeably, such as during poor ventilation or a sudden increase in pollutants, helping you take timely steps to improve airflow.",
+    "Long-Lasting Portability: The home air quality monitor is designed for simplicity, powering on with a single long press and enabling °C/°F switch. Its built-in 1200mAh battery offers up to 10 hours of use for whole-home coverage, and it supports both desktop and wall-mount placement.",
+    "Multi-Scenario Adaptability: With its modern minimalist design, this portable air quality monitor blends seamlessly into any environment—from living rooms and bedrooms to greenhouses. It is equally suited for offices, gyms, classrooms, and hotels, providing reliable air quality monitoring across diverse settings.",
+    "Easy One-Button Operation: Designed for convenience, this air quality monitor features a single multi-functional button. Long press to power on/off, press once to switch temperature units, and double press to control the optional notification function. No complex menus or confusing controls."
   ],
   "specs": {
     "Form factor": "Desktop",
@@ -23,10 +26,13 @@
   "images": {
     "main": "products/co2-tvoc-hcho-desktop-monitor.webp",
     "gallery": [
-      "products/co2-tvoc-hcho-desktop-monitor-2.webp",
-      "products/co2-tvoc-hcho-desktop-monitor-3.webp",
-      "products/co2-tvoc-hcho-desktop-monitor-4.webp",
-      "products/co2-tvoc-hcho-desktop-monitor-5.webp"
+      "products/co2-tvoc-hcho-desktop-monitor-6.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-7.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-8.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-9.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-10.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-11.webp",
+      "products/co2-tvoc-hcho-desktop-monitor-12.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/AK4-Manufacturer-High-Accuracy-CO2-Gas_1600636810240.html",
