@@ -40,7 +40,11 @@ export const ABOUT_HERO = {
           // ⛔ no wording that turns the render into a factual claim about a
           // building we own — 总工 W13
           alt: 'Industrial park exterior',
-          focus: '50% 62%',
+          /** W46-B: 62 -> 50. At 2560 (W43 canvas) the title's second line
+           *  ended over darker mid-frame landscaping and read 4.48 on the
+           *  worst rendition; at 50 the band lifts ~4.4 points and the same
+           *  glyphs sit on brighter ground — measured 4.48 -> see report. */
+          focus: '50% 56%',
         }
       : {
           src: heroImg,

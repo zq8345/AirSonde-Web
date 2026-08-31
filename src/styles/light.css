@@ -2931,9 +2931,17 @@ select.as-field__input {
    too high — both re-measured after the change, not guessed. */
 @media (min-width: 768px) {
   .as-hero--page .as-hero__wash {
+    /* W46-B: the 40% stop rises 0.46 -> 0.49 (same magnitude as the measured
+       scene-page fix). The About title read 4.42 at 1440 and 4.48 at 2560 on
+       its worst rendition — under the floor at BOTH widths, found only when
+       glyph-precision measurement first reached this page. Focus 62 -> 56
+       moves the crop off the darkest landscaping; this stop buys the margin
+       focus alone could not (1440 was 4.51 with focus only). Scenes and the
+       products hero carry their own wash recipes and are untouched; contact
+       shares this one and was re-measured after. */
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0.3) 86%, var(--as-bg) 100%),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.46) 40%, rgba(255, 255, 255, 0.12) 70%, rgba(255, 255, 255, 0) 100%);
+      linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.49) 40%, rgba(255, 255, 255, 0.12) 70%, rgba(255, 255, 255, 0) 100%);
   }
   .as-hero--page .as-hero__in {
     padding-top: calc(var(--as-header-h) + 8vh);
