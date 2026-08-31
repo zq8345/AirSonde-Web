@@ -15,13 +15,22 @@
     "AQI",
     "Time"
   ],
+  "highlights": [
+    "【16-In-1 Comprehensive Air Quality Tracking】: This all-in-one air quality meter simultaneously tests PM1.0, PM2.5, PM10, CO2, TVOC, HCHO, temperature and humidity, covering 7 core ambient indicators. It eliminates the need for extra single-function testers, cuts equipment costs, and delivers full-spectrum indoor air data for timely ventilation adjustments, protecting your family, pets and delicate plants from harmful airborne pollutants.",
+    "【Easy Single-Tap Operation with Adjustable Audio Prompt】: One button controls power on/off and ℃/℉ unit switching; double tap to turn off the built-in audio prompt. The simple setup fits elderly users perfectly, and the quiet sampling mode avoids sound distractions during night use in bedrooms, offices and vehicles.",
+    "【High-Precision Sensor System & HD Large Display】Equipped with a high-precision sensor array, the unit automatically samples and processes air data every 1.5 seconds, delivering continuous, real-time updates on your indoor air conditions. The clear, high-definition color screen not only enhances readability with color-coded air level readings, but also adds a modern, professional aesthetic to your workspace or living area.",
+    "【Up to 4-5h Run-Time & Universal Type-C Fast Charging】: A full charge supports 4-5 hours of continuous air sampling. The standard Type-C port works with common mobile charging cables, and the package includes a matching AC power adapter and Type-C fast charging cable for convenient power replenishment. You can easily use it across home, car and indoor spaces without frequent charging.",
+    "【Portable Multi-Scenario Air Testing Device & Reliable After-Sales Service】: Compact and lightweight design supports flexible placement and handheld use, perfect for air parameter testing in indoor rooms, vehicles, bedrooms, offices, campsites and more. The package contains 1 air quality monitor, 1 Type-C charging cable, 1 AC power adapter and 1 user manual. We provide 12-month quality support for the whole unit, letting you enjoy worry-free long-term daily air testing."
+  ],
   "images": {
-    "main": "products/compact-9in1-desktop-monitor-7.webp",
+    "main": "products/compact-9in1-desktop-monitor.webp",
     "gallery": [
-      "products/compact-9in1-desktop-monitor-8.webp",
-      "products/compact-9in1-desktop-monitor-9.webp",
-      "products/compact-9in1-desktop-monitor-10.webp",
-      "products/compact-9in1-desktop-monitor-11.webp"
+      "products/compact-9in1-desktop-monitor-12.webp",
+      "products/compact-9in1-desktop-monitor-13.webp",
+      "products/compact-9in1-desktop-monitor-14.webp",
+      "products/compact-9in1-desktop-monitor-15.webp",
+      "products/compact-9in1-desktop-monitor-16.webp",
+      "products/compact-9in1-desktop-monitor-17.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Monitor-Detector_1601124548595.html",
