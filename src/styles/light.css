@@ -2938,10 +2938,14 @@ select.as-field__input {
        moves the crop off the darkest landscaping; this stop buys the margin
        focus alone could not (1440 was 4.51 with focus only). Scenes and the
        products hero carry their own wash recipes and are untouched; contact
-       shares this one and was re-measured after. */
+       shares this one and was re-measured after.
+       W47 raised the stop again, 0.49 -> 0.52: removing the 1600px canvas
+       stretched this gradient back over the full viewport, and the About
+       lead's veil thinned from canvas-basis 4.98 to 4.37 at 2560. Priced
+       first: +0.03 alpha ≈ +0.2 ratio, same family as both earlier bumps. */
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0.3) 86%, var(--as-bg) 100%),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.49) 40%, rgba(255, 255, 255, 0.12) 70%, rgba(255, 255, 255, 0) 100%);
+      linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.52) 40%, rgba(255, 255, 255, 0.12) 70%, rgba(255, 255, 255, 0) 100%);
   }
   .as-hero--page .as-hero__in {
     padding-top: calc(var(--as-header-h) + 8vh);
