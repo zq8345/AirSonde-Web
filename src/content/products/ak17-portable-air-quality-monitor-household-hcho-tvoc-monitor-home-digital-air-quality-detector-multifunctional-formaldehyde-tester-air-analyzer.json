@@ -1,0 +1,31 @@
+{
+  "slug": "ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer",
+  "name": "AK17-Portable Air Quality Monitor Household HCHO TVOC Monitor Home Digital Air Quality Detector Multifunctional Formaldehyde Tester Air Analyzer",
+  "model": "AK17",
+  "category": "other",
+  "sensors": [
+    "HCHO",
+    "TVOC"
+  ],
+  "highlights": [
+    "Real Time Monitoring: This air quality detector provides continuous tracking of HCHO and TVOC concentrations for consistent data updates in indoor environments.",
+    "Integrated LCD Display: The large digital screen shows two data sets simultaneously to eliminate the need for manual screen switching during operation.",
+    "Simple Operation: This air analyzer offers quick detection capabilities and is designed for straightforward use without complex configuration requirements.",
+    "Audible Alert System: A built in buzzer provides an automatic notification when concentration levels reach the 0.1 mg per cubic meter threshold.",
+    "Versatile Placement: The portable design is suitable for use in offices, classrooms, kitchens, and residential areas with new furniture or recent decorations."
+  ],
+  "images": {
+    "main": "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer.webp",
+    "gallery": [
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-2.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-3.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-4.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-5.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-6.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-7.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-8.webp",
+      "products/_draft/ak17-portable-air-quality-monitor-household-hcho-tvoc-monitor-home-digital-air-quality-detector-multifunctional-formaldehyde-tester-air-analyzer-9.webp"
+    ]
+  },
+  "status": "draft"
+}
