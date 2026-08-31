@@ -3174,77 +3174,18 @@ select.as-field__input {
 }
 
 /**
- * W43 (Joe 批「修」): on wide screens the hero media ran full-bleed, so a
- * subject composed at image-fraction f mapped to f x vw — at 2560 anything
- * outside f 0.26-0.74 fell out of the content column (±620px of centre).
- * The fix caps the MEDIA LAYER (img + wash together) to a centred 1600px
- * canvas; the hero section itself stays full-bleed, and the canvas edges
- * fade into the section background over 64px so there is no hard seam.
- *
- * 🔴 Everything lives inside min-width:1601px, so below 1601 not one
- * computed value changes — that is the acceptance criterion, not a hope.
- * Above it the composition freezes: with the canvas at 1600 the safe range
- * becomes f 0.11-0.89 regardless of how wide the screen gets.
- *
- * ⚠️ The cap28 term switches basis from 100vw to the canvas width — height
- * = max(clamp(...), 1600/2.8 = 571.4px) is constant above 1601, so the
- * crop stops drifting with viewport width entirely. Same substitution in
- * the heroover height pair. Wash % stops now resolve against 1600, not vw:
- * every hero's contrast is re-measured under this file's rules, not
- * carried over.
+ * 📌 机制结论存档 (W47, layout decision by Joe 2026-08-29) — read before
+ * reinstalling any wide-screen hero canvas:
+ * A 1600px centred media canvas (W43) shipped here and was REMOVED on Joe's
+ * call after he saw both states on a ~2000px screen — he chose full-bleed.
+ * Full-bleed + the current renders' subject placement means wide screens
+ * WILL drift subjects right of the content column; that is Joe's informed
+ * trade-off (2026-08-29), not an oversight. The only both-ways fix is at
+ * the render stage: keep core subjects inside image x 26%-74%, which stays
+ * inside the column up to 2560 — already in the Codex render spec.
+ * The canvas implementation lives in git history at bab0d11 if it is ever
+ * wanted again (with its two measured sizing traps documented inline).
  */
-@media (min-width: 1601px) {
-  .as-hero__img,
-  .as-hero__wash {
-    /* 🔴 sizing is explicit, not inset-derived, for two measured reasons:
-       width:100% from the base rule wins over a left/right pair on an
-       over-constrained absolute box (img stayed 2545px wide, only its left
-       edge moved), and width:auto on an absolutely positioned REPLACED
-       element resolves to the intrinsic ratio instead of the insets (img
-       became height x 2.4 = 1371px). min()/max() also absorb the 1601-1615px
-       boundary band where the hero (minus scrollbar) is narrower than
-       1600px. */
-    left: max(0px, calc((100% - 1600px) / 2));
-    width: min(100%, 1600px);
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      #000 64px,
-      #000 calc(100% - 64px),
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      #000 64px,
-      #000 calc(100% - 64px),
-      transparent 100%
-    );
-  }
-  .as-hero--cap28 {
-    min-height: max(clamp(400px, 46vh, 560px), calc(1600px / 2.8));
-  }
-  .as-heroover__img {
-    max-width: 1600px;
-    margin-inline: auto;
-    height: max(72vh, calc(1600px / 2.8));
-    max-height: max(760px, calc(1600px / 2.8));
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      #000 64px,
-      #000 calc(100% - 64px),
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      #000 64px,
-      #000 calc(100% - 64px),
-      transparent 100%
-    );
-  }
-}
 
 /**
  * W44 方案 2 样板 (Joe「你先试试」, prototype authorized 2026-08-29): 图文分离
