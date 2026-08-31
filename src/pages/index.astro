@@ -520,18 +520,23 @@ const whyCoda = ABOUT_STORY.paragraphs[0];
 </LightBase>
 
 <script>
-  // W9 §4 scene tabs — same behaviour as wanew's (user-driven, no auto-rotate)
+  // W9 §4 scene tabs + W48 auto-rotate (Joe: 「这几个场景轮播，1秒切换」).
+  // Rotation drives the SAME activate() path the tabs use — no second
+  // rendering route to drift.
+  const ROTATE_MS = 1000; // Joe-specified interval — retune here, one line
+
   const wrap = document.querySelector('[data-as-scenes]');
   const stage = document.querySelector('[data-as-scenes-stage]');
   if (wrap && stage) {
-    const tabs = wrap.querySelectorAll<HTMLButtonElement>('.as-scenetab');
-    const panels = stage.querySelectorAll<HTMLElement>('.as-scenepanel');
+    const tabs = [...wrap.querySelectorAll<HTMLButtonElement>('.as-scenetab')];
+    const panels = [...stage.querySelectorAll<HTMLElement>('.as-scenepanel')];
 
     /**
      * A lazy <img> inside a display:none subtree is never requested, and
      * revealing it does not start the request either — the panel just showed
      * its scrim over nothing. Kick the fetch ourselves when a panel is about
-     * to be shown (and on hover, so the image is usually there by the click).
+     * to be shown (and for the rotation: all of them up front, so a 1s cycle
+     * never flashes an empty panel).
      */
     const ensureLoaded = (panel: HTMLElement | null) => {
       const img = panel?.querySelector<HTMLImageElement>('img');
@@ -542,22 +547,78 @@ const whyCoda = ABOUT_STORY.paragraphs[0];
       img.src = src;
     };
     const panelFor = (id: string | null) =>
-      [...panels].find((p) => p.getAttribute('data-scene') === id) ?? null;
+      panels.find((p) => p.getAttribute('data-scene') === id) ?? null;
 
-    tabs.forEach((tab) => {
+    let current = Math.max(0, tabs.findIndex((t) => t.classList.contains('is-active')));
+    const activate = (index: number) => {
+      current = index;
+      const tab = tabs[index];
       const id = tab.getAttribute('data-scene');
-      tab.addEventListener('pointerenter', () => ensureLoaded(panelFor(id)));
+      ensureLoaded(panelFor(id));
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', String(on));
+      });
+      panels.forEach((p) => {
+        p.classList.toggle('is-active', p.getAttribute('data-scene') === id);
+      });
+    };
+
+    /* ---- auto-rotate. Three ways it yields to the human, one to the OS:
+       click = permanent stop (人接管); hover/focus inside the module = pause,
+       resume on leave; prefers-reduced-motion = never starts; hidden tab =
+       paused via visibilitychange (no background churn). ---- */
+    let timer: ReturnType<typeof setInterval> | null = null;
+    let stopped = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let paused = false;
+    const clear = () => {
+      if (timer !== null) clearInterval(timer);
+      timer = null;
+    };
+    const start = () => {
+      if (stopped || paused || document.hidden || timer !== null) return;
+      timer = setInterval(() => activate((current + 1) % tabs.length), ROTATE_MS);
+    };
+    const stopForGood = () => {
+      stopped = true;
+      clear();
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('pointerenter', () => ensureLoaded(panelFor(tab.getAttribute('data-scene'))));
       tab.addEventListener('click', () => {
-        ensureLoaded(panelFor(id));
-        tabs.forEach((t) => {
-          const on = t === tab;
-          t.classList.toggle('is-active', on);
-          t.setAttribute('aria-selected', String(on));
-        });
-        panels.forEach((p) => {
-          p.classList.toggle('is-active', p.getAttribute('data-scene') === id);
-        });
+        stopForGood();
+        activate(i);
       });
     });
+
+    for (const zone of [wrap, stage]) {
+      zone.addEventListener('pointerenter', () => {
+        paused = true;
+        clear();
+      });
+      zone.addEventListener('pointerleave', () => {
+        paused = false;
+        start();
+      });
+      zone.addEventListener('focusin', () => {
+        paused = true;
+        clear();
+      });
+      zone.addEventListener('focusout', () => {
+        paused = false;
+        start();
+      });
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clear();
+      else start();
+    });
+
+    if (!stopped) {
+      panels.forEach(ensureLoaded); // preload all four before the first hop
+      start();
+    }
   }
 </script>
