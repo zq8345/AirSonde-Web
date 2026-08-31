@@ -16,36 +16,30 @@
 // Joe 2026-08-12 (第二张图): 3820×2160 workspace shot, no baked text, wide
 // empty wall on the left — the nav now floats over it (his instruction), so
 // the hero goes back to full-bleed with the header transparent above it.
-// W44 (Joe 拍方案 2 试做「你先试试」): v2 — same room, recomposed. Device on
-// the coffee table at x 52-68%, family on the sofa x 66-92%. Under the
-// overlay mode this composition failed hard (title worst-contrast 1.00 over
-// the dark shelf frames, no focus could fix it — W41-B report); in 'side'
-// mode the text stands on the page background and the image becomes its own
-// panel, so the shelf wall stops mattering. v1 stays tracked as the revert.
-import heroImg from '../assets/photos/home-hero-ak34-family-v2.webp';
+// W46-A (Joe 看样后拍板: 「还是改成大图模式…文字也落在hero图上」): back to
+// the banner-over full-bleed with v1. 🔴 v1, not v2, deliberately — Joe's
+// call was about the LAYOUT; v2 + overlay is still the measured 1.00
+// dead-end (dark shelf frames under the title, no focus fixes it), and v1
+// is the one render where "readable" and "subjects in frame" hold at once.
+// v2 stays tracked; the W44 'side' mode stays built (mode switch away).
+import heroImg from '../assets/photos/home-hero-ak34-family-v1.webp';
 
 export const HERO_PHOTO = {
   src: heroImg,
-  alt: 'AK34 monitor on a coffee table showing CO2 and comfort readings, with parents and a child building wooden blocks on the sofa behind it',
+  alt: 'AK34 monitor on a living-room table showing CO2, temperature, humidity and particulate readings, with a family behind it',
+  focus: '55% 50%',
   /**
-   * side-mode focus, measured against the PANEL box, not the viewport:
-   * at 1440 the media panel is ~658x468 (1.41:1) so 58.6% of the image width
-   * shows — 97% anchors the window at x 40-99: device whole, all three
-   * family members whole (father's edge x92, margin ~7), the empty left
-   * wall is what gets cropped away, which is the point.
+   * ⚠️ 375 shows only 26% of this image's width, so it needs its own focus.
+   * Measured on v1: at 55% that window lands on the device's dark screen and
+   * the overlaid title scores 1.17 — unreadable. At 35% it sits on the empty
+   * wall and the same title scores 12.8, with the device entering from the
+   * right edge (checked by cropping the visible rectangle).
    */
-  focus: '97% 50%',
-  /**
-   * ⚠️ On phones the panel is ~327x357 (0.92:1) and shows only 38% of the
-   * width. 84% puts the window at x 52-90: device whole, mother and child
-   * whole, the father clipped by ~2 points at the right edge — deliberate
-   * framing (checked by cropping the exact rectangle and looking).
-   */
-  focusNarrow: '84% 50%',
-  /** 'side' (W44 方案 2): text left ON the page background, image right as
-   *  its own cover panel — zero wash, zero text-over-image · 'banner-over' =
-   *  the previous overlay mode · others = earlier modes */
-  mode: 'side' as
+  focusNarrow: '35% 50%',
+  /** 'banner-over' (Joe): nav AND copy float over the full-bleed image ·
+   *  'side' (W44) = text on page bg, image as its own panel · others =
+   *  earlier overlay modes */
+  mode: 'banner-over' as
     | 'banner'
     | 'banner-clean'
     | 'banner-split'
