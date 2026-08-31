@@ -16,9 +16,14 @@
     "Time"
   ],
   "highlights": [
-    "Square footprint, small enough for a desk or shelf",
-    "Labelled reading groups instead of dense segments",
-    "Full AQI scale with face icons across the bottom"
+    "Real-Time Indoor Air Quality Monitoring Track CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature and humidity in real time to better understand your indoor environment. Designed for bedrooms, baby rooms, offices, apartments and everyday home use.",
+    "Helps Detect Common Indoor Air Problems Monitor indoor air changes caused by cooking smoke, wildfire smoke, poor ventilation, pet odors, dust, paint fumes and newly renovated furniture. Helps support a cleaner and healthier living space.",
+    "Smart AQI Warning System with Audible Alarm The 7-level AQI display provides an easy visual understanding of indoor air quality levels, while optional audible alerts help notify you when pollution levels become unhealthy.",
+    "Portable Battery Operated Design Built-in rechargeable battery with up to 9 hours of operation allows flexible air quality testing in multiple rooms, offices, hotels, RVs and temporary indoor spaces without constant charging.",
+    "No WiFi or App Required Works independently without WiFi, Bluetooth, subscriptions or complicated setup. Easy to use right out of the box with automatic calibration and simple controls.",
+    "Ideal for Families, Pets & Sensitive Environments Suitable for nurseries, children's rooms, pet owners, allergy seasons and indoor environments where cleaner air and better ventilation are important for daily comfort and peace of mind.",
+    "Easy-to-Read Large Display Large color screen clearly shows air quality readings, AQI levels, temperature, humidity and battery status for convenient monitoring during sleep, work, study or daily activities.",
+    "Compact Monitor for Everyday Indoor Air Awareness Compact and lightweight design makes it easy to place on desks, bedside tables, offices, kitchens or living spaces to help monitor everyday indoor air quality changes and ventilation conditions."
   ],
   "specs": {
     "Form factor": "Desktop",
@@ -28,10 +33,13 @@
   "images": {
     "main": "products/compact-square-air-quality-monitor.webp",
     "gallery": [
-      "products/compact-square-air-quality-monitor-11.webp",
-      "products/compact-square-air-quality-monitor-12.webp",
-      "products/compact-square-air-quality-monitor-13.webp",
-      "products/compact-square-air-quality-monitor-14.webp"
+      "products/compact-square-air-quality-monitor-15.webp",
+      "products/compact-square-air-quality-monitor-16.webp",
+      "products/compact-square-air-quality-monitor-17.webp",
+      "products/compact-square-air-quality-monitor-18.webp",
+      "products/compact-square-air-quality-monitor-19.webp",
+      "products/compact-square-air-quality-monitor-20.webp",
+      "products/compact-square-air-quality-monitor-21.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Electrochemistry-HCHO-Infrared-CO2-Tester-Indoor_1601288804636.html",
