@@ -1,0 +1,38 @@
+{
+  "slug": "ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter",
+  "name": "AK22B-16 in 1 Air Quality Monitor Indoor, CO2 Monitor Air Quality Tester with 9 Display+7 AQI Alerts for CO2, TVOC, HCHO, PM2.5, PM1.0, PM10, Time, Temperature, Humidity Meter,",
+  "model": "AK22B",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "16-in-1 Air Quality Monitor with Alarm: Indoor air quality tester features real-time detection of 9 key parameters—CO2, PM2.5, PM1.0, PM10, HCHO, TVOC, Temperature, Humidity, and Time; plus 7 air quality alerts (AQI, CO2, PM2.5/PM1.0/PM10, HCHO/TVOC), so you always know what's in your air with instant alerts for easier, healthier living.",
+    "Accurate Measurements: Engineered with multiple high-precision sensors and an advanced algorithm, this home air quality meter delivers precise real-time readings with rapid updates every 1–2 seconds.",
+    "Multi-Functional Must-Have: Works not only as an AQI monitor and CO₂ detector, but also as a thermometer, humidity gauge, and clock, making it perfect for use in your home, office, bedroom, kitchen, or baby room.",
+    "Easy to Use: Enjoy a 7-inch HD display for clear readings at a glance, and simple one-touch operation that gives you instant, comprehensive insight of your indoor air, with no expertise needed. No more guesswork— know exactly when to ventilate or purify your air for you and your family's health.",
+    "Convenient & User-Friendly: The sleek air quality monitor comes with a charging adapter, USB-C cable, user manual, and FAQ card. Easily adjust display brightness, switch between °F/°C, and set the time to fit your needs."
+  ],
+  "images": {
+    "main": "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter.webp",
+    "gallery": [
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-2.webp",
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-3.webp",
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-4.webp",
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-5.webp",
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-6.webp",
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-7.webp",
+      "products/_draft/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter-8.webp"
+    ]
+  },
+  "status": "draft"
+}
