@@ -16,26 +16,32 @@
 // Joe 2026-08-12 (第二张图): 3820×2160 workspace shot, no baked text, wide
 // empty wall on the left — the nav now floats over it (his instruction), so
 // the hero goes back to full-bleed with the header transparent above it.
-// W46-A (Joe 看样后拍板: 「还是改成大图模式…文字也落在hero图上」): back to
-// the banner-over full-bleed with v1. 🔴 v1, not v2, deliberately — Joe's
-// call was about the LAYOUT; v2 + overlay is still the measured 1.00
-// dead-end (dark shelf frames under the title, no focus fixes it), and v1
-// is the one render where "readable" and "subjects in frame" hold at once.
-// v2 stays tracked; the W44 'side' mode stays built (mode switch away).
-import heroImg from '../assets/photos/home-hero-ak34-family-v1.webp';
+// W49 (Joe 二次知情拍板 2026-08-31: 「首页的hero图用V2」): v2 on the
+// banner-over overlay. 🔴 宪法 §3's ≥4.5 floor is EXEMPTED for this hero by
+// Joe's knowing decision — he was shown the measured numbers twice (title
+// worst-contrast 1.00 over the dark shelf frames, no focus in either axis
+// can move the glyphs off them; the full derivation is in the W41-B
+// report). The values below are the least-harm set from that derivation:
+// subjects whole first, title over the least-dark ground second.
+// v1 stays tracked as the revert; the W44 'side' mode stays built.
+import heroImg from '../assets/photos/home-hero-ak34-family-v2.webp';
 
 export const HERO_PHOTO = {
   src: heroImg,
-  alt: 'AK34 monitor on a living-room table showing CO2, temperature, humidity and particulate readings, with a family behind it',
-  focus: '55% 50%',
+  alt: 'AK34 monitor on a coffee table showing CO2 and comfort readings, with parents and a child building wooden blocks on the sofa behind it',
   /**
-   * ⚠️ 375 shows only 26% of this image's width, so it needs its own focus.
-   * Measured on v1: at 55% that window lands on the device's dark screen and
-   * the overlaid title scores 1.17 — unreadable. At 35% it sits on the empty
-   * wall and the same title scores 12.8, with the device entering from the
-   * right edge (checked by cropping the visible rectangle).
+   * Measured on v2: at 1440 the box is ~2.22:1 so only ~7.4% of the width is
+   * cropped; 60% keeps the family whole (father's edge x92, margin 5 points)
+   * while giving up only the far-left blurred chair.
    */
-  focusNarrow: '35% 50%',
+  focus: '60% 50%',
+  /**
+   * ⚠️ 375 shows only 26% of this image's width. 66% puts the window at
+   * x 48.8-74.8 — device whole with margin, the mother entering from the
+   * right (crops looked at). The title lands on the shelf unit either way;
+   * that is the exempted trade above, not an oversight.
+   */
+  focusNarrow: '66% 50%',
   /** 'banner-over' (Joe): nav AND copy float over the full-bleed image ·
    *  'side' (W44) = text on page bg, image as its own panel · others =
    *  earlier overlay modes */
