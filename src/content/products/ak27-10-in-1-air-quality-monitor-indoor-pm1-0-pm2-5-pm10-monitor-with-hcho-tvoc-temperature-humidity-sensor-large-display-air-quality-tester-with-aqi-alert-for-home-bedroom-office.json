@@ -1,0 +1,36 @@
+{
+  "slug": "ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office",
+  "name": "AK27-10-in-1 Air Quality Monitor Indoor, PM1.0 PM2.5 PM10 Monitor with HCHO TVOC Temperature Humidity Sensor, Large Display Air Quality Tester with AQI Alert for Home Bedroom Office",
+  "model": "AK27",
+  "category": "desktop",
+  "sensors": [
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "10-in-1 Professional Indoor Air Quality Monitor:Monitor essential indoor air indicators including PM1.0, PM2.5, PM10, HCHO, TVOC, Temperature, Humidity, AQI and Time. Get a complete view of your indoor environment in real time.",
+    "Advanced Multi-Sensor Detection:Track airborne particles and pollutants with high-sensitivity sensors. Detect PM1.0, PM2.5, PM10, HCHO and TVOC to better understand your indoor air quality.",
+    "Large Color Display, Easy to Read:The oversized full-color screen clearly displays air quality data, AQI levels, temperature and humidity. View important information instantly from across the room.",
+    "Smart AQI Indicator & Real-Time Alerts:Color-coded AQI indicators make air quality changes easy to understand. Quickly know when ventilation or environmental adjustments may be needed.",
+    "Designed for Everyday Indoor Use:Perfect for bedrooms, living rooms, offices, nurseries and more. Monitor your home's environment anytime with a sleek desktop design."
+  ],
+  "images": {
+    "main": "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office.webp",
+    "gallery": [
+      "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office-2.webp",
+      "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office-3.webp",
+      "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office-4.webp",
+      "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office-5.webp",
+      "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office-6.webp",
+      "products/_draft/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office-7.webp"
+    ]
+  },
+  "status": "draft"
+}
