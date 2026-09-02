@@ -1,0 +1,30 @@
+{
+  "slug": "ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing",
+  "name": "AK29-Battery Powered Radon & Air Quality Monitor (PM, CO2, VOC, HCHO,Humidity, Temp,AQI,Time,Optical Sensing)",
+  "model": "AK29",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time",
+    "Radon"
+  ],
+  "images": {
+    "main": "products/_draft/ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing.webp",
+    "gallery": [
+      "products/_draft/ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing-2.webp",
+      "products/_draft/ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing-3.webp",
+      "products/_draft/ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing-4.webp",
+      "products/_draft/ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing-5.webp",
+      "products/_draft/ak29-battery-powered-radon-air-quality-monitor-pm-co2-voc-hcho-humidity-temp-aqi-time-optical-sensing-6.webp"
+    ]
+  },
+  "status": "draft"
+}
