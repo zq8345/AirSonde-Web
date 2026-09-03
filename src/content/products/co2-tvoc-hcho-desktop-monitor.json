@@ -19,9 +19,11 @@
     "Easy One-Button Operation: Designed for convenience, this air quality monitor features a single multi-functional button. Long press to power on/off, press once to switch temperature units, and double press to control the optional notification function. No complex menus or confusing controls."
   ],
   "specs": {
+    "Dimensions": "98mm*32mm*67mm",
+    "Net weight": "212g",
+    "Readings": "CO2, TVOC, HCHO, temperature, humidity",
     "Form factor": "Desktop",
-    "Display": "Colour LCD",
-    "Readings": "CO2, TVOC, HCHO, temperature, humidity"
+    "Display": "Colour LCD"
   },
   "images": {
     "main": "products/co2-tvoc-hcho-desktop-monitor.webp",
