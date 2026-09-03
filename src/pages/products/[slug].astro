@@ -89,11 +89,19 @@ const related = siblings.filter((p) => p.data.category === category).slice(0, 3)
 const relatedHeading =
   category === 'other' ? 'More from the catalogue' : `Other ${categoryLabel(category).toLowerCase()} monitors`;
 
+// Joe (2026-09-03): the "Readings" row repeats the Sensing list that sits
+// directly above the table — drop it at render time. ⛔ The product JSON is
+// content, not ours to edit; the key stays in the records untouched. Match
+// is trimmed and case-insensitive so an admin's "readings " still goes.
+const isReadings = (key: string) => key.trim().toLowerCase() === 'readings';
+const specRows = specs ? Object.fromEntries(Object.entries(specs).filter(([key]) => !isReadings(key))) : undefined;
+
 // Admin-created records ship without specs yet; the at-a-glance table falls
-// back to rows derived purely from data on hand — nothing invented.
+// back to rows derived purely from data on hand — nothing invented. A record
+// whose only spec was Readings takes the same fallback.
 const glance =
-  specs && Object.keys(specs).length > 0
-    ? specs
+  specRows && Object.keys(specRows).length > 0
+    ? specRows
     : { Model: model, 'Form factor': categoryLabel(category), Sensing: sensorLabels(sensors).join(', ') };
 
 const title = `${name} (${model}) — OEM / ODM | ${SITE.brand}`;
