@@ -10,6 +10,7 @@ import type { GetStaticPaths } from 'astro';
 import LightBase from '../../layouts/LightBase.astro';
 import LightProductCard from '../../components/LightProductCard.astro';
 import { PRODUCTS_PAGE, SITE } from '../../data/site';
+import { stripLenticular } from '../../lib/text';
 import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
 import {
   categoryLabel,
@@ -88,19 +89,6 @@ const related = siblings.filter((p) => p.data.category === category).slice(0, 3)
 // "Other other monitors" was live for the 'other' category — special-case it
 const relatedHeading =
   category === 'other' ? 'More from the catalogue' : `Other ${categoryLabel(category).toLowerCase()} monitors`;
-
-/**
- * 总工 2026-09-03: five records' highlights arrive with CJK lenticular
- * brackets — 【Label】Text — copied from Chinese source material. Inter has no
- * glyph for U+3010/U+3011, so they render as tofu boxes. Stripped at render
- * time, here and only here (⛔ not a site-wide text pipe; ⛔ the JSON stays
- * as the colleague wrote it). The closing bracket becomes a single space
- * when the text runs straight on ("】This all-in-one…", 10 of the 29 lines),
- * otherwise nothing — so no label glues to its sentence and no line gains
- * a second space.
- */
-const stripLenticular = (line: string) =>
-  line.replace(/【/g, '').replace(/】(?=\S)/g, ' ').replace(/】/g, '');
 
 // Joe (2026-09-03): the "Readings" row repeats the Sensing list that sits
 // directly above the table — drop it at render time. ⛔ The product JSON is
