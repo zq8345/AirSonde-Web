@@ -47,6 +47,16 @@ const products = defineCollection({
       category: z.enum(CATEGORIES),
       sensors: z.array(z.enum(SENSORS)).min(1),
       highlights: z.array(z.string().min(1)).optional(),
+      /**
+       * Hand-written <meta name="description"> / og:description for the
+       * product page (Joe 2026-09-03). Optional: absent or blank falls back
+       * to the page's derived sentence. The admin hard-limits it to 160 and
+       * omits the field on empty — this schema mirrors the limit so a record
+       * edited by other means cannot exceed it. ⚠️ Because this schema is
+       * .strict(), the field must exist HERE before any record carries it,
+       * or every build goes red the moment the admin saves one.
+       */
+      metaDescription: z.string().trim().max(160).optional(),
       specs: z.record(z.string(), z.string()).optional(),
       moq: z.number().int().positive().optional(),
       images: z.object({
