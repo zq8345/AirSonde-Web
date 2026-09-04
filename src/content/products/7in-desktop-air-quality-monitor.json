@@ -1,6 +1,6 @@
 {
   "slug": "7in-desktop-air-quality-monitor",
-  "name": "AK35-7-inch Desktop Air Quality Monitor",
+  "name": "AK35 - Slim Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), 30mm Profile",
   "model": "AK35",
   "category": "desktop",
   "sensors": [
@@ -24,6 +24,13 @@
     "【Quick °F/°C Switching & Precision Sensors】Switch between °F and °C units effortlessly by double-pressing the “Power button”. This temperature & humidity sensor features a high accuracy of ±1 to ±3 °F and ±2% to ±3%RH, making it ideal for measuring dynamic temperature and humidity in indoor environments.",
     "【Crystal Clear 5.5-inch Display】View sharp, clear air quality readings on the 5.5-inch LED display. It provides an instant, comprehensive overview without navigating menus, with three brightness settings to suit any lighting."
   ],
+  "specs": {
+    "Dimensions": "128mm*97mm*30mm",
+    "Net weight": "281g",
+    "Carton size": "387mm*191mm*534mm",
+    "Carton qty": "21pcs",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak35/7in-desktop-air-quality-monitor-6.webp",
     "gallery": [
