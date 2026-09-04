@@ -8,6 +8,13 @@
     "temperature",
     "humidity"
   ],
+  "highlights": [
+    "One Number, Read From the Doorway — A single CO₂ value sits inside a green-to-amber-to-red arc that fills the screen. Nothing competes for attention, so the band registers from across a meeting room before you read the digits.",
+    "Infrared, Not Semiconductor — NDIR responds to CO₂ and nothing else. Cooking vapour, hand sanitiser and air freshener leave the reading untouched — which is what makes a ventilation decision defensible.",
+    "Comfort Context Underneath — Temperature and humidity in two supporting circles, because a CO₂ figure alone does not explain why a room feels stuffy.",
+    "1200 mAh, 6–8 Hours — USB-C charging in about three hours; runs a full school day or shift without a socket.",
+    "For Buyers Who Want CO₂ Only — The cleanest single-parameter proposition in the range, at a lower landed cost than any multi-gas unit. 50 pcs per carton."
+  ],
   "images": {
     "main": "products/co2-desktop-monitor.webp",
     "gallery": [
