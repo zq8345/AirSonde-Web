@@ -1,6 +1,6 @@
 {
   "slug": "wbgt-heat-index-monitor",
-  "name": "AK36-WBGT Heat Index Monitor",
+  "name": "AK36 - Indoor & Outdoor Thermo-Hygrometer (Temperature, Humidity, Heat Index), IP65 Waterproof",
   "model": "AK36",
   "category": "other",
   "sensors": [
@@ -9,6 +9,21 @@
     "WBGT",
     "Time"
   ],
+  "highlights": [
+    "IP65 — Rated for Water and Dust — The only sealed enclosure in the catalogue. Greenhouses, bathrooms, garages, workshops, boat cabins and covered outdoor areas are all places a standard monitor does not survive.",
+    "Heat Index, Not Just Temperature — Thirty degrees at eighty percent humidity is a different proposition from thirty degrees at forty. The heat index combines both into the figure that actually describes how the air will feel and behave.",
+    "Flu Index — A combined temperature and humidity indication of the conditions in which airborne viruses persist — a reading aimed at nurseries, classrooms and care settings during winter.",
+    "Two AAA Cells — No charging and no cable, which is what makes a sealed enclosure worth having: nothing has to be opened.",
+    "50 Per Carton — 300 × 482 × 295 mm outer, 10 kg gross, 73 g per unit."
+  ],
+  "specs": {
+    "Dimensions": "117mm*71mm*28mm",
+    "Net weight": "73g",
+    "Carton size": "300mm*482mm*295mm",
+    "Carton qty": "50pcs",
+    "Lead time": "34-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak36/wbgt-heat-index-monitor.webp",
     "gallery": [
