@@ -1,11 +1,13 @@
 {
   "slug": "wifi-widescreen-air-quality-monitor",
-  "name": "AK22A-Wi-Fi Wide-Screen Air Quality Monitor",
+  "name": "AK22A - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), Large Screen, Grid Display",
   "model": "AK22A",
   "category": "desktop",
   "sensors": [
     "CO2",
+    "PM1.0",
     "PM2.5",
+    "PM10",
     "HCHO",
     "TVOC",
     "temperature",
@@ -14,11 +16,11 @@
     "Time"
   ],
   "highlights": [
-    "【16-in-1 Air Quality Monitor Indoor】Experience the ultimate indoor air quality monitoring with our 16-in-1 Air Quality Monitor, offering real-time detection of 9 key parameters including CO2, PM2.5, PM1.0, PM10, HCHO, TVOC, Temperature, Humidity, AQI, and Time. With 7 distinct AQI alert buzzers, this air quality tester ensures your family breathes with ease.(*Note: \"16-in-1\" refers to the combination of 9 key detectable parameters and 7 types of AQI alert buzzers.)",
-    "【Crystal Clear 7-inch Large Display】Enjoy a 7-inch LED display for sharp, clear air quality readings. Provides an instant, comprehensive view of your indoor air without navigating through menus, with three brightness settings for any lighting condition.",
-    "【External High-Precision Sensors with 0.001 Accuracy】Equipped with advanced external high-precision sensors, this device delivers unmatched accuracy (0.001 units) by directly sampling the air. Its innovative multi-sensor array and enhanced airflow design detect even the slightest environmental changes, allowing for instant response and optimal safety. (*Note: Avoid touching the sensors or exposing them to perfumes/strong odors to maintain accuracy.)",
-    "【Real-Time AQI Alert Buzzers】Our air quality monitor provides real-time monitoring and alerts for pollutants like CO2, PM2.5, PM1.0, PM10, HCHO, TVOC, Temperature, Humidity, and AQI, with 7 distinct alert functions. Stay informed with clear alerts and rest easy with a mute button to silence alarms. Your health and comfort are our priority.",
-    "【Easy Time Adjustment】1.Switch Time Format: Click the “Time button” to toggle between 12/24-hour format. 2.Set Hours: Long press the “Time button” to enter setting mode. Use the “Alarm button” or “Brightness button” to adjust hours. 3.Set Minutes: Click the “Time button” again. Use the “Alarm button” or “Brightness button” to adjust minutes. 4.Confirm: Click the “Time button” to save settings."
+    "The Largest Screen in the Range — 166 × 108 mm of body, nearly all of it display. Every reading is sized to be read standing up, from the other side of a room, without leaning in.",
+    "Six Values Tiled, None Subordinate — The grid layout gives CO₂, particulates, formaldehyde, TVOC and the climate readings equal weight. Nothing is buried in a corner, which suits a technician scanning for the one value that has moved.",
+    "Laser Particulate Split — PM1.0, PM2.5 and PM10 measured and displayed separately, with clock and AQI.",
+    "2500 mAh, Six Hours — Four-hour charge. The device is designed to sit rather than travel — the battery covers a working day away from the socket.",
+    "21 Per Carton — The largest enclosure in the range, so the carton count is lower; 515.5 × 445.5 × 223 mm outer, 14.9 kg gross."
   ],
   "specs": {
     "Form factor": "Desktop",
