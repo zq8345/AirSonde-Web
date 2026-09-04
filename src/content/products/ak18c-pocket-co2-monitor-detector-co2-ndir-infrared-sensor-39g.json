@@ -1,0 +1,34 @@
+{
+  "slug": "ak18c-pocket-co2-monitor-detector-co2-ndir-infrared-sensor-39g",
+  "name": "AK18C - Pocket CO2 Monitor & Detector (CO2), NDIR Infrared Sensor, 39g",
+  "model": "AK18C",
+  "category": "wall-mounted",
+  "sensors": [
+    "CO2"
+  ],
+  "highlights": [
+    "The Infrared CO₂ Version of the AK18 Body — Where AK18B pairs a semiconductor CO₂ element with TVOC, this configuration puts the whole budget into one channel: infrared NDIR CO₂, with nothing else competing for the screen.",
+    "The Reading Travels Without Drifting — A pocket instrument moves between a cold car, a warm office and a humid kitchen in an hour. Infrared measurement is unaffected by all three; a semiconductor element is not.",
+    "A Single Number, Nothing Else — One reading with a colour band. For anyone whose job is to walk into a room and answer one question about ventilation.",
+    "500 mAh, USB-C — Roughly an hour to charge.",
+    "100 Per Carton — The accuracy tier of the AK18 family, shipping in the same box as the entry versions."
+  ],
+  "specs": {
+    "Dimensions": "80mm*47mm*20mm",
+    "Net weight": "39g",
+    "Carton size": "433mm*348mm*222mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
+  "images": {
+    "main": "products/_draft/ak18c-pocket-co2-monitor-detector-co2-ndir-infrared-sensor-39g.webp",
+    "gallery": [
+      "products/_draft/ak18c-pocket-co2-monitor-detector-co2-ndir-infrared-sensor-39g-2.webp",
+      "products/_draft/ak18c-pocket-co2-monitor-detector-co2-ndir-infrared-sensor-39g-3.webp",
+      "products/_draft/ak18c-pocket-co2-monitor-detector-co2-ndir-infrared-sensor-39g-4.webp",
+      "products/_draft/ak18c-pocket-co2-monitor-detector-co2-ndir-infrared-sensor-39g-5.webp"
+    ]
+  },
+  "status": "draft"
+}
