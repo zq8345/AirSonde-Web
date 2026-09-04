@@ -1,0 +1,29 @@
+{
+  "slug": "ak23ah-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors",
+  "name": "AK23AH - Desktop Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR Infrared & Electrochemical Sensors",
+  "model": "AK23AH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK23A on Infrared and Electrochemical — Same buttonless twin-dial panel, same 32-per-carton spec. CO₂ moves to infrared NDIR and formaldehyde to an electrochemical cell — the pair that daily cleaning products otherwise disturb.",
+    "Built for Places That Are Cleaned Daily — Hotels, clinics and offices run disinfectant and polish through every room. Those products move a semiconductor reading and leave an infrared or electrochemical one alone — which is exactly why this tier exists.",
+    "Laser Particulates, Three Fractions — PM1.0, PM2.5 and PM10 reported independently.",
+    "2500 mAh, Six Hours — Four-hour charge, 256 g.",
+    "32 Per Carton — Same packing and freight profile as the standard version."
+  ],
+  "images": {
+    "main": "products/_draft/ak23ah-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors.webp"
+  },
+  "status": "draft"
+}
