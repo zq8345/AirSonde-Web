@@ -1,0 +1,35 @@
+{
+  "slug": "ak25a-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-98g-portable",
+  "name": "AK25A - Mini Indoor Air Quality Monitor (CO2, TVOC, HCHO, Temperature, Humidity), 98g Portable",
+  "model": "AK25A",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "highlights": [
+    "The Smallest Multi-Parameter Body We Build — 66.3 × 30.6 × 96 mm and 98 g — under half the weight of the AK3 — with the same five readings. Nothing in the range packs this much sensing into this little space.",
+    "Five Readings, No Coverage Traded Away — CO₂, TVOC and formaldehyde with temperature and humidity, each with its own colour status band.",
+    "Fits Where a Desktop Unit Will Not — Hotel nightstands, a shelf in a nursery, a car cup holder, the outside pocket of a laptop bag.",
+    "1200 mAh, Six Hours — Roughly four hours to charge over USB-C.",
+    "Lowest Freight Weight in the Range — 98 g per unit — the cheapest multi-parameter monitor to air-freight, which matters when a first order goes by courier."
+  ],
+  "specs": {
+    "Dimensions": "66.3 × 30.6 × 96 mm",
+    "Net weight": "98g"
+  },
+  "images": {
+    "main": "products/_draft/ak25a-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-98g-portable.webp",
+    "gallery": [
+      "products/_draft/ak25a-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-98g-portable-2.webp",
+      "products/_draft/ak25a-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-98g-portable-3.webp",
+      "products/_draft/ak25a-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-98g-portable-4.webp",
+      "products/_draft/ak25a-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-98g-portable-5.webp"
+    ]
+  },
+  "status": "draft"
+}
