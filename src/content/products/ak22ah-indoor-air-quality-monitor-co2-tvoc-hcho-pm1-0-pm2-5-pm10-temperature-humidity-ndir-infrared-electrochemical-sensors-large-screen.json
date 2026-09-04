@@ -1,0 +1,29 @@
+{
+  "slug": "ak22ah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors-large-screen",
+  "name": "AK22AH - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR Infrared & Electrochemical Sensors, Large Screen",
+  "model": "AK22AH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK22A on Infrared and Electrochemical — The largest screen in the range keeps its tiled grid face; CO₂ moves to infrared NDIR and formaldehyde to an electrochemical cell. A big display invites trust — this is the version that earns it.",
+    "Why the Pairing Matters — A large screen invites people to trust what it says. Upgraded sensing means the number deserves that trust across humidity swings and cleaning routines.",
+    "Full Particulate Split by Laser — PM1.0, PM2.5 and PM10 measured independently.",
+    "2500 mAh, Six Hours — Four-hour charge, 363 g, 21 pcs per carton.",
+    "The Specification Unit of the AK22 Platform — Where a customer asks which model to put in a boardroom or a showroom, this is the answer that survives the follow-up question about accuracy."
+  ],
+  "images": {
+    "main": "products/_draft/ak22ah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors-large-screen.webp"
+  },
+  "status": "draft"
+}
