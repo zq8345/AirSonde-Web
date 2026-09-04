@@ -15,6 +15,15 @@
     "1200 mAh, 6–8 Hours — 238 g — the heaviest of the AK11 family, because the laser module and its airflow path take space a gas sensor does not.",
     "50 Per Carton — Retail colour box with manual, USB-C cable and lanyard; same outer carton as the rest of the AK11 range."
   ],
+  "specs": {
+    "Dimensions": "98mm*32mm*67mm",
+    "Net weight": "238g",
+    "Carton size": "425mm*375mm*310mm",
+    "Carton qty": "50pcs",
+    "Carton gross weight": "12.4kg",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak11p-indoor-pm2-5-meter-particle-counter-pm2-5-temperature-humidity-laser-sensor.webp"
   },
