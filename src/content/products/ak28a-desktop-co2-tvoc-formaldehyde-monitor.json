@@ -1,6 +1,6 @@
 {
   "slug": "ak28a-desktop-co2-tvoc-formaldehyde-monitor",
-  "name": "AK28A-Desktop CO2, TVOC & Formaldehyde Monitor",
+  "name": "AK28A - Desktop Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), 4-Button Control, Twin-Dial Display",
   "model": "AK28A",
   "category": "desktop",
   "sensors": [
@@ -16,12 +16,20 @@
     "Time"
   ],
   "highlights": [
-    "【16-in-1 Multi-Index Air Quality Test Kit】This all-in-one indoor air quality meter tracks PM1.0 / PM2.5 / PM10 / Carbon Dioxide (CO₂), TVOC, HCHO, temperature and humidity. Tiered color lights show real-time air readings, guiding timely ventilation or purifier use for families. It displays invisible pollutant levels for bedrooms, studies and nurseries.",
-    "【Single-Button Operation with Dimmable Lights】One key controls power and ℃/℉ switching; double-tap dims lights without pausing data logging. The friendly layout fits seniors and new users, dim lights eliminate sleep interference while recording 24h continuous data. Operation beep only offers key press feedback; no alert or alarm functions. As a practical home air tester, it brings easy daily air checking.",
-    "【3s Fast Data Refresh & Large HD Color Screen】Built with high-precision sensors, this air quality tester refreshes all metrics every 3 seconds for steady real-time readings. The vivid HD color screen displays all indexes clearly day and night for quick daily inspection.",
-    "【Complete Type-C Fast Charging Accessory Kit】Comes with power adapter and Type-C cable. This portable air quality meter moves freely across rooms without fixed sockets. Fast charging supports non-stop monitoring for homes, vehicles and camping.",
-    "【Slim Portable Design & 12-Month Warranty】Lightweight minimalist body matches all home styles, suitable for bedrooms, offices, nurseries and cars. Easy to carry for camping and temporary housing, this indoor air quality monitor meets all multi-scene daily testing demands. We offer a 12-month manufacturer warranty covering factory defects for worry-free purchase."
+    "Four Buttons Instead of a Menu — Clock, alert, brightness and power each get their own key on the front. No double-tapping, no press-and-hold, no learning which combination does what.",
+    "Wedge Stand, Fixed Viewing Angle — The moulded rear wedge sets the screen back at a reading angle without a fold-out leg to snap off — the version to specify for a desk that gets knocked.",
+    "Twin-Dial Face — Particulates in one ring, gases in the other, climate and clock between them, with a six-step AQI scale beneath.",
+    "2500 mAh, Six Hours — Four-hour USB-C charge, 230 g — the lightest of the large-screen desktop models.",
+    "32 Per Carton — Same carton spec as AK23 despite the different body, so the two platforms mix freely on a pallet."
   ],
+  "specs": {
+    "Dimensions": "106mm*90mm*50mm",
+    "Net weight": "230g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak28a/ak28a-desktop-co2-tvoc-formaldehyde-monitor.webp",
     "gallery": [
