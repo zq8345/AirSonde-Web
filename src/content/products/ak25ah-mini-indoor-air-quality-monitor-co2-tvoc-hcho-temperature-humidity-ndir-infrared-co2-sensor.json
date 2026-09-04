@@ -1,0 +1,35 @@
+{
+  "slug": "ak25ah-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-ndir-infrared-co2-sensor",
+  "name": "AK25AH - Mini Indoor Air Quality Monitor (CO2, TVOC, HCHO, Temperature, Humidity), NDIR Infrared CO2 Sensor",
+  "model": "AK25AH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI"
+  ],
+  "highlights": [
+    "The AK25A With Infrared CO₂ — Same 98 g mini body, same five readings, same packaging. The CO₂ channel moves from a semiconductor element to infrared NDIR — the smallest body in the range carrying it.",
+    "Stable Where Semiconductors Wander — Humidity swings, hand sanitiser and cleaning products leave the reading where it is. The figure you take this month is the figure you can compare next month.",
+    "Five Readings on a Mini Body — CO₂ by NDIR, TVOC and formaldehyde by MOS, plus temperature and humidity.",
+    "1200 mAh, Six Hours — Four-hour USB-C charge.",
+    "Same Footprint as AK25A — Identical enclosure and packaging — the accuracy tier without a second carton specification to manage."
+  ],
+  "specs": {
+    "Dimensions": "66.3mm*30.6mm*96mm",
+    "Net weight": "98g"
+  },
+  "images": {
+    "main": "products/_draft/ak25ah-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-ndir-infrared-co2-sensor.webp",
+    "gallery": [
+      "products/_draft/ak25ah-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-ndir-infrared-co2-sensor-2.webp",
+      "products/_draft/ak25ah-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-ndir-infrared-co2-sensor-3.webp",
+      "products/_draft/ak25ah-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-ndir-infrared-co2-sensor-4.webp",
+      "products/_draft/ak25ah-mini-indoor-air-quality-monitor-co2-tvoc-hcho-temperature-humidity-ndir-infrared-co2-sensor-5.webp"
+    ]
+  },
+  "status": "draft"
+}
