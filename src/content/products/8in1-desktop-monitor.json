@@ -1,6 +1,6 @@
 {
   "slug": "8in1-desktop-monitor",
-  "name": "AK16A-8-in-1 Desktop Air Quality Monitor",
+  "name": "AK16A - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), Slim Desktop",
   "model": "AK16A",
   "category": "desktop",
   "sensors": [
@@ -15,9 +15,11 @@
     "Time"
   ],
   "highlights": [
-    "Eight readings gridded on one screen, each with its own status bar",
-    "Fold-out rear stand",
-    "On-screen prompt when ventilation is needed"
+    "Eight Parameters on a 24 mm Panel — CO2, TVOC, formaldehyde, three particulate fractions, temperature and humidity — the full indoor air picture in a body no thicker than a paperback, with a fold-out rear stand.",
+    "Particulates Split Three Ways — PM1.0, PM2.5 and PM10 reported separately by a laser module. A single lumped particulate number hides which fraction is actually elevated, and the fractions have different sources.",
+    "Every Value Carries Its Own Status Bar — Eight readings gridded on one screen, each with a colour band beneath it. Nothing needs checking against a reference table.",
+    "2000 mAh, Six Hours Cordless — Three-hour charge over USB-C. The fold-out stand angles the panel for desk viewing; fold it flat and it travels.",
+    "The Base of a Nine-Model Platform — AK16A is the entry configuration of an enclosure that also carries AQI display, app connectivity, upgraded sensors and a CO channel — one tooling, nine price points."
   ],
   "specs": {
     "Form factor": "Desktop",
