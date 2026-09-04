@@ -1,11 +1,26 @@
 {
   "slug": "geiger-counter",
-  "name": "AK19-Portable Geiger Counter",
+  "name": "AK19 - Portable Geiger Counter & Nuclear Radiation Detector (Gamma, X-Ray), Cumulative Dose Display",
   "model": "AK19",
   "category": "other",
   "sensors": [
     "radiation"
   ],
+  "highlights": [
+    "A Different Category Entirely — Nothing else in this catalogue measures ionising radiation. This is a dedicated instrument for a dedicated question, in the same pocket format as the gas detectors.",
+    "Live Rate and Accumulated Dose — The screen carries both the instantaneous reading and the running total, because a brief high reading and a long low exposure are different problems.",
+    "Where It Gets Used — Imported goods and building stone, second-hand equipment, travel to areas of concern, and anyone who simply wants their own number rather than a published one.",
+    "250 mAh, Rechargeable — USB-C, about an hour to a full charge, 98 g.",
+    "100 Per Carton — 465 × 390 × 158 mm outer carton — a specialist line that ships alongside the air quality range without a separate freight arrangement."
+  ],
+  "specs": {
+    "Dimensions": "130mm*43mm*32.5mm",
+    "Net weight": "98g",
+    "Carton size": "465mm*390mm*158mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak19/geiger-counter.webp",
     "gallery": [
