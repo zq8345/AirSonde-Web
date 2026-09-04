@@ -1,0 +1,34 @@
+{
+  "slug": "ak37-slim-breathalyser-alcohol-tester-breath-alcohol-aaa-battery-15mm-thick",
+  "name": "AK37 - Slim Breathalyser & Alcohol Tester (Breath Alcohol), AAA Battery, 15mm Thick",
+  "model": "AK37",
+  "category": "other",
+  "sensors": [
+    "alcohol"
+  ],
+  "highlights": [
+    "Fifteen Millimetres, Twenty-Eight Grams — The thinnest and lightest device in the entire catalogue. It goes in a wallet pocket or a sun visor and is forgotten until it is needed.",
+    "Runs on Two AAA Cells — No charging, no USB port, no flat battery on the night it matters. Cells are available in every petrol station in the world, which is the point.",
+    "Ready When It Is Picked Up — A device used a few times a year is the worst possible candidate for a rechargeable cell. Dry cells hold their charge on a shelf for years.",
+    "Retail-Friendly Format — Colour box and manual, no cable — a simpler and cheaper retail pack than the rechargeable models.",
+    "100 Per Carton — 425 × 422 × 310 mm outer, 11.3 kg gross."
+  ],
+  "specs": {
+    "Dimensions": "120mm*38mm*15mm",
+    "Net weight": "28g",
+    "Carton size": "425mm*422mm*310mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
+  "images": {
+    "main": "products/_draft/ak37-slim-breathalyser-alcohol-tester-breath-alcohol-aaa-battery-15mm-thick.webp",
+    "gallery": [
+      "products/_draft/ak37-slim-breathalyser-alcohol-tester-breath-alcohol-aaa-battery-15mm-thick-2.webp",
+      "products/_draft/ak37-slim-breathalyser-alcohol-tester-breath-alcohol-aaa-battery-15mm-thick-3.webp",
+      "products/_draft/ak37-slim-breathalyser-alcohol-tester-breath-alcohol-aaa-battery-15mm-thick-4.webp",
+      "products/_draft/ak37-slim-breathalyser-alcohol-tester-breath-alcohol-aaa-battery-15mm-thick-5.webp"
+    ]
+  },
+  "status": "draft"
+}
