@@ -1,0 +1,37 @@
+{
+  "slug": "ak28bh-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-big-digit-display",
+  "name": "AK28BH - Desktop Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR & Electrochemical Sensors, Big-Digit Display",
+  "model": "AK28BH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK28B at Full Specification — Same big-digit screen, same four-button front. Infrared NDIR CO₂ and an electrochemical formaldehyde cell make this the top configuration of the AK28 enclosure.",
+    "Legible, Operable, Defensible — Three things that usually force a compromise: a screen readable across a room, controls anyone can use without a manual, and sensors whose output survives scrutiny.",
+    "Eight Parameters, Three Particulate Fractions — Full laser split with colour-block grouping across the top of the display.",
+    "2500 mAh, Six Hours — Four-hour charge, 246 g, moulded wedge stand.",
+    "32 Per Carton — 500 × 261 × 302 mm outer carton."
+  ],
+  "specs": {
+    "Dimensions": "106mm*90mm*50mm",
+    "Net weight": "246g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
+  "images": {
+    "main": "products/_draft/ak28bh-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-big-digit-display.webp"
+  },
+  "status": "draft"
+}
