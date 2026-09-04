@@ -6,13 +6,28 @@
   "sensors": [
     "alcohol"
   ],
+  "highlights": [
+    "Electrochemical Sensing With a Pump — Two upgrades over every other breathalyser in the range: a fuel-cell style electrochemical sensor, and an internal pump that draws a measured sample rather than relying on how hard someone blew.",
+    "Why Both Matter Together — A semiconductor sensor responds to alcohol and to other vapours. An inconsistent breath sample produces an inconsistent reading. Fixing one without the other leaves the result arguable — this fixes both.",
+    "The Professional Tier — Where a result is recorded, acted on, or challenged — workplace testing, fleet operations, licensed premises — sensor class and sampling method are the first two questions asked.",
+    "Runs on Two AA Cells — No charging cycle to manage between shifts, and spare cells cost nothing to keep on hand.",
+    "100 Per Carton — 425 × 422 × 310 mm outer, 16.55 kg gross — heavier per unit than the semiconductor models because of the pump assembly."
+  ],
+  "specs": {
+    "Dimensions": "135mm*40mm*27mm",
+    "Net weight": "69g",
+    "Carton size": "425mm*422mm*310mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS"
+  },
   "images": {
     "main": "products/ak38/pump-breathalyser.webp",
     "gallery": [
-      "products/ak38/pump-breathalyser-2.webp",
-      "products/ak38/pump-breathalyser-3.webp",
-      "products/ak38/pump-breathalyser-4.webp",
-      "products/ak38/pump-breathalyser-5.webp"
+      "products/ak38/pump-breathalyser-6.webp",
+      "products/ak38/pump-breathalyser-7.webp",
+      "products/ak38/pump-breathalyser-8.webp",
+      "products/ak38/pump-breathalyser-9.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Portable-Pump-Type-Alcohol-Tester-Accurate_1601845522777.html",
