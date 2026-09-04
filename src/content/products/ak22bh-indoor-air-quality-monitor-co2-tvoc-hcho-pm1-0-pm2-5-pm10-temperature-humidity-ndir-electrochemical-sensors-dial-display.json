@@ -1,0 +1,29 @@
+{
+  "slug": "ak22bh-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-dial-display",
+  "name": "AK22BH - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR & Electrochemical Sensors, Dial Display",
+  "model": "AK22BH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK22B With Its Sensing Upgraded — The central dial face, unchanged, with infrared NDIR CO₂ and an electrochemical formaldehyde cell behind it. Readable from across a lobby and defensible in writing.",
+    "Glanceable and Defensible at the Same Time — Public-facing displays usually trade accuracy for legibility. This configuration does not: the dial reads from the far side of a lobby and the sensors behind it are report-grade.",
+    "Eight Parameters, Laser Particulates — Full PM1.0 / PM2.5 / PM10 split feeding the AQI band.",
+    "2500 mAh, Six Hours — Four hours to a full charge; 379 g, 21 pcs per carton.",
+    "21 Per Carton — 515.5 × 445.5 × 223 mm outer carton, 14.9 kg gross."
+  ],
+  "images": {
+    "main": "products/_draft/ak22bh-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-dial-display.webp"
+  },
+  "status": "draft"
+}
