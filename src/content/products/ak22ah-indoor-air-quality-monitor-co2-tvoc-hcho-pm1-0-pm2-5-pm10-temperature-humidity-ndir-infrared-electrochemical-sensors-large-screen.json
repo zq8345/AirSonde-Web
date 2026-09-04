@@ -22,6 +22,14 @@
     "2500 mAh, Six Hours — Four-hour charge, 363 g, 21 pcs per carton.",
     "The Specification Unit of the AK22 Platform — Where a customer asks which model to put in a boardroom or a showroom, this is the answer that survives the follow-up question about accuracy."
   ],
+  "specs": {
+    "Dimensions": "166mm*108mm*53mm",
+    "Net weight": "363g",
+    "Carton size": "515.5mm*445.5mm*223mm",
+    "Carton qty": "21pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak22ah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors-large-screen.webp"
   },
