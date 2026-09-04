@@ -24,6 +24,14 @@
     "2000 mAh, Six Hours — Three-hour USB-C charge, 249 g, same 24 mm panel as the entry model.",
     "One Enclosure, Nine Configurations — Buyers move up and down the AK16 range without a change to packaging, carton quantity or freight class."
   ],
+  "specs": {
+    "Dimensions": "120mm*93mm*24mm",
+    "Net weight": "249g",
+    "Carton size": "424mm*215mm*371mm",
+    "Carton qty": "30pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak16dah-co-indoor-air-quality-monitor-co2-co-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-app-connected.webp"
   },
