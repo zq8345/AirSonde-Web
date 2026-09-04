@@ -1,0 +1,28 @@
+{
+  "slug": "ak16ah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors",
+  "name": "AK16AH - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR Infrared & Electrochemical Sensors",
+  "model": "AK16AH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "Time"
+  ],
+  "highlights": [
+    "The AK16A With Two Sensors Upgraded — Same 24 mm panel, same eight readings, same 30-per-carton spec. CO₂ moves from semiconductor to infrared NDIR and formaldehyde to an electrochemical cell — the two readings customers question most.",
+    "What Changes in Practice — Semiconductor elements respond to humidity, alcohol, perfume and cleaning products. Infrared and electrochemical measurement do not. The reading stops moving for reasons that have nothing to do with air quality.",
+    "Laser Particulates Unchanged — PM1.0, PM2.5 and PM10 continue on the same laser module — already the accurate method, so there was nothing to upgrade.",
+    "The Specification Tier of the AK16 Platform — Where a figure goes into a report, supports a purchase decision, or gets compared against a regulatory threshold, this is the AK16 to quote.",
+    "2000 mAh, Six Hours, 249 g — 30 pcs per carton, same colour box as the rest of the platform."
+  ],
+  "images": {
+    "main": "products/_draft/ak16ah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors.webp"
+  },
+  "status": "draft"
+}
