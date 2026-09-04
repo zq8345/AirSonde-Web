@@ -4,13 +4,35 @@ import taxonomy from '../data/taxonomy.json';
 export type Product = CollectionEntry<'products'>;
 
 /**
- * Only files directly under src/assets/products/ are globbed. Draft artwork
- * lives in src/assets/products/_draft/ and is deliberately outside this
- * pattern, so a draft image can never be emitted into dist/.
+ * Product artwork under src/assets/products/, **including model subfolders**
+ * (products/ak35/… — Joe 2026-09-04: one folder per product).
+ *
+ * 🔴 The two `!` patterns are load-bearing, not tidiness:
+ *   - `_draft/` holds artwork for unpublished products. A draft image reaching
+ *     dist/ is a leak, and scripts/check-dist.mjs fails the build over it.
+ *   - `originals/` holds supplier originals kept on purpose; they must never ship.
+ *
+ * ⚠️ Until this became recursive, "lives in a subfolder" *was* the mechanism
+ * that kept those two out. It no longer is — the exclusions are.
+ * ⛔ Do not drop them when touching this line.
+ *
+ * Measured 2026-09-04, both by rebuilding this tree:
+ *   - Removing `!_draft/**` makes the build FAIL (check-dist reports 7 draft
+ *     images in dist/). That exclusion is doing real work.
+ *   - `originals/` holds 27 .jpg + 11 .png and **zero .webp**, so
+ *     `!originals/**` is presently inert. ⚠️ A green build does NOT prove it
+ *     works; keep it for the day someone drops a .webp in there.
+ *
+ * ⚠️ Consequence of going recursive: every .webp in a model subfolder is now
+ * eagerly bundled even if no product references it. A subfolder is no longer a
+ * place to park images "not live yet" — that role belongs to `_draft/` alone.
  */
-const IMAGES = import.meta.glob<{ default: ImageMetadata }>('/src/assets/products/*.webp', {
-  eager: true,
-});
+const IMAGES = import.meta.glob<{ default: ImageMetadata }>(
+  ['/src/assets/products/**/*.webp',
+   '!/src/assets/products/_draft/**',
+   '!/src/assets/products/originals/**'],
+  { eager: true },
+);
 
 /** `products/foo.webp` -> the imported asset, or null if the file is not there. */
 export function tryResolveProductImage(relativePath: string): ImageMetadata | null {
