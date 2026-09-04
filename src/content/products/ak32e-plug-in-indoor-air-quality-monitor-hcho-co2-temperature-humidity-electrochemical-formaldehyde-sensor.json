@@ -1,0 +1,37 @@
+{
+  "slug": "ak32e-plug-in-indoor-air-quality-monitor-hcho-co2-temperature-humidity-electrochemical-formaldehyde-sensor",
+  "name": "AK32E - Plug-In Indoor Air Quality Monitor (HCHO, CO2, Temperature, Humidity), Electrochemical Formaldehyde Sensor",
+  "model": "AK32E",
+  "category": "wall-mounted",
+  "sensors": [
+    "CO2",
+    "HCHO",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Electrochemical Formaldehyde, Permanently Sited — Formaldehyde off-gasses for months after a fit-out, and the release rate rises with heat and humidity. Tracking that curve needs a monitor that stays plugged in and a sensor that does not drift.",
+    "The Post-Renovation Configuration — Fit it the day the furniture arrives and leave it until the readings settle — a timescale no handheld instrument is going to cover.",
+    "CO₂ Alongside — Ventilation is the remedy for both readings, so both belong on the same screen.",
+    "110–240 V — US or EU pins, 25 mm depth.",
+    "120 Per Carton — Shared enclosure and packing across the AK32 range."
+  ],
+  "specs": {
+    "Dimensions": "81.5mm*50mm*25mm",
+    "Net weight": "US Plug66g / EU Plug77g",
+    "Carton size": "520mm*505mm*355mm",
+    "Carton qty": "120PCS",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS"
+  },
+  "images": {
+    "main": "products/_draft/ak32e-plug-in-indoor-air-quality-monitor-hcho-co2-temperature-humidity-electrochemical-formaldehyde-sensor.webp",
+    "gallery": [
+      "products/_draft/ak32e-plug-in-indoor-air-quality-monitor-hcho-co2-temperature-humidity-electrochemical-formaldehyde-sensor-2.webp",
+      "products/_draft/ak32e-plug-in-indoor-air-quality-monitor-hcho-co2-temperature-humidity-electrochemical-formaldehyde-sensor-3.webp",
+      "products/_draft/ak32e-plug-in-indoor-air-quality-monitor-hcho-co2-temperature-humidity-electrochemical-formaldehyde-sensor-4.webp",
+      "products/_draft/ak32e-plug-in-indoor-air-quality-monitor-hcho-co2-temperature-humidity-electrochemical-formaldehyde-sensor-5.webp"
+    ]
+  },
+  "status": "draft"
+}
