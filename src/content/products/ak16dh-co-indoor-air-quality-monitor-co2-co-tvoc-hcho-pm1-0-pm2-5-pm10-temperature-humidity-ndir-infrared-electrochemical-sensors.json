@@ -1,0 +1,30 @@
+{
+  "slug": "ak16dh-co-indoor-air-quality-monitor-co2-co-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors",
+  "name": "AK16DH-CO - Indoor Air Quality Monitor (CO2, CO, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR Infrared & Electrochemical Sensors",
+  "model": "AK16DH-CO",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "CO",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK16D-CO on Higher-Class Sensors — Same nine parameters including electrochemical CO, same 24 mm panel. CO₂ moves to infrared NDIR and formaldehyde to an electrochemical cell — three of the four gas channels now on the higher sensor class.",
+    "Built for Rooms With Combustion — A gas kitchen produces CO, CO₂ and particulates simultaneously. This configuration measures all three by the methods least likely to be confused by the others.",
+    "AQI Plus Nine Readings — Index for the occupant, values for the technician.",
+    "The Accuracy Choice in the -CO Family — Where the CO figure may be quoted to an insurer, a landlord or a safety officer, sensor class is the first question asked.",
+    "2000 mAh, Six Hours, 249 g — 30 pcs per carton."
+  ],
+  "images": {
+    "main": "products/_draft/ak16dh-co-indoor-air-quality-monitor-co2-co-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors.webp"
+  },
+  "status": "draft"
+}
