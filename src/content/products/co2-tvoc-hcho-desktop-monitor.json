@@ -20,7 +20,10 @@
   "specs": {
     "Dimensions": "98mm*32mm*67mm",
     "Net weight": "212g",
-    "Readings": "CO2, TVOC, HCHO, temperature, humidity",
+    "Carton size": "425mm*375mm*310mm",
+    "Carton qty": "50 pcs",
+    "Carton gross weight": "11.4kg",
+    "Lead time": "35-45 days",
     "Form factor": "Desktop",
     "Display": "Colour LCD"
   },
