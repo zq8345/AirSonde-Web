@@ -1,0 +1,22 @@
+{
+  "slug": "ak11h-indoor-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor",
+  "name": "AK11H - Indoor CO2 Monitor & Detector (CO2, Temperature, Humidity), NDIR Infrared Sensor",
+  "model": "AK11H",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "The AK11T With Infrared CO₂ — Same 98 × 32 × 67 mm shell and 50-per-carton spec. The semiconductor CO₂ element becomes infrared NDIR — the step that turns a trend indicator into a figure you can quote.",
+    "Readings That Stay Comparable — Infrared measurement does not age the way a semiconductor element does, so a figure taken next winter can be set against one taken today.",
+    "Unaffected by What Else Is in the Air — Alcohol, solvents and cooking vapour move a semiconductor CO₂ reading. They do not move this one.",
+    "1200 mAh, 6–8 Hours — 213 g, USB-C, about three hours to full charge.",
+    "The Accuracy Tier of the AK11 Family — Same shell and carton spec as AK11T; the upgrade a distributor offers when a customer asks how accurate the number is."
+  ],
+  "images": {
+    "main": "products/_draft/ak11h-indoor-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor.webp"
+  },
+  "status": "draft"
+}
