@@ -10,6 +10,13 @@
     "temperature",
     "humidity"
   ],
+  "highlights": [
+    "The AK3 With Its CO₂ Sensor Upgraded — Same 98 × 32 × 67 mm body, same five readings, same 50-per-carton pack. The one change is the CO₂ channel: a semiconductor element becomes infrared NDIR.",
+    "What Infrared Changes — NDIR reads how much infrared light the air absorbs, instead of how a heated surface reacts to it. It does not drift with humidity and is not thrown by alcohol gel, perfume or cleaning spray — the three things that most often corrupt a semiconductor reading.",
+    "A CO₂ Figure You Can Quote — Where a semiconductor tells you the direction, NDIR gives you a number stable enough to put in a ventilation assessment and compare month to month. TVOC, formaldehyde, temperature and humidity continue alongside — five readings in total, nothing traded away.",
+    "1200 mAh, 6–8 Hours — Three-hour USB charge, all-day runtime, 206 g with the lanyard fitted.",
+    "Stock It Beside AK3 — Shared enclosure, colour box and carton spec — 50 pcs per box, 25,000 units per 20 ft container — so the accuracy tier costs you no extra shelf planning."
+  ],
   "images": {
     "main": "products/mini-co2-desktop-monitor.webp",
     "gallery": [
