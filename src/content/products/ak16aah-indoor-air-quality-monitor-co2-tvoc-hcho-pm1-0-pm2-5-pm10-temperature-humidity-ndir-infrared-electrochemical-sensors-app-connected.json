@@ -1,0 +1,29 @@
+{
+  "slug": "ak16aah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors-app-connected",
+  "name": "AK16AAH - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR Infrared & Electrochemical Sensors, App Connected",
+  "model": "AK16AAH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "Time",
+    "APP"
+  ],
+  "highlights": [
+    "The AK16AA, Sensing Raised a Tier — Bluetooth logging stays exactly as it is; the sensing underneath changes. Infrared NDIR CO₂ and an electrochemical formaldehyde cell replace the semiconductor elements — the highest AK16 specification short of adding carbon monoxide.",
+    "Report-Grade Numbers, Exportable — A defensible reading is useful; a defensible reading with a time series behind it closes the argument. This device produces both.",
+    "Eight Parameters, Full Particulate Split — Nothing is dropped to make room for the connectivity.",
+    "2000 mAh, Six Hours — Three-hour USB-C charge, 249 g.",
+    "Add CO Where There Is a Flame — AK16DAH-CO is this device with an electrochemical carbon monoxide cell — the configuration for kitchens, garages and boiler rooms."
+  ],
+  "images": {
+    "main": "products/_draft/ak16aah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors-app-connected.webp"
+  },
+  "status": "draft"
+}
