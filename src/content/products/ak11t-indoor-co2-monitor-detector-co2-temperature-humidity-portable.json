@@ -15,6 +15,14 @@
     "1200 mAh, 6–8 Hours — Three-hour USB charge, 206 g, lanyard included.",
     "Built for Volume — 50 pcs per carton, 25,000 units per 20 ft container — the highest unit density in the multi-room deployment range."
   ],
+  "specs": {
+    "Dimensions": "98mm*32mm*67mm",
+    "Net weight": "206g",
+    "Carton size": "425mm*375mm*310",
+    "Carton qty": "50pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak11t-indoor-co2-monitor-detector-co2-temperature-humidity-portable.webp"
   },
