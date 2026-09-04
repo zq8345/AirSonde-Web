@@ -1,0 +1,36 @@
+{
+  "slug": "ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected",
+  "name": "AK23CA - Desktop Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), App Connected",
+  "model": "AK23CA",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time",
+    "APP"
+  ],
+  "highlights": [
+    "Bluetooth History at the Base Price — The connectivity tier without the usual premium — this configuration carries app logging at the same price as the standard AK23.",
+    "Trends Are Where the Answer Is — A morning CO₂ figure tells you the room was stuffy. The overnight curve tells you the ventilation was off between 2 and 6 a.m. Only one of those is actionable.",
+    "Eight Parameters Plus the Index — Full particulate split and AQI display alongside the wireless log.",
+    "2500 mAh, Six Hours — Four-hour charge, 256 g — Bluetooth running does not shorten the figure.",
+    "The Value Configuration of the AK23 Range — If a customer wants app connectivity and price matters more than sensor tier, this is the specification to lead with."
+  ],
+  "images": {
+    "main": "products/_draft/ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected.webp",
+    "gallery": [
+      "products/_draft/ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected-2.webp",
+      "products/_draft/ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected-3.webp",
+      "products/_draft/ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected-4.webp",
+      "products/_draft/ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected-5.webp"
+    ]
+  },
+  "status": "draft"
+}
