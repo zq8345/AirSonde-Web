@@ -22,6 +22,14 @@
     "2500 mAh, Six Hours — Four-hour charge, 256 g.",
     "32 Per Carton — Same packing and freight profile as the standard version."
   ],
+  "specs": {
+    "Dimensions": "105mm*90mm*50mm",
+    "Net weight": "256g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak23ah-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors.webp"
   },
