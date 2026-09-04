@@ -22,6 +22,12 @@
     "The Base of a Nine-Model Platform — AK16A is the entry configuration of an enclosure that also carries AQI display, app connectivity, upgraded sensors and a CO channel — one tooling, nine price points."
   ],
   "specs": {
+    "Dimensions": "120mm*93mm*24mm",
+    "Net weight": "233g",
+    "Carton size": "424mm*215mm*371mm",
+    "Carton qty": "30pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证",
     "Form factor": "Desktop",
     "Display": "Colour LCD with fold-out stand",
     "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity"
