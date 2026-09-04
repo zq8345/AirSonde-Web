@@ -1,20 +1,27 @@
 {
   "slug": "portable-co-alarm",
-  "name": "AK18A-Portable Carbon Monoxide Alarm",
+  "name": "AK18A - Portable Carbon Monoxide Detector & Alarm (CO), Electrochemical Sensor, 39g Pocket Size",
   "model": "AK18A",
   "category": "portable",
   "sensors": [
     "CO"
   ],
   "highlights": [
-    "Single large CO readout ringed by a good / slight / moderate / serious arc",
-    "Audible alarm with a vented grille on the body",
-    "Hanging tab and wrist strap for travel and rented rooms"
+    "Carbon Monoxide That Travels With You — Hotel rooms, rented flats, boats, caravans, workshops — the places most likely to have an unserviced appliance are exactly the places with no CO alarm fitted.",
+    "Electrochemical Sensing at 39 Grams — A safety-grade electrochemical cell in a body lighter than a set of keys.",
+    "Audible and Visual Alert — The reading is on screen continuously; the alarm sounds when it crosses the threshold.",
+    "500 mAh, Rechargeable — USB-C, about an hour to full — no proprietary cells to source when it goes flat.",
+    "100 Per Carton — 433 × 348 × 222 mm outer, 11 kg gross. At 39 g a unit, the cheapest safety product in the catalogue to ship."
   ],
   "specs": {
+    "Dimensions": "80mm*47mm*20mm",
+    "Net weight": "39g",
+    "Carton size": "433mm*348mm*222mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证",
     "Form factor": "Portable",
-    "Display": "Round colour LCD",
-    "Readings": "CO"
+    "Display": "Round colour LCD"
   },
   "images": {
     "main": "products/ak18a/portable-co-alarm.webp",
