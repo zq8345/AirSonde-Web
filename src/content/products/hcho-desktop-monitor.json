@@ -16,6 +16,13 @@
     "Shares the AK11 Shell — Same tooling, colour box and 50-per-carton spec as AK11T, AK11H and AK11P, so a mixed pallet ships as a single line item."
   ],
   "specs": {
+    "Dimensions": "98mm*32mm*67mm",
+    "Net weight": "206g",
+    "Carton size": "425mm*375mm*310mm",
+    "Carton qty": "50pcs",
+    "Carton gross weight": "10.5kg",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证",
     "Form factor": "Desktop",
     "Display": "Colour LCD",
     "Readings": "HCHO, temperature, humidity"
