@@ -5,7 +5,8 @@
   "category": "wall-mounted",
   "sensors": [
     "temperature",
-    "humidity"
+    "humidity",
+    "Gas"
   ],
   "highlights": [
     "Watching for a Leak, Not for Comfort — This is the only configuration in the AK32 range aimed at combustible gas — natural gas and LPG — rather than air quality. Different job, same socket.",
