@@ -1,6 +1,6 @@
 {
   "slug": "handheld-air-quality-analyser",
-  "name": "AK33-Handheld Air Quality Analyser",
+  "name": "AK33 - Handheld Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), Data Logging, 173g",
   "model": "AK33",
   "category": "portable",
   "sensors": [
@@ -17,14 +17,16 @@
     "Data-History"
   ],
   "highlights": [
-    "One-hand housing with a ribbed grip and wrist strap post",
-    "D-pad and OK key for menu navigation",
-    "AQI shown as a coloured ring beside the numeric readings"
+    "History On Board, No Phone Required — The device stores its own record. Where a Bluetooth model needs a paired handset in the room, this one logs whether anyone is there or not — and hands the record over later.",
+    "173 g and 25 mm Thick — The lightest device in the range that measures all eight parameters. It reads like an instrument in the hand rather than an ornament on a desk.",
+    "Built for Walking a Building — Survey several rooms in sequence, then read back where the levels changed. That is a workflow a spot-reading monitor cannot support.",
+    "2500 mAh, Six Hours — Four hours to full over USB-C; 173 g in the hand.",
+    "For Consultants and Facilities Teams — Where a report has to name rooms and times, on-board history is the difference between a finding and a recollection."
   ],
   "specs": {
-    "Form factor": "Handheld",
-    "Display": "Colour LCD with keypad",
-    "Readings": "PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
+    "Dimensions": "155mm*73mm*25mm",
+    "Net weight": "173g",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
   },
   "images": {
     "main": "products/ak33/handheld-air-quality-analyser.webp",
