@@ -127,6 +127,11 @@
       "value": "APP",
       "label": "App",
       "order": 19
+    },
+    {
+      "value": "Gas",
+      "label": "Gas",
+      "order": 20
     }
   ]
 }
