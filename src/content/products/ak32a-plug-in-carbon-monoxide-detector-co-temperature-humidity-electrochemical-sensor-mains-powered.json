@@ -4,7 +4,9 @@
   "model": "AK32A",
   "category": "wall-mounted",
   "sensors": [
-    "CO"
+    "CO",
+    "temperature",
+    "humidity"
   ],
   "highlights": [
     "Always On, Because It Never Needs Charging — Carbon monoxide incidents happen at night, in winter, in rooms nobody is watching. A battery monitor is only as good as the last time someone remembered to charge it; this one runs on mains indefinitely.",
