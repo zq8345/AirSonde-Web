@@ -52,13 +52,34 @@ for (const name of await readdir(CONTENT)) {
   if (record.status === 'draft') draftSlugs.push(record.slug);
 }
 
+// 🔴 **整词匹配，不是裸子串**（2026-09-04 真栽过，整站因此停止部署）：
+//    `hcho-desktop-monitor` 今天被翻成 draft，而它是 **published** 产品
+//    `co2-tvoc-hcho-desktop-monitor` 的**子串** ⇒ 那个在线产品的 37 张图 + 2 个 guides 页
+//    全部被判成"草稿泄漏"，构建退出码 1，官网从此不再部署。
+//    ⚠️ 命中的 40 条**没有一条是真泄漏** —— 一个只认得字面量的判据，认得几种错法就只能查出几种，
+//       而它顺带把正确的东西也一起判错了。
+//    ⇒ slug 由 `[a-z0-9-]` 组成 ⇒ 前后不能再是这类字符。`co2-tvoc-` 末尾那个 `-` 落在排除类里。
+// ⛔ 修的是**匹配方式**，不是把闸放宽：⛔ 没有跳过整类文件，⛔ 没有降级成 warning。
+const slugRe = (slug) =>
+  new RegExp(`(^|[^a-z0-9-])${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z0-9-]|$)`);
+
+// 🔴 诊断文件要跳过，而且这是**另一条独立的病**：`build-diagnostics.json` 的**职责**
+//    就是点名被跳过的草稿（`skips[].slug`、`danglingRedirects`）—— 闸在扫自己的体检报告。
+//    ⚠️ 单做这一条**不够**：实测 46 → 45，只掉一条。两条都要，缺一条构建仍然红。
+const isDiagnostics = (f) => path.basename(f) === 'build-diagnostics.json';
+
 for (const slug of draftSlugs) {
+  const re = slugRe(slug);
   for (const file of files) {
-    if (file.includes(slug)) failures.push(`${file}: filename contains draft slug "${slug}"`);
+    if (isDiagnostics(file)) continue;
+    // ⚠️ 用相对路径匹配：绝对路径里可能含开发机目录名，那不是产物的一部分。
+    const rel = path.relative(DIST, file).split(path.sep).join('/');
+    if (re.test(rel)) failures.push(`${file}: filename contains draft slug "${slug}"`);
   }
   for (const file of textFiles) {
+    if (isDiagnostics(file)) continue;
     const body = await readFile(file, 'utf8');
-    if (body.includes(slug)) failures.push(`${file}: body contains draft slug "${slug}"`);
+    if (re.test(body)) failures.push(`${file}: body contains draft slug "${slug}"`);
   }
 }
 
