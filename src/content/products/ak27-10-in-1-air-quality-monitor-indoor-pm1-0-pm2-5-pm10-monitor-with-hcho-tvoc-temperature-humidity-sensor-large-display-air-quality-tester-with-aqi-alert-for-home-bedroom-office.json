@@ -1,6 +1,6 @@
 {
   "slug": "ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office",
-  "name": "AK27-10-in-1 Air Quality Monitor Indoor, PM1.0 PM2.5 PM10 Monitor with HCHO TVOC Temperature Humidity Sensor, Large Display Air Quality Tester with AQI Alert for Home Bedroom Office",
+  "name": "AK27 - Indoor VOC & Particle Counter (TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), Formaldehyde Detector for Renovation",
   "model": "AK27",
   "category": "desktop",
   "sensors": [
@@ -21,6 +21,14 @@
     "Smart AQI Indicator & Real-Time Alerts:Color-coded AQI indicators make air quality changes easy to understand. Quickly know when ventilation or environmental adjustments may be needed.",
     "Designed for Everyday Indoor Use:Perfect for bedrooms, living rooms, offices, nurseries and more. Monitor your home's environment anytime with a sleek desktop design."
   ],
+  "specs": {
+    "Dimensions": "106mm*90mm*50mm",
+    "Net weight": "240g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Carton gross weight": "14.05kg",
+    "Lead time": "35-45days"
+  },
   "images": {
     "main": "products/ak27/ak27-10-in-1-air-quality-monitor-indoor-pm1-0-pm2-5-pm10-monitor-with-hcho-tvoc-temperature-humidity-sensor-large-display-air-quality-tester-with-aqi-alert-for-home-bedroom-office.webp",
     "gallery": [
