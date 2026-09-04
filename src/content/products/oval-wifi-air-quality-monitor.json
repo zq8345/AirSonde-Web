@@ -1,6 +1,6 @@
 {
   "slug": "oval-wifi-air-quality-monitor",
-  "name": "AK30-Oval Wi-Fi Air Quality Monitor",
+  "name": "AK30 - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity, AQI), Auto-Dimming Display, 5000mAh",
   "model": "AK30",
   "category": "desktop",
   "sensors": [
@@ -16,14 +16,17 @@
     "Time"
   ],
   "highlights": [
-    "Rounded housing that reads as furniture rather than instrumentation",
-    "Two dial-style readouts either side of the clock",
-    "Four front keys and a wireless status indicator"
+    "The Screen Dims Itself — An ambient light sensor drops the backlight as the room darkens. Air quality monitors are most useful overnight, and most likely to be unplugged overnight — this is the fix for that.",
+    "Built to Stay On — 5000 mAh and eight hours of standby, in the largest body of the portable range. Designed to run continuously rather than be picked up and put down.",
+    "Eight Parameters with Full Particulate Split — CO₂, TVOC, formaldehyde, PM1.0, PM2.5, PM10, temperature, humidity and an AQI scale.",
+    "The Bedroom and Nursery Configuration — Where the monitor shares a room with someone asleep, self-dimming stops being a feature and becomes the reason it stays plugged in.",
+    "Same Body as AK29 — Shares the enclosure with the radon flagship, so a customer can move between them without a change in installation footprint."
   ],
   "specs": {
-    "Form factor": "Desktop",
-    "Display": "Oval colour LCD",
-    "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
+    "Dimensions": "180mm*98mm*40mm",
+    "Net weight": "356g",
+    "Certification": "CE/FCC/ROHS/UN38.3认证",
+    "Display": "Oval colour LCD"
   },
   "images": {
     "main": "products/ak30/oval-wifi-air-quality-monitor.webp",
