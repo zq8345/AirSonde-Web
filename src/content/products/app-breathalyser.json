@@ -14,6 +14,15 @@
     "150 mAh, USB-C — About an hour to charge, 53 g.",
     "Same Body and Carton as AK13A — 100 per box, 195,000 per 20 ft container — the connected version costs nothing extra in freight."
   ],
+  "specs": {
+    "Dimensions": "105mm*30mm*18.3mm",
+    "Net weight": "53g",
+    "Carton size": "390mm*255mm*130mm",
+    "Carton qty": "100pcs",
+    "Carton gross weight": "6.5kg",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak13b/app-breathalyser.webp",
     "gallery": [
