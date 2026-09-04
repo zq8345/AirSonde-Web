@@ -1,0 +1,35 @@
+{
+  "slug": "ak18d-pocket-formaldehyde-tvoc-detector-hcho-tvoc-39g-air-quality-tester",
+  "name": "AK18D - Pocket Formaldehyde & TVOC Detector (HCHO, TVOC), 39g Air Quality Tester",
+  "model": "AK18D",
+  "category": "wall-mounted",
+  "sensors": [
+    "HCHO",
+    "TVOC"
+  ],
+  "highlights": [
+    "The Renovation Pair, Pocket Sized — Formaldehyde and TVOC come from the same sources — board, adhesive, paint, upholstery — and both need watching for months after a fit-out.",
+    "Small Enough for a Buyer to Take Viewing — 39 g in a jacket pocket. A reading taken during a viewing carries more weight than a reading taken after moving in.",
+    "Two Channels, Two Colour Bands — No index to interpret; each value carries its own status.",
+    "500 mAh, USB-C — About an hour to full charge.",
+    "100 Per Carton — 433 × 348 × 222 mm outer, 11 kg gross."
+  ],
+  "specs": {
+    "Dimensions": "80mm*47mm*20mm",
+    "Net weight": "39g",
+    "Carton size": "433mm*348mm*222mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
+  "images": {
+    "main": "products/_draft/ak18d-pocket-formaldehyde-tvoc-detector-hcho-tvoc-39g-air-quality-tester.webp",
+    "gallery": [
+      "products/_draft/ak18d-pocket-formaldehyde-tvoc-detector-hcho-tvoc-39g-air-quality-tester-2.webp",
+      "products/_draft/ak18d-pocket-formaldehyde-tvoc-detector-hcho-tvoc-39g-air-quality-tester-3.webp",
+      "products/_draft/ak18d-pocket-formaldehyde-tvoc-detector-hcho-tvoc-39g-air-quality-tester-4.webp",
+      "products/_draft/ak18d-pocket-formaldehyde-tvoc-detector-hcho-tvoc-39g-air-quality-tester-5.webp"
+    ]
+  },
+  "status": "draft"
+}
