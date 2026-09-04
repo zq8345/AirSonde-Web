@@ -19,14 +19,15 @@
     "Carton size": "433mm*348mm*222mm",
     "Carton qty": "100pcs",
     "Lead time": "35-45days",
-    "Certification": "CE/FCC/ROHS/UN38.3认证",
-    "Form factor": "Portable",
-    "Display": "Round colour LCD"
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
   },
   "images": {
     "main": "products/ak18a/portable-co-alarm.webp",
     "gallery": [
-      "products/ak18a/portable-co-alarm-2.webp"
+      "products/ak18a/portable-co-alarm-3.webp",
+      "products/ak18a/portable-co-alarm-4.webp",
+      "products/ak18a/portable-co-alarm-5.webp",
+      "products/ak18a/portable-co-alarm-6.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/2025-New-Release-39g-Mini-Portable_1601058966923.html",
