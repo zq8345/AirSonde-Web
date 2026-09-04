@@ -13,6 +13,15 @@
     "150 mAh, USB-C — About an hour to charge; sized for occasional use rather than continuous operation.",
     "100 Per Carton, 195,000 Per 20 ft — The highest container quantity in the catalogue by a wide margin — the line to quote for promotional or corporate volume."
   ],
+  "specs": {
+    "Dimensions": "105mm*30mm*18.3mm",
+    "Net weight": "53g",
+    "Carton size": "390mm*255mm*130mm",
+    "Carton qty": "100pcs",
+    "Carton gross weight": "6.5kg",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak13a/portable-breathalyser-3.webp",
     "gallery": [
