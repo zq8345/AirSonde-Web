@@ -21,11 +21,11 @@
     "Readings": "HCHO, temperature, humidity"
   },
   "images": {
-    "main": "products/hcho-desktop-monitor.webp",
+    "main": "products/_draft/hcho-desktop-monitor.webp",
     "gallery": [
-      "products/hcho-desktop-monitor.webp"
+      "products/_draft/hcho-desktop-monitor.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Hot-Selling-Air-Quality-Monitor-Desktop_1600581552446.html",
-  "status": "published"
+  "status": "draft"
 }
