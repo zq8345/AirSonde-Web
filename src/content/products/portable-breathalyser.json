@@ -1,10 +1,17 @@
 {
   "slug": "portable-breathalyser",
-  "name": "AK13A-Portable Breathalyser",
+  "name": "AK13A - Portable Breathalyser & Alcohol Tester (Breath Alcohol), 99-Record Memory Log",
   "model": "AK13A",
   "category": "other",
   "sensors": [
     "alcohol"
+  ],
+  "highlights": [
+    "Ten Seconds to Warm Up, Six to Blow — A complete test inside twenty seconds. Anything slower and people stop using it, which is the actual failure mode of a personal breathalyser.",
+    "Stores 99 Readings — The device keeps its own log, so a fleet manager or a bar operator can review rather than rely on being told.",
+    "53 Grams, 18.3 mm Thick — Slim enough for a glovebox, a handbag or a uniform pocket.",
+    "150 mAh, USB-C — About an hour to charge; sized for occasional use rather than continuous operation.",
+    "100 Per Carton, 195,000 Per 20 ft — The highest container quantity in the catalogue by a wide margin — the line to quote for promotional or corporate volume."
   ],
   "images": {
     "main": "products/portable-breathalyser-3.webp",
