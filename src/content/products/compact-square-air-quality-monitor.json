@@ -28,15 +28,15 @@
     "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
   },
   "images": {
-    "main": "products/compact-square-air-quality-monitor.webp",
+    "main": "products/ak23b/compact-square-air-quality-monitor.webp",
     "gallery": [
-      "products/compact-square-air-quality-monitor-15.webp",
-      "products/compact-square-air-quality-monitor-16.webp",
-      "products/compact-square-air-quality-monitor-17.webp",
-      "products/compact-square-air-quality-monitor-18.webp",
-      "products/compact-square-air-quality-monitor-19.webp",
-      "products/compact-square-air-quality-monitor-20.webp",
-      "products/compact-square-air-quality-monitor-21.webp"
+      "products/ak23b/compact-square-air-quality-monitor-15.webp",
+      "products/ak23b/compact-square-air-quality-monitor-16.webp",
+      "products/ak23b/compact-square-air-quality-monitor-17.webp",
+      "products/ak23b/compact-square-air-quality-monitor-18.webp",
+      "products/ak23b/compact-square-air-quality-monitor-19.webp",
+      "products/ak23b/compact-square-air-quality-monitor-20.webp",
+      "products/ak23b/compact-square-air-quality-monitor-21.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Electrochemistry-HCHO-Infrared-CO2-Tester-Indoor_1601288804636.html",

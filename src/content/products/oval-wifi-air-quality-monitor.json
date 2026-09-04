@@ -26,15 +26,15 @@
     "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
   },
   "images": {
-    "main": "products/oval-wifi-air-quality-monitor.webp",
+    "main": "products/ak30/oval-wifi-air-quality-monitor.webp",
     "gallery": [
-      "products/oval-wifi-air-quality-monitor-7.webp",
-      "products/oval-wifi-air-quality-monitor-8.webp",
-      "products/oval-wifi-air-quality-monitor-9.webp",
-      "products/oval-wifi-air-quality-monitor-10.webp",
-      "products/oval-wifi-air-quality-monitor-11.webp",
-      "products/oval-wifi-air-quality-monitor-12.webp",
-      "products/oval-wifi-air-quality-monitor-13.webp"
+      "products/ak30/oval-wifi-air-quality-monitor-7.webp",
+      "products/ak30/oval-wifi-air-quality-monitor-8.webp",
+      "products/ak30/oval-wifi-air-quality-monitor-9.webp",
+      "products/ak30/oval-wifi-air-quality-monitor-10.webp",
+      "products/ak30/oval-wifi-air-quality-monitor-11.webp",
+      "products/ak30/oval-wifi-air-quality-monitor-12.webp",
+      "products/ak30/oval-wifi-air-quality-monitor-13.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/New-16-in-1-Air-Quality_1601805270556.html",

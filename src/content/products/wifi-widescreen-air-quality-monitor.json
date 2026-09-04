@@ -28,14 +28,14 @@
     "Readings": "CO2, PM2.5, HCHO, TVOC, temperature, humidity, AQI"
   },
   "images": {
-    "main": "products/wifi-widescreen-air-quality-monitor.webp",
+    "main": "products/ak22a/wifi-widescreen-air-quality-monitor.webp",
     "gallery": [
-      "products/wifi-widescreen-air-quality-monitor-8.webp",
-      "products/wifi-widescreen-air-quality-monitor-9.webp",
-      "products/wifi-widescreen-air-quality-monitor-10.webp",
-      "products/wifi-widescreen-air-quality-monitor-11.webp",
-      "products/wifi-widescreen-air-quality-monitor-12.webp",
-      "products/wifi-widescreen-air-quality-monitor-13.webp"
+      "products/ak22a/wifi-widescreen-air-quality-monitor-8.webp",
+      "products/ak22a/wifi-widescreen-air-quality-monitor-9.webp",
+      "products/ak22a/wifi-widescreen-air-quality-monitor-10.webp",
+      "products/ak22a/wifi-widescreen-air-quality-monitor-11.webp",
+      "products/ak22a/wifi-widescreen-air-quality-monitor-12.webp",
+      "products/ak22a/wifi-widescreen-air-quality-monitor-13.webp"
     ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Air-Gas-Quality-Analyzer-Indoor-Monitor_1601177912645.html",
