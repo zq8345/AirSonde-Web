@@ -22,6 +22,14 @@
     "2000 mAh, Six Hours — USB-C, roughly three hours to full, 249 g.",
     "One Layer Up, Same Platform — AK16C adds the index to the AK16A body without changing the enclosure, packaging or 30-per-carton spec — two tiers for the same buyer from one production line."
   ],
+  "specs": {
+    "Dimensions": "120mm*93mm*24mm",
+    "Net weight": "249g",
+    "Carton size": "420mm*375mm*215mm",
+    "Carton qty": "30pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak16c/compact-9in1-desktop-monitor.webp",
     "gallery": [
