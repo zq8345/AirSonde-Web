@@ -21,6 +21,14 @@
     "The Specification Tier of the AK16 Platform — Where a figure goes into a report, supports a purchase decision, or gets compared against a regulatory threshold, this is the AK16 to quote.",
     "2000 mAh, Six Hours, 249 g — 30 pcs per carton, same colour box as the rest of the platform."
   ],
+  "specs": {
+    "Dimensions": "120mm*93mm*24mm",
+    "Net weight": "249g",
+    "Carton size": "420mm*375mm*215mm",
+    "Carton qty": "30pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak16ah-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors.webp"
   },
