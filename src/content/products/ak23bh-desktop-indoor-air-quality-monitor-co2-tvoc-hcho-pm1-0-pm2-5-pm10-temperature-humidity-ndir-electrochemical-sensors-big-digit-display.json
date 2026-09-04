@@ -1,0 +1,29 @@
+{
+  "slug": "ak23bh-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-big-digit-display",
+  "name": "AK23BH - Desktop Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR & Electrochemical Sensors, Big-Digit Display",
+  "model": "AK23BH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK23B With Report-Grade Sensing — The big-digit face kept exactly as it is, with infrared NDIR CO₂ and an electrochemical formaldehyde cell underneath. Long-distance legibility and report-grade numbers in one device.",
+    "The Top Configuration of the AK23 Enclosure — Nothing above it in this body: upgraded sensing, full particulate split, clean buttonless front.",
+    "Grouped Value Layout — Gases, particulates and climate arranged as labelled groups around a single dominant figure.",
+    "2500 mAh, Six Hours — Four-hour USB-C charge, 256 g.",
+    "32 Per Carton — 500 × 261 × 302 mm outer carton, 14.05 kg gross."
+  ],
+  "images": {
+    "main": "products/_draft/ak23bh-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-big-digit-display.webp"
+  },
+  "status": "draft"
+}
