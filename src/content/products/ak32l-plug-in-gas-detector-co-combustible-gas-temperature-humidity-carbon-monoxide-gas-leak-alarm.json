@@ -1,0 +1,35 @@
+{
+  "slug": "ak32l-plug-in-gas-detector-co-combustible-gas-temperature-humidity-carbon-monoxide-gas-leak-alarm",
+  "name": "AK32L - Plug-In Gas Detector (CO, Combustible Gas, Temperature, Humidity), Carbon Monoxide & Gas Leak Alarm",
+  "model": "AK32L",
+  "category": "wall-mounted",
+  "sensors": [
+    "CO",
+    "Gas"
+  ],
+  "highlights": [
+    "Both Ways a Flame Can Fail — An unburnt leak and incomplete combustion are two different failures with two different sensors. This configuration watches for both from one socket.",
+    "The Complete Gas-Kitchen Fit — A gas hob can leak before it lights and produce carbon monoxide once it does. Fitting one device instead of two halves the installation and the sockets used.",
+    "Electrochemical CO, Semiconductor Gas — Each channel on the sensor class the job calls for.",
+    "110–240 V, US and EU Pins — Permanent mains power, no battery to go flat.",
+    "120 Per Carton — 520 × 505 × 355 mm outer carton, shared across every AK32 variant."
+  ],
+  "specs": {
+    "Dimensions": "81.5mm*50mm*25mm",
+    "Net weight": "US Plug66g / EU Plug77g",
+    "Carton size": "520mm*505mm*355mm",
+    "Carton qty": "120pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS"
+  },
+  "images": {
+    "main": "products/_draft/ak32l-plug-in-gas-detector-co-combustible-gas-temperature-humidity-carbon-monoxide-gas-leak-alarm.webp",
+    "gallery": [
+      "products/_draft/ak32l-plug-in-gas-detector-co-combustible-gas-temperature-humidity-carbon-monoxide-gas-leak-alarm-2.webp",
+      "products/_draft/ak32l-plug-in-gas-detector-co-combustible-gas-temperature-humidity-carbon-monoxide-gas-leak-alarm-3.webp",
+      "products/_draft/ak32l-plug-in-gas-detector-co-combustible-gas-temperature-humidity-carbon-monoxide-gas-leak-alarm-4.webp",
+      "products/_draft/ak32l-plug-in-gas-detector-co-combustible-gas-temperature-humidity-carbon-monoxide-gas-leak-alarm-5.webp"
+    ]
+  },
+  "status": "draft"
+}
