@@ -1,10 +1,18 @@
 {
   "slug": "app-breathalyser",
-  "name": "AK13B-App-Connected Breathalyser",
+  "name": "AK13B - App-Connected Breathalyser & Alcohol Tester (Breath Alcohol), Bluetooth, 99-Record Memory",
   "model": "AK13B",
   "category": "other",
   "sensors": [
-    "alcohol"
+    "alcohol",
+    "APP"
+  ],
+  "highlights": [
+    "The Reading Goes to a Phone — Bluetooth pairing sends each result to a handset — timestamped, stored and shareable. A number on a device screen is a moment; a record on a phone is evidence.",
+    "Same Ten-Second Warm-Up, Six-Second Blow — Identical test cycle and sensing to AK13A, with the record-keeping moved off the device.",
+    "Why Fleets Ask for It — A driver can send a pre-shift result to a supervisor without either of them being in the same place. That is a workflow the standalone version cannot support.",
+    "150 mAh, USB-C — About an hour to charge, 53 g.",
+    "Same Body and Carton as AK13A — 100 per box, 195,000 per 20 ft container — the connected version costs nothing extra in freight."
   ],
   "images": {
     "main": "products/app-breathalyser.webp",
