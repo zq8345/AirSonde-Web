@@ -17,6 +17,15 @@
     "1200 mAh, 6–8 Hours — Three-hour USB charge, all-day runtime, 206 g with the lanyard fitted.",
     "Stock It Beside AK3 — Shared enclosure, colour box and carton spec — 50 pcs per box, 25,000 units per 20 ft container — so the accuracy tier costs you no extra shelf planning."
   ],
+  "specs": {
+    "Dimensions": "98mm*32mm*67mm",
+    "Net weight": "206g",
+    "Carton size": "425mm*375mm*310mm",
+    "Carton qty": "50pcs",
+    "Carton gross weight": "10.5kg",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak4/mini-co2-desktop-monitor.webp",
     "gallery": [
