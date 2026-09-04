@@ -23,6 +23,14 @@
     "The Accuracy Choice in the -CO Family — Where the CO figure may be quoted to an insurer, a landlord or a safety officer, sensor class is the first question asked.",
     "2000 mAh, Six Hours, 249 g — 30 pcs per carton."
   ],
+  "specs": {
+    "Dimensions": "120mm*93mm*24mm",
+    "Net weight": "249g",
+    "Carton size": "420mm*375mm*215mm",
+    "Carton qty": "30pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak16dh-co-indoor-air-quality-monitor-co2-co-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-infrared-electrochemical-sensors.webp"
   },
