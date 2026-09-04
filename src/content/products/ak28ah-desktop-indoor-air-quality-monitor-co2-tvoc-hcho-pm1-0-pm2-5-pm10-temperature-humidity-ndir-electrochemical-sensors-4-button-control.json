@@ -1,0 +1,37 @@
+{
+  "slug": "ak28ah-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-4-button-control",
+  "name": "AK28AH - Desktop Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR & Electrochemical Sensors, 4-Button Control",
+  "model": "AK28AH",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time"
+  ],
+  "highlights": [
+    "The AK28A With Its Two Gas Channels Upgraded — Four front keys and the wedge stand stay; the CO₂ and formaldehyde channels move to infrared NDIR and an electrochemical cell. Hardware controls with hardware-grade sensing.",
+    "For Sites Where Someone Actually Operates It — A monitor that gets set, muted, dimmed and re-set by different people benefits from dedicated keys. One that also gets quoted in a report benefits from these sensors.",
+    "Laser Particulate Split — Three particulate fractions separated rather than averaged into one number.",
+    "2500 mAh, Six Hours — Four-hour USB-C charge, 246 g.",
+    "32 Per Carton — Same packing as the standard AK28."
+  ],
+  "specs": {
+    "Dimensions": "106mm*90mm*50mm",
+    "Net weight": "246g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
+  "images": {
+    "main": "products/_draft/ak28ah-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-4-button-control.webp"
+  },
+  "status": "draft"
+}
