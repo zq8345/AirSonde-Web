@@ -15,6 +15,15 @@
     "1200 mAh, 6–8 Hours — 213 g, USB-C, about three hours to full charge.",
     "The Accuracy Tier of the AK11 Family — Same shell and carton spec as AK11T; the upgrade a distributor offers when a customer asks how accurate the number is."
   ],
+  "specs": {
+    "Dimensions": "98mm*32mm*67mm",
+    "Net weight": "213g",
+    "Carton size": "425mm*375mm*310mm",
+    "Carton qty": "5pcs",
+    "Carton gross weight": "11.5kg",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak11h-indoor-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor.webp"
   },
