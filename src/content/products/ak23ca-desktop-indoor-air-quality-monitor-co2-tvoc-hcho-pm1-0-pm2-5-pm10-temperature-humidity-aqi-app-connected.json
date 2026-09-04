@@ -23,6 +23,14 @@
     "2500 mAh, Six Hours — Four-hour charge, 256 g — Bluetooth running does not shorten the figure.",
     "The Value Configuration of the AK23 Range — If a customer wants app connectivity and price matters more than sensor tier, this is the specification to lead with."
   ],
+  "specs": {
+    "Dimensions": "106mm*90mm*50mm",
+    "Net weight": "256g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak23ca-desktop-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-aqi-app-connected.webp",
     "gallery": [
