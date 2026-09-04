@@ -1,6 +1,6 @@
 {
   "slug": "hcho-desktop-monitor",
-  "name": "AK11C-Desktop Formaldehyde Monitor",
+  "name": "AK11C - Indoor Formaldehyde Detector (HCHO, Temperature, Humidity), Electrochemical Sensor",
   "model": "AK11C",
   "category": "desktop",
   "sensors": [
@@ -9,9 +9,11 @@
     "humidity"
   ],
   "highlights": [
-    "Single-purpose formaldehyde readout, large and unambiguous",
-    "Four-step severity scale under the reading",
-    "Temperature and humidity in secondary dials"
+    "Electrochemical Formaldehyde — An electrochemical cell, not a semiconductor element. It responds to formaldehyde specifically, holds its reading over months rather than hours, and is the sensor class used for post-renovation testing.",
+    "Built for the New-Home Window — Boards, adhesives and new furniture off-gas formaldehyde for months after installation. This is the single-purpose instrument for exactly that period.",
+    "Temperature and Humidity Alongside — Not decoration: formaldehyde release rises sharply with both, so the two readings explain why a level moved.",
+    "1200 mAh, 6–8 Hours — 200 g — the lightest unit in the AK11 family. USB-C, roughly three hours to full.",
+    "Shares the AK11 Shell — Same tooling, colour box and 50-per-carton spec as AK11T, AK11H and AK11P, so a mixed pallet ships as a single line item."
   ],
   "specs": {
     "Form factor": "Desktop",
@@ -19,7 +21,10 @@
     "Readings": "HCHO, temperature, humidity"
   },
   "images": {
-    "main": "products/hcho-desktop-monitor.webp"
+    "main": "products/hcho-desktop-monitor.webp",
+    "gallery": [
+      "products/hcho-desktop-monitor.webp"
+    ]
   },
   "supplierRef": "https://www.alibaba.com/product-detail/Hot-Selling-Air-Quality-Monitor-Desktop_1600581552446.html",
   "status": "published"
