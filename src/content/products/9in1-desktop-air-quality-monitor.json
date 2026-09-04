@@ -23,6 +23,12 @@
     "32 Per Carton — The highest carton density among the large-screen desktop models — 500 × 261 × 302 mm outer, 14.05 kg gross."
   ],
   "specs": {
+    "Dimensions": "105mm*90mm*50mm",
+    "Net weight": "240g",
+    "Carton size": "500mm*261mm*302mm",
+    "Carton qty": "32pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证",
     "Form factor": "Desktop",
     "Display": "Colour LCD dashboard",
     "Readings": "CO2, PM1.0, PM2.5, PM10, HCHO, TVOC, temperature, humidity, AQI"
