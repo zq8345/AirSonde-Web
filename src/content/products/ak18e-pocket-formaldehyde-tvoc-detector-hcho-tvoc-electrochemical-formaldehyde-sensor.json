@@ -1,0 +1,29 @@
+{
+  "slug": "ak18e-pocket-formaldehyde-tvoc-detector-hcho-tvoc-electrochemical-formaldehyde-sensor",
+  "name": "AK18E - Pocket Formaldehyde & TVOC Detector (HCHO, TVOC), Electrochemical Formaldehyde Sensor",
+  "model": "AK18E",
+  "category": "wall-mounted",
+  "sensors": [
+    "HCHO",
+    "TVOC"
+  ],
+  "highlights": [
+    "The AK18D With Electrochemical Formaldehyde — Same 39 g body, same two readings, same 100-per-carton pack. The formaldehyde channel moves from a semiconductor element to an electrochemical cell — selective where the semiconductor is not.",
+    "Why It Costs More Than AK18D — A semiconductor element responds to formaldehyde and to a dozen other things. An electrochemical cell responds to formaldehyde. When the number is going to be quoted to a landlord or a client, that distinction is the whole product.",
+    "TVOC Alongside — The broader VOC channel remains, so the pair still tells a complete story about a room's materials.",
+    "500 mAh, USB-C — About an hour to charge, 39 g.",
+    "100 Per Carton — Same enclosure and packing as AK18D — the upgrade tier without a second carton spec."
+  ],
+  "specs": {
+    "Dimensions": "80mm*47mm*20mm",
+    "Net weight": "39g",
+    "Carton size": "433mm*348mm*222mm",
+    "Carton qty": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
+  "images": {
+    "main": "products/_draft/ak18e-pocket-formaldehyde-tvoc-detector-hcho-tvoc-electrochemical-formaldehyde-sensor.webp"
+  },
+  "status": "draft"
+}
