@@ -1,0 +1,31 @@
+{
+  "slug": "ak16dah-co-indoor-air-quality-monitor-co2-co-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-app-connected",
+  "name": "AK16DAH-CO - Indoor Air Quality Monitor (CO2, CO, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), NDIR & Electrochemical Sensors, App Connected",
+  "model": "AK16DAH-CO",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "CO",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "AQI",
+    "Time",
+    "APP"
+  ],
+  "highlights": [
+    "The AK16DA-CO With Nothing Left Unticked — The app version with its sensing taken to the top tier: infrared NDIR CO₂, electrochemical formaldehyde and electrochemical carbon monoxide. Every item on the AK16 option list is checked.",
+    "Nothing Left on the Options List — Buyers who compare specification tables tend to buy the row with no empty cells. This is that row.",
+    "A Complete Record for a Combustion Environment — Gas, particulate and CO history exported from one device, for the rooms where all three matter at once.",
+    "2000 mAh, Six Hours — Three-hour USB-C charge, 249 g, same 24 mm panel as the entry model.",
+    "One Enclosure, Nine Configurations — Buyers move up and down the AK16 range without a change to packaging, carton quantity or freight class."
+  ],
+  "images": {
+    "main": "products/_draft/ak16dah-co-indoor-air-quality-monitor-co2-co-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-ndir-electrochemical-sensors-app-connected.webp"
+  },
+  "status": "draft"
+}
