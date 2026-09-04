@@ -1,0 +1,22 @@
+{
+  "slug": "ak11p-indoor-pm2-5-meter-particle-counter-pm2-5-temperature-humidity-laser-sensor",
+  "name": "AK11P - Indoor PM2.5 Meter & Particle Counter (PM2.5, Temperature, Humidity), Laser Sensor",
+  "model": "AK11P",
+  "category": "desktop",
+  "sensors": [
+    "PM2.5",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Laser Particle Counting — A laser scattering module with a fan-drawn sample path — the sensor class that produces a µg/m³ figure worth acting on, not an inferred estimate.",
+    "Single-Purpose PM2.5 — One large reading with a colour band. For anyone auditing an air purifier, judging filter change intervals, or checking whether a window should stay shut.",
+    "Responds in Seconds — Particulate levels move the moment a door opens, a candle is lit or a purifier starts. The reading follows in real time, which is what makes cause and effect visible.",
+    "1200 mAh, 6–8 Hours — 238 g — the heaviest of the AK11 family, because the laser module and its airflow path take space a gas sensor does not.",
+    "50 Per Carton — Retail colour box with manual, USB-C cable and lanyard; same outer carton as the rest of the AK11 range."
+  ],
+  "images": {
+    "main": "products/_draft/ak11p-indoor-pm2-5-meter-particle-counter-pm2-5-temperature-humidity-laser-sensor.webp"
+  },
+  "status": "draft"
+}
