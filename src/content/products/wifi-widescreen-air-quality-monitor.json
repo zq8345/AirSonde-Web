@@ -23,6 +23,12 @@
     "21 Per Carton — The largest enclosure in the range, so the carton count is lower; 515.5 × 445.5 × 223 mm outer, 14.9 kg gross."
   ],
   "specs": {
+    "Dimensions": "166mm*108mm*53mm",
+    "Net weight": "363g",
+    "Carton size": "515.5mm*445.5mm*223mm",
+    "Carton qty": "21pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证",
     "Form factor": "Desktop",
     "Display": "Wide colour LCD",
     "Readings": "CO2, PM2.5, HCHO, TVOC, temperature, humidity, AQI"
