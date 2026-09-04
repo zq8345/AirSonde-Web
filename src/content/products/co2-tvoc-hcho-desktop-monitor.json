@@ -11,12 +11,11 @@
     "humidity"
   ],
   "highlights": [
-    "Real-Time Indoor Air Quality Monitor: Tracks key air metrics in real-time, including CO2, Formaldehyde (HCHO), TVOC, temperature, and humidity. Stay informed about unseen air pollution and take steps to create a healthier living environment that promotes your family's well-being.",
-    "High-Precision Sensor: This air quality monitor integrates a high-performance sensor with a dual-ventilation structure, providing fast and stable feedback. A clear color display enhances readability for at-a-glance air quality data.",
-    "Visual Air Quality Notifications: This indoor air quality monitor provides on-screen indicators when air readings change noticeably, such as during poor ventilation or a sudden increase in pollutants, helping you take timely steps to improve airflow.",
-    "Long-Lasting Portability: The home air quality monitor is designed for simplicity, powering on with a single long press and enabling °C/°F switch. Its built-in 1200mAh battery offers up to 10 hours of use for whole-home coverage, and it supports both desktop and wall-mount placement.",
-    "Multi-Scenario Adaptability: With its modern minimalist design, this portable air quality monitor blends seamlessly into any environment—from living rooms and bedrooms to greenhouses. It is equally suited for offices, gyms, classrooms, and hotels, providing reliable air quality monitoring across diverse settings.",
-    "Easy One-Button Operation: Designed for convenience, this air quality monitor features a single multi-functional button. Long press to power on/off, press once to switch temperature units, and double press to control the optional notification function. No complex menus or confusing controls."
+    "Five Readings, One Glance — CO₂, TVOC and formaldehyde alongside temperature and humidity, each on its own colour status band — five readings that most households otherwise buy as three or four separate meters, one at a time.",
+    "The Entry Point to the Range — Semiconductor sensing across all three gas channels keeps the cost down while still showing you the trend that matters — when a room needs airing.",
+    "Small Enough to Leave Out — At 212 g and 32 mm deep it sits on a nightstand or desk without dominating it, and travels in a bag when a client wants a site reading.",
+    "1200 mAh, 6–8 Hours Cordless — About three hours to a full charge over USB. A lanyard is included for walk-around checks.",
+    "Two Price Tiers, One Carton Spec — AK3 and the NDIR version AK4 share the same body, colour box and 50-per-carton pack. A distributor carries both tiers on one pallet, with a single freight calculation."
   ],
   "specs": {
     "Dimensions": "98mm*32mm*67mm",
