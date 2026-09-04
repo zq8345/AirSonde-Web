@@ -1,12 +1,27 @@
 {
   "slug": "wall-mount-co2-tvoc-monitor",
-  "name": "AK18B-Wall-Mount CO2 & TVOC Monitor",
+  "name": "AK18B - Pocket Indoor Air Quality Monitor (CO2, TVOC), Wall Mountable, 39g",
   "model": "AK18B",
   "category": "wall-mounted",
   "sensors": [
     "CO2",
     "TVOC"
   ],
+  "highlights": [
+    "Occupancy and Off-Gassing, Pocket Sized — CO₂ shows how many people the ventilation is failing to keep up with; TVOC shows what the room's materials and cleaning products are adding. Two readings, 39 g.",
+    "Small Enough to Be Carried, Not Just Sited — A monitor left at home measures one room. One that fits in a pocket measures every room someone walks into.",
+    "Colour Status on Both Channels — Each reading carries its own band, so the screen answers the question without being read closely.",
+    "500 mAh, USB-C — About an hour to charge; roughly six hours of standby.",
+    "100 Per Carton — Same enclosure and packing as the rest of the AK18 range — five sensor configurations, one carton spec."
+  ],
+  "specs": {
+    "Dimensions": "80mm*47mm*20mm",
+    "Net weight": "39g",
+    "Carton size": "433mm*348mm*222mm",
+    "Carton gross weight": "100pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak18b/wall-mount-co2-tvoc-monitor.webp",
     "gallery": [
