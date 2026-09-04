@@ -22,6 +22,14 @@
     "2500 mAh, Six Hours — Four-hour charge, 379 g.",
     "Two Faces, One Tooling — Offer both layouts to the same customer without a second mould, a second carton spec or a second freight class."
   ],
+  "specs": {
+    "Dimensions": "166mm*108mm*53mm",
+    "Net weight": "379g",
+    "Carton size": "515.5mm*445.5mm*223mm",
+    "Carton qty": "21pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/ak22b/ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter.webp",
     "gallery": [
