@@ -1,0 +1,35 @@
+{
+  "slug": "ak32d-plug-in-combustible-gas-detector-natural-gas-lpg-temperature-humidity-kitchen-gas-leak-alarm",
+  "name": "AK32D - Plug-In Combustible Gas Detector (Natural Gas, LPG, Temperature, Humidity), Kitchen Gas Leak Alarm",
+  "model": "AK32D",
+  "category": "wall-mounted",
+  "sensors": [
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Watching for a Leak, Not for Comfort — This is the only configuration in the AK32 range aimed at combustible gas — natural gas and LPG — rather than air quality. Different job, same socket.",
+    "Sited Where the Gas Would Collect — A plug-in body lets you choose the socket nearest the hob, the boiler or the cylinder store, which is what makes the difference between early detection and late.",
+    "Continuous Mains Operation — No battery to go flat between the day it was installed and the day it is needed.",
+    "110–240 V, US and EU Pins — Two plug variants from one production line.",
+    "120 Per Carton — Same outer carton as the rest of the AK32 series."
+  ],
+  "specs": {
+    "Dimensions": "81.5mm*50mm*25mm",
+    "Net weight": "US Plug66g / EU Plug77g",
+    "Carton size": "520mm*505mm*355mm",
+    "Carton qty": "120pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS"
+  },
+  "images": {
+    "main": "products/_draft/ak32d-plug-in-combustible-gas-detector-natural-gas-lpg-temperature-humidity-kitchen-gas-leak-alarm.webp",
+    "gallery": [
+      "products/_draft/ak32d-plug-in-combustible-gas-detector-natural-gas-lpg-temperature-humidity-kitchen-gas-leak-alarm-2.webp",
+      "products/_draft/ak32d-plug-in-combustible-gas-detector-natural-gas-lpg-temperature-humidity-kitchen-gas-leak-alarm-3.webp",
+      "products/_draft/ak32d-plug-in-combustible-gas-detector-natural-gas-lpg-temperature-humidity-kitchen-gas-leak-alarm-4.webp",
+      "products/_draft/ak32d-plug-in-combustible-gas-detector-natural-gas-lpg-temperature-humidity-kitchen-gas-leak-alarm-5.webp"
+    ]
+  },
+  "status": "draft"
+}
