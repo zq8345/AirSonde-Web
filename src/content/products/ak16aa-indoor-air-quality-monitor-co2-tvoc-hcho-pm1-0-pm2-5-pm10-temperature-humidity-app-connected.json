@@ -22,6 +22,14 @@
     "2000 mAh, Six Hours — Bluetooth running does not materially shorten runtime. Three-hour USB-C charge.",
     "Same Body, Same Carton — 233 g, 30 pcs per box — the connectivity tier without a change to your packing or freight calculation."
   ],
+  "specs": {
+    "Dimensions": "20mm*93mm*24mm",
+    "Net weight": "233g",
+    "Carton size": "424mm*215mm*371mm",
+    "Carton qty": "30pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS/UN38.3认证"
+  },
   "images": {
     "main": "products/_draft/ak16aa-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-app-connected.webp"
   },
