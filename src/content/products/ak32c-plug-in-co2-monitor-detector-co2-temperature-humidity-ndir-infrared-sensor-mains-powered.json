@@ -1,0 +1,36 @@
+{
+  "slug": "ak32c-plug-in-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor-mains-powered",
+  "name": "AK32C - Plug-In CO2 Monitor & Detector (CO2, Temperature, Humidity), NDIR Infrared Sensor, Mains Powered",
+  "model": "AK32C",
+  "category": "wall-mounted",
+  "sensors": [
+    "CO2",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "Infrared CO₂ From a Wall Socket — NDIR measurement in a plug-in body — the accurate CO₂ method without a battery to manage, in the format that suits permanent installation.",
+    "The Case for Permanent CO₂ Monitoring — Occupancy-driven CO₂ tells a building manager when a room is under-ventilated. That signal is only useful if it is captured continuously, which means mains power.",
+    "No Drift, No Recalibration Cycle — Infrared measurement holds its reading over years, which matters more for a fixed installation than for a device someone carries.",
+    "110–240 V — US or EU pins; 25 mm depth so it clears most furniture.",
+    "The Accuracy Tier of the AK32 Range — Same enclosure and 120-per-carton spec as the semiconductor versions."
+  ],
+  "specs": {
+    "Dimensions": "81.5mm*50mm*25mm",
+    "Net weight": "US Plug66g / EU Plug77g",
+    "Carton size": "520mm*505mm*355mm",
+    "Carton qty": "120pcs",
+    "Lead time": "35-45days",
+    "Certification": "CE/FCC/ROHS"
+  },
+  "images": {
+    "main": "products/_draft/ak32c-plug-in-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor-mains-powered.webp",
+    "gallery": [
+      "products/_draft/ak32c-plug-in-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor-mains-powered-2.webp",
+      "products/_draft/ak32c-plug-in-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor-mains-powered-3.webp",
+      "products/_draft/ak32c-plug-in-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor-mains-powered-4.webp",
+      "products/_draft/ak32c-plug-in-co2-monitor-detector-co2-temperature-humidity-ndir-infrared-sensor-mains-powered-5.webp"
+    ]
+  },
+  "status": "draft"
+}
