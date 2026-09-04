@@ -1,0 +1,29 @@
+{
+  "slug": "ak16aa-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-app-connected",
+  "name": "AK16AA - Indoor Air Quality Monitor (CO2, TVOC, HCHO, PM1.0, PM2.5, PM10, Temperature, Humidity), App Connected",
+  "model": "AK16AA",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "PM1.0",
+    "PM2.5",
+    "PM10",
+    "HCHO",
+    "TVOC",
+    "temperature",
+    "humidity",
+    "Time",
+    "APP"
+  ],
+  "highlights": [
+    "A Screen Shows Now; the App Shows the Pattern — Bluetooth logging turns a spot reading into a curve. Ventilation problems reveal themselves in the shape of an overnight CO₂ rise, and no display can show that.",
+    "Evidence a Client Will Accept — An indoor air consultant can hand over an exported trend rather than describe what the screen said during the visit.",
+    "Full Eight-Parameter Set — Everything AK16A measures, with wireless history added — the laser particulate split included.",
+    "2000 mAh, Six Hours — Bluetooth running does not materially shorten runtime. Three-hour USB-C charge.",
+    "Same Body, Same Carton — 233 g, 30 pcs per box — the connectivity tier without a change to your packing or freight calculation."
+  ],
+  "images": {
+    "main": "products/_draft/ak16aa-indoor-air-quality-monitor-co2-tvoc-hcho-pm1-0-pm2-5-pm10-temperature-humidity-app-connected.webp"
+  },
+  "status": "draft"
+}
