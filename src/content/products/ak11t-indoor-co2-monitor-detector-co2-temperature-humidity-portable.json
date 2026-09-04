@@ -1,0 +1,22 @@
+{
+  "slug": "ak11t-indoor-co2-monitor-detector-co2-temperature-humidity-portable",
+  "name": "AK11T - Indoor CO2 Monitor & Detector (CO2, Temperature, Humidity), Portable",
+  "model": "AK11T",
+  "category": "desktop",
+  "sensors": [
+    "CO2",
+    "temperature",
+    "humidity"
+  ],
+  "highlights": [
+    "The Lowest-Cost Way to Put CO₂ in Every Room — When the goal is one monitor per classroom or per meeting room, unit price decides how many rooms get covered. This is the entry point in the range.",
+    "Right for Occupancy, Not for Certification — A semiconductor element tracks the rise and fall that tells you to open a window — exactly what a classroom or meeting room needs. NDIR accuracy is available in the same enclosure as AK11H.",
+    "Bar Readout — The colour bar under the digits moves green to red as the level climbs, so occupants act on the band without learning what 1000 ppm means.",
+    "1200 mAh, 6–8 Hours — Three-hour USB charge, 206 g, lanyard included.",
+    "Built for Volume — 50 pcs per carton, 25,000 units per 20 ft container — the highest unit density in the multi-room deployment range."
+  ],
+  "images": {
+    "main": "products/_draft/ak11t-indoor-co2-monitor-detector-co2-temperature-humidity-portable.webp"
+  },
+  "status": "draft"
+}
