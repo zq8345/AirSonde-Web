@@ -85,10 +85,13 @@ const fullUrls = await Promise.all(
 // ── specifications ─────────────────────────────────────────────────────────────────────
 // Joe 2026-09-03: "Readings" repeats the Sensing chips — dropped at render time, record untouched
 const isReadings = (key: string) => key.trim().toLowerCase() === 'readings';
-// design: labels start with a capital; a trailing CJK tag such as "认证" comes off the value
+// design: labels start with a capital; a trailing CJK tag such as "认证" comes off the value;
+// "*" between measurements renders as " × " (Joe 2026-09-05) — render-time only, the record keeps "*"
 const labelOf = (key: string) => key.trim().charAt(0).toUpperCase() + key.trim().slice(1);
-const valueOf = (key: string, value: string) =>
-  /certif/i.test(key) ? value.replace(/[　-〿㐀-鿿＀-￯]+\s*$/u, '').trim() : value;
+const valueOf = (key: string, value: string) => {
+  const v = /certif/i.test(key) ? value.replace(/[　-〿㐀-鿿＀-￯]+\s*$/u, '') : value;
+  return v.replace(/\s*\*\s*/g, ' × ').trim();
+};
 const specEntries = Object.entries(specs ?? {}).filter(([key]) => !isReadings(key));
 const hasFormFactor = specEntries.some(([key]) => key.trim().toLowerCase() === 'form factor');
 const specRows: [string, string][] = [

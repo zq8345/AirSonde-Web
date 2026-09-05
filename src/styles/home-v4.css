@@ -160,9 +160,11 @@ header.sc .menu-btn:hover { border-color: var(--green); color: var(--green); }
 .pcard .ph { position: relative; background: #fff; aspect-ratio: 1 / 1; overflow: hidden; }
 .pcard .ph img { width: 100%; height: 100%; object-fit: cover; transition: 0.35s; }
 .pcard:hover .ph img { transform: scale(1.06); }
-.pcard .tx { padding: 20px 26px 26px; background: var(--mint); flex: 1; }
-.pcard .model { font-family: var(--disp); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; color: var(--green); }
-.pcard h3 { font-size: 19px; margin: 5px 0 12px; }
+/* compact card text (Joe 2026-09-05, truth = products-v1.html): one shared family — homepage
+   featured strip, /products/ grid and the detail page's Related all take these values */
+.pcard .tx { padding: 14px 20px 18px; background: var(--mint); flex: 1; }
+.pcard .model { font-family: var(--disp); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: var(--green); }
+.pcard h3 { font-size: 15.5px; margin: 4px 0 10px; }
 .pcard .chips { display: flex; flex-wrap: wrap; gap: 7px; }
 /* chips: white on the mint text area — one value site-wide (总工 2026-09-05; the design file's
    earlier duplicate mint rule was a bug and has been removed from home-v4.html). */
