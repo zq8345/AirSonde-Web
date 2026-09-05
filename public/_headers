@@ -1,0 +1,23 @@
+# Cloudflare Pages 自定义响应头。`public/` 会被原样复制进 `dist/`。
+#
+# 🔴 唯一一条规则，为的是一件实测出来的事（2026-09-05）：
+#    `/_astro/*` 里的文件**名字里带内容哈希**（`LightBase.Bcm94l3M.css`、
+#    `8in1-desktop-monitor.5XqM0PkH_ElWKA.webp`）—— 内容一变，文件名就变。
+#    也就是说**同一个 URL 的内容永远不会改**。
+#    可它们此前拿的是 Pages 默认头 `Cache-Control: public, max-age=0, must-revalidate`
+#    ⇒ 实测同一个 CSS 连抓三次：`MISS` → `REVALIDATED` → `REVALIDATED`，**一次 HIT 都没有**。
+#    每次访问都回源校验一趟；对隔着太平洋的访客，那就是一次跨洋往返换回一句"没变"。
+#
+# ⚠️ 为什么这条是安全的：判据不是"我觉得它不会变"，而是**文件名本身带哈希** ——
+#    内容真变了会生成**另一个文件名**，旧 URL 不会被复用 ⇒ 不存在"缓存住了旧内容"这种事。
+#
+# ⛔ **只写 `/_astro/*` 这一条**：
+#    · HTML 不在这里 —— 它必须每次校验，否则改了文案要等缓存过期（那是另一个决定，Joe 还没批）
+#    · 根目录的 favicon / robots.txt **不带哈希** ⇒ 长缓存会让它们改不动
+#    · `_redirects` / `build.json` 同理，⛔ 不许顺手加进来
+#
+# ⚠️ `_astro/` 里同时装着 794 张 webp、70 个字体、1 个 css —— 一条规则全覆盖，
+#    ⛔ 不按类型拆成三条（拆了就会漏掉将来新增的第四类，而漏了没有症状）。
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
