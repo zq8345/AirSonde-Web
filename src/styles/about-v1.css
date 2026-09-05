@@ -25,7 +25,8 @@
 .about .cert b { font-family: var(--disp); font-size: 26px; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
 .about .cert span { font-size: 13.5px; color: var(--body); flex: 1; }
 .about .cert .alink { font-size: 14px; margin-top: 10px; padding-bottom: 0; }
-.about .audit { background: var(--mint); border-radius: calc(var(--r-lg) + 6px); padding: 52px 64px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; margin-top: 26px; box-shadow: var(--shadow); }
+/* Joe 2026-09-05: 26 → 56 so the audit band sits clear of the certificate cards */
+.about .audit { background: var(--mint); border-radius: calc(var(--r-lg) + 6px); padding: 52px 64px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; margin-top: 56px; box-shadow: var(--shadow); }
 .about .audit h2 { font-size: clamp(28px, 3vw, 38px); margin-top: 14px; margin-bottom: 0; }
 .about .audit--alone { margin-top: 0; }
 
