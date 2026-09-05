@@ -26,15 +26,17 @@ import {
   productHref,
   resolveProductImage,
 } from '../../lib/products';
-import { categoriesInTaxonomyOrder, chipLabel, sensorGroupsFor, sensorKeysOf } from '../../lib/catalog-filters';
+import { categoriesInTaxonomyOrder, chipLabel, listOrder, sensorGroupsFor, sensorKeysOf } from '../../lib/catalog-filters';
 
-const products = await getPublishedProducts();
+// JSON-LD keeps the collection's own (name) order, as before; only the visible grid is re-ordered.
+const published = await getPublishedProducts();
+const products = listOrder(published, HOME_V4.products.featured.map((f) => f.slug));
 const categories = categoriesInTaxonomyOrder(products);
 const sensorGroups = sensorGroupsFor(products);
 const countOf = (category: string) => products.filter((p) => p.data.category === category).length;
 
 const schemas = [
-  itemListSchema(products),
+  itemListSchema(published),
   breadcrumbSchema([
     { name: 'Home', url: `${SITE.url}/` },
     { name: 'Products', url: `${SITE.url}/products/` },
