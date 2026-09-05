@@ -81,7 +81,9 @@ section { padding: 96px 0; }
 /* ── nav：透明压在 hero 图上，滚动后落回白底 ── */
 header { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: transparent; border-bottom: 1px solid transparent; transition: 0.3s; }
 .nav { display: flex; align-items: center; gap: 40px; height: 76px; }
-.nav img { height: 27px; width: auto; filter: brightness(0) invert(1); transition: 0.3s; }
+/* Logo = Home, colour = current state: on the homepage the wordmark stays brand green in
+   both header states (design .nav img has no invert since 2026-09-05; DESIGN.md §6). */
+.nav img { height: 27px; width: auto; transition: 0.3s; }
 .logo-link { display: inline-flex; transition: 0.2s; }
 .logo-link:hover { opacity: 0.8; }
 .nav nav { display: flex; gap: 30px; font-weight: 500; font-size: 15px; color: #fff; margin-left: auto; transition: 0.3s; }
