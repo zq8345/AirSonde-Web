@@ -125,7 +125,7 @@ header.sc .menu-btn:hover { border-color: var(--green); color: var(--green); }
 .btn-line:hover { border-color: var(--green-bright); color: var(--green-bright); }
 .hero-band { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 0; border-top: 1px solid rgba(255, 255, 255, 0.16); }
 .hero-band .wrap { padding-top: 0; padding-bottom: 0; }
-.hero-band .chip { font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.92); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: var(--r-pill); padding: 7px 15px; white-space: nowrap; }
+.hero-band .chip { font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.92); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: var(--r-pill); padding: 7px 15px; }
 .hero-band .chip i { font-style: normal; color: rgba(255, 255, 255, 0.5); font-weight: 500; margin-left: 6px; font-size: 11.5px; }
 .hero .eyebrow { display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: var(--r-pill); padding: 8px 18px; font-size: 13.5px; font-weight: 500; color: #eafff7; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(4px); }
 .hero .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-bright); }
@@ -153,7 +153,9 @@ header.sc .menu-btn:hover { border-color: var(--green); color: var(--green); }
 .pcard .model { font-family: var(--disp); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; color: var(--green); }
 .pcard h3 { font-size: 19px; margin: 5px 0 12px; }
 .pcard .chips { display: flex; flex-wrap: wrap; gap: 7px; }
-.pcard .chips span { font-size: 12px; font-weight: 600; color: var(--green); background: #fff; border-radius: 7px; padding: 4px 10px; }
+/* design file has two rules for this selector (#fff, then var(--mint)); the later one wins,
+   so the approved render is green text on the mint .tx with no visible box — matched verbatim. */
+.pcard .chips span { font-size: 12px; font-weight: 600; color: var(--green); background: var(--mint); border-radius: 7px; padding: 4px 10px; }
 
 /* ── solutions：Anker 式手风琴场景条（展开占约 2/3，悬停即切）── */
 .sol-strip { display: flex; gap: 10px; height: 480px; }

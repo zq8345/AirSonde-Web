@@ -115,7 +115,8 @@ const ICONS: Record<string, string> = {
                   {V.marquee.map((c) => (
                     <span class="chip">
                       {c.label}
-                      {'note' in c && c.note ? <i>{c.note}</i> : null}
+                      {/* design: `CO₂ <i>NDIR</i>` — the space before <i> is part of the layout */}
+                      {'note' in c && c.note ? <>{' '}<i>{c.note}</i></> : null}
                     </span>
                   ))}
                 </div>
