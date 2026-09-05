@@ -44,7 +44,7 @@
     "wechatId": "15112302661",
     "address": "No. 62, Baotian 1st Road, Xixiang Street, Bao'an District, Shenzhen, Guangdong, China",
     "hours": "Mon–Fri 9:00–18:00 (GMT+8)",
-    "response": "Within 1 business day"
+    "response": "Within 2 business days"
   },
   "home": {
     "hero": {
@@ -296,7 +296,7 @@
         }
       ],
       "cta": "Start with a quote",
-      "noteSuffix": "reply within 1 business day"
+      "noteSuffix": "reply within 2 business days"
     },
     "guides": {
       "kicker": "Guides",
