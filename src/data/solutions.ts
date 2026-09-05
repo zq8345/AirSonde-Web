@@ -16,12 +16,10 @@ import sceneOffice from '../assets/photos/scene-office-v1.webp';
 import sceneSchool from '../assets/photos/scene-school-v1.webp';
 import sceneIndustrial from '../assets/photos/scene-industrial-v1.webp';
 
+// 2026-09-05: the /solutions/ list-page meta (title + description) moved to site-content.json
+// seo.pages.solutions (admin-editable), read through META.solutions in site.ts. Scene detail
+// meta below stays here until its own copy batch.
 export const SOLUTIONS_HUB = {
-  meta: {
-    title: 'Solutions — IAQ Monitors by Environment | AirSonde',
-    description:
-      'Where AirSonde monitors get deployed: homes, offices, schools and industrial interiors — and which platforms fit each environment for OEM and ODM programmes.',
-  },
   eyebrow: 'Solutions',
   heading: 'Monitors that fit the room they hang in',
   intro: 'One sensing core, different rooms. Four environments cover most programmes.',
