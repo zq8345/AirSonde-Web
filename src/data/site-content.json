@@ -36,6 +36,14 @@
         "title": "About — The Manufacturing Group Behind AirSonde | AirSonde",
         "description": "AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group — founded in 2015, 120+ staff, in-house tooling, assembly and QC."
       },
+      "solutions": {
+        "title": "Solutions — IAQ Monitors by Environment | AirSonde",
+        "description": "Where AirSonde monitors get deployed: homes, offices, schools and industrial interiors — and which platforms fit each environment for OEM and ODM programmes."
+      },
+      "guides": {
+        "title": "Guides — Indoor Air Quality for Buyers | AirSonde",
+        "description": "Practical guides for brands and importers specifying indoor air quality monitors: platform selection, CO2 monitoring for occupied rooms, OEM versus ODM."
+      },
       "notFound": {
         "title": "Page not found — AirSonde",
         "description": "That page does not exist on this site."

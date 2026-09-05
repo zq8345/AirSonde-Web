@@ -11,8 +11,8 @@
 import { Image } from 'astro:assets';
 import HomeLayout from '../../layouts/HomeLayout.astro';
 import '../../styles/guides-v1.css';
-import { HOME_V4, SITE } from '../../data/site';
-import { GUIDES, GUIDES_HUB } from '../../data/guides';
+import { HOME_V4, META, SITE } from '../../data/site';
+import { GUIDES } from '../../data/guides';
 import { breadcrumbSchema } from '../../lib/jsonld';
 // Joe's final take for this hero (2026-09-05): the workspace photo, framed at center 35% so the
 // heads stay in frame on wide screens — the SPEC's factory-qc line predates that decision.
@@ -32,7 +32,7 @@ const C = HOME_V4.cta;
 const guides = GUIDES.slice().sort((a, b) => b.datePublished.localeCompare(a.datePublished));
 ---
 
-<HomeLayout title={GUIDES_HUB.meta.title} description={GUIDES_HUB.meta.description} schemas={schemas}>
+<HomeLayout title={META.guides.title} description={META.guides.description} schemas={schemas}>
   <div class="guides">
     <div class="phero">
       <Image

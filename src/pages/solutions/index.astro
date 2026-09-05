@@ -12,8 +12,8 @@
 import { Image } from 'astro:assets';
 import HomeLayout from '../../layouts/HomeLayout.astro';
 import '../../styles/solutions-v3.css';
-import { HOME_V4, SITE, SOLUTIONS_V3 } from '../../data/site';
-import { SCENES_DATA, SOLUTIONS_HUB } from '../../data/solutions';
+import { HOME_V4, META, SITE, SOLUTIONS_V3 } from '../../data/site';
+import { SCENES_DATA } from '../../data/solutions';
 import { breadcrumbSchema } from '../../lib/jsonld';
 
 const schemas = [
@@ -47,7 +47,7 @@ const cards = SOLUTIONS_V3.scenes.map((copy) => {
 });
 ---
 
-<HomeLayout title={SOLUTIONS_HUB.meta.title} description={SOLUTIONS_HUB.meta.description} schemas={schemas}>
+<HomeLayout title={META.solutions.title} description={META.solutions.description} schemas={schemas}>
   {/* phero--dark: the office scene is a dark photo — lighter left band + .22 top scrim (DESIGN.md §4) */}
   <div class="phero phero--dark">
     <Image

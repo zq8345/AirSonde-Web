@@ -201,12 +201,10 @@ export const GUIDES: Guide[] = [
   },
 ];
 
+// 2026-09-05: the /guides/ list-page meta (title + description) moved to site-content.json
+// seo.pages.guides (admin-editable), read through META.guides in site.ts. Article meta stays
+// in GUIDES until its own copy batch.
 export const GUIDES_HUB = {
-  meta: {
-    title: 'Guides — Indoor Air Quality for Buyers | AirSonde',
-    description:
-      'Practical guides for brands and importers specifying indoor air quality monitors: platform selection, CO2 monitoring for occupied rooms, OEM versus ODM.',
-  },
   eyebrow: 'Guides',
   heading: 'Indoor air quality, for buyers',
   // Provenance discipline (总工 2026-08-11): with zero enquiries to date, a

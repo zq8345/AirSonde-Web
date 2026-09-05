@@ -77,6 +77,17 @@ export const META = {
     title: content.seo.pages.about.title,
     description: content.seo.pages.about.description || SITE.defaultDescription,
   },
+  /** /solutions/ and /guides/ LIST pages only (moved from solutions.ts SOLUTIONS_HUB.meta and
+   *  guides.ts GUIDES_HUB.meta on 2026-09-05). Scene detail pages and guide articles keep their
+   *  meta in solutions.ts / guides.ts until their own copy batches. */
+  solutions: {
+    title: content.seo.pages.solutions.title,
+    description: content.seo.pages.solutions.description || SITE.defaultDescription,
+  },
+  guides: {
+    title: content.seo.pages.guides.title,
+    description: content.seo.pages.guides.description || SITE.defaultDescription,
+  },
   notFound: {
     title: content.seo.pages.notFound.title,
     description: content.seo.pages.notFound.description || SITE.defaultDescription,
