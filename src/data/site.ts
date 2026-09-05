@@ -70,6 +70,13 @@ export const META = {
     title: content.seo.pages.contact.title,
     description: content.seo.pages.contact.description || SITE.defaultDescription,
   },
+  /** Moved here from about.ts ABOUT_META on 2026-09-05 so the admin can edit it. ⚠️ The
+   *  description hand-spells two of the six figures ("founded in 2015, 120+ staff") that live
+   *  in homeV4.factory.stats — the admin soft-check warns when they drift. */
+  about: {
+    title: content.seo.pages.about.title,
+    description: content.seo.pages.about.description || SITE.defaultDescription,
+  },
   notFound: {
     title: content.seo.pages.notFound.title,
     description: content.seo.pages.notFound.description || SITE.defaultDescription,

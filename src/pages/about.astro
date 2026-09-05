@@ -22,8 +22,7 @@ import path from 'node:path';
 import { Image } from 'astro:assets';
 import HomeLayout from '../layouts/HomeLayout.astro';
 import '../styles/about-v1.css';
-import { ABOUT_V1, CERTIFICATES, HOME_V4, SITE } from '../data/site';
-import { ABOUT_META } from '../data/about';
+import { ABOUT_V1, CERTIFICATES, HOME_V4, META, SITE } from '../data/site';
 import { breadcrumbSchema } from '../lib/jsonld';
 import heroPhoto from '../assets/photos/products-hero-reception-v3.webp';
 import parkPhoto from '../assets/photos/about-hero-industrial-park.webp';
@@ -79,7 +78,7 @@ const certHref = (slot: string): string | null => {
 const certs = V.compliance.cards.map((c) => ({ ...c, href: certHref(c.slot) }));
 ---
 
-<HomeLayout title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas} footerFlush>
+<HomeLayout title={META.about.title} description={META.about.description} schemas={schemas} footerFlush>
   <div class="about">
     {/* ① hero — reception photo, §4 veil */}
     <div class="phero">
