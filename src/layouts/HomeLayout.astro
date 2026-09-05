@@ -16,6 +16,8 @@ import { HOME_V4, NAV, SITE } from '../data/site';
 import contentJson from '../data/site-content.json';
 import { organisationSchema, websiteSchema } from '../lib/jsonld';
 import wordmarkGreen from '../assets/airsonde-wordmark-green.png';
+// Derived by scripts/build-wordmark-bright.mjs: same alpha, RGB = --green-bright.
+import wordmarkBright from '../assets/airsonde-wordmark-bright.png';
 
 interface Props {
   title?: string;
@@ -88,7 +90,11 @@ const companyLinks = ['/solutions/', '/guides/', '/about/', '/contact/'];
     <header id="hd">
       <div class="wrap nav">
         <a class="logo-link" href="/" aria-label="Home">
-          <Image src={wordmarkGreen} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="eager" />
+          {/* Logo = Home, colour = state (Joe 2026-09-05): bright green over the dark hero,
+              brand green once the header turns white. Two flat-colour assets, no filter,
+              no opacity on the visible logo — the swap is a CSS crossfade between them. */}
+          <Image class="logo-bright" src={wordmarkBright} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="eager" />
+          <Image class="logo-green" src={wordmarkGreen} alt="" aria-hidden="true" widths={[240, 480]} sizes="120px" loading="eager" />
         </a>
         <nav aria-label="Primary">
           {

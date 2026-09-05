@@ -81,10 +81,16 @@ section { padding: 96px 0; }
 /* ── nav：透明压在 hero 图上，滚动后落回白底 ── */
 header { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: transparent; border-bottom: 1px solid transparent; transition: 0.3s; }
 .nav { display: flex; align-items: center; gap: 40px; height: 76px; }
-/* Logo = Home, colour = current state: on the homepage the wordmark stays brand green in
-   both header states (design .nav img has no invert since 2026-09-05; DESIGN.md §6). */
+/* Logo = Home, colour = current state (Joe 2026-09-05, "logo不要加蒙层"): over the dark
+   hero the wordmark is --green-bright (#2FBF95), on the scrolled white header it is brand
+   green. Design approximates this with filter:brightness(1.8) saturate(.85) (measured
+   ≈ rgb(44,213,192)); here two flat-colour assets crossfade instead, so each steady state
+   is an exact colour at opacity 1 — no filter, no veil. */
 .nav img { height: 27px; width: auto; transition: 0.3s; }
-.logo-link { display: inline-flex; transition: 0.2s; }
+.logo-link { display: inline-flex; position: relative; transition: 0.2s; }
+.logo-link .logo-green { position: absolute; inset: 0; opacity: 0; }
+header.sc .logo-link .logo-bright { opacity: 0; }
+header.sc .logo-link .logo-green { opacity: 1; }
 .logo-link:hover { opacity: 0.8; }
 .nav nav { display: flex; gap: 30px; font-weight: 500; font-size: 15px; color: #fff; margin-left: auto; transition: 0.3s; }
 .nav nav a { padding: 6px 0; transition: 0.2s; }
