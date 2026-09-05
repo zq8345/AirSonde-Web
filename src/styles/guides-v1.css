@@ -1,0 +1,24 @@
+/* /guides/ v1 — copied from airsonde-design/guides-v1.html. Tokens, nav, sub-page hero (.phero),
+   the guide card (.gd, shared with the homepage strip), slim CTA band and footer are the shared
+   rules in home-v4.css (loaded by HomeLayout). This file holds only what this page's card
+   variant changes, scoped under .guides so the homepage strip keeps its own values. */
+
+.guides .sec-first { padding-top: 64px; }
+
+/* card grid: 26 gap (homepage strip uses 24); 3 → 2 → 1 columns */
+.guides .gd-grid { gap: 26px; }
+.guides .gd { padding: 34px 32px 30px; }
+.guides .gd em { font-size: 12.5px; color: var(--green); }
+.guides .gd h3 { line-height: 1.35; }
+.guides .gd:hover span { color: var(--green-deep); }
+
+/* design: CTA in a .wrap with padding-bottom 96 and a footer without margin; the shared footer
+   margin (104) closes the page instead */
+.guides .cta-wrap { margin-top: 0; }
+
+@media (max-width: 1000px) {
+  .guides .gd-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .guides .gd-grid { grid-template-columns: 1fr; }
+}

@@ -1,13 +1,20 @@
 ---
 /**
- * /guides/ — hub with the W5 batch-1 articles. The shell's noindex comes off
- * in this same commit (real content is here), and the sitemap filter in
- * astro.config.mjs goes with it.
+ * /guides/ v1 — Design System v1 (真源 airsonde-design/guides-v1.html, DESIGN.md wins on
+ * conflict). Hero (factory-qc, §4 veil) → guide cards → slim CTA → footer.
+ *
+ * The list is every published guide in guides.ts, newest first — the design showed three
+ * real articles; more than three wrap in the same grid. ⛔ No placeholder articles. Card
+ * text (eyebrow / title / description) is the guide's own, not the design's short stand-ins.
+ * The crawlable surface is unchanged: same title, description, canonical, BreadcrumbList.
  */
-import LightBase from '../../layouts/LightBase.astro';
-import { SITE } from '../../data/site';
+import { Image } from 'astro:assets';
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import '../../styles/guides-v1.css';
+import { HOME_V4, SITE } from '../../data/site';
 import { GUIDES, GUIDES_HUB } from '../../data/guides';
 import { breadcrumbSchema } from '../../lib/jsonld';
+import heroPhoto from '../../assets/photos/factory/factory-qc.webp';
 
 const schemas = [
   breadcrumbSchema([
@@ -15,45 +22,63 @@ const schemas = [
     { name: 'Guides', url: `${SITE.url}/guides/` },
   ]),
 ];
+
+const G = HOME_V4.guides; // kicker / heading / "Read" — same words as the homepage section, one source
+const C = HOME_V4.cta;
+
+// newest first; equal dates keep the array's order (stable sort)
+const guides = GUIDES.slice().sort((a, b) => b.datePublished.localeCompare(a.datePublished));
 ---
 
-<LightBase title={GUIDES_HUB.meta.title} description={GUIDES_HUB.meta.description} schemas={schemas}>
-  <section class="as-section" style="padding-bottom:48px">
-    <div class="as-container as-pagehead">
-      <p class="as-eyebrow">{GUIDES_HUB.eyebrow}</p>
-      <h1 class="as-pagehead__title">{GUIDES_HUB.heading}</h1>
-      <p class="as-pagehead__lead">{GUIDES_HUB.intro}</p>
-    </div>
-  </section>
-
-  <section class="as-section" style="padding-top:0">
-    <div class="as-container">
-      <div class="as-ggrid">
-        {
-          GUIDES.map((guide) => (
-            <a class="as-gcard" href={`/guides/${guide.slug}/`}>
-              <span class="as-gcard__eyebrow">{guide.eyebrow}</span>
-              <span class="as-gcard__title" style="display:block">{guide.title}</span>
-              <span class="as-gcard__sum" style="display:block">{guide.description}</span>
-              <span class="as-gcard__arw" aria-hidden="true">Read →</span>
-            </a>
-          ))
-        }
+<HomeLayout title={GUIDES_HUB.meta.title} description={GUIDES_HUB.meta.description} schemas={schemas}>
+  <div class="guides">
+    <div class="phero">
+      <Image
+        src={heroPhoto}
+        alt="Engineer at a test bench with measurement instruments"
+        class="bg"
+        style="object-position: center 45%"
+        widths={[768, 1280, 1600, 2400]}
+        sizes="100vw"
+        quality={72}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="veil" aria-hidden="true"></div>
+      <div class="wrap">
+        <span class="kicker">{G.kicker}</span>
+        <h1>{G.heading}</h1>
       </div>
     </div>
-  </section>
 
-  <section class="as-section" style="padding-top:0">
-    <div class="as-container">
-      <div class="as-cta">
-        <h2 class="as-cta__title">Have a question the guides should answer?</h2>
-        <p class="as-cta__body">
-          Tell us what you are trying to figure out — the next articles come from real enquiries.
-        </p>
-        <div class="as-cta__actions">
-          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
+    <section class="sec-first">
+      <div class="wrap">
+        <div class="gd-grid">
+          {
+            guides.map((g) => (
+              <a class="gd" href={`/guides/${g.slug}/`}>
+                <em>{g.eyebrow}</em>
+                <h3>{g.title}</h3>
+                <p>{g.description}</p>
+                <span>{G.read} →</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap cta-wrap">
+      <div class="cta-band cta-band--slim">
+        <div>
+          <span class="kicker">{C.kicker}</span>
+          <h2>{C.heading}</h2>
+        </div>
+        <div class="ctas">
+          <a class="btn btn-paper" href="/contact/">{C.primary} →</a>
+          <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </div>
       </div>
     </div>
-  </section>
-</LightBase>
+  </div>
+</HomeLayout>
