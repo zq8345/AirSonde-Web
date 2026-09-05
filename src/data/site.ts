@@ -155,10 +155,12 @@ export const CONTACT_V1 = {
 /** /about/ v1 page copy (2026-09-05, Joe 逐板块验收, verbatim). Figures stay in about.ts. */
 export const ABOUT_V1 = content.aboutV1;
 /**
- * Certificate files by slot (Admin-written; see the block's _readme). `null` = no file yet.
- * Typed loosely on purpose: the admin may add a slot before this file learns about it.
+ * Certificate files by slot (Admin-written; contract in the block's _readme). Value = URL path
+ * with a leading slash, or `null` = no file yet. Typed loosely on purpose, and tolerant of the
+ * block being absent altogether — the admin only creates it on the first upload.
  */
-export const CERTIFICATES: Record<string, string | null | undefined> = content.certificates;
+export const CERTIFICATES: Record<string, string | null | undefined> =
+  (content as { certificates?: Record<string, string | null> }).certificates ?? {};
 /** /solutions/<scene>/ template copy (2026-09-05). Scene facts stay in solutions.ts. */
 export const SOLUTION_DETAILS = content.solutionDetails;
 

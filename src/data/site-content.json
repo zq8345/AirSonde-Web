@@ -457,7 +457,7 @@
     }
   },
   "certificates": {
-    "_readme": "Certificate files uploaded through the Admin certificate slots (Admin 第③单). Value = path under public/ (e.g. \"certificates/ce.pdf\") or null. The About page renders a card's 'View certificate' link only when the value is set AND the file exists at build time. Keys are fixed: ce / fcc / rohs / un38-3.",
+    "_readme": "Contract with the Admin certificate slots (Web ↔ Admin, 2026-09-05). Keys fixed: ce / fcc / rohs / un38-3 (truth: admin repo src/sitecontent.ts CERT_SLOTS). Value = the URL PATH the page can use as-is, with a leading slash (e.g. \"/certificates/ce.pdf\"; extension follows the uploaded file: pdf/png/jpg/webp — never hard-code .pdf), or null = no file. Admin guarantees: file + JSON pointer change in ONE commit, and a replaced file (e.g. ce.pdf → ce.png) is deleted in that same commit, so no superseded certificate stays downloadable. The whole block may be absent until the first upload (site.ts tolerates that). The About page renders a card's 'View certificate' link only when the value is set AND the file exists under public/ at build time; a missing file is a warning, never a build failure. /certificates/* keeps Pages' default no-cache headers — do not add it to the /_astro/* long-cache rule.",
     "ce": null,
     "fcc": null,
     "rohs": null,

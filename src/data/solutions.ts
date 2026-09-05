@@ -226,8 +226,5 @@ export const SCENES_DATA: Scene[] = [
     ],
   },
 ];
-
-export const SOLUTIONS_CTA = {
-  heading: 'Scope a programme for your environment',
-  body: 'Send the market, the sensing set and the volumes.',
-} as const;
+// SOLUTIONS_CTA (the old detail-page CTA copy) was removed 2026-09-05: the v1 template's CTA
+// band reads homeV4.cta, so it had no reader left.
