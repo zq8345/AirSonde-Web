@@ -15,6 +15,10 @@
 interface Env {
   LARK_CONTACT_WEBHOOK?: string;
   LARK_CONTACT_SIGN_SECRET?: string;
+  /** CRM inbound endpoint, e.g. https://crm.airsonde.com/api/inbound (Pages secret). */
+  CRM_INBOUND_URL?: string;
+  /** Shared secret for the CRM inbound endpoint (Pages secret, never in the repo). */
+  CRM_INBOUND_TOKEN?: string;
 }
 
 const ALLOWED_ORIGIN = 'https://airsonde.com';
@@ -40,6 +44,60 @@ async function larkSign(secret: string, timestamp: string): Promise<string> {
   );
   const sig = await crypto.subtle.sign('HMAC', key, new Uint8Array(0));
   return btoa(String.fromCharCode(...new Uint8Array(sig)));
+}
+
+/**
+ * Forward the enquiry to the CRM (contract §2/§4, `docs/官网询盘接入契约-2026-08-12.md`).
+ *
+ * Lark is the PRIMARY delivery; the CRM is a copy. This hop must never change what
+ * the visitor sees — an enquiry that reached Lark has not been lost, and telling the
+ * visitor "failed" because a secondary system is down would make them give up.
+ *
+ * Deliberate choices, each one load-bearing:
+ *  - Runs regardless of whether Lark succeeded. The contract's §4 is explicit
+ *    ("推 Lark 成功与否都转发；两条通道互不拖累"): if Lark rejected the message,
+ *    the CRM copy is the only surviving record, so skipping it loses the lead twice.
+ *  - `x-idempotency-key` is REQUIRED by the contract — missing it is a hard 400,
+ *    not a silent degrade. A per-request UUID is what §4 specifies (there is no
+ *    retry logic here yet; if one is ever added the key must be minted OUTSIDE it).
+ *  - A timeout, because "must not affect the visitor" is not satisfied by try/catch
+ *    alone: a CRM that accepts the connection and never answers would stall the
+ *    response indefinitely. 5s is far above a healthy round trip.
+ *  - Half-configured is LOUD. `if (url && token)` alone would skip silently, and a
+ *    silent skip looks exactly like a working integration that no one is using.
+ */
+async function forwardToCrm(
+  env: Env,
+  payload: Record<string, unknown>,
+): Promise<void> {
+  const url = env.CRM_INBOUND_URL;
+  const token = env.CRM_INBOUND_TOKEN;
+  if (!url && !token) return; // not wired up at all — nothing to say
+  if (!url || !token) {
+    console.error(
+      `contact: CRM forward skipped — half configured (url=${url ? 'set' : 'MISSING'}, token=${token ? 'set' : 'MISSING'})`,
+    );
+    return;
+  }
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-inbound-token': token,
+        'x-idempotency-key': crypto.randomUUID(),
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(5000),
+    });
+    // The CRM answers 400/401/503/429 with a body; log enough to act on, never throw.
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      console.error(`contact: CRM forward failed ${res.status} ${detail.slice(0, 200)}`);
+    }
+  } catch (e) {
+    console.error(`contact: CRM forward threw — ${String(e).slice(0, 200)}`);
+  }
 }
 
 export const onRequest = async (ctx: { request: Request; env: Env }) => {
@@ -121,5 +179,18 @@ export const onRequest = async (ctx: { request: Request; env: Env }) => {
   } | null;
   const delivered =
     data !== null && (data.code === 0 || (data.code === undefined && data.StatusCode === 0));
+
+  // CRM copy (contract §4). Field names go through verbatim — the contract says the
+  // form's own names are the wire names, so there is no mapping layer to drift.
+  await forwardToCrm(env, {
+    company,
+    name,
+    email,
+    phone,
+    inquiry_type: inquiryType,
+    message,
+    source_form: 'website_contact',
+  });
+
   return delivered ? reply(200, true) : reply(502, false);
 };
