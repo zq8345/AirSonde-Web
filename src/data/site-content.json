@@ -32,6 +32,10 @@
         "title": "Contact — Start an OEM / ODM Programme | AirSonde",
         "description": "Contact AirSonde about OEM and ODM production of white-label indoor air quality monitors. Tell us the market, the sensing set and the volumes."
       },
+      "about": {
+        "title": "About — The Manufacturing Group Behind AirSonde | AirSonde",
+        "description": "AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group — founded in 2015, 120+ staff, in-house tooling, assembly and QC."
+      },
       "notFound": {
         "title": "Page not found — AirSonde",
         "description": "That page does not exist on this site."
@@ -375,7 +379,7 @@
     }
   },
   "aboutV1": {
-    "_readme": "/about/ page (design about-v1.html, Joe 2026-09-05 逐板块验收; copy verbatim, do not polish). Section ORDER is locked in about.astro. The six figures come from src/data/about.ts ABOUT_STATS (single source) with the short labels of homeV4.factory.statLabels; the CTA band reuses homeV4.cta. Certificate links come from the `certificates` block below.",
+    "_readme": "/about/ page (design about-v1.html, Joe 2026-09-05 逐板块验收; copy verbatim, do not polish). Section ORDER is locked in about.astro. The six figures come from homeV4.factory.stats above — one array of { value, label } × 6, the single source shared with the homepage (about.ts ABOUT_STATS and homeV4.factory.statLabels no longer exist). ⚠️ seo.pages.about.description spells two of those figures out by hand ('founded in 2015, 120+ staff'): when a figure changes, change both. The page has no CTA band since 2026-09-05 (footer sits flush). Certificate links come from the `certificates` block below.",
     "hero": { "kicker": "About", "heading": "The factory behind your product." },
     "overview": {
       "kicker": "Overview",
