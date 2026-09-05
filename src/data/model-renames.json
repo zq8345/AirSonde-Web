@@ -24,6 +24,7 @@
   "routes": [
     { "from": "/products/ak23/", "to": "/products/ak23a/", "at": "2026-08-31" },
     { "from": "/products/ak16/", "to": "/products/ak16a/", "at": "2026-09-03" },
-    { "from": "/products/ak16d/", "to": "/products/ak16d-co/", "at": "2026-09-04" }
+    { "from": "/products/ak16d/", "to": "/products/ak16d-co/", "at": "2026-09-04" },
+    { "from": "/products/ak34-1/", "to": "/products/ak34/", "at": "2026-09-01" }
   ]
 }
