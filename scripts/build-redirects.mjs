@@ -12,8 +12,23 @@
  * path to today's address.
  */
 import { readFile, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 
 const DIST_FILE = 'dist/_redirects';
+
+/**
+ * Where an old URL goes when its product has no page in this build (the record
+ * is draft, or was skipped): the products list, not a 404.
+ *
+ * 🔴 Joe 2026-09-05, from the GSC evidence: an old address that 301s into a 404
+ * throws the page's search weight away; the list page at least keeps it on the
+ * site. Derived per build rather than hand-written so that publishing the
+ * product upgrades the rule to a direct hit on the next build — nobody has to
+ * remember to come back. check-dist.mjs applies the same fallback when it
+ * compares the shipped file against the frozen list (its own, independent walk).
+ */
+const PARKED_TARGET = '/products/';
+const isBuilt = (address) => existsSync(`dist${address}index.html`);
 
 /**
  * ⚠️ Both forms of every old URL, on purpose. Measured on production
@@ -106,6 +121,7 @@ const resolve = (start) => {
 
 const rules = [];
 const dropped = [];
+const parked = [];
 for (const { from, to } of [...migration.routes, ...renames.routes]) {
   const target = resolve(to);
   // ⚠️ A model renamed away and then back resolves to itself. Emitting that is
@@ -113,6 +129,13 @@ for (const { from, to } of [...migration.routes, ...renames.routes]) {
   // absent rule is the thing this whole batch exists to prevent.
   if (target === from) {
     dropped.push(from);
+    continue;
+  }
+  // Target page not in this build (draft / skipped record) => park on the list
+  // page instead of shipping a 301 into a 404. Reported below by name.
+  if (!isBuilt(target)) {
+    parked.push(`${from} -> ${target}`);
+    rules.push({ from, to: PARKED_TARGET });
     continue;
   }
   rules.push({ from, to: target });
@@ -146,5 +169,6 @@ const active = (await readFile(DIST_FILE, 'utf8'))
 console.log(
   `  redirects generated: ${rules.length} product rule(s) × ${EMIT_BARE_FORM ? 2 : 1} form(s), ` +
     `${renames.routes.length} rename(s) in the ledger, ${superseded.length} superseded by a later rename, ${dropped.length} self-redirect(s) dropped` +
-    `${dropped.length ? `: ${dropped.join(', ')}` : ''} -> ${active} active rule(s) total`,
+    `${dropped.length ? `: ${dropped.join(', ')}` : ''}, ${parked.length} parked on ${PARKED_TARGET} (target page not built)` +
+    `${parked.length ? `: ${parked.join(', ')}` : ''} -> ${active} active rule(s) total`,
 );

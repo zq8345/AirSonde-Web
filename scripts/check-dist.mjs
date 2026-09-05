@@ -420,6 +420,8 @@ console.log(
 );
 
 
+/** Same value as PARKED_TARGET in build-redirects.mjs — written twice on purpose (see resolveAddress). */
+const PARKED_REDIRECT_TARGET = '/products/';
 const missingRules = [];
 const wrongTarget = [];
 const danglingTarget = [];
@@ -433,20 +435,28 @@ for (const route of migration.routes) {
   // address resolves to itself; the generator drops that rule, so the gate
   // must not then demand it.
   if (expected === route.from) continue;
+  // ⚠️ Against the RESOLVED target, not the frozen one: after a rename the
+  // frozen address is expected to be gone, and complaining about that would
+  // make this warning fire on every correctly-handled rename.
+  // 🔴 Joe 2026-09-05: a target with no page in this build (draft / skipped
+  // record) must be PARKED on the products list, not shipped as a 301 into a
+  // 404 — Search Console showed exactly that chain throwing old-URL weight
+  // away. The generator derives the same fallback; this is the independent
+  // check that it did. Still reported as dangling so the diagnostics say which
+  // old URLs are parked rather than pointing at their product.
+  const page = `${DIST}${expected}index.html`.replace(/\/+/g, '/');
+  const built = files.some((f) => f.replace(/\\/g, '/') === page);
+  const wanted = built ? expected : PARKED_REDIRECT_TARGET;
+  if (!built) danglingTarget.push(`${route.from} -> ${expected} (no page built; parked on ${PARKED_REDIRECT_TARGET})`);
   for (const form of [route.from, route.from.replace(/\/$/, '')]) {
     const rule = ruleFor.get(form);
     if (!rule) {
       missingRules.push(form);
       continue;
     }
-    if (rule.to !== expected) wrongTarget.push(`${form} -> ${rule.to} (expected ${expected})`);
+    if (rule.to !== wanted) wrongTarget.push(`${form} -> ${rule.to} (expected ${wanted})`);
     if (rule.code !== '301') wrongTarget.push(`${form} has code ${rule.code}, expected 301`);
   }
-  // ⚠️ Against the RESOLVED target, not the frozen one: after a rename the
-  // frozen address is expected to be gone, and complaining about that would
-  // make this warning fire on every correctly-handled rename.
-  const page = `${DIST}${expected}index.html`.replace(/\/+/g, '/');
-  if (!files.some((f) => f.replace(/\\/g, '/') === page)) danglingTarget.push(`${route.from} -> ${expected} (no page built)`);
 }
 if (missingRules.length) {
   failures.push(
