@@ -78,52 +78,15 @@ export const META = {
 
 /* -------------------------------------------------------------------------
  * Homepage
- * ---------------------------------------------------------------------- */
-
-/** Hero — the positioning has to be said by the page, not by the name. */
-export const HERO = {
-  // W9 §1: hero mirrors wanew's skeleton — eyebrow / H1 / ONE subline / two
-  // buttons. `tagline` is no longer rendered but stays as the frozen W1
-  // positioning line (sensor set now lives in the chips band below the hero).
-  eyebrow: content.home.hero.eyebrow,
-  headline: content.home.hero.headline,
-  tagline: 'OEM / ODM manufacturing · White-label ready · CO2 · PM2.5 · HCHO · TVOC',
-  body: content.home.hero.body,
-  // ⚠️ **href 故意不进 JSON**：文案改错只是难看，链接改错是 404。
-  //    后台只给改 label —— 那是它真正想改的东西。
-  primaryCta: { label: content.home.hero.primaryCtaLabel, href: '/contact/' },
-  secondaryCta: { label: content.home.hero.secondaryCtaLabel, href: '/products/' },
-} as const;
-
-export const SENSOR_CHIPS = [
-  { code: 'CO2', label: 'Carbon dioxide' },
-  { code: 'PM2.5', label: 'Fine particulate' },
-  { code: 'PM10', label: 'Coarse particulate' },
-  { code: 'HCHO', label: 'Formaldehyde' },
-  { code: 'TVOC', label: 'Volatile organics' },
-  { code: 'T / RH', label: 'Temperature & humidity' },
-] as const;
-
-export const HOME_SECTIONS = {
-  // ⚠️ `id` 留在 TS：它是锚点/CSS 钩子（结构），不是文案。改它会断锚点链接。
-  // ⚠️ 两个 `heading` 也留在 TS：实测它们在**产出页里 0 处**（index.astro 只用了
-  //    capabilities.id / capabilities.intro / contact.id）。把死字段接到后台上，
-  //    等于让人改一段改了不会变的字 —— 那比没有这个输入框更糟。
-  whatWeDo: {
-    id: 'what-we-do',
-    heading: 'How we work with brands',
-  },
-  capabilities: {
-    id: 'capabilities',
-    heading: 'What we can build for you',
-    intro: content.home.sections.capabilitiesIntro,
-  },
-  contact: {
-    id: 'contact',
-  },
-} as const;
-
-export const VALUE_PROPS = content.home.valueProps;
+ * ------------------------------------------------------------------------
+ * 2026-09-05 dead-code cleanup (audit dimension 8, Joe-approved): the pre-v4 exports
+ * HERO / SENSOR_CHIPS / HOME_SECTIONS / VALUE_PROPS / FEATURED_SLUGS / CAPABILITIES /
+ * CONTACT and the pre-v1 CONTACT_PAGE / CONTACT_HERO had zero readers (three independent
+ * searches) and were removed. ⚠️ Deleting an export is not deleting data: the
+ * site-content.json keys they read (home.hero / home.valueProps / home.featuredSlugs /
+ * home.contactBlock / home.sections) are untouched — the admin may still write them, and a
+ * separate data-cleanup single decides their fate.
+ */
 
 /**
  * Homepage v4 copy (Joe 逐屏验收 2026-09-05). Admin-writable text only —
@@ -172,38 +135,6 @@ export const CERTIFICATES: Record<string, string | null | undefined> =
 /** /solutions/<scene>/ template copy (2026-09-05). Scene facts stay in solutions.ts. */
 export const SOLUTION_DETAILS = content.solutionDetails;
 
-/**
- * W25: which products the homepage features, and in what order — the array's
- * order IS the display order. It used to be a hardcoded array in
- * home-light.ts, where the admin could not reach it.
- * ⚠️ These are product slugs, not copy: a slug that matches nothing renders
- * one tile fewer. index.astro warns by name at build time when that happens;
- * the guard that matters lives in the admin, which knows before you unpublish.
- */
-export const FEATURED_SLUGS: readonly string[] = content.home.featuredSlugs;
-
-/** ⚠️ 当前**没有任何页面 import 它**（实测产出页 0 处）。故意不接后台，见上面的理由。 */
-export const CAPABILITIES = [
-  {
-    title: 'Sensing',
-    body:
-      'CO2, CO, particulate, HCHO, TVOC, temperature and humidity — specified per programme.',
-  },
-  {
-    title: 'Hardware',
-    body: 'Desktop, portable and handheld. Enclosure, display and battery scoped per programme.',
-  },
-  {
-    title: 'Firmware & app',
-    body: 'Your branding, your thresholds, your connectivity.',
-  },
-] as const;
-
-export const CONTACT = {
-  title: content.home.contactBlock.title,
-  body: content.home.contactBlock.body,
-} as const;
-
 /* -------------------------------------------------------------------------
  * /products
  * ---------------------------------------------------------------------- */
@@ -240,31 +171,6 @@ export const PRODUCTS_PAGE = {
 /* -------------------------------------------------------------------------
  * /contact
  * ---------------------------------------------------------------------- */
-
-export const CONTACT_PAGE = {
-  eyebrow: 'Contact',
-  askHeading: 'What to put in the first email',
-  askIntro:
-    'The more you answer up front, the sooner you get something concrete.',
-  asideHeading: 'Enquiries',
-  asideBody:
-    'Not sure which platform? Send the requirement — the platform is the easy part.',
-  asideLink: 'Browse the products',
-  ask: [
-    'Target market and importer of record',
-    'Sensing set — CO2, CO, PM, HCHO, TVOC, temperature and humidity',
-    'Form factor — desktop, portable, handheld or your own design',
-    'First-order and annual volumes',
-    'Any certification route your channel requires',
-  ],
-} as const;
-
-/** W10-B hero — wording set by 总工 (wanew page-header 对位). */
-export const CONTACT_HERO = {
-  eyebrow: 'Contact',
-  heading: "Tell us what you're building",
-  sub: 'OEM / ODM inquiries welcome.',
-} as const;
 
 /**
  * W10-B info card. Address is the group's Shenzhen address — same as
