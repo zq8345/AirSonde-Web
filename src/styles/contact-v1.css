@@ -1,0 +1,67 @@
+/* /contact/ v1 — copied from airsonde-design/contact-v1.html. Tokens, nav, sub-page hero
+   (.phero) and footer are the shared rules in home-v4.css (loaded by HomeLayout); this file
+   holds the two cards. Values verbatim to the design, in the design's own cascade order
+   (its .info li / .info h3 / .info ul rules appear twice; the later ones win there too). */
+
+/* design: section padding 64 top / 96 bottom and a footer with no margin. The shared footer
+   carries margin-top 104 (home-v4.css), so the section's own bottom padding is dropped —
+   otherwise the gap doubles to 200. */
+.csec { padding-top: 64px; padding-bottom: 0; }
+
+/* left form card (wash on white) · right info card (dark container, allowed) */
+.cgrid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: stretch; }
+.side { display: flex; }
+.fcard { background: var(--wash); border-radius: var(--r-lg); padding: 44px 48px; }
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field.wide { grid-column: 1 / -1; }
+.field span { font-family: var(--disp); font-size: 13px; font-weight: 600; color: var(--ink); }
+.field span i { font-style: normal; color: var(--green); }
+.field input, .field select, .field textarea { font: 15px/1.5 'Inter', sans-serif; color: var(--ink); background: #fff; border: 1.5px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; transition: 0.15s; outline: none; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--green); }
+.field textarea { resize: vertical; min-height: 130px; }
+.ffoot { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
+/* the design's Send is a <button> with the UA line-height (54px tall); our button{font:inherit}
+   reset would make it 57. */
+.ffoot .btn { width: 100%; justify-content: center; cursor: pointer; line-height: normal; }
+.ffoot .btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+.ffoot p { font-size: 13.5px; color: var(--faint); text-align: center; }
+/* submit status (existing behaviour kept): one line shows per state */
+.fstatus span { display: none; }
+.fstatus[data-status='sent'] [data-when='sent'] { display: inline; color: var(--green); }
+.fstatus[data-status='failed'] [data-when='failed'] { display: inline; color: var(--body); }
+.fstatus a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.fstatus a:hover { color: var(--green-deep); }
+/* honeypot: off-screen, not display:none (bots skip hidden inputs) */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.info { flex: 1; display: flex; flex-direction: column; background: linear-gradient(150deg, var(--dark), var(--dark-3)); border-radius: var(--r-lg); color: var(--on-dark); padding: 40px 42px; box-shadow: var(--shadow); }
+.info h3 { font-size: 20px; margin-bottom: 22px; }
+.info ul { margin: 0; padding: 0; }
+.info li { list-style: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 16px 0; }
+.info li:first-child { padding-top: 0; }
+.info li em { display: block; font-style: normal; font-family: var(--disp); font-size: 12.5px; font-weight: 600; letter-spacing: 0.03em; color: var(--green-bright); margin-bottom: 6px; }
+.info li div { font-size: 15.5px; color: #fff; }
+.info li.wx { position: relative; cursor: pointer; }
+.info li.wx div { transition: 0.15s; }
+.info li.wx:hover div, .info li.wx:focus-within div { color: var(--green-bright); }
+.wxpop { position: absolute; left: 0; bottom: calc(100% + 10px); z-index: 20; background: #fff; border-radius: var(--r-md); box-shadow: 0 24px 60px -20px rgba(11, 31, 26, 0.45); padding: 18px 18px 14px; width: 220px; text-align: center; opacity: 0; visibility: hidden; transform: translateY(6px); transition: 0.2s; }
+.wxpop img { width: 184px; height: auto; margin: 0 auto; border-radius: 8px; }
+.wxpop p { font-size: 13px; color: var(--body); margin-top: 10px; }
+/* :focus-within added for keyboard / touch (the row is focusable); invisible on hover devices */
+.info li.wx:hover .wxpop, .info li.wx:focus-within .wxpop { opacity: 1; visibility: visible; transform: translateY(0); }
+.info .map { flex: 1; min-height: 170px; border-radius: var(--r-md); overflow: hidden; margin: 20px 0 0; border: 1px solid rgba(255, 255, 255, 0.16); }
+.info .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+.info h3 { color: #fff; }
+.info ul { list-style: none; padding: 0; margin: 0; }
+.info li { padding: 7px 0; font-size: 15px; }
+.info .mail { display: inline; font: inherit; color: #fff; transition: 0.15s; }
+.info .mail:hover { color: var(--green-bright); }
+
+@media (max-width: 1000px) {
+  .cgrid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .fcard { padding: 30px 24px; }
+  .fgrid { grid-template-columns: 1fr; }
+}

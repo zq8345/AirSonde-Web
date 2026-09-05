@@ -134,6 +134,16 @@ export const HOME_V4 = content.homeV4;
 export const PRODUCTS_V1 = content.productsV1;
 /** /solutions/ v3 index page copy (2026-09-05, 总工-reviewed, verbatim). */
 export const SOLUTIONS_V3 = content.solutionsV3;
+/**
+ * /contact/ v1 page copy (2026-09-05). Derived, never stored twice:
+ *  - replyNote comes from contact.response ("Within 2 business days" → "Reply within 2 business days.")
+ *  - mapEmbed comes from contact.address (same reason CONTACT_INFO.map.url is derived)
+ */
+export const CONTACT_V1 = {
+  ...content.contactV1,
+  replyNote: `Reply ${content.contact.response.charAt(0).toLowerCase()}${content.contact.response.slice(1)}.`,
+  mapEmbed: `https://www.google.com/maps?q=${encodeURIComponent(content.contact.address)}&output=embed`,
+} as const;
 
 /**
  * W25: which products the homepage features, and in what order — the array's

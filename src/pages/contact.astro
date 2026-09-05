@@ -1,28 +1,21 @@
 ---
 /**
- * /contact/ — W10-B: rebuilt on wanew.com/contact's skeleton — photo
- * page-header, then a two-column card grid: contact information (address /
- * email / hours / response, instant channels, HQ map card) on the left, the
- * W7 Lark-backed form ("Leave a message online", now with Phone and Inquiry
- * type) on the right. Channels keep the wanew-mirrored number set (Joe).
- * Delivery errors always surface the mailto fallback — fail-closed (W7).
+ * /contact/ v1 — Design System v1 (真源 airsonde-design/contact-v1.html, DESIGN.md wins on
+ * conflict). Skin only: the form's field NAMES, the honeypot, the inquiry allowlist and
+ * the submit/status logic are unchanged from W7/W10-B — /api/contact and the CRM copy
+ * see exactly the same wire shape. "WhatsApp" is the new display label of `phone`.
+ * The crawlable surface is unchanged: same title, description, canonical, BreadcrumbList.
+ *
+ * 🔁 Replaceable asset slot: the WeChat QR is `src/assets/photos/wechat-qr.webp`
+ * (imported below). The Admin upload single (admin-wechat-qr-upload) replaces that file;
+ * nothing else on this page references it.
  */
 import { Image } from 'astro:assets';
-import LightBase from '../layouts/LightBase.astro';
-import {
-  CONTACT_CHANNELS,
-  CONTACT_FORM,
-  CONTACT_HERO,
-  CONTACT_INFO,
-  META,
-  SITE,
-} from '../data/site';
+import HomeLayout from '../layouts/HomeLayout.astro';
+import '../styles/contact-v1.css';
+import { CONTACT_CHANNELS, CONTACT_FORM, CONTACT_INFO, CONTACT_V1, META, SITE } from '../data/site';
 import { breadcrumbSchema } from '../lib/jsonld';
 import wechatQr from '../assets/photos/wechat-qr.webp';
-// W14: Joe supplied a rendered reception scene. The previous office photo
-// (scene-office.jpg) was cleaned up by Joe on 2026-08-29 (W41-C) — reverting
-// now means retrieving it from git history first:
-//   git show f488957:src/assets/photos/scene-office.jpg
 import heroPhoto from '../assets/photos/contact-support-hero.webp';
 
 const schemas = [
@@ -31,149 +24,128 @@ const schemas = [
     { name: 'Contact', url: `${SITE.url}/contact/` },
   ]),
 ];
+
+const V = CONTACT_V1;
+const F = V.fields;
+const L = V.info.labels;
 ---
 
-<LightBase title={META.contact.title} description={META.contact.description} schemas={schemas}>
-  {/* 1 ── photo page-header (wanew page-header 对位, §3.2d) */}
-  <section class="as-hero as-hero--page as-hero--cap28" style="--hero-focus: 62% 46%">
+<HomeLayout title={META.contact.title} description={META.contact.description} schemas={schemas}>
+  <div class="phero">
     <Image
       src={heroPhoto}
-      alt="Reception area with staff at their desks"
-      class="as-hero__img"
+      alt="Reception area with staff at their desks and the airsonde wordmark on the wall"
+      class="bg"
+      style="object-position: center 35%"
       widths={[768, 1280, 1600, 2400]}
       sizes="100vw"
+      quality={72}
       loading="eager"
       fetchpriority="high"
     />
-    <div class="as-hero__wash" aria-hidden="true"></div>
-    <div class="as-container as-hero__in">
-      <p class="as-hero__eyebrow">{CONTACT_HERO.eyebrow}</p>
-      <h1 class="as-hero__title">{CONTACT_HERO.heading}</h1>
-      <p class="as-hero__lead">{CONTACT_HERO.sub}</p>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="kicker">{V.hero.kicker}</span>
+      <h1>{V.hero.heading}</h1>
     </div>
-  </section>
+  </div>
 
-  {/* 2 ── two-column: info card | message form card */}
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-contact2">
-        <aside class="as-ccard">
-          <div class="as-ccard__head">
-            <p class="as-eyebrow">{CONTACT_INFO.tagline}</p>
-            <h2 class="as-h2">{CONTACT_INFO.heading}</h2>
-          </div>
-          <ul class="as-cinfo">
-            <li>
-              <span class="as-cinfo__k">{CONTACT_INFO.labels.address}</span>
-              <span class="as-cinfo__v">{CONTACT_INFO.address}</span>
-            </li>
-            <li>
-              <span class="as-cinfo__k">{CONTACT_INFO.labels.email}</span>
-              <a class="as-cinfo__v as-cinfo__link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
-            </li>
-            <li>
-              <span class="as-cinfo__k">{CONTACT_INFO.labels.hours}</span>
-              <span class="as-cinfo__v">{CONTACT_INFO.hours}</span>
-            </li>
-            <li>
-              <span class="as-cinfo__k">{CONTACT_INFO.labels.response}</span>
-              <span class="as-cinfo__v">{CONTACT_INFO.response}</span>
-            </li>
-          </ul>
-
-          {/* 七条之7: channels are BUTTONS, not a text table (wanew 对位) */}
-          <div class="as-chrow">
-            <a class="as-chbtn" href={CONTACT_CHANNELS.whatsapp.href} rel="noopener">
-              {CONTACT_CHANNELS.whatsapp.label}
-            </a>
-            <div class="as-chwrap" data-wechat>
-              <button type="button" class="as-chbtn as-wechat-btn" aria-expanded="false">
-                {CONTACT_CHANNELS.wechat.label}
-              </button>
-              <div class="as-wechat-pop">
-                <Image src={wechatQr} alt={CONTACT_CHANNELS.wechat.scanHint} widths={[180, 360]} sizes="180px" loading="lazy" />
-                <p class="as-wechat-pop__scan">{CONTACT_CHANNELS.wechat.scanHint}</p>
-                <button
-                  type="button"
-                  class="as-wechat-pop__copy"
-                  data-wechat-copy
-                  data-id={CONTACT_CHANNELS.wechat.id}
-                >
-                  {CONTACT_CHANNELS.wechat.copyLabel}
-                </button>
-              </div>
-            </div>
-            <a class="as-chbtn" href={CONTACT_CHANNELS.phone.href}>
-              {CONTACT_CHANNELS.phone.value}
-            </a>
-          </div>
-
-          <a class="as-cmap" href={CONTACT_INFO.map.url} rel="noopener" target="_blank">
-            <span class="as-cmap__hq">{CONTACT_INFO.map.hq}</span>
-            <span class="as-cmap__addr">{CONTACT_INFO.address}</span>
-            <span class="as-cmap__cta">{CONTACT_INFO.map.cta} <span aria-hidden="true">→</span></span>
-          </a>
-        </aside>
-
-        <div class="as-ccard">
-          <div class="as-ccard__head">
-            <h2 class="as-h2" style="margin-top:0">{CONTACT_FORM.heading}</h2>
-            <p class="as-sub" style="margin-top:8px">{CONTACT_FORM.tagline}</p>
-          </div>
-          <form class="as-fform" id="contact-form" method="post" action="/api/contact">
-            <div class="as-fform__grid">
-              <label class="as-field">
-                <span class="as-field__label">{CONTACT_FORM.fields.company}</span>
-                <input class="as-field__input" type="text" name="company" required maxlength="200" autocomplete="organization" />
-              </label>
-              <label class="as-field">
-                <span class="as-field__label">{CONTACT_FORM.fields.name}</span>
-                <input class="as-field__input" type="text" name="name" required maxlength="200" autocomplete="name" />
-              </label>
-              <label class="as-field">
-                <span class="as-field__label">{CONTACT_FORM.fields.email}</span>
-                <input class="as-field__input" type="email" name="email" required maxlength="254" autocomplete="email" />
-              </label>
-              <label class="as-field">
-                <span class="as-field__label">{CONTACT_FORM.fields.phone}</span>
-                <input class="as-field__input" type="tel" name="phone" maxlength="50" autocomplete="tel" />
-              </label>
-              <label class="as-field as-field--wide">
-                <span class="as-field__label">{CONTACT_FORM.fields.inquiryType}</span>
-                <select class="as-field__input" name="inquiry_type">
-                  {CONTACT_FORM.inquiryOptions.map((opt) => <option value={opt}>{opt}</option>)}
-                </select>
-              </label>
-              <label class="as-field as-field--wide">
-                <span class="as-field__label">{CONTACT_FORM.fields.message}</span>
-                <textarea class="as-field__input" name="message" required maxlength="3000" rows="6"></textarea>
-              </label>
-            </div>
-            <label class="as-fform__hp" aria-hidden="true">
-              Website
-              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+  <section class="csec">
+    <div class="wrap">
+      <div class="cgrid">
+        <form class="fcard" id="contact-form" method="post" action="/api/contact" novalidate={false}>
+          <div class="fgrid">
+            <label class="field">
+              <span>{F.company} <i aria-hidden="true">*</i></span>
+              <input type="text" name="company" required maxlength="200" autocomplete="organization" />
             </label>
-            <div class="as-fform__foot">
-              <button type="submit" class="as-btn as-btn--primary">{CONTACT_FORM.submit}</button>
-              <p class="as-fform__status" data-status="idle" aria-live="polite">
-                <span data-when="sent">{CONTACT_FORM.sent}</span>
-                <span data-when="failed">
-                  {CONTACT_FORM.failed}{' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-                </span>
-              </p>
+            <label class="field">
+              <span>{F.name} <i aria-hidden="true">*</i></span>
+              <input type="text" name="name" required maxlength="200" autocomplete="name" />
+            </label>
+            <label class="field">
+              <span>{F.email} <i aria-hidden="true">*</i></span>
+              <input type="email" name="email" required maxlength="254" autocomplete="email" />
+            </label>
+            <label class="field">
+              <span>{F.whatsapp}</span>
+              <input type="tel" name="phone" maxlength="50" autocomplete="tel" />
+            </label>
+            <label class="field wide">
+              <span>{F.inquiryType}</span>
+              <select name="inquiry_type">
+                {CONTACT_FORM.inquiryOptions.map((opt) => <option value={opt}>{opt}</option>)}
+              </select>
+            </label>
+            <label class="field wide">
+              <span>{F.message} <i aria-hidden="true">*</i></span>
+              <textarea name="message" required maxlength="3000"></textarea>
+            </label>
+          </div>
+          <label class="hp" aria-hidden="true">
+            Website
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </label>
+          <div class="ffoot">
+            <button type="submit" class="btn btn-solid">{V.submit} →</button>
+            <p>{V.replyNote}</p>
+            <p class="fstatus" data-status="idle" aria-live="polite">
+              <span data-when="sent">{CONTACT_FORM.sent}</span>
+              <span data-when="failed">
+                {CONTACT_FORM.failed}{' '}<a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              </span>
+            </p>
+          </div>
+        </form>
+
+        <div class="side">
+          <div class="info">
+            <h3>{V.info.title}</h3>
+            <ul>
+              <li>
+                <em>{L.email}</em>
+                <div><a class="mail" href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
+              </li>
+              <li>
+                <em>{L.whatsapp}</em>
+                <div>
+                  <a class="mail" href={CONTACT_CHANNELS.whatsapp.href} target="_blank" rel="noopener">
+                    {CONTACT_CHANNELS.whatsapp.value}
+                  </a>
+                </div>
+              </li>
+              <li class="wx" tabindex="0" aria-describedby="wxpop">
+                <em>{L.wechat}</em>
+                <div>{CONTACT_CHANNELS.phone.value}</div>
+                <div class="wxpop" id="wxpop" role="tooltip">
+                  {/* 🔁 replaceable asset: src/assets/photos/wechat-qr.webp */}
+                  <Image src={wechatQr} alt={V.info.wechatScan} widths={[184, 368]} sizes="184px" loading="lazy" />
+                  <p>{V.info.wechatScan}</p>
+                </div>
+              </li>
+              <li>
+                <em>{L.address}</em>
+                <div>{CONTACT_INFO.address}</div>
+              </li>
+              <li>
+                <em>{L.hours}</em>
+                <div>{CONTACT_INFO.hours}</div>
+              </li>
+            </ul>
+            <div class="map">
+              <iframe src={V.mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={V.info.mapTitle}></iframe>
             </div>
-            <p class="as-fform__privacy">{CONTACT_FORM.privacy}</p>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </section>
-</LightBase>
+</HomeLayout>
 
 <script>
-  // W7 enquiry form. Native constraint validation gates the submit event;
-  // anything short of {ok:true} from /api/contact shows the failed line —
-  // the Function is fail-closed and this mirrors it.
+  // W7 enquiry form, unchanged: native constraint validation gates the submit event;
+  // anything short of {ok:true} from /api/contact shows the failed line — the Function is
+  // fail-closed and this mirrors it.
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const status = form?.querySelector<HTMLElement>('[data-status]');
   form?.addEventListener('submit', async (e) => {
@@ -192,41 +164,5 @@ const schemas = [
     status?.setAttribute('data-status', ok ? 'sent' : 'failed');
     if (ok) form.reset();
     if (btn) btn.disabled = false;
-  });
-
-  // Forked from wanew skin/js/w3.js @747d4e95d (WeChat QR popover + copy id) —
-  // same behaviour: toggle, outside-click / Escape close, clipboard fallback.
-  document.querySelectorAll<HTMLElement>('[data-wechat]').forEach((wrap) => {
-    const btn = wrap.querySelector<HTMLButtonElement>('.as-wechat-btn');
-    const pop = wrap.querySelector<HTMLElement>('.as-wechat-pop');
-    if (!btn || !pop) return;
-    const close = () => {
-      pop.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-    };
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = pop.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', (e) => {
-      if (!wrap.contains(e.target as Node)) close();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
-    const copyBtn = pop.querySelector<HTMLButtonElement>('[data-wechat-copy]');
-    copyBtn?.addEventListener('click', () => {
-      const id = copyBtn.getAttribute('data-id') || '';
-      const done = () => {
-        copyBtn.classList.add('is-copied');
-        copyBtn.textContent = 'Copied';
-        setTimeout(() => {
-          copyBtn.classList.remove('is-copied');
-          copyBtn.textContent = 'Copy WeChat ID';
-        }, 1600);
-      };
-      navigator.clipboard?.writeText(id).then(done, done);
-    });
   });
 </script>

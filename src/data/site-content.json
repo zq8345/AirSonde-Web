@@ -374,5 +374,33 @@
         "models": ["AK33", "AK19", "AK36"]
       }
     ]
+  },
+  "contactV1": {
+    "_readme": "/contact/ page (design contact-v1.html, Joe 2026-09-05). Copy only. Field NAMES (company/name/email/phone/inquiry_type/message/website) and the inquiry options stay in site.ts + functions/api/contact.ts — they are the wire contract with Lark/CRM. 'whatsapp' is the display label of the `phone` field. Contact values (email/phone/address/hours/response) come from `contact` above; the reply note is derived from contact.response.",
+    "hero": {
+      "kicker": "Contact",
+      "heading": "Tell us what you need."
+    },
+    "fields": {
+      "company": "Company",
+      "name": "Name",
+      "email": "Work email",
+      "whatsapp": "WhatsApp",
+      "inquiryType": "Inquiry type",
+      "message": "Message"
+    },
+    "submit": "Send",
+    "info": {
+      "title": "AirSonde",
+      "labels": {
+        "email": "Email",
+        "whatsapp": "WhatsApp",
+        "wechat": "WeChat",
+        "address": "Address",
+        "hours": "Business hours"
+      },
+      "wechatScan": "Scan to add on WeChat",
+      "mapTitle": "AirSonde Shenzhen HQ"
+    }
   }
 }
