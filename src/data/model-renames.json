@@ -21,5 +21,9 @@
     "    产出永远是 A→C 和 B→C，站上不存在 301 链",
     "  · 改回原值（A→B 再 B→A）也照实记；生成时会丢弃解析出的自指规则"
   ],
-  "routes": []
+  "routes": [
+    { "from": "/products/ak23/", "to": "/products/ak23a/", "at": "2026-08-31" },
+    { "from": "/products/ak16/", "to": "/products/ak16a/", "at": "2026-09-03" },
+    { "from": "/products/ak16d/", "to": "/products/ak16d-co/", "at": "2026-09-04" }
+  ]
 }
