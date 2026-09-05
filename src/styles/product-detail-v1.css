@@ -48,9 +48,14 @@
 .pdp .buy { margin-top: auto; padding-top: 26px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .pdp .buy .note { font-size: 13.5px; color: var(--faint); }
 
-/* What it is: wash cards with a green left rule, no shadow, on a white section */
+/* the design's heading rule covers h4; home-v4.css styles h1–h3 only */
+.pdp h4 { line-height: 1.2; letter-spacing: -0.02em; }
+
+/* What it is: wash cards with a green left rule, no shadow, on a white section.
+   (box-shadow:none resets the homepage .feat card shadow that would otherwise leak in.) */
 .pdp .feats { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
-.pdp .feat { background: var(--wash); border-left: 3px solid var(--green); border-radius: var(--r-lg); padding: 30px 32px; }
+.pdp .feat { background: var(--wash); border-left: 3px solid var(--green); border-radius: var(--r-lg); padding: 30px 32px; box-shadow: none; }
+.pdp .feat:hover { transform: none; box-shadow: none; }
 .pdp .feat h3 { font-size: 17px; margin-bottom: 8px; }
 .pdp .feat p { font-size: 14.5px; }
 

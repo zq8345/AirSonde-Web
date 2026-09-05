@@ -156,30 +156,36 @@ const C = HOME_V4.cta;
   const senBtns = [...document.querySelectorAll<HTMLButtonElement>('#sfilters button')];
   const empty = document.getElementById('no-results');
 
-  const matches = (card: HTMLElement, cat: string, sen: string) =>
-    (cat === 'all' || card.dataset.c === cat) &&
-    (sen === 'all' || (card.dataset.s ?? '').split(' ').includes(sen));
+  // Sensor row is MULTI-select (Joe 2026-09-05): a card must carry every selected group (AND);
+  // an empty selection lights "All Sensing"; clicking it clears the set.
+  const sens = new Set<string>();
+  const matchSens = (card: HTMLElement) => {
+    const have = (card.dataset.s ?? '').split(' ');
+    return [...sens].every((s) => have.includes(s));
+  };
+  const matches = (card: HTMLElement, cat: string) => (cat === 'all' || card.dataset.c === cat) && matchSens(card);
 
-  const known = (btns: HTMLButtonElement[], attr: 'f' | 's', v: string | null) =>
-    v && btns.some((b) => b.dataset[attr] === v) ? v : 'all';
+  const knownCat = (v: string | null) => (v && catBtns.some((b) => b.dataset.f === v) ? v : 'all');
+  const senKeys = new Set(senBtns.map((b) => b.dataset.s).filter((s): s is string => !!s && s !== 'all'));
 
+  // ?category=desktop&sensor=co2,pm — unknown values are dropped, nothing else is reflected back
   const params = new URLSearchParams(location.search);
-  let cat = known(catBtns, 'f', params.get('category'));
-  let sen = known(senBtns, 's', params.get('sensor'));
+  let cat = knownCat(params.get('category'));
+  for (const s of (params.get('sensor') ?? '').split(',')) if (senKeys.has(s)) sens.add(s);
 
   const apply = () => {
     let shown = 0;
     for (const c of cards) {
-      const on = matches(c, cat, sen);
+      const on = matches(c, cat);
       c.hidden = !on;
       if (on) shown++;
     }
     if (empty) empty.hidden = shown > 0;
 
-    // category counts follow the current sensor choice (design: 数量集成进分类胶囊)
+    // category counts follow the current sensor selection (design: 数量集成进分类胶囊)
     for (const b of catBtns) {
       const f = b.dataset.f ?? 'all';
-      const n = cards.filter((c) => matches(c, f, sen)).length;
+      const n = cards.filter((c) => matches(c, f)).length;
       const el = b.querySelector('.n');
       if (el) el.textContent = `(${n})`;
       const active = f === cat;
@@ -187,14 +193,15 @@ const C = HOME_V4.cta;
       b.setAttribute('aria-pressed', String(active));
     }
     for (const b of senBtns) {
-      const active = (b.dataset.s ?? 'all') === sen;
+      const s = b.dataset.s ?? 'all';
+      const active = s === 'all' ? sens.size === 0 : sens.has(s);
       b.classList.toggle('on', active);
       b.setAttribute('aria-pressed', String(active));
     }
 
     const q = new URLSearchParams();
     if (cat !== 'all') q.set('category', cat);
-    if (sen !== 'all') q.set('sensor', sen);
+    if (sens.size > 0) q.set('sensor', [...senKeys].filter((s) => sens.has(s)).join(','));
     const qs = q.toString();
     history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + location.hash);
   };
@@ -207,7 +214,10 @@ const C = HOME_V4.cta;
   );
   senBtns.forEach((b) =>
     b.addEventListener('click', () => {
-      sen = b.dataset.s ?? 'all';
+      const s = b.dataset.s ?? 'all';
+      if (s === 'all') sens.clear();
+      else if (sens.has(s)) sens.delete(s);
+      else sens.add(s);
       apply();
     }),
   );
