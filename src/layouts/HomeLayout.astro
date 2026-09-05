@@ -21,6 +21,8 @@ import wordmarkGreen from '../assets/airsonde-wordmark-green.png';
 // Derived by scripts/build-wordmark-bright.mjs: same alpha, RGB = --green-bright.
 import wordmarkBright from '../assets/airsonde-wordmark-bright.png';
 import wordmarkWhite from '../assets/airsonde-wordmark-white.png';
+// design/airsonde-logo-black-transparent.png registered as an asset (same alpha/geometry as the green mark)
+import wordmarkBlack from '../assets/airsonde-wordmark-black.png';
 
 interface Props {
   title?: string;
@@ -51,6 +53,9 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
 // the header turns white every page shows the brand-green wordmark.
 const isHome = path === '/';
 const logoOver = isHome ? wordmarkBright : wordmarkWhite;
+// Joe 2026-09-05: once the header turns white the wordmark is BLACK (= unselected, like the nav
+// items) on every page except the homepage, where Logo = Home = selected and it stays brand green.
+const logoScrolled = isHome ? wordmarkGreen : wordmarkBlack;
 
 // Footer v4 (Joe 2026-09-05, truth = about-v1.html <footer>). Every string is reused from an
 // existing single source — nothing new was added to site-content.json (admin validator):
@@ -107,7 +112,7 @@ const L = CONTACT_V1.info.labels;
               (sub-pages) over the dark hero, brand green once the header turns white. Two
               flat-colour assets, no filter, no opacity on the visible logo — a CSS crossfade. */}
           <Image class="logo-over" src={logoOver} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="eager" />
-          <Image class="logo-green" src={wordmarkGreen} alt="" aria-hidden="true" widths={[240, 480]} sizes="120px" loading="eager" />
+          <Image class="logo-sc" src={logoScrolled} alt="" aria-hidden="true" widths={[240, 480]} sizes="120px" loading="eager" />
         </a>
         <nav aria-label="Primary">
           {
