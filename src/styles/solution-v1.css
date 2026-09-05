@@ -1,0 +1,43 @@
+/* /solutions/<scene>/ — template from airsonde-design/solution-home-v1.html (four scenes share it).
+   Tokens, nav, sub-page hero (.phero), .sec-head, .kicker, .alink, product card (.pcard), guide
+   card (.gd), slim CTA band and footer come from home-v4.css via HomeLayout. This file holds the
+   template's own pieces and the deltas its card variants have from the shared ones, scoped under
+   .sdet so the homepage keeps its own values. */
+
+.sdet .sec-first { padding-top: 64px; }
+.sdet .alt { background: var(--wash); }
+.sdet .cta-sec { padding-bottom: 0; }
+
+/* section head as a row: kicker + h2 left, optional link right */
+.sdet .sec-head { max-width: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.sdet .sec-head .alink { padding-bottom: 6px; }
+
+/* pains: three wash cards on white */
+.sdet .pains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.sdet .pain { background: var(--wash); border-radius: var(--r-lg); padding: 32px 30px; }
+.sdet .pain em { font-style: normal; font-family: var(--disp); font-weight: 700; font-size: 13px; letter-spacing: 0.18em; color: var(--green); }
+.sdet .pain h3 { font-size: 18px; margin: 10px 0 8px; }
+.sdet .pain p { font-size: 14.5px; }
+
+/* platforms: the shared .pcard on a wash section — white card with the standard shadow */
+.sdet .pcard { border: 0; box-shadow: var(--shadow); }
+.sdet .pcard:hover { box-shadow: 0 32px 60px -28px rgba(11, 31, 26, 0.4); }
+.sdet .pcard .ph { display: flex; align-items: center; justify-content: center; padding: 26px; }
+.sdet .pcard h3 { margin: 6px 0 12px; }
+.sdet .pcard .chips { gap: 6px; }
+
+/* related guides: two wide cards */
+.sdet .gd-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.sdet .gd { padding: 34px 32px 30px; }
+.sdet .gd em { font-size: 12.5px; color: var(--green); }
+.sdet .gd h3 { line-height: 1.35; }
+.sdet .gd:hover span { color: var(--green-deep); }
+
+@media (max-width: 1000px) {
+  .sdet .pains { grid-template-columns: 1fr; }
+  .sdet .prod-row { grid-template-columns: 1fr 1fr; }
+  .sdet .gd-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .sdet .prod-row { grid-template-columns: 1fr; }
+}

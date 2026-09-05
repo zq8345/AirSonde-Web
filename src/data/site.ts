@@ -159,6 +159,8 @@ export const ABOUT_V1 = content.aboutV1;
  * Typed loosely on purpose: the admin may add a slot before this file learns about it.
  */
 export const CERTIFICATES: Record<string, string | null | undefined> = content.certificates;
+/** /solutions/<scene>/ template copy (2026-09-05). Scene facts stay in solutions.ts. */
+export const SOLUTION_DETAILS = content.solutionDetails;
 
 /**
  * W25: which products the homepage features, and in what order — the array's

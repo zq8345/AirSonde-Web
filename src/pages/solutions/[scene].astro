@@ -1,29 +1,47 @@
 ---
+/**
+ * /solutions/<scene>/ — one template for the four scenes (真源 airsonde-design/solution-home-v1.html,
+ * the Home sample; DESIGN.md wins on conflict). Joe's bar for these pages: copy correct, layout
+ * tidy, no overflow, no broken images — no pixel-level comparison.
+ *
+ * hero (scene photo, §4 veil) → three pain cards (old page copy, verbatim, from solutions.ts) →
+ * fitting platforms (the scene's curated slugs, real catalogue data, short taglines from the
+ * design files) → related guides (guides declare their scenes) → slim CTA → footer.
+ * The crawlable surface is unchanged: same title, description, canonical, BreadcrumbList.
+ */
 import { Image } from 'astro:assets';
 import type { GetStaticPaths } from 'astro';
-import LightBase from '../../layouts/LightBase.astro';
-import LightProductCard from '../../components/LightProductCard.astro';
-import { SITE } from '../../data/site';
-import { SCENES_DATA, SOLUTIONS_CTA } from '../../data/solutions';
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import '../../styles/solution-v1.css';
+import { HOME_V4, SITE, SOLUTIONS_V3, SOLUTION_DETAILS } from '../../data/site';
+import { SCENES_DATA } from '../../data/solutions';
 import { GUIDES } from '../../data/guides';
 import { breadcrumbSchema } from '../../lib/jsonld';
-import { getPublishedProducts } from '../../lib/products';
+import { getPublishedProducts, headlineSensors, productHref, resolveProductImage } from '../../lib/products';
+import { chipLabel } from '../../lib/catalog-filters';
 
 export const getStaticPaths = (async () => {
   return SCENES_DATA.map((scene) => ({ params: { scene: scene.slug }, props: { scene } }));
 }) satisfies GetStaticPaths;
 
 const { scene } = Astro.props;
+const D = SOLUTION_DETAILS;
+const C = HOME_V4.cta;
+
+// H1 = the index page's card heading for this scene, so the two pages say the same thing
+const indexCard = SOLUTIONS_V3.scenes.find((s) => s.slug === scene.slug);
+const heading = indexCard?.heading ?? scene.heading;
+
+// hero crop: the index card's framing for this scene (same photo, same subject)
+const HERO_FOCUS: Record<string, string> = { home: '62% 50%', office: '72% 60%', school: '74% 50%', industrial: '70% 42%' };
+// dark photos get the lighter left band (DESIGN.md §4); the office scene is the dark one
+const DARK_SCENES = new Set(['office']);
 
 const products = await getPublishedProducts();
 const bySlug = new Map(products.map((p) => [p.data.slug, p]));
 /**
- * ⚠️ This used to fail the build on a slug that no longer exists — the note
- * here said a scene "must fail the build, not render a hole". Measured
- * 2026-08-28: deleting one product from the admin then took the whole site
- * down for nine hours, and production went on serving the deleted page because
- * no build had succeeded since. A hole in one strip is the smaller failure.
- * ⛔ But not a silent one: the skipped slugs are named on stderr.
+ * ⚠️ A curated slug that matches no published product is skipped and named on stderr, not a
+ * build failure — measured 2026-08-28: one dangling slug took the site down for nine hours.
  */
 const missingFits = scene.productSlugs.filter((slug) => !bySlug.has(slug));
 if (missingFits.length > 0) {
@@ -31,11 +49,18 @@ if (missingFits.length > 0) {
     `[solutions/${scene.slug}] ${missingFits.length} curated product slug(s) match no published product and are skipped: ${missingFits.join(', ')}`,
   );
 }
-const fits = scene.productSlugs.map((slug) => bySlug.get(slug)).filter((p) => p !== undefined);
+const fits = scene.productSlugs
+  .map((slug) => bySlug.get(slug))
+  .filter((p) => p !== undefined)
+  .map((p) => ({
+    product: p,
+    // short tagline from the design files (solution-home-v1 / products-v1); the catalogue name is the fallback
+    tagline: (D.taglines as Record<string, string>)[p.data.model] ?? p.data.name,
+    chips: headlineSensors(p, 3).map(chipLabel),
+  }));
 
-// The guides slot left open in W4: articles declare which scenes they serve,
-// so this page just queries — one source, no second list to drift.
 const relatedGuides = GUIDES.filter((g) => g.solutionSlugs.includes(scene.slug));
+const painsHeading = (D.painsHeading as Record<string, string>)[scene.slug] ?? D.painsHeading.home;
 
 const schemas = [
   breadcrumbSchema([
@@ -46,96 +71,120 @@ const schemas = [
 ];
 ---
 
-<LightBase title={scene.meta.title} description={scene.meta.description} schemas={schemas}>
-  {/* as-hero--cap28 (总工 approved extension): same defect family as the
-      contact hero that shipped with its wordmark cut — the old 1.33-1.5:1
-      scene photos were being sliced to a 4.6:1 sliver at 2560 (71% of the
-      height cropped). The W39 scenes are 2.4:1, so under the cap the vertical
-      crop is a fixed ~13.5% — but the subjects sit differently per render, so
-      the focus comes from the scene record (per-scene, measured). */}
-  <section
-    class="as-hero as-hero--page as-hero--cap28 as-hero--scene"
-    style={`--hero-focus: ${scene.photo.focus}; --hero-focus-narrow: ${scene.photo.focusNarrow}`}
-  >
-    <Image
-      src={scene.photo.src}
-      alt={scene.photo.alt}
-      class="as-hero__img"
-      widths={[768, 1280, 1600]}
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div class="as-hero__wash" aria-hidden="true"></div>
-    <div class="as-container as-hero__in">
-      <p class="as-hero__eyebrow">Solutions · {scene.label}</p>
-      <h1 class="as-hero__title">{scene.heading}</h1>
-      <p class="as-hero__lead">{scene.intro}</p>
-    </div>
-  </section>
-
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-steps as-steps--three">
-        {
-          scene.pains.map((pain, i) => (
-            <div class="as-step">
-              <div class="as-step__n">{String(i + 1).padStart(2, '0')}</div>
-              <h3>{pain.title}</h3>
-              <p>{pain.body}</p>
-            </div>
-          ))
-        }
+<HomeLayout title={scene.meta.title} description={scene.meta.description} schemas={schemas}>
+  <div class="sdet">
+    <div class:list={['phero', { 'phero--dark': DARK_SCENES.has(scene.slug) }]}>
+      <Image
+        src={scene.photo.src}
+        alt={scene.photo.alt}
+        class="bg"
+        style={`object-position: ${HERO_FOCUS[scene.slug] ?? '50% 50%'}`}
+        widths={[768, 1280, 1600, 2400]}
+        sizes="100vw"
+        quality={72}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="veil" aria-hidden="true"></div>
+      <div class="wrap">
+        <span class="kicker">{D.kickerPrefix} · {scene.label}</span>
+        <h1>{heading}</h1>
       </div>
     </div>
-  </section>
 
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-h2">{scene.productsHeading}</h2>
-      </div>
-      <div class="as-pgrid as-pgrid--four">
-        {fits.map((product) => <LightProductCard product={product} />)}
-      </div>
-    </div>
-  </section>
-
-  {
-    relatedGuides.length > 0 && (
-      <section class="as-section">
-        <div class="as-container">
-          <div class="as-sechead">
-            <h2 class="as-h2">Related guides</h2>
+    <section class="sec-first">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">{D.whyKicker}</span>
+            <h2>{painsHeading}</h2>
           </div>
-          <div class="as-ggrid">
-            {relatedGuides.map((guide) => (
-              <a class="as-gcard" href={`/guides/${guide.slug}/`}>
-                <span class="as-gcard__eyebrow">{guide.eyebrow}</span>
-                <span class="as-gcard__title" style="display:block">
-                  {guide.title}
-                </span>
-                <span class="as-gcard__arw" aria-hidden="true">
-                  Read →
-                </span>
+        </div>
+        <div class="pains">
+          {
+            scene.pains.map((pain, i) => (
+              <div class="pain">
+                <em>{String(i + 1).padStart(2, '0')}</em>
+                <h3>{pain.title}</h3>
+                <p>{pain.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <span class="kicker">{D.platformsKicker}</span>
+            <h2>{scene.productsHeading}</h2>
+          </div>
+          <a class="alink" href="/products/">{HOME_V4.products.allLabel} →</a>
+        </div>
+        <div class="prod-row">
+          {
+            fits.map(({ product, tagline, chips }) => (
+              <a class="pcard" href={productHref(product)}>
+                <div class="ph">
+                  <Image
+                    src={resolveProductImage(product.data.images.main)}
+                    alt={product.data.name}
+                    widths={[320, 480, 640]}
+                    sizes="(min-width: 1000px) 363px, (min-width: 640px) 45vw, 90vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="tx">
+                  <span class="model">{product.data.model}</span>
+                  <h3>{tagline}</h3>
+                  <div class="chips">{chips.map((c) => <span>{c}</span>)}</div>
+                </div>
               </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-cta">
-        <h2 class="as-cta__title">{SOLUTIONS_CTA.heading}</h2>
-        <p class="as-cta__body">{SOLUTIONS_CTA.body}</p>
-        <div class="as-cta__actions">
-          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
-          <a href="/contact/" class="as-btn as-btn--ghost">What to send us</a>
+            ))
+          }
         </div>
       </div>
-    </div>
-  </section>
-</LightBase>
+    </section>
+
+    {
+      relatedGuides.length > 0 && (
+        <section>
+          <div class="wrap">
+            <div class="sec-head">
+              <div>
+                <span class="kicker">{D.guidesKicker}</span>
+                <h2>{D.guidesHeading}</h2>
+              </div>
+            </div>
+            <div class="gd-grid">
+              {relatedGuides.map((g) => (
+                <a class="gd" href={`/guides/${g.slug}/`}>
+                  <em>{g.eyebrow}</em>
+                  <h3>{g.title}</h3>
+                  <span>{HOME_V4.guides.read} →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="alt cta-sec">
+      <div class="wrap">
+        <div class="cta-band cta-band--slim">
+          <div>
+            <span class="kicker">{C.kicker}</span>
+            <h2>{C.heading}</h2>
+          </div>
+          <div class="ctas">
+            <a class="btn btn-paper" href="/contact/">{C.primary} →</a>
+            <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</HomeLayout>

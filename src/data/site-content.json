@@ -462,5 +462,30 @@
     "fcc": null,
     "rohs": null,
     "un38-3": null
+  },
+  "solutionDetails": {
+    "_readme": "/solutions/<scene>/ template copy (design solution-home-v1.html). Pain cards, product picks and page meta come from src/data/solutions.ts (old detail-page copy, verbatim); the H1 is the index card's heading (homeV4/solutionsV3). taglines = short card titles by model, from the design files (solution-home-v1 for the Home picks, products-v1 for the rest). painsHeading: 'home' is the design's; office/school/industrial were drafted by the Web window on the same pattern and flagged for review.",
+    "kickerPrefix": "Solutions",
+    "whyKicker": "Why it matters",
+    "painsHeading": {
+      "home": "What changes the air at home",
+      "office": "What changes the air in the office",
+      "school": "What changes the air in the classroom",
+      "industrial": "What changes the air on the floor"
+    },
+    "platformsKicker": "The platforms",
+    "guidesKicker": "Related guides",
+    "guidesHeading": "Before you specify",
+    "taglines": {
+      "AK3": "Compact desktop, three gases",
+      "AK18A": "Pocket CO alarm, 39 g",
+      "AK23A": "Twin-dial 9-in-1 desktop",
+      "AK30": "Auto-dimming, 5000 mAh",
+      "AK22A": "Large-screen grid display",
+      "AK16A": "Slim 8-in-1 desktop",
+      "AK16D-CO": "Desktop with CO detection",
+      "AK33": "Handheld analyser, 173 g",
+      "AK23B": "Big-digit desktop"
+    }
   }
 }
