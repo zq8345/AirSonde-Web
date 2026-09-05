@@ -8,7 +8,8 @@
 .fbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 18px 0 12px; }
 .sfilters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 12px 0 18px; border-top: 1px dashed var(--line); }
 .sfilters .slbl { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-right: 6px; }
-.sfilters button { font-family: var(--disp); font-weight: 600; font-size: 13px; padding: 7px 15px; border-radius: var(--r-pill); border: 1.5px solid transparent; background: var(--wash); color: var(--body); cursor: pointer; transition: 0.18s; }
+/* Joe 2026-09-05: both filter rows read at the same size — sensor pills 13/7×15 → 14.5/9×18 (design synced) */
+.sfilters button { font-family: var(--disp); font-weight: 600; font-size: 14.5px; padding: 9px 18px; border-radius: var(--r-pill); border: 1.5px solid transparent; background: var(--wash); color: var(--body); cursor: pointer; transition: 0.18s; }
 .sfilters button:hover { border-color: var(--green); color: var(--green); }
 .sfilters button.on { background: var(--green); border-color: var(--green); color: #fff; }
 .filters { display: flex; gap: 10px; flex-wrap: wrap; }

@@ -110,7 +110,8 @@ for (const slug of draftSlugs) {
       body = body.replace(/<div class="certs">[\s\S]*?<div class="audit">/, '<div class="audit">');
     }
     if (/^products\/[^/]+\/index\.html$/.test(rel)) {
-      body = body.replace(/<dl class="as-spec">[\s\S]*?<\/dl>/g, '');
+      // product-detail-v1 (2026-09-05): the spec table is <div class="glance"> … <table> … </table></div>
+      body = body.replace(/<div class="glance">[\s\S]*?<\/table>\s*<\/div>/g, '');
       body = body.replace(/\{"@type":"PropertyValue","name":"Certification","value":"[^"]*"\}/g, '');
     }
     const text = body.replace(/<[^>]+>/g, ' ');

@@ -14,7 +14,7 @@
 import { Image } from 'astro:assets';
 import HomeLayout from '../../layouts/HomeLayout.astro';
 import '../../styles/products-v1.css';
-import { HOME_V4, META, PRODUCTS_V1, SITE } from '../../data/site';
+import { HOME_V4, META, PRODUCTS_PAGE, PRODUCTS_V1, SITE } from '../../data/site';
 // Brand showroom render (v6, 2880x1200), the same image the previous skin used. It is a
 // brand image, not documentary evidence of a facility — page copy must not call it one.
 import heroPhoto from '../../assets/photos/products-hero-showroom-v6.webp';
@@ -62,7 +62,8 @@ const C = HOME_V4.cta;
     <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <span class="kicker">{P.kicker}</span>
-      <h1>{P.heading}</h1>
+      {/* Joe 2026-09-05: the same sentence heads /products/ and every product detail hero */}
+      <h1>{PRODUCTS_PAGE.heroHeading}</h1>
     </div>
   </div>
 

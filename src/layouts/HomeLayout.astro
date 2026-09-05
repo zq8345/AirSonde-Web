@@ -26,6 +26,8 @@ interface Props {
   noindex?: boolean;
   schemas?: Record<string, unknown>[];
   ogImage?: string;
+  /** product detail: the last section is already wash, the footer sits flush (design: footer margin-top 0) */
+  footerFlush?: boolean;
 }
 
 const {
@@ -34,6 +36,7 @@ const {
   noindex = false,
   schemas = [],
   ogImage,
+  footerFlush = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const ogImageUrl = ogImage ? new URL(ogImage, SITE.url).href : undefined;
@@ -137,7 +140,7 @@ const companyLinks = ['/solutions/', '/guides/', '/about/', '/contact/'];
       <slot />
     </main>
 
-    <footer>
+    <footer class:list={{ 'footer--flush': footerFlush }}>
       <div class="wrap cols">
         <div class="brand">
           <Image src={wordmarkGreen} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="lazy" />

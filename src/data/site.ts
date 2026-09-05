@@ -211,11 +211,22 @@ export const PRODUCTS_PAGE = {
      the product detail page was its only reader, so keeping it would have left
      a string that renders nowhere, which this repo has revived by accident
      twice. */
+  /** Joe 2026-09-05: the Products list hero and every product detail hero say the same thing.
+   *  ⚠️ Kept in TS, not site-content.json — the admin validator whitelists JSON keys, and a
+   *  new block there has to be agreed with the Admin window first. */
+  heroHeading: 'Helping Everyone Breathe Healthier Air',
   sectionHeadings: {
     sensing: 'Sensing',
     highlights: 'What it is',
-    specs: 'At a glance',
+    /** product-detail-v1: "At a glance" → "Specifications" */
+    specs: 'Specifications',
+    whatHeading: 'The working details',
+    relatedKicker: 'Related',
   },
+  /** CTA label prefix; the model follows: "Enquire about AK34 →" */
+  enquire: 'Enquire about',
+  /** gallery controls */
+  gallery: { prev: 'Previous image', next: 'Next image', view: 'View image' },
 } as const;
 
 /* -------------------------------------------------------------------------

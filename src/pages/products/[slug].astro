@@ -1,37 +1,41 @@
 ---
 /**
- * /products/[slug]/ — light skin (W4 products批). Skin only: getStaticPaths,
- * titles, descriptions, Product/Breadcrumb JSON-LD and the og:image pipeline
- * are byte-for-byte the dark version's logic. Data never renders supplierRef
- * or moq; draft products never reach getStaticPaths.
+ * /products/<model>/ — Design System v1 (真源 airsonde-design/product-detail-v1.html, the AK34
+ * sample Joe signed off item by item; 55 pages share the template). Joe's named priority page.
+ *
+ * hero (same showroom photo + heading as /products/; the heading is a div, NOT an h1)
+ *  → wash band: back pill + model (the page's ONLY h1) / gallery + info column
+ *  → What it is / The working details (white, 2-column highlight cards)
+ *  → Related (wash, same-category cards) → footer flush.
+ *
+ * Unchanged from before, byte for byte: getStaticPaths, <title>, description, Product +
+ * BreadcrumbList JSON-LD, og:image. Data never renders supplierRef or moq.
+ * Certification names are allowed in the spec table (and its JSON-LD twin) only —
+ * scripts/check-dist.mjs 2c strips exactly <div class="glance">…</table></div> before scanning.
  */
 import { Image, getImage } from 'astro:assets';
 import type { GetStaticPaths } from 'astro';
-import LightBase from '../../layouts/LightBase.astro';
-import LightProductCard from '../../components/LightProductCard.astro';
-import { PRODUCTS_PAGE, SITE } from '../../data/site';
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import '../../styles/product-detail-v1.css';
+import { CONTACT_V1, HOME_V4, PRODUCTS_PAGE, SITE } from '../../data/site';
 import { stripLenticular } from '../../lib/text';
 import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
+import { chipLabel } from '../../lib/catalog-filters';
 import {
   categoryLabel,
   getPublishedProducts,
+  headlineSensors,
   modelPath,
   productHref,
   resolveProductImage,
   sensorLabels,
   tryResolveProductImage,
 } from '../../lib/products';
+import heroPhoto from '../../assets/photos/products-hero-showroom-v6.webp';
 
 /**
- * W29: the address is the model, not the record's slug. The slug is still the
- * record's identity in the content collection and in the admin — it just
- * stopped being the URL.
- * ⚠️ The duplicate check below is now unreachable from anything an admin does
- * — getPublishedProducts drops the second record and names both, so two of
- * them can no longer arrive here. It stays as an invariant guard: if it ever
- * fires it means that filter has a bug, which is a programming error, and a
- * throw is the right answer to those. It is not the guard against Joe typing
- * a duplicate model; that one belongs in the admin, at the moment he types it.
+ * W29: the address is the model, not the record's slug. The duplicate check is an invariant
+ * guard (getPublishedProducts already drops the second record and names both).
  */
 export const getStaticPaths = (async () => {
   const products = await getPublishedProducts();
@@ -56,11 +60,11 @@ export const getStaticPaths = (async () => {
 
 const { product, siblings } = Astro.props;
 const { name, model, category, sensors, highlights, specs, images } = product.data;
+const P = PRODUCTS_PAGE;
 
+// ── gallery ────────────────────────────────────────────────────────────────────────────
 const main = resolveProductImage(images.main);
-// ⚠️ A gallery file that has not arrived yet costs one thumbnail, not the
-// page and not the build. (The main image is different: a record missing it
-// never reaches this page — getPublishedProducts drops it.)
+// a gallery file that has not arrived yet costs one thumbnail, not the page and not the build
 const missingGallery = (images.gallery ?? []).filter((path) => !tryResolveProductImage(path));
 if (missingGallery.length > 0) {
   console.warn(
@@ -70,267 +74,264 @@ if (missingGallery.length > 0) {
 const gallery = (images.gallery ?? [])
   .map((path) => ({ src: tryResolveProductImage(path), path }))
   .filter((g): g is { src: ImageMetadata; path: string } => g.src !== null);
-/**
- * W19: one ordered list drives the stage and the thumbnail row.
- * ⚠️ The strip appears only when there really is more than one image — 17 of
- * the 23 records carry no gallery, and a single thumbnail duplicating the
- * stage reads as a bug rather than a control.
- */
 const allImages = [main, ...gallery.map((g) => g.src)];
+// thumbnails and arrows only when there is something to page through (1 image = stage only)
 const hasThumbs = allImages.length > 1;
-// Full-size URL per image so a thumbnail click can swap the stage without
-// shipping every variant up front (the first image keeps its responsive
-// srcset, which is the LCP path).
+// full-size URL per image so a thumbnail click swaps the stage without shipping every variant
 const fullUrls = await Promise.all(
   allImages.map(async (src) => (await getImage({ src, width: 960, format: 'webp' })).src),
 );
 
+// ── specifications ─────────────────────────────────────────────────────────────────────
+// Joe 2026-09-03: "Readings" repeats the Sensing chips — dropped at render time, record untouched
+const isReadings = (key: string) => key.trim().toLowerCase() === 'readings';
+// design: labels start with a capital; a trailing CJK tag such as "认证" comes off the value
+const labelOf = (key: string) => key.trim().charAt(0).toUpperCase() + key.trim().slice(1);
+const valueOf = (key: string, value: string) =>
+  /certif/i.test(key) ? value.replace(/[　-〿㐀-鿿＀-￯]+\s*$/u, '').trim() : value;
+const specEntries = Object.entries(specs ?? {}).filter(([key]) => !isReadings(key));
+const hasFormFactor = specEntries.some(([key]) => key.trim().toLowerCase() === 'form factor');
+const specRows: [string, string][] = [
+  ...(hasFormFactor ? [] : [['Form factor', categoryLabel(category)] as [string, string]]),
+  ...specEntries.map(([key, value]) => [labelOf(key), valueOf(key, value)] as [string, string]),
+];
+
+// ── highlights → cards ─────────────────────────────────────────────────────────────────
+// one admin textarea, one line per card: "Title — body" splits into a titled card; a
+// 【Label】body line (CJK source) does the same; anything else is a body-only card.
+type Feat = { title?: string; body: string };
+const featOf = (raw: string): Feat => {
+  const lent = raw.match(/^\s*【([^】]+)】\s*(.*)$/s);
+  if (lent) return { title: lent[1].trim(), body: lent[2].trim() };
+  const i = raw.indexOf(' — ');
+  if (i > 0) return { title: raw.slice(0, i).trim(), body: raw.slice(i + 3).trim() };
+  return { body: stripLenticular(raw).trim() };
+};
+const feats = (highlights ?? []).map(featOf).filter((f) => f.body || f.title);
+
+// ── related ────────────────────────────────────────────────────────────────────────────
 const related = siblings.filter((p) => p.data.category === category).slice(0, 3);
-// "Other other monitors" was live for the 'other' category — special-case it
 const relatedHeading =
   category === 'other' ? 'More from the catalogue' : `Other ${categoryLabel(category).toLowerCase()} monitors`;
 
-// Joe (2026-09-03): the "Readings" row repeats the Sensing list that sits
-// directly above the table — drop it at render time. ⛔ The product JSON is
-// content, not ours to edit; the key stays in the records untouched. Match
-// is trimmed and case-insensitive so an admin's "readings " still goes.
-const isReadings = (key: string) => key.trim().toLowerCase() === 'readings';
-const specRows = specs ? Object.fromEntries(Object.entries(specs).filter(([key]) => !isReadings(key))) : undefined;
-
-// Admin-created records ship without specs yet; the at-a-glance table falls
-// back to rows derived purely from data on hand — nothing invented. A record
-// whose only spec was Readings takes the same fallback.
-const glance =
-  specRows && Object.keys(specRows).length > 0
-    ? specRows
-    : { Model: model, 'Form factor': categoryLabel(category), Sensing: sensorLabels(sensors).join(', ') };
-
+// ── head (unchanged) ───────────────────────────────────────────────────────────────────
 const title = `${name} (${model}) — OEM / ODM | ${SITE.brand}`;
-// Joe 2026-09-03: a hand-written metaDescription wins when present; blank or
-// absent falls back to the derived sentence, byte-for-byte as before.
-// LightBase feeds this one string to <meta name="description">,
-// og:description and twitter:description alike (verified), so this is the
-// single point of change.
 const description =
   product.data.metaDescription?.trim() ||
   `${name}, model ${model}. ${sensorLabels(sensors).join(', ')} sensing. Built to order for OEM and ODM programmes under your own brand.`;
-
-// Absolute URLs of the emitted assets, so structured data points at files that
-// actually exist rather than at the source paths.
 const schemaImages = await Promise.all(
   [main, ...gallery.map((g) => g.src)].map(async (src) => {
     const built = await getImage({ src, width: 960, format: 'webp' });
     return new URL(built.src, SITE.url).href;
   }),
 );
-
 const schemas = [
   productSchema(product, schemaImages),
   breadcrumbSchema([
     { name: 'Home', url: `${SITE.url}/` },
     { name: 'Products', url: `${SITE.url}/products/` },
-    // W23②: the visible trail's last step is the model, so the structured data
-    // says the same thing rather than a second copy of the full title — that is
-    // still carried by the h1, <title>, og:title and Product.name.
     { name: model, url: `${SITE.url}${productHref(product)}` },
   ]),
 ];
+
+// "Reply within 2 business days" — same derivation as the contact form's note, without the full stop
+const note = CONTACT_V1.replyNote.replace(/\.$/, '');
 ---
 
-<LightBase title={title} description={description} schemas={schemas} ogImage={schemaImages[0]}>
-  <div class="as-container" style="padding-top:calc(var(--as-header-h) + 26px);padding-bottom:72px">
-    {/* W23②: a way back plus the model, not a second copy of the title — the
-        model is short, stable and identifies the product on its own. ⛔ Display
-        only: it reads the existing `model` field, nothing is written. */}
-    <nav aria-label="Breadcrumb" class="as-crumb">
-      <a href="/products/" class="as-crumb__back">
-        <span class="as-crumb__arw" aria-hidden="true">←</span>
-        Products
-      </a>
-      <span class="as-crumb__sep">/</span>
-      <span class="as-crumb__current">{model}</span>
-    </nav>
+<HomeLayout title={title} description={description} schemas={schemas} ogImage={schemaImages[0]} footerFlush>
+  <div class="pdp">
+    <div class="phero">
+      <Image
+        src={heroPhoto}
+        alt="Showroom with a panelled, downlit wall on the left and air-quality monitors on two lit wall shelves under the airsonde wordmark, more models on a rounded display island below"
+        class="bg"
+        widths={[768, 1280, 1600, 2400]}
+        sizes="100vw"
+        quality={72}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="veil" aria-hidden="true"></div>
+      <div class="wrap">
+        <span class="kicker">{HOME_V4.products.kicker}</span>
+        <div class="htitle">{P.heroHeading}</div>
+      </div>
+    </div>
 
-    <div class="as-pdp">
-      <div class="as-pdp__media">
-        <div class="as-pdp__stage">
-          <Image
-            src={main}
-            alt={name}
-            widths={[480, 720, 960]}
-            sizes="(min-width: 1024px) 560px, 90vw"
-            loading="eager"
-            data-pdp-main
-          />
-          {/* W22①: real <button>s, so they are tabbable and fire on Enter —
-              the thumbnails alone were mouse-only. Rendered only when there
-              is something to page through. */}
+    <div class="detailband">
+      <div class="wrap backrow">
+        <a class="back" href="/products/">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
+          {HOME_V4.products.allLabel}
+        </a>
+        <h1 class="pmodel">{model}</h1>
+      </div>
+
+      <div class="wrap detail">
+        <div class="gallery">
+          <div class="stage">
+            <Image src={main} alt={name} widths={[480, 720, 960]} sizes="(min-width: 1024px) 560px, 90vw" loading="eager" data-pdp-main />
+            {
+              hasThumbs && (
+                <>
+                  <button type="button" class="snav prev" data-pdp-prev aria-label={P.gallery.prev}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+                  </button>
+                  <button type="button" class="snav next" data-pdp-next aria-label={P.gallery.next}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                  </button>
+                </>
+              )
+            }
+          </div>
           {
             hasThumbs && (
-              <>
-                <button type="button" class="as-pdp__nav as-pdp__nav--prev" data-pdp-prev aria-label="Previous image">
-                  <span aria-hidden="true">‹</span>
-                </button>
-                <button type="button" class="as-pdp__nav as-pdp__nav--next" data-pdp-next aria-label="Next image">
-                  <span aria-hidden="true">›</span>
-                </button>
-              </>
+              <div class="thumbs" data-pdp-thumbs>
+                {allImages.map((src, i) => (
+                  <button
+                    type="button"
+                    class:list={{ on: i === 0 }}
+                    data-full={fullUrls[i]}
+                    aria-label={`${P.gallery.view} ${i + 1} of ${allImages.length}`}
+                    aria-current={i === 0 ? 'true' : 'false'}
+                    hidden={i >= 5}
+                  >
+                    <Image src={src} alt="" widths={[160, 240]} sizes="120px" loading="lazy" />
+                  </button>
+                ))}
+              </div>
             )
           }
         </div>
 
-        {
-          hasThumbs && (
-            <ul class="as-pdp__thumbs" data-pdp-thumbs>
-              {allImages.map((src, i) => (
-                <li>
-                  <button
-                    type="button"
-                    class:list={['as-pdp__thumb', { 'is-active': i === 0 }]}
-                    data-full={fullUrls[i]}
-                    aria-label={`View image ${i + 1} of ${allImages.length}`}
-                    aria-current={i === 0 ? 'true' : 'false'}
-                  >
-                    <Image src={src} alt="" widths={[160, 240]} sizes="120px" loading="lazy" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )
-        }
-      </div>
-
-      <div class="as-pdp__info">
-        <p class="as-pdp__meta">{categoryLabel(category)} · {model}</p>
-        {/* W23③: 23 of the 24 records are ≤46 characters and keep the full h1;
-            only a genuinely long title steps down one notch. Threshold sits in
-            the measured gap (46 → 201), so it is not a hair-trigger. */}
-        <h1 class:list={['as-pdp__title', { 'as-pdp__title--long': name.length > 70 }]}>{name}</h1>
-
-        <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.sensing}</h2>
-        <ul class="as-sensor-pills">
-          {sensorLabels(sensors).map((sensor) => <li>{sensor}</li>)}
-        </ul>
-
-        <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.specs}</h2>
-        <dl class="as-spec">
-          {
-            Object.entries(glance).map(([key, value]) => (
-              <div>
-                <dt>{key}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))
-          }
-        </dl>
-
-        {/* W26: the enquiry line and its grey panel are gone; the button is
-            the whole of the column's foot and is what aligns with the
-            thumbnail strip. */}
-        <a href="/contact/" class="as-btn as-btn--primary as-pdp__enquire">
-          Enquire about {model}
-          <span class="as-arw" aria-hidden="true">→</span>
-        </a>
+        <div class="info">
+          <div class="pname" title={name}>{name}</div>
+          <div class="glance">
+            <h4>{P.sectionHeadings.specs}</h4>
+            <table>
+              <tbody>
+                {
+                  specRows.map(([k, v]) => (
+                    <tr>
+                      <td>{k}</td>
+                      <td>{v}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="sensing">
+            <h4>{P.sectionHeadings.sensing}</h4>
+            <div class="chips">{sensorLabels(sensors).map((s) => <span>{chipLabel(s)}</span>)}</div>
+          </div>
+          <div class="buy">
+            <a class="btn btn-solid" href="/contact/">{P.enquire} {model} →</a>
+            <span class="note">{note}</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    {/* W22②: the highlights are full paragraphs on real records — 7 of them,
-        up to 382 characters — and in the right column they stretched it to
-        1540px against the images' 762px. They get the full width instead.
-        ⛔ Copy untouched; this moves the block, nothing else. */}
     {
-      highlights && highlights.length > 0 && (
-        <section class="as-pdp__about">
-          <h2 class="as-pdp__h">{PRODUCTS_PAGE.sectionHeadings.highlights}</h2>
-          <ul class="as-pdp__list">
-            {highlights.map((line) => (
-              <li>{stripLenticular(line)}</li>
-            ))}
-          </ul>
+      feats.length > 0 && (
+        <section class="featsec">
+          <div class="wrap">
+            <div class="sec-head">
+              <span class="kicker">{P.sectionHeadings.highlights}</span>
+              <h2>{P.sectionHeadings.whatHeading}</h2>
+            </div>
+            <div class="feats">
+              {feats.map((f) => (
+                <div class="feat">
+                  {f.title && <h3>{f.title}</h3>}
+                  {f.body && <p>{f.body}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
       )
     }
 
     {
       related.length > 0 && (
-        <section style="margin-top:88px">
-          <div class="as-sechead">
-            <h2 class="as-h2">{relatedHeading}</h2>
-          </div>
-          <div class="as-pgrid">
-            {related.map((item) => (
-              <LightProductCard product={item} />
-            ))}
+        <section class="relsec">
+          <div class="wrap">
+            <div class="sec-head">
+              <span class="kicker">{P.sectionHeadings.relatedKicker}</span>
+              <h2>{relatedHeading}</h2>
+            </div>
+            <div class="prod-row">
+              {related.map((item) => (
+                <a class="pcard" href={productHref(item)}>
+                  <div class="ph">
+                    <Image
+                      src={resolveProductImage(item.data.images.main)}
+                      alt={item.data.name}
+                      widths={[320, 480, 640]}
+                      sizes="(min-width: 1000px) 363px, (min-width: 640px) 45vw, 90vw"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="tx">
+                    <span class="model">{item.data.model}</span>
+                    <h3 title={item.data.name}>{item.data.name}</h3>
+                    <div class="chips">{headlineSensors(item, 4).map((s) => <span>{chipLabel(s)}</span>)}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
       )
     }
   </div>
-</LightBase>
+</HomeLayout>
 
 <script>
-  // W19: thumbnails switch the stage image (wanew's behaviour). Swapping the
-  // src means dropping srcset/sizes, otherwise the browser keeps picking from
-  // the old candidate list.
-  // W22: the same state is now driven by prev/next buttons too, and the strip
-  // is a single scrolling row — so selecting an image must also bring its
-  // thumbnail into view, or paging past the visible ones looks broken.
+  // Gallery: fixed five-slot thumbnail window + stage arrows; the window follows the selection
+  // (design script). Swapping the stage src means dropping srcset/sizes so the browser stops
+  // picking from the old candidate list.
   const thumbs = document.querySelector<HTMLElement>('[data-pdp-thumbs]');
   const stage = document.querySelector<HTMLImageElement>('[data-pdp-main]');
   if (thumbs && stage) {
-    const buttons = [...thumbs.querySelectorAll<HTMLButtonElement>('.as-pdp__thumb')];
-    let index = 0;
-
-    const show = (next: number, scrollIntoView: boolean) => {
-      const clamped = (next + buttons.length) % buttons.length;
-      const button = buttons[clamped];
-      const full = button?.dataset.full;
-      if (!button || !full) return;
-      index = clamped;
-      stage.removeAttribute('srcset');
-      stage.removeAttribute('sizes');
-      stage.src = full;
-      for (const other of buttons) {
-        const on = other === button;
-        other.classList.toggle('is-active', on);
-        other.setAttribute('aria-current', String(on));
+    const btns = [...thumbs.querySelectorAll<HTMLButtonElement>('button')];
+    const WIN = 5;
+    const N = btns.length;
+    let cur = 0;
+    let win = 0;
+    const render = () => {
+      if (cur < win) win = cur;
+      if (cur > win + WIN - 1) win = cur - WIN + 1;
+      win = Math.max(0, Math.min(win, Math.max(0, N - WIN)));
+      btns.forEach((b, i) => {
+        b.hidden = !(i >= win && i < win + WIN);
+        const on = i === cur;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-current', String(on));
+      });
+      const full = btns[cur]?.dataset.full;
+      if (full) {
+        stage.removeAttribute('srcset');
+        stage.removeAttribute('sizes');
+        stage.src = full;
       }
-      if (!scrollIntoView) return;
-      // Keep the active thumbnail inside the strip's own scroll box; working
-      // from the element's offset rather than scrollIntoView avoids yanking
-      // the whole page when the strip is already visible.
-      // ⚠️ Measured: assigning scrollLeft does nothing while the element has
-      // scroll-behavior: smooth — it stayed at 0 even 800ms later. scrollTo()
-      // is the call that actually moves it.
-      const strip = thumbs.getBoundingClientRect();
-      const item = button.getBoundingClientRect();
-      let left = thumbs.scrollLeft;
-      if (item.left < strip.left) {
-        left += item.left - strip.left - 12;
-      } else if (item.right > strip.right) {
-        left += item.right - strip.right + 12;
-      } else {
-        return;
-      }
-      thumbs.scrollTo({ left, behavior: 'smooth' });
-      // ⚠️ Measured: smooth scrolling does not always run (it never advanced
-      // at all in the environment this was verified in). Whether the active
-      // thumbnail is reachable must not depend on an animation, so snap to
-      // the target if the animation has not taken it there.
-      window.setTimeout(() => {
-        if (Math.abs(thumbs.scrollLeft - left) > 4) {
-          thumbs.scrollTo({ left, behavior: 'instant' as ScrollBehavior });
-        }
-      }, 420);
     };
-
-    thumbs.addEventListener('click', (event) => {
-      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.as-pdp__thumb');
-      if (!button) return;
-      show(buttons.indexOf(button), false);
+    btns.forEach((b, i) =>
+      b.addEventListener('click', () => {
+        cur = i;
+        render();
+      }),
+    );
+    document.querySelector('[data-pdp-prev]')?.addEventListener('click', () => {
+      cur = (cur - 1 + N) % N;
+      render();
     });
-
-    document.querySelector('[data-pdp-prev]')?.addEventListener('click', () => show(index - 1, true));
-    document.querySelector('[data-pdp-next]')?.addEventListener('click', () => show(index + 1, true));
+    document.querySelector('[data-pdp-next]')?.addEventListener('click', () => {
+      cur = (cur + 1) % N;
+      render();
+    });
+    render();
   }
 </script>
