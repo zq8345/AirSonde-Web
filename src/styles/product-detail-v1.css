@@ -43,7 +43,8 @@
 .pdp .glance h4 { font-family: var(--disp); font-size: 14px; font-weight: 600; letter-spacing: 0.03em; color: var(--ink); margin-bottom: 10px; }
 .pdp .glance table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .pdp .glance td { padding: 9px 0; border-bottom: 1px solid var(--line); }
-.pdp .glance td:first-child { color: var(--faint); width: 38%; }
+/* Joe 2026-09-05 (production AK34): label column 38% → 28% + 16px gap, so values start closer */
+.pdp .glance td:first-child { color: var(--faint); width: 28%; padding-right: 16px; }
 .pdp .glance tr:last-child td { border-bottom: 0; }
 .pdp .buy { margin-top: auto; padding-top: 26px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .pdp .buy .note { font-size: 13.5px; color: var(--faint); }

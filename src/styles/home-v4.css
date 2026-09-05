@@ -311,7 +311,7 @@ footer .wxpop { position: absolute; left: 0; bottom: calc(100% + 10px); z-index:
 footer .wxpop img { width: 184px; height: auto; margin: 0 auto; border-radius: 8px; filter: none; }
 footer .wxpop p { font-size: 13px; color: var(--body); margin-top: 10px; }
 footer .fwx:hover .wxpop, footer .fwx:focus-within .wxpop { opacity: 1; visibility: visible; transform: translateY(0); }
-footer h4 { font-family: var(--disp); font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+footer h4 { font-family: var(--disp); font-size: 13px; font-weight: 600; line-height: 1.2; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
 footer li { list-style: none; padding: 5px 0; font-size: 14.5px; }
 footer li a { transition: 0.15s; }
 footer li a:hover { color: var(--green-bright); }
