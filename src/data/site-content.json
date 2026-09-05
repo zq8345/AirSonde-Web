@@ -144,25 +144,19 @@
           ]
         },
         {
-          "slug": "app-breathalyser",
-          "tagline": "App-connected breathalyser",
-          "chips": [
-            "Breath alcohol"
-          ]
+          "slug": "8in1-desktop-monitor",
+          "tagline": "",
+          "chips": []
+        },
+        {
+          "slug": "ak22b-16-in-1-air-quality-monitor-indoor-co2-monitor-air-quality-tester-with-9-display-7-aqi-alerts-for-co2-tvoc-hcho-pm2-5-pm1-0-pm10-time-temperature-humidity-meter",
+          "tagline": "",
+          "chips": []
         },
         {
           "slug": "pump-breathalyser",
-          "tagline": "Pump-type breathalyser",
-          "chips": [
-            "Breath alcohol"
-          ]
-        },
-        {
-          "slug": "portable-co-alarm",
-          "tagline": "Pocket CO alarm, 39 g",
-          "chips": [
-            "CO"
-          ]
+          "tagline": "",
+          "chips": []
         }
       ]
     },
@@ -191,12 +185,30 @@
         "shipping": "Dispatch"
       },
       "stats": [
-        { "value": "2015", "label": "founded" },
-        { "value": "120+", "label": "staff" },
-        { "value": "200+", "label": "patents" },
-        { "value": "5,000m²", "label": "facility" },
-        { "value": "600,000+", "label": "units / month" },
-        { "value": "100+", "label": "countries" }
+        {
+          "value": "2015",
+          "label": "founded"
+        },
+        {
+          "value": "120+",
+          "label": "staff"
+        },
+        {
+          "value": "200+",
+          "label": "patents"
+        },
+        {
+          "value": "5,000m²",
+          "label": "facility"
+        },
+        {
+          "value": "600,000+",
+          "label": "units / month"
+        },
+        {
+          "value": "100+",
+          "label": "countries"
+        }
       ],
       "qc": [
         {
@@ -333,28 +345,44 @@
         "tag": "01 — HOME",
         "heading": "One glance — is the air in here fine?",
         "body": "Bedside and living-room monitors your customers read at a glance. CO₂, particulate and formaldehyde, in a housing that belongs on furniture.",
-        "models": ["AK34", "AK30", "AK23A"]
+        "models": [
+          "AK34",
+          "AK30",
+          "AK23A"
+        ]
       },
       {
         "slug": "office",
         "tag": "02 — OFFICE",
         "heading": "Meeting rooms fill with people and empty of fresh air.",
         "body": "Desk and wall units that make stale air visible — CO₂ first, so facility teams know when to ventilate.",
-        "models": ["AK22A", "AK18B", "AK16A"]
+        "models": [
+          "AK22A",
+          "AK18B",
+          "AK16A"
+        ]
       },
       {
         "slug": "school",
         "tag": "03 — SCHOOL",
         "heading": "Thirty people, windows shut through winter.",
         "body": "Classroom monitors big enough to read from the back row, robust enough for a school year.",
-        "models": ["AK22B", "AK27", "AK35"]
+        "models": [
+          "AK22B",
+          "AK27",
+          "AK35"
+        ]
       },
       {
         "slug": "industrial",
         "tag": "04 — INDUSTRIAL",
         "heading": "Readings where the work happens.",
         "body": "Handheld analysers, a γ-radiation counter and an IP65 heat-index unit — for floors, plants and inspections, in a hand walking the line.",
-        "models": ["AK33", "AK19", "AK36"]
+        "models": [
+          "AK33",
+          "AK19",
+          "AK36"
+        ]
       }
     ]
   },
@@ -388,42 +416,97 @@
   },
   "aboutV1": {
     "_readme": "/about/ page (design about-v1.html, Joe 2026-09-05 逐板块验收; copy verbatim, do not polish). Section ORDER is locked in about.astro. The six figures come from homeV4.factory.stats above — one array of { value, label } × 6, the single source shared with the homepage (about.ts ABOUT_STATS and homeV4.factory.statLabels no longer exist). ⚠️ seo.pages.about.description spells two of those figures out by hand ('founded in 2015, 120+ staff'): when a figure changes, change both. The page has no CTA band since 2026-09-05 (footer sits flush). Certificate links come from the `certificates` block below.",
-    "hero": { "kicker": "About", "heading": "The factory behind your product." },
+    "hero": {
+      "kicker": "About",
+      "heading": "The factory behind your product."
+    },
     "overview": {
       "kicker": "Overview",
       "heading": "Who you're buying from",
       "cards": [
-        { "icon": "factory", "title": "The company", "body": "AirSonde is the indoor-air-quality line of a Shenzhen electronics group — designed and built in Bao'an, Shenzhen." },
-        { "icon": "box", "title": "The offer", "body": "Ready products from stock, or OEM/ODM under your name — housing, interface and sensor set to your spec, alarm thresholds to your market's standard." },
-        { "icon": "reply", "title": "The promise", "body": "We supply brands, importers and distributors. We sell through you — and stay out of your market." }
+        {
+          "icon": "factory",
+          "title": "The company",
+          "body": "AirSonde is the indoor-air-quality line of a Shenzhen electronics group — designed and built in Bao'an, Shenzhen."
+        },
+        {
+          "icon": "box",
+          "title": "The offer",
+          "body": "Ready products from stock, or OEM/ODM under your name — housing, interface and sensor set to your spec, alarm thresholds to your market's standard."
+        },
+        {
+          "icon": "reply",
+          "title": "The promise",
+          "body": "We supply brands, importers and distributors. We sell through you — and stay out of your market."
+        }
       ]
     },
     "floor": {
       "kicker": "The floor",
       "heading": "Where your units are built",
       "parkTag": "China · Shenzhen",
-      "cells": { "assembly": "Assembly", "cnc": "Machining", "qc": "QC lab", "warehouse": "Warehouse", "shipping": "Logistics" }
+      "cells": {
+        "assembly": "Assembly",
+        "cnc": "Machining",
+        "qc": "QC lab",
+        "warehouse": "Warehouse",
+        "shipping": "Logistics"
+      }
     },
-    "numbers": { "kicker": "The numbers", "heading": "Capacity, on the record" },
+    "numbers": {
+      "kicker": "The numbers",
+      "heading": "Capacity, on the record"
+    },
     "team": {
       "kicker": "The team",
       "heading": "Small teams, full ownership",
       "cards": [
-        { "icon": "person", "title": "Dedicated R&D", "body": "Environmental monitoring — objective data, no exaggeration." },
-        { "icon": "doc", "title": "Full-process QC", "body": "Incoming inspection through pre-shipment recheck." },
-        { "icon": "reply", "title": "Product leads", "body": "Deep industry expertise, forward market insight." },
-        { "icon": "star", "title": "New models", "body": "The range keeps widening, year round." }
+        {
+          "icon": "person",
+          "title": "Dedicated R&D",
+          "body": "Environmental monitoring — objective data, no exaggeration."
+        },
+        {
+          "icon": "doc",
+          "title": "Full-process QC",
+          "body": "Incoming inspection through pre-shipment recheck."
+        },
+        {
+          "icon": "reply",
+          "title": "Product leads",
+          "body": "Deep industry expertise, forward market insight."
+        },
+        {
+          "icon": "star",
+          "title": "New models",
+          "body": "The range keeps widening, year round."
+        }
       ]
     },
     "quality": {
       "kicker": "Quality control",
       "heading": "Five gates before it ships",
       "steps": [
-        { "title": "Incoming inspection", "body": "Components checked against spec." },
-        { "title": "In-process checks", "body": "Fit, soldering, connections." },
-        { "title": "Functional testing", "body": "Every unit powers on and reads." },
-        { "title": "Final inspection", "body": "Sampled against the agreed spec." },
-        { "title": "Packing verification", "body": "Confirmed before sealing." }
+        {
+          "title": "Incoming inspection",
+          "body": "Components checked against spec."
+        },
+        {
+          "title": "In-process checks",
+          "body": "Fit, soldering, connections."
+        },
+        {
+          "title": "Functional testing",
+          "body": "Every unit powers on and reads."
+        },
+        {
+          "title": "Final inspection",
+          "body": "Sampled against the agreed spec."
+        },
+        {
+          "title": "Packing verification",
+          "body": "Confirmed before sealing."
+        }
       ]
     },
     "compliance": {
@@ -431,12 +514,32 @@
       "heading": "Certified for your market",
       "viewLabel": "View certificate",
       "cards": [
-        { "slot": "ce", "name": "CE", "scope": "EU conformity — every model" },
-        { "slot": "fcc", "name": "FCC", "scope": "US compliance — every model" },
-        { "slot": "rohs", "name": "RoHS", "scope": "Hazardous-substance control — every model" },
-        { "slot": "un38-3", "name": "UN38.3", "scope": "Battery transport — all battery models" }
+        {
+          "slot": "ce",
+          "name": "CE",
+          "scope": "EU conformity — every model"
+        },
+        {
+          "slot": "fcc",
+          "name": "FCC",
+          "scope": "US compliance — every model"
+        },
+        {
+          "slot": "rohs",
+          "name": "RoHS",
+          "scope": "Hazardous-substance control — every model"
+        },
+        {
+          "slot": "un38-3",
+          "name": "UN38.3",
+          "scope": "Battery transport — all battery models"
+        }
       ],
-      "audit": { "kicker": "Open floor", "heading": "Come audit the floor.", "cta": "Book a visit" }
+      "audit": {
+        "kicker": "Open floor",
+        "heading": "Come audit the floor.",
+        "cta": "Book a visit"
+      }
     }
   },
   "certificates": {
