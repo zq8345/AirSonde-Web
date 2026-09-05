@@ -41,9 +41,16 @@
    title attribute and on the product page. Flagged in the hand-over as a decision item. */
 .prods--list .pcard h3 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .no-results { padding: 8px 0 24px; color: var(--faint); }
-/* DESIGN.md §5 + products-v1.html: chips are white on the mint text area. (The homepage
-   file's later rule makes them mint there — flagged to 总工 as a cross-page inconsistency.) */
-.prods--list .pcard .chips span { background: #fff; }
+
+/* ≤640 (总工 2026-09-05, approved): the two pill rows stop wrapping and scroll sideways,
+   so the sticky bar stays two rows tall instead of covering half the phone screen
+   (measured 444px at 375 with wrapping). Desktop unchanged. */
+@media (max-width: 640px) {
+  .fbar { flex-wrap: nowrap; }
+  .filters, .sfilters { flex-wrap: nowrap; overflow-x: auto; width: 100%; min-width: 0; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .filters::-webkit-scrollbar, .sfilters::-webkit-scrollbar { display: none; }
+  .filters button, .sfilters button { flex: 0 0 auto; white-space: nowrap; }
+}
 
 /* ── slim CTA (design: inline overrides on .cta-band). Doubled class = beats the shared
    .cta-band rule regardless of which stylesheet the bundler emits first. ── */
