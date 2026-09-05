@@ -16,14 +16,10 @@ import sceneOffice from '../assets/photos/scene-office-v1.webp';
 import sceneSchool from '../assets/photos/scene-school-v1.webp';
 import sceneIndustrial from '../assets/photos/scene-industrial-v1.webp';
 
-// 2026-09-05: the /solutions/ list-page meta (title + description) moved to site-content.json
-// seo.pages.solutions (admin-editable), read through META.solutions in site.ts. Scene detail
-// meta below stays here until its own copy batch.
-export const SOLUTIONS_HUB = {
-  eyebrow: 'Solutions',
-  heading: 'Monitors that fit the room they hang in',
-  intro: 'One sensing core, different rooms. Four environments cover most programmes.',
-} as const;
+// 2026-09-05: the /solutions/ list page reads its meta from site-content.json seo.pages.solutions
+// (via META.solutions) and its copy from solutionsV3; the old SOLUTIONS_HUB deck that lived here
+// had no reader left and was removed (dead-exports round 2). Scene detail meta below stays here
+// until its own copy batch.
 
 export interface Scene {
   slug: string;
