@@ -60,8 +60,8 @@
 .about .qc h4 { font-size: 15.5px; margin: 0 0 5px; }
 .about .qc p { font-size: 13.5px; line-height: 1.65; }
 
-/* CTA lives in its own 96px section in the design; the shared footer margin (104) closes the page */
-.about .cta-sec { padding-bottom: 0; }
+/* Joe 2026-09-05: no generic CTA band on this page — the audit band is the CTA, and the
+   Compliance section runs straight into a flush footer (HomeLayout footerFlush). */
 
 @media (max-width: 1000px) {
   .about .facts { grid-template-columns: 1fr; }

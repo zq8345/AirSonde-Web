@@ -40,7 +40,6 @@ const schemas = [
 ];
 
 const V = ABOUT_V1;
-const C = HOME_V4.cta;
 
 // hand-drawn line icons (DESIGN.md §7: 24 viewBox, stroke 1.8, round caps) — same set the homepage uses
 const ICONS: Record<string, string> = {
@@ -79,7 +78,7 @@ const certHref = (slot: string): string | null => {
 const certs = V.compliance.cards.map((c) => ({ ...c, href: certHref(c.slot) }));
 ---
 
-<HomeLayout title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas}>
+<HomeLayout title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas} footerFlush>
   <div class="about">
     {/* ① hero — reception photo, §4 veil */}
     <div class="phero">
@@ -244,20 +243,7 @@ const certs = V.compliance.cards.map((c) => ({ ...c, href: certHref(c.slot) }));
       </div>
     </section>
 
-    {/* ⑧ CTA */}
-    <section class="cta-sec">
-      <div class="wrap">
-        <div class="cta-band cta-band--slim">
-          <div>
-            <span class="kicker">{C.kicker}</span>
-            <h2>{C.heading}</h2>
-          </div>
-          <div class="ctas">
-            <a class="btn btn-paper" href="/contact/">{C.primary} →</a>
-            <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
-          </div>
-        </div>
-      </div>
-    </section>
+    {/* ⑧ (removed, Joe 2026-09-05): the generic dark CTA band duplicated the audit band —
+        both went to /contact/. The audit band is this page's CTA; the footer follows flush. */}
   </div>
 </HomeLayout>
