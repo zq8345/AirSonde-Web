@@ -201,14 +201,9 @@ export const GUIDES: Guide[] = [
   },
 ];
 
-// 2026-09-05: the /guides/ list-page meta (title + description) moved to site-content.json
-// seo.pages.guides (admin-editable), read through META.guides in site.ts. Article meta stays
-// in GUIDES until its own copy batch.
-export const GUIDES_HUB = {
-  eyebrow: 'Guides',
-  heading: 'Indoor air quality, for buyers',
-  // Provenance discipline (总工 2026-08-11): with zero enquiries to date, a
-  // present-tense "written from the enquiries we get" is a checkable false
-  // claim. Stance statements are fine; origin claims must be true.
-  intro: 'Working notes for people specifying indoor air quality monitors — not marketing copy.',
-} as const;
+// 2026-09-05: the /guides/ list page reads its meta from site-content.json seo.pages.guides (via
+// META.guides) and its copy from homeV4.guides; the old GUIDES_HUB deck that lived here had no
+// reader left and was removed (dead-exports round 2). Article meta stays in GUIDES until its own
+// copy batch. Provenance discipline still applies to any hub copy (总工 2026-08-11): with zero
+// enquiries to date, an origin claim like "written from the enquiries we get" is a checkable
+// false claim — stance statements are fine, origin claims must be true.
