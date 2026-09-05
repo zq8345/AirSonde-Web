@@ -357,7 +357,7 @@
         "tag": "02 — OFFICE",
         "heading": "Meeting rooms fill with people and empty of fresh air.",
         "body": "Desk and wall units that make stale air visible — CO₂ first, so facility teams know when to ventilate.",
-        "models": ["AK22A", "AK18B", "AK23CA"]
+        "models": ["AK22A", "AK18B", "AK16A"]
       },
       {
         "slug": "school",
