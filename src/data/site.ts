@@ -130,6 +130,14 @@ export const VALUE_PROPS = content.home.valueProps;
  * layout, order, hrefs and crop parameters stay in the templates.
  */
 export const HOME_V4 = content.homeV4;
+/**
+ * Footer v4 column headings (Joe 2026-09-05). Kept in TS rather than added to homeV4.footer:
+ * the admin validator whitelists JSON keys, so new keys there need the Admin window first.
+ * ⚠️ homeV4.footer (blurb / productsHeading / companyHeading / hqHeading / productLinks /
+ * companyLinks / channels / tagline) has no reader since v4 — left in the JSON untouched for
+ * the same reason; the Admin window decides when its form drops those fields.
+ */
+export const FOOTER_V4 = { explore: 'Explore', solutions: 'Solutions', contact: 'Contact' } as const;
 /** /products/ v1 list page copy (2026-09-05). */
 export const PRODUCTS_V1 = content.productsV1;
 /** /solutions/ v3 index page copy (2026-09-05, 总工-reviewed, verbatim). */

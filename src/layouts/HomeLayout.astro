@@ -12,7 +12,9 @@
  */
 import { Image } from 'astro:assets';
 import '../styles/home-v4.css';
-import { HOME_V4, NAV, SITE } from '../data/site';
+import { CONTACT_CHANNELS, CONTACT_V1, FOOTER_V4, HOME_V4, NAV, SITE } from '../data/site';
+import { SCENES_DATA } from '../data/solutions';
+import wechatQr from '../assets/photos/wechat-qr.webp';
 import contentJson from '../data/site-content.json';
 import { organisationSchema, websiteSchema } from '../lib/jsonld';
 import wordmarkGreen from '../assets/airsonde-wordmark-green.png';
@@ -50,11 +52,13 @@ const isCurrent = (href: string) => path === href || path === `${href}/` || path
 const isHome = path === '/';
 const logoOver = isHome ? wordmarkBright : wordmarkWhite;
 
-const F = HOME_V4.footer;
+// Footer v4 (Joe 2026-09-05, truth = about-v1.html <footer>). Every string is reused from an
+// existing single source — nothing new was added to site-content.json (admin validator):
+//   tagline = the homepage hero's two lines; Explore = NAV; Solutions = SCENES_DATA labels →
+//   /solutions/<slug>/; Contact rows = contact.* values with the Contact page's labels and
+//   channel hrefs; column headings live in site.ts FOOTER_V4.
 const contact = contentJson.contact;
-// hrefs are structure, not content (site-content _readme) — they live here.
-const productLinks = ['/products/', '/products/', '/products/', '/products/'];
-const companyLinks = ['/solutions/', '/guides/', '/about/', '/contact/'];
+const L = CONTACT_V1.info.labels;
 ---
 
 <!doctype html>
@@ -144,34 +148,40 @@ const companyLinks = ['/solutions/', '/guides/', '/about/', '/contact/'];
       <div class="wrap cols">
         <div class="brand">
           <Image src={wordmarkGreen} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="lazy" />
-          <p>{F.blurb}</p>
-          <a class="mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <p>{HOME_V4.hero.headline}<br />{HOME_V4.hero.headlineEm}</p>
         </div>
         <div>
-          <h4>{F.productsHeading}</h4>
+          <h4>{FOOTER_V4.explore}</h4>
           <ul>
-            {F.productLinks.map((label, i) => <li><a href={productLinks[i] ?? '/products/'}>{label}</a></li>)}
+            {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
           </ul>
         </div>
         <div>
-          <h4>{F.companyHeading}</h4>
+          <h4>{FOOTER_V4.solutions}</h4>
           <ul>
-            {F.companyLinks.map((label, i) => <li><a href={companyLinks[i] ?? '/'}>{label}</a></li>)}
+            {SCENES_DATA.map((scene) => <li><a href={`/solutions/${scene.slug}/`}>{scene.label}</a></li>)}
           </ul>
         </div>
         <div>
-          <h4>{F.hqHeading}</h4>
+          <h4>{FOOTER_V4.contact}</h4>
           <ul>
-            <li>{contact.address}</li>
-            <li>{contact.hours}</li>
-            <li>{F.channels} · {contact.phone}</li>
+            <li>{L.email} · <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li><a href={CONTACT_CHANNELS.whatsapp.href} target="_blank" rel="noopener">{L.whatsapp} · {CONTACT_CHANNELS.whatsapp.value}</a></li>
+            <li class="fwx" tabindex="0" aria-describedby="fwxpop">
+              {L.wechat} · {CONTACT_CHANNELS.phone.value}
+              <div class="wxpop" id="fwxpop" role="tooltip">
+                {/* 🔁 same replaceable asset as the Contact page: src/assets/photos/wechat-qr.webp */}
+                <Image src={wechatQr} alt={CONTACT_V1.info.wechatScan} widths={[184, 368]} sizes="184px" loading="lazy" />
+                <p>{CONTACT_V1.info.wechatScan}</p>
+              </div>
+            </li>
+            <li>{L.address} · {contact.address}</li>
           </ul>
         </div>
       </div>
       <div class="bar">
         <div class="wrap">
           <span>&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</span>
-          <span>{F.tagline}</span>
         </div>
       </div>
     </footer>
