@@ -212,7 +212,7 @@
         "shipping": "Dispatch"
       },
       "statLabels": [
-        "years OEM / ODM",
+        "founded",
         "staff",
         "patents",
         "facility",
@@ -248,7 +248,7 @@
       "cards": [
         {
           "icon": "factory",
-          "fig": "15+ yrs",
+          "fig": "Since 2015",
           "title": "The factory itself",
           "body": "No trading layer between your spec and the line."
         },

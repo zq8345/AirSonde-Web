@@ -26,7 +26,7 @@ import imgOffice from '../assets/photos/factory/factory-office.webp';
 export const ABOUT_META = {
   title: 'About — The Manufacturing Group Behind AirSonde | AirSonde',
   description:
-    'AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group: 15+ years of OEM/ODM production, 150+ staff, in-house tooling, assembly and QC.',
+    'AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group — founded in 2015, 120+ staff, in-house tooling, assembly and QC.',
 } as const;
 
 /** 'industrial-park' = Joe's rendered view · 'production-line' = the real photo */
@@ -61,20 +61,25 @@ export const ABOUT_STORY = {
   heading: 'Why AirSonde exists',
   paragraphs: [
     'Monitors are easy to find. A manufacturer who builds them under your name — and stays out of your market — is not.',
-    'You bring the market and the brand. The factory brings fifteen years of OEM/ODM electronics production, running at scale.',
+    'You bring the market and the brand. The factory has been building OEM/ODM electronics since 2015, running at scale.',
   ],
 } as const;
 
-/** Real group figures, Joe-authorized 2026-08-11. Same set as wanew.com/about. */
+/**
+ * Real group figures — Joe's site-wide ruling 2026-09-05 (supersedes the 2026-08-11 set):
+ * founded 2015 · 120+ staff · 200+ patents · 5,000m² · 600,000+ units/month · 100+ countries.
+ * 🔴 Single source: the homepage stats read these values (index.astro pairs them with its
+ * own short labels by position — keep the ORDER stable, or the labels go wrong).
+ */
 export const ABOUT_STATS = {
   heading: 'The group in numbers',
   items: [
-    { value: '15+', label: 'Years of OEM / ODM manufacturing' },
-    { value: '150+', label: 'Production and engineering staff' },
+    { value: '2015', label: 'Founded' },
+    { value: '120+', label: 'Production and engineering staff' },
     { value: '200+', label: 'Patents and registrations' },
     { value: '5,000m²', label: 'Production facility' },
     { value: '600,000+', label: 'Units per month capacity' },
-    { value: '130+', label: 'Countries shipped to' },
+    { value: '100+', label: 'Countries shipped to' },
   ],
 } as const;
 
