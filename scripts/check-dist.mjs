@@ -94,6 +94,33 @@ for (const slug of draftSlugs) {
   }
 }
 
+// 2c. certification names are allowed in exactly two places (总工 2026-09-05, lifting the
+//     2026-08-12 red line with a boundary): the About page's compliance cards, and a
+//     product page's spec rows — the <dl class="as-spec"> plus the same row's machine form,
+//     the JSON-LD "Certification" PropertyValue. Anywhere else, CE / FCC / RoHS / UN38.3
+//     is a claim without a document behind it and fails the build.
+//     Whole-word match (\bCE\b will not fire inside "SINCE"); tags stripped so class names
+//     and URLs do not count; build-diagnostics.json is not HTML and is not scanned.
+{
+  const CERT_RE = /\b(CE|FCC|RoHS|ROHS|UN38\.3)\b/g;
+  for (const file of files.filter((f) => f.endsWith('.html'))) {
+    const rel = path.relative(DIST, file).split(path.sep).join('/');
+    let body = await readFile(file, 'utf8');
+    if (rel === 'about/index.html') {
+      body = body.replace(/<div class="certs">[\s\S]*?<div class="audit">/, '<div class="audit">');
+    }
+    if (/^products\/[^/]+\/index\.html$/.test(rel)) {
+      body = body.replace(/<dl class="as-spec">[\s\S]*?<\/dl>/g, '');
+      body = body.replace(/\{"@type":"PropertyValue","name":"Certification","value":"[^"]*"\}/g, '');
+    }
+    const text = body.replace(/<[^>]+>/g, ' ');
+    const hits = [...text.matchAll(CERT_RE)].map((m) => m[1]);
+    if (hits.length > 0) {
+      failures.push(`${file}: certification name(s) outside the allowed places: ${[...new Set(hits)].join(', ')} (${hits.length})`);
+    }
+  }
+}
+
 // 3. every page needs a unique title and description, and the sitemap must
 //    list exactly the indexable pages — no more, no fewer.
 const htmlFiles = files.filter((f) => f.endsWith('.html'));

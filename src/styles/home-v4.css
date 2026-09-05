@@ -269,11 +269,23 @@ header.sc .menu-btn:hover { border-color: var(--green); color: var(--green); }
 /* ── sub-page hero (products-v1 / solutions-v3: half the homepage hero) ── */
 .phero { position: relative; height: 440px; display: flex; align-items: flex-end; overflow: hidden; }
 .phero .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+/* Sub-page veil, DESIGN.md §4 (Joe 2026-09-05, three layers, tiered by how bright the photo is):
+   ① left band — bright photos (Products showroom / Contact reception / About / Guides bench)
+      .68/.38/.08; dark photos (Solutions meeting room) .55/.28/.05 via .phero--dark
+   ② top scrim under the transparent nav — .32 (bright) / .22 (dark), gone by ~20%
+   ③ bottom — .04 at 60% → .38, same for both.
+   The homepage hero (.hero .veil) is tuned separately and is not touched by this. */
 .phero .veil {
   position: absolute; inset: 0;
   background:
-    /* Joe 2026-09-05: sub-page veils lightened (DESIGN.md §4) — the homepage hero keeps its own wash */
+    linear-gradient(90deg, rgba(11, 31, 26, 0.68) 0%, rgba(11, 31, 26, 0.38) 45%, rgba(11, 31, 26, 0.08) 100%),
+    linear-gradient(180deg, rgba(11, 31, 26, 0.32) 0%, rgba(11, 31, 26, 0) 22%),
+    linear-gradient(180deg, rgba(11, 31, 26, 0.04) 60%, rgba(11, 31, 26, 0.38) 100%);
+}
+.phero--dark .veil {
+  background:
     linear-gradient(90deg, rgba(11, 31, 26, 0.55) 0%, rgba(11, 31, 26, 0.28) 45%, rgba(11, 31, 26, 0.05) 100%),
+    linear-gradient(180deg, rgba(11, 31, 26, 0.22) 0%, rgba(11, 31, 26, 0) 20%),
     linear-gradient(180deg, rgba(11, 31, 26, 0.04) 60%, rgba(11, 31, 26, 0.38) 100%);
 }
 .phero .wrap { position: relative; width: 100%; padding-bottom: 52px; }
