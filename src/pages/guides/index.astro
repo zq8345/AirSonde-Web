@@ -14,7 +14,9 @@ import '../../styles/guides-v1.css';
 import { HOME_V4, SITE } from '../../data/site';
 import { GUIDES, GUIDES_HUB } from '../../data/guides';
 import { breadcrumbSchema } from '../../lib/jsonld';
-import heroPhoto from '../../assets/photos/factory/factory-qc.webp';
+// Joe's final take for this hero (2026-09-05): the workspace photo, framed at center 35% so the
+// heads stay in frame on wide screens — the SPEC's factory-qc line predates that decision.
+import heroPhoto from '../../assets/photos/hero-workspace-v2.webp';
 
 const schemas = [
   breadcrumbSchema([
@@ -35,9 +37,9 @@ const guides = GUIDES.slice().sort((a, b) => b.datePublished.localeCompare(a.dat
     <div class="phero">
       <Image
         src={heroPhoto}
-        alt="Engineer at a test bench with measurement instruments"
+        alt="Engineers at a shared workspace with monitors and test equipment"
         class="bg"
-        style="object-position: center 45%"
+        style="object-position: center 35%"
         widths={[768, 1280, 1600, 2400]}
         sizes="100vw"
         quality={72}
