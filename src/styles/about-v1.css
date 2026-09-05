@@ -1,0 +1,83 @@
+/* /about/ v1 — copied from airsonde-design/about-v1.html. Tokens, nav, sub-page hero (.phero),
+   .sec-head, .kicker, buttons, slim CTA band and footer are the shared rules in home-v4.css
+   (loaded by HomeLayout). This file holds the About-only components. Values verbatim.
+   Everything is scoped under .about so the homepage's .stats/.qc rules (different geometry)
+   cannot leak in either direction. */
+
+.about .sec-first { padding-top: 64px; }
+.about .alt { background: var(--wash); }
+
+/* Overview: three fact cards (white section → wash cards); Team: four white cards + shadow on wash */
+.about .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.about .fact { background: var(--wash); border-radius: var(--r-lg); padding: 32px 30px; }
+.about .fact .fhead { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+/* margin:0 resets home-v4.css's homepage .ico (margin-bottom 16) that would otherwise stretch .fhead to 62px */
+.about .fact .ico { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; margin: 0; border-radius: 13px; background: var(--mint); flex: none; }
+.about .fact .ico svg { width: 24px; height: 24px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.about .fact h3 { font-size: 18px; margin-bottom: 8px; }
+.about .fact p { font-size: 14.5px; }
+.about .facts.four { grid-template-columns: repeat(4, 1fr); }
+.about .facts.four .fact { background: #fff; box-shadow: var(--shadow); }
+
+/* Compliance: four white cards on wash + the mint audit band */
+.about .certs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.about .cert { background: #fff; border-radius: var(--r-lg); padding: 30px 28px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow); }
+.about .cert b { font-family: var(--disp); font-size: 26px; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
+.about .cert span { font-size: 13.5px; color: var(--body); flex: 1; }
+.about .cert .alink { font-size: 14px; margin-top: 10px; padding-bottom: 0; }
+.about .audit { background: var(--mint); border-radius: calc(var(--r-lg) + 6px); padding: 52px 64px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; margin-top: 26px; box-shadow: var(--shadow); }
+.about .audit h2 { font-size: clamp(28px, 3vw, 38px); margin-top: 14px; margin-bottom: 0; }
+.about .audit--alone { margin-top: 0; }
+
+/* The floor: park image + five zone photos */
+.about .park { position: relative; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 22px; }
+.about .park img { width: 100%; height: 460px; object-fit: cover; transition: 0.5s; }
+.about .park:hover img { transform: scale(1.02); }
+.about .park em { position: absolute; left: 22px; bottom: 18px; font-style: normal; font-family: var(--disp); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: rgba(11, 31, 26, 0.55); backdrop-filter: blur(6px); border-radius: var(--r-pill); padding: 6px 14px; }
+.about .fstrip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.about .fcell { position: relative; border-radius: var(--r-md); overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+.about .fcell img { width: 100%; height: 190px; object-fit: cover; transition: 0.4s; }
+.about .fcell:hover img { transform: scale(1.06); }
+.about .fcell em { position: absolute; left: 12px; bottom: 10px; font-style: normal; font-family: var(--disp); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: rgba(11, 31, 26, 0.55); backdrop-filter: blur(6px); border-radius: var(--r-pill); padding: 5px 12px; }
+
+/* The numbers: dark rounded container on a white section (dark as container, not as ground) */
+.about .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; background: linear-gradient(150deg, var(--dark), var(--dark-3)); border-radius: var(--r-lg); padding: 30px 8px; box-shadow: var(--shadow); text-align: center; }
+.about .stats > div { padding: 2px 14px; border-right: 1px solid rgba(255, 255, 255, 0.12); }
+.about .stats > div:last-child { border-right: 0; }
+.about .stats b { display: block; font-family: var(--disp); font-size: 27px; color: var(--green-bright); letter-spacing: -0.02em; white-space: nowrap; }
+.about .stats span { font-size: 13px; color: var(--on-dark-dim); }
+
+/* the design's heading rule covers h4 too; home-v4.css only styles h1–h3 */
+.about h4 { font-family: var(--disp); color: var(--ink); letter-spacing: -0.02em; line-height: 1.2; font-weight: 600; }
+
+/* Quality control: five gates on a rail.
+   ⚠️ home-v4.css has its own .qc (homepage: 34px mint ring, gap 28, margin-top 44, p line-height 1.5);
+   every property it sets is reset here explicitly so nothing leaks into this page's geometry. */
+.about .qc { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; margin-top: 0; position: relative; }
+.about .qc::before { content: ''; position: absolute; top: 21px; left: 4%; right: 4%; height: 2px; background: var(--line); }
+.about .qc > div { position: relative; background: none; padding: 0; }
+.about .qc em { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; border: 0; box-shadow: none; background: var(--green); color: #fff; font-style: normal; font-family: var(--disp); font-weight: 700; font-size: 14px; margin-bottom: 14px; }
+.about .qc h4 { font-size: 15.5px; margin: 0 0 5px; }
+.about .qc p { font-size: 13.5px; line-height: 1.65; }
+
+/* CTA lives in its own 96px section in the design; the shared footer margin (104) closes the page */
+.about .cta-sec { padding-bottom: 0; }
+
+@media (max-width: 1000px) {
+  .about .facts { grid-template-columns: 1fr; }
+  .about .facts.four { grid-template-columns: 1fr 1fr; }
+  .about .certs { grid-template-columns: 1fr 1fr; }
+  .about .park img { height: 320px; }
+  .about .fstrip { grid-template-columns: repeat(3, 1fr); }
+  .about .stats { grid-template-columns: repeat(3, 1fr); }
+  .about .qc { grid-template-columns: repeat(2, 1fr); }
+  .about .qc::before { display: none; }
+  .about .audit { grid-template-columns: 1fr; padding: 44px; }
+}
+@media (max-width: 640px) {
+  .about .facts.four { grid-template-columns: 1fr; }
+  .about .certs { grid-template-columns: 1fr; }
+  .about .fstrip { grid-template-columns: 1fr 1fr; }
+  .about .stats { grid-template-columns: 1fr 1fr; }
+  .about .qc { grid-template-columns: 1fr; }
+}

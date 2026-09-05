@@ -1,31 +1,36 @@
 ---
 /**
- * /about/ — W10: rebuilt on wanew.com/about's nine-section skeleton
- * (page-header / story+media+where / capability tiles+stats / quality /
- * OEM-ODM / FAQ / CTA). Light theme stays; every sentence renders from
- * src/data/about.ts. 🔴 wanew's COMPLIANCE & TESTING cert strip is NOT
- * ported — our own verified compliance-engineering block (company-level
- * routes + per-model qualifier) stays instead.
+ * /about/ v1 — Design System v1 (真源 airsonde-design/about-v1.html, DESIGN.md wins on
+ * conflict). Nine sections in the order Joe walked through, ⛔ do not reorder:
+ *   hero → Overview (3 cards) → The floor (park + 5 zones) → The numbers (dark stats
+ *   container) → The team (4 cards) → Quality control (5 gates) → Compliance (4 cards +
+ *   audit band) → CTA → footer.
+ * Ground rhythm: image → white → wash → white → wash → white → wash → white → dark footer.
+ *
+ * Facts: the six figures render from about.ts ABOUT_STATS (single source, Joe's 2026-09-05
+ * ruling) with the homepage's short labels. Copy from site-content.json aboutV1 (verbatim).
+ *
+ * Certification names (CE / FCC / RoHS / UN38.3) are allowed HERE and in product spec rows
+ * only — 总工 2026-09-05 lifted the 2026-08-12 red line with that boundary, backed by Joe's
+ * own compliance copy, the catalogue's Certification field and the certificate uploads.
+ * A card's "View certificate" link renders only when the Admin-written `certificates`
+ * slot has a path AND the file exists under public/ at build time.
  */
+import fs from 'node:fs';
+import path from 'node:path';
 import { Image } from 'astro:assets';
-import LightBase from '../layouts/LightBase.astro';
-import { SITE } from '../data/site';
-import {
-  ABOUT_COMPLIANCE,
-  ABOUT_CTA,
-  ABOUT_FACTORY,
-  ABOUT_FAQ,
-  ABOUT_HERO,
-  ABOUT_META,
-  ABOUT_QUALITY,
-  ABOUT_SERVICES,
-  ABOUT_STATS,
-  ABOUT_STORY,
-  ABOUT_WHERE,
-} from '../data/about';
-// ABOUT_WHERE.photo is no longer rendered here (Joe) — the asset stays in the
-// data file so the where-line and the photo can be restored together.
+import HomeLayout from '../layouts/HomeLayout.astro';
+import '../styles/about-v1.css';
+import { ABOUT_V1, CERTIFICATES, HOME_V4, SITE } from '../data/site';
+import { ABOUT_META, ABOUT_STATS } from '../data/about';
 import { breadcrumbSchema } from '../lib/jsonld';
+import heroPhoto from '../assets/photos/products-hero-reception-v3.webp';
+import parkPhoto from '../assets/photos/about-hero-industrial-park.webp';
+import facAssembly from '../assets/photos/factory/factory-assembly.webp';
+import facCnc from '../assets/photos/factory/factory-cnc.webp';
+import facQc from '../assets/photos/factory/factory-qc.webp';
+import facWarehouse from '../assets/photos/factory/factory-warehouse.webp';
+import facShipping from '../assets/photos/factory/factory-shipping.webp';
 
 const schemas = [
   breadcrumbSchema([
@@ -33,169 +38,226 @@ const schemas = [
     { name: 'About', url: `${SITE.url}/about/` },
   ]),
 ];
+
+const V = ABOUT_V1;
+const C = HOME_V4.cta;
+
+// hand-drawn line icons (DESIGN.md §7: 24 viewBox, stroke 1.8, round caps) — same set the homepage uses
+const ICONS: Record<string, string> = {
+  factory: 'M3 21V9l6 3V9l6 3V5.5L21 4v17M3 21h18M7 17h2m4 0h2',
+  box: 'M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5m0 0l9-5m-9 5v9',
+  reply: 'M4 6h16v10H9l-5 4V6zM8 11h8',
+  person: 'M12 3a4 4 0 100 8 4 4 0 000-8zM4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1',
+  doc: 'M7 3h8l4 4v14H7V3zM15 3v4h4M10 13l2 2 4-4',
+  star: 'M12 3l2 4 4.5.6-3.2 3.2.8 4.5-4.1-2.2-4.1 2.2.8-4.5L5.5 7.6 10 7l2-4z',
+};
+
+// the five zone photos, captions from copy (fixed order = the design's order)
+const cells = [
+  { key: 'assembly', src: facAssembly, alt: 'Assembly line at the manufacturing facility' },
+  { key: 'cnc', src: facCnc, alt: 'Injection moulding and machining hall' },
+  { key: 'qc', src: facQc, alt: 'Engineer at a test bench with measurement instruments' },
+  { key: 'warehouse', src: facWarehouse, alt: 'Racked warehouse aisle with boxed stock' },
+  { key: 'shipping', src: facShipping, alt: 'Palletised cartons staged for dispatch' },
+].map((c) => ({ ...c, caption: (V.floor.cells as Record<string, string>)[c.key] ?? c.key }));
+
+// six figures: values from about.ts, short labels paired by position (same pairing as the homepage)
+const stats = ABOUT_STATS.items.map((s, i) => ({ value: s.value, label: HOME_V4.factory.statLabels[i] ?? s.label }));
+
+// certificate links: slot path from the admin-written block, only if the file really exists
+const PUBLIC_DIR = path.resolve('public');
+const certHref = (slot: string): string | null => {
+  const rel = CERTIFICATES[slot];
+  if (!rel) return null;
+  const clean = rel.replace(/^\/+/, '');
+  if (!fs.existsSync(path.join(PUBLIC_DIR, clean))) {
+    console.warn(`[about] certificate slot "${slot}" points at public/${clean}, which does not exist — link not rendered`);
+    return null;
+  }
+  return `/${clean}`;
+};
+const certs = V.compliance.cards.map((c) => ({ ...c, href: certHref(c.slot) }));
 ---
 
-<LightBase title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas}>
-  {/* 1 ── photo hero (§3.2d info-page hero) */}
-  <section class="as-hero as-hero--page as-hero--cap28" style={`--hero-focus: ${ABOUT_HERO.photo.focus}`}>
-    <Image
-      src={ABOUT_HERO.photo.src}
-      alt={ABOUT_HERO.photo.alt}
-      class="as-hero__img"
-      widths={[768, 1280, 1600, 2400]}
-      sizes="100vw"
-      quality={68}
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div class="as-hero__wash" aria-hidden="true"></div>
-    <div class="as-container as-hero__in">
-      <p class="as-hero__eyebrow">{ABOUT_HERO.eyebrow}</p>
-      <h1 class="as-hero__title">{ABOUT_HERO.heading}</h1>
-      <p class="as-hero__lead">{ABOUT_HERO.lead}</p>
+<HomeLayout title={ABOUT_META.title} description={ABOUT_META.description} schemas={schemas}>
+  <div class="about">
+    {/* ① hero — reception photo, §4 veil */}
+    <div class="phero">
+      <Image
+        src={heroPhoto}
+        alt="Reception with the airsonde wordmark on the wall and monitors on display"
+        class="bg"
+        style="object-position: center 45%"
+        widths={[768, 1280, 1600, 2400]}
+        sizes="100vw"
+        quality={72}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="veil" aria-hidden="true"></div>
+      <div class="wrap">
+        <span class="kicker">{V.hero.kicker}</span>
+        <h1>{V.hero.heading}</h1>
+      </div>
     </div>
-  </section>
 
-  {/* 2+3 ── story: kicker + statement | body, closed by the where-line row */}
-  <section class="as-section as-abstory-section">
-    <div class="as-container">
-      <div class="as-abstory">
-        <div>
-          <p class="as-eyebrow">{ABOUT_STORY.kicker}</p>
-          <h2 class="as-d2">{ABOUT_STORY.heading}</h2>
+    {/* ② Overview — three fact cards */}
+    <section class="sec-first">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">{V.overview.kicker}</span>
+          <h2>{V.overview.heading}</h2>
         </div>
-        <div class="as-abstory__body">
-          {ABOUT_STORY.paragraphs.map((p) => <p>{p}</p>)}
-        </div>
-      </div>
-      {/* Joe: the office photo came off — the same floor is already shown in
-          the capability tiles below. The where-line stays. */}
-      <p class="as-abwhere">
-        {ABOUT_WHERE.label}
-        <b>{ABOUT_WHERE.place}</b>
-      </p>
-    </div>
-  </section>
-
-  {/* 4+5 ── manufacturing capability: six labelled tiles + the six figures */}
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-d2">{ABOUT_FACTORY.heading}</h2>
-        <p class="as-sub">{ABOUT_FACTORY.intro}</p>
-      </div>
-      <div class="as-factory">
-        {
-          ABOUT_FACTORY.photos.map((photo) => (
-            <figure data-as-reveal>
-              <Image src={photo.src} alt={photo.alt} widths={[480, 760]} sizes="(min-width: 900px) 30vw, (min-width: 560px) 45vw, 94vw" loading="lazy" />
-              <figcaption>{photo.caption}</figcaption>
-            </figure>
-          ))
-        }
-      </div>
-      <div class="as-stats" style="margin-top:44px">
-        {
-          ABOUT_STATS.items.map((s) => (
-            <div class="as-stat">
-              <div class="as-stat__value">{s.value}</div>
-              <div class="as-stat__label">{s.label}</div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* 6 ── quality process. 🔴 wanew's cert strip is not ported; our verified
-      compliance-engineering block (with the per-model qualifier) stays. */}
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-d2">{ABOUT_QUALITY.heading}</h2>
-        <p class="as-sub">{ABOUT_QUALITY.intro}</p>
-      </div>
-      <div class="as-steps">
-        {
-          ABOUT_QUALITY.steps.map((step, i) => (
-            <div class="as-step">
-              <div class="as-step__n">{String(i + 1).padStart(2, '0')}</div>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </div>
-          ))
-        }
-      </div>
-
-      {/* 🔴 no cert names, no badges — 总工裁定 2026-08-12: scoped-per-programme
-          wording only, until real per-model documents exist */}
-      <div style="margin-top:44px">
-        <h3 style="font-size:var(--as-fs-h3);font-weight:700;color:var(--as-ink)">
-          {ABOUT_COMPLIANCE.heading}
-        </h3>
-        <p class="as-sub">{ABOUT_COMPLIANCE.body}</p>
-      </div>
-    </div>
-  </section>
-
-  {/* 7 ── OEM / ODM services (wanew ab8-oem two-card grid) */}
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <h2 class="as-d2">{ABOUT_SERVICES.heading}</h2>
-      </div>
-      <div class="as-cards2">
-        {
-          ABOUT_SERVICES.cards.map((card) => (
-            <article class="as-panelcard">
-              <h3>{card.title}</h3>
-              <p>{card.body}</p>
-              <ul class="as-panelcard__points">
-                {card.points.map((point) => (
-                  <li>{point}</li>
-                ))}
-              </ul>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* 8 ── FAQ — three honest answers, existing sentences */}
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-sechead">
-        <p class="as-eyebrow">{ABOUT_FAQ.kicker}</p>
-        <h2 class="as-d2">{ABOUT_FAQ.heading}</h2>
-      </div>
-      <ul class="as-faq">
-        {
-          ABOUT_FAQ.items.map((item) => (
-            <li>
-              <h3>{item.q}</h3>
-              <p>{item.a}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  {/* 9 ── CTA */}
-  <section class="as-section" style="padding-top:0">
-    <div class="as-container">
-      <div class="as-cta">
-        <h2 class="as-cta__title">{ABOUT_CTA.heading}</h2>
-        <p class="as-cta__body">{ABOUT_CTA.body}</p>
-        <div class="as-cta__actions">
-          <a href="/contact/" class="as-btn as-btn--primary">
-            Request a quote
-            <span class="as-arw" aria-hidden="true">→</span>
-          </a>
-          <a href="/products/" class="as-btn as-btn--ghost">All products</a>
+        <div class="facts">
+          {
+            V.overview.cards.map((c) => (
+              <div class="fact">
+                <div class="fhead">
+                  <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={ICONS[c.icon]} /></svg></span>
+                  <h3>{c.title}</h3>
+                </div>
+                <p>{c.body}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
-    </div>
-  </section>
-</LightBase>
+    </section>
+
+    {/* ③ The floor — park + five zones */}
+    <section class="alt">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">{V.floor.kicker}</span>
+          <h2>{V.floor.heading}</h2>
+        </div>
+        <div class="park">
+          <Image src={parkPhoto} alt="Industrial park exterior" widths={[768, 1280, 1600]} sizes="(min-width: 1240px) 1136px, 94vw" loading="lazy" />
+          <em>{V.floor.parkTag}</em>
+        </div>
+        <div class="fstrip">
+          {
+            cells.map((c) => (
+              <div class="fcell">
+                <Image src={c.src} alt={c.alt} widths={[320, 480, 640]} sizes="(min-width: 1000px) 216px, (min-width: 640px) 30vw, 45vw" loading="lazy" />
+                <em>{c.caption}</em>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ④ The numbers — dark container on white */}
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">{V.numbers.kicker}</span>
+          <h2>{V.numbers.heading}</h2>
+        </div>
+        <div class="stats">
+          {
+            stats.map((s) => (
+              <div>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ⑤ The team — four white cards on wash */}
+    <section class="alt">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">{V.team.kicker}</span>
+          <h2>{V.team.heading}</h2>
+        </div>
+        <div class="facts four">
+          {
+            V.team.cards.map((c) => (
+              <div class="fact">
+                <div class="fhead">
+                  <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={ICONS[c.icon]} /></svg></span>
+                  <h3>{c.title}</h3>
+                </div>
+                <p>{c.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ⑥ Quality control — five gates */}
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">{V.quality.kicker}</span>
+          <h2>{V.quality.heading}</h2>
+        </div>
+        <div class="qc">
+          {
+            V.quality.steps.map((s, i) => (
+              <div>
+                <em>{String(i + 1).padStart(2, '0')}</em>
+                <h4>{s.title}</h4>
+                <p>{s.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ⑦ Compliance — four cards + audit band */}
+    <section class="alt">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="kicker">{V.compliance.kicker}</span>
+          <h2>{V.compliance.heading}</h2>
+        </div>
+        <div class="certs">
+          {
+            certs.map((c) => (
+              <div class="cert">
+                <b>{c.name}</b>
+                <span>{c.scope}</span>
+                {c.href && (
+                  <a class="alink" href={c.href} target="_blank" rel="noopener">
+                    {V.compliance.viewLabel} →
+                  </a>
+                )}
+              </div>
+            ))
+          }
+        </div>
+        <div class="audit">
+          <div>
+            <span class="kicker">{V.compliance.audit.kicker}</span>
+            <h2>{V.compliance.audit.heading}</h2>
+          </div>
+          <div class="ctas"><a class="btn btn-solid" href="/contact/">{V.compliance.audit.cta} →</a></div>
+        </div>
+      </div>
+    </section>
+
+    {/* ⑧ CTA */}
+    <section class="cta-sec">
+      <div class="wrap">
+        <div class="cta-band cta-band--slim">
+          <div>
+            <span class="kicker">{C.kicker}</span>
+            <h2>{C.heading}</h2>
+          </div>
+          <div class="ctas">
+            <a class="btn btn-paper" href="/contact/">{C.primary} →</a>
+            <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</HomeLayout>

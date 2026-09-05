@@ -402,5 +402,65 @@
       "wechatScan": "Scan to add on WeChat",
       "mapTitle": "AirSonde Shenzhen HQ"
     }
+  },
+  "aboutV1": {
+    "_readme": "/about/ page (design about-v1.html, Joe 2026-09-05 逐板块验收; copy verbatim, do not polish). Section ORDER is locked in about.astro. The six figures come from src/data/about.ts ABOUT_STATS (single source) with the short labels of homeV4.factory.statLabels; the CTA band reuses homeV4.cta. Certificate links come from the `certificates` block below.",
+    "hero": { "kicker": "About", "heading": "The factory behind your product." },
+    "overview": {
+      "kicker": "Overview",
+      "heading": "Who you're buying from",
+      "cards": [
+        { "icon": "factory", "title": "The company", "body": "AirSonde is the indoor-air-quality line of a Shenzhen electronics group — designed and built in Bao'an, Shenzhen." },
+        { "icon": "box", "title": "The offer", "body": "Ready products from stock, or OEM/ODM under your name — housing, interface and sensor set to your spec, alarm thresholds to your market's standard." },
+        { "icon": "reply", "title": "The promise", "body": "We supply brands, importers and distributors. We sell through you — and stay out of your market." }
+      ]
+    },
+    "floor": {
+      "kicker": "The floor",
+      "heading": "Where your units are built",
+      "parkTag": "China · Shenzhen",
+      "cells": { "assembly": "Assembly", "cnc": "Machining", "qc": "QC lab", "warehouse": "Warehouse", "shipping": "Logistics" }
+    },
+    "numbers": { "kicker": "The numbers", "heading": "Capacity, on the record" },
+    "team": {
+      "kicker": "The team",
+      "heading": "Small teams, full ownership",
+      "cards": [
+        { "icon": "person", "title": "Dedicated R&D", "body": "Environmental monitoring — objective data, no exaggeration." },
+        { "icon": "doc", "title": "Full-process QC", "body": "Incoming inspection through pre-shipment recheck." },
+        { "icon": "reply", "title": "Product leads", "body": "Deep industry expertise, forward market insight." },
+        { "icon": "star", "title": "New models", "body": "The range keeps widening, year round." }
+      ]
+    },
+    "quality": {
+      "kicker": "Quality control",
+      "heading": "Five gates before it ships",
+      "steps": [
+        { "title": "Incoming inspection", "body": "Components checked against spec." },
+        { "title": "In-process checks", "body": "Fit, soldering, connections." },
+        { "title": "Functional testing", "body": "Every unit powers on and reads." },
+        { "title": "Final inspection", "body": "Sampled against the agreed spec." },
+        { "title": "Packing verification", "body": "Confirmed before sealing." }
+      ]
+    },
+    "compliance": {
+      "kicker": "Compliance",
+      "heading": "Certified for your market",
+      "viewLabel": "View certificate",
+      "cards": [
+        { "slot": "ce", "name": "CE", "scope": "EU conformity — every model" },
+        { "slot": "fcc", "name": "FCC", "scope": "US compliance — every model" },
+        { "slot": "rohs", "name": "RoHS", "scope": "Hazardous-substance control — every model" },
+        { "slot": "un38-3", "name": "UN38.3", "scope": "Battery transport — all battery models" }
+      ],
+      "audit": { "kicker": "Open floor", "heading": "Come audit the floor.", "cta": "Book a visit" }
+    }
+  },
+  "certificates": {
+    "_readme": "Certificate files uploaded through the Admin certificate slots (Admin 第③单). Value = path under public/ (e.g. \"certificates/ce.pdf\") or null. The About page renders a card's 'View certificate' link only when the value is set AND the file exists at build time. Keys are fixed: ce / fcc / rohs / un38-3.",
+    "ce": null,
+    "fcc": null,
+    "rohs": null,
+    "un38-3": null
   }
 }

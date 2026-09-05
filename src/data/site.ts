@@ -152,6 +152,13 @@ export const CONTACT_V1 = {
   replyNote: `Reply ${content.contact.response.charAt(0).toLowerCase()}${content.contact.response.slice(1)}.`,
   mapEmbed: `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`,
 } as const;
+/** /about/ v1 page copy (2026-09-05, Joe 逐板块验收, verbatim). Figures stay in about.ts. */
+export const ABOUT_V1 = content.aboutV1;
+/**
+ * Certificate files by slot (Admin-written; see the block's _readme). `null` = no file yet.
+ * Typed loosely on purpose: the admin may add a slot before this file learns about it.
+ */
+export const CERTIFICATES: Record<string, string | null | undefined> = content.certificates;
 
 /**
  * W25: which products the homepage features, and in what order — the array's
