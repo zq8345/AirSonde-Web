@@ -1,8 +1,19 @@
 ---
+/**
+ * /solutions/ v3 — Design System v1 (真源 airsonde-design/solutions-v3.html, DESIGN.md wins
+ * on conflict). Four full-width scene cards (image / heading | body / models + Read more),
+ * white and wash sections alternating. The crawlable surface is unchanged: same title,
+ * description, canonical and BreadcrumbList as before.
+ *
+ * Copy (headings, bodies, model chips) is 总工-reviewed and verbatim — it lives in
+ * site-content.json `solutionsV3`. The scene slug is the join key to SCENES_DATA (image,
+ * alt) and to the existing /solutions/<slug>/ detail pages, which this round does not touch.
+ */
 import { Image } from 'astro:assets';
-import LightBase from '../../layouts/LightBase.astro';
-import { SITE } from '../../data/site';
-import { SCENES_DATA, SOLUTIONS_CTA, SOLUTIONS_HUB } from '../../data/solutions';
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import '../../styles/solutions-v3.css';
+import { HOME_V4, SITE, SOLUTIONS_V3 } from '../../data/site';
+import { SCENES_DATA, SOLUTIONS_HUB } from '../../data/solutions';
 import { breadcrumbSchema } from '../../lib/jsonld';
 
 const schemas = [
@@ -11,65 +22,102 @@ const schemas = [
     { name: 'Solutions', url: `${SITE.url}/solutions/` },
   ]),
 ];
+
+const S = HOME_V4.solutions; // kicker + heading: same words as the homepage section, one source
+const C = HOME_V4.cta;
+
+// Crop parameters are layout, not copy (DESIGN.md §9 locks them) — verbatim from the design.
+const CARD_FOCUS: Record<string, string> = {
+  home: '62% 55%',
+  office: '72% 60%',
+  school: '74% 50%',
+  industrial: '70% 42%',
+};
+const HERO_SCENE = 'office';
+const HERO_FOCUS = 'center 62%';
+
+const sceneBySlug = new Map(SCENES_DATA.map((s) => [s.slug, s]));
+const hero = sceneBySlug.get(HERO_SCENE);
+if (!hero) throw new Error(`[solutions] hero scene "${HERO_SCENE}" is not in SCENES_DATA`);
+
+const cards = SOLUTIONS_V3.scenes.map((copy) => {
+  const scene = sceneBySlug.get(copy.slug);
+  if (!scene) throw new Error(`[solutions] solutionsV3 scene "${copy.slug}" has no SCENES_DATA entry (image/alt/detail page)`);
+  return { copy, scene, focus: CARD_FOCUS[copy.slug] ?? '50% 50%' };
+});
 ---
 
-<LightBase
-  title={SOLUTIONS_HUB.meta.title}
-  description={SOLUTIONS_HUB.meta.description}
-  schemas={schemas}
->
-  <section class="as-section" style="padding-bottom:48px">
-    <div class="as-container as-pagehead">
-      <p class="as-eyebrow">{SOLUTIONS_HUB.eyebrow}</p>
-      <h1 class="as-pagehead__title">{SOLUTIONS_HUB.heading}</h1>
-      <p class="as-pagehead__lead">{SOLUTIONS_HUB.intro}</p>
+<HomeLayout title={SOLUTIONS_HUB.meta.title} description={SOLUTIONS_HUB.meta.description} schemas={schemas}>
+  <div class="phero">
+    <Image
+      src={hero.photo.src}
+      alt={hero.photo.alt}
+      class="bg"
+      style={`object-position: ${HERO_FOCUS}`}
+      widths={[768, 1280, 1600, 2400]}
+      sizes="100vw"
+      quality={72}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="veil" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="kicker">{S.kicker}</span>
+      <h1>{S.heading}</h1>
     </div>
-  </section>
+  </div>
 
-  {/* W15: big-image mode — the same panel language as the homepage's
-      "For every environment" band, but all four laid out (this is a
-      dedicated page; hiding three behind tabs would be a step back).
-      Flip LAYOUT to 'tabs' for the homepage-style switcher instead. */}
-  <section class="as-section" style="padding-top:0">
-    <div class="as-container">
-      <div class="as-scenestack">
-        {
-          SCENES_DATA.map((scene, i) => (
-            <a class="as-scenepanel is-active as-scenepanel--stacked" href={`/solutions/${scene.slug}/`}>
-              {/* W39: same per-scene framing as the homepage panel — these
-                  cards crop ~17% vertically at desktop and show only ~48% of
-                  the width at 375. */}
+  {
+    cards.map(({ copy, scene, focus }, i) => (
+      <section class:list={['envsec', { alt: i % 2 === 1, 'envsec--first': i === 0 }]}>
+        <div class="wrap">
+          <article class="env">
+            <div class="im">
               <Image
                 src={scene.photo.src}
                 alt={scene.photo.alt}
-                widths={[768, 1280, 1600]}
-                sizes="(min-width: 1240px) 1192px, 94vw"
+                style={`object-position: ${focus}`}
+                widths={[768, 1280, 1600, 2400]}
+                sizes="(min-width: 1200px) 1136px, calc(100vw - 64px)"
                 quality={72}
                 loading={i === 0 ? 'eager' : 'lazy'}
-                style={`object-position: ${scene.photo.panelFocus}`}
               />
-              <span class="as-scenepanel__cap">
-                <span class="as-scenepanel__eyebrow">{scene.label}</span>
-                <span class="as-scenepanel__line">{scene.homeLine}</span>
-                <span class="as-scenepanel__more">Read more →</span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+              <span class="tag">{copy.tag}</span>
+            </div>
+            <div class="below">
+              <div class="lt">
+                <h2>{copy.heading}</h2>
+              </div>
+              <div class="rt">
+                <p>{copy.body}</p>
+              </div>
+            </div>
+            <div class="cfoot">
+              <div class="models" aria-label="Fitting models">
+                {copy.models.map((m) => <span>{m}</span>)}
+              </div>
+              <a class="alink" href={`/solutions/${scene.slug}/`}>
+                {S.readMore} →
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    ))
+  }
 
-  <section class="as-section" style="padding-top:0">
-    <div class="as-container">
-      <div class="as-cta">
-        <h2 class="as-cta__title">{SOLUTIONS_CTA.heading}</h2>
-        <p class="as-cta__body">{SOLUTIONS_CTA.body}</p>
-        <div class="as-cta__actions">
-          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--primary">{SITE.email}</a>
-          <a href="/contact/" class="as-btn as-btn--ghost">What to send us</a>
+  <div class="cta-sec">
+    <div class="wrap">
+      <div class="cta-band cta-band--slim">
+        <div>
+          <span class="kicker">{C.kicker}</span>
+          <h2>{C.heading}</h2>
+        </div>
+        <div class="ctas">
+          <a class="btn btn-paper" href="/contact/">{C.primary} →</a>
+          <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </div>
       </div>
     </div>
-  </section>
-</LightBase>
+  </div>
+</HomeLayout>

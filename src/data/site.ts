@@ -132,6 +132,8 @@ export const VALUE_PROPS = content.home.valueProps;
 export const HOME_V4 = content.homeV4;
 /** /products/ v1 list page copy (2026-09-05). */
 export const PRODUCTS_V1 = content.productsV1;
+/** /solutions/ v3 index page copy (2026-09-05, 总工-reviewed, verbatim). */
+export const SOLUTIONS_V3 = content.solutionsV3;
 
 /**
  * W25: which products the homepage features, and in what order — the array's

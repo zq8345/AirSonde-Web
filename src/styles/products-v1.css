@@ -1,20 +1,6 @@
-/* /products/ v1 — copied from airsonde-design/products-v1.html. Tokens, nav, product
-   card, CTA band and footer are the shared rules in home-v4.css (loaded by HomeLayout);
-   this file holds only what that page adds. Keep values verbatim to the design. */
-
-/* ── sub-page hero (half the homepage hero) ── */
-.phero { position: relative; height: 440px; display: flex; align-items: flex-end; overflow: hidden; }
-.phero .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
-.phero .veil {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(90deg, rgba(11, 31, 26, 0.78) 0%, rgba(11, 31, 26, 0.5) 45%, rgba(11, 31, 26, 0.12) 100%),
-    linear-gradient(180deg, rgba(11, 31, 26, 0.1) 55%, rgba(11, 31, 26, 0.55) 100%);
-}
-.phero .wrap { position: relative; width: 100%; padding-bottom: 52px; }
-.phero .kicker { color: var(--green-bright); }
-.phero .kicker::before { background: var(--green-bright); }
-.phero h1 { color: #fff; font-size: clamp(34px, 3.6vw, 46px); margin-top: 14px; }
+/* /products/ v1 — copied from airsonde-design/products-v1.html. Tokens, nav, sub-page hero
+   (.phero), product card, slim CTA band and footer are the shared rules in home-v4.css
+   (loaded by HomeLayout); this file holds only what that page adds. Values verbatim. */
 
 /* ── sticky filter bar ── */
 .prods--list { padding-top: 0; }
@@ -50,15 +36,4 @@
   .filters, .sfilters { flex-wrap: nowrap; overflow-x: auto; width: 100%; min-width: 0; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .filters::-webkit-scrollbar, .sfilters::-webkit-scrollbar { display: none; }
   .filters button, .sfilters button { flex: 0 0 auto; white-space: nowrap; }
-}
-
-/* ── slim CTA (design: inline overrides on .cta-band). Doubled class = beats the shared
-   .cta-band rule regardless of which stylesheet the bundler emits first. ── */
-.cta-band.cta-band--slim { grid-template-columns: 1fr auto; padding: 52px 64px; }
-.cta-band.cta-band--slim h2 { margin-bottom: 0; }
-.cta-band.cta-band--slim .ctas { margin-top: 0; }
-.wrap.cta-wrap { margin-top: 96px; }
-
-@media (max-width: 1000px) {
-  .cta-band.cta-band--slim { grid-template-columns: 1fr; padding: 44px; }
 }

@@ -341,5 +341,38 @@
     "allCategories": "All categories",
     "allSensors": "All sensors",
     "empty": "No products match those filters yet."
+  },
+  "solutionsV3": {
+    "_readme": "/solutions/ index page (design solutions-v3.html, copy reviewed by 总工 2026-09-05 — verbatim, do not polish). Hero kicker/heading reuse homeV4.solutions. Each scene: tag (image pill), heading, body, models (chip text only, not links); the scene slug picks the image, crop and the /solutions/<slug>/ link in code.",
+    "scenes": [
+      {
+        "slug": "home",
+        "tag": "01 — HOME",
+        "heading": "One glance — is the air in here fine?",
+        "body": "Bedside and living-room monitors your customers read at a glance. CO₂, particulate and formaldehyde, in a housing that belongs on furniture.",
+        "models": ["AK34", "AK30", "AK23A"]
+      },
+      {
+        "slug": "office",
+        "tag": "02 — OFFICE",
+        "heading": "Meeting rooms fill with people and empty of fresh air.",
+        "body": "Desk and wall units that make stale air visible — CO₂ first, so facility teams know when to ventilate.",
+        "models": ["AK22A", "AK18B", "AK23CA"]
+      },
+      {
+        "slug": "school",
+        "tag": "03 — SCHOOL",
+        "heading": "Thirty people, windows shut through winter.",
+        "body": "Classroom monitors big enough to read from the back row, robust enough for a school year.",
+        "models": ["AK22B", "AK27", "AK35"]
+      },
+      {
+        "slug": "industrial",
+        "tag": "04 — INDUSTRIAL",
+        "heading": "Readings where the work happens.",
+        "body": "Handheld analysers, a γ-radiation counter and an IP65 heat-index unit — for floors, plants and inspections, in a hand walking the line.",
+        "models": ["AK33", "AK19", "AK36"]
+      }
+    ]
   }
 }

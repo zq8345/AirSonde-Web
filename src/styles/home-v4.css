@@ -259,6 +259,26 @@ header.sc .menu-btn:hover { border-color: var(--green); color: var(--green); }
 .send li { list-style: none; font-size: 15px; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.12); display: flex; gap: 14px; color: var(--on-dark); }
 .send li:last-child { border-bottom: 0; }
 .send li b { font-family: var(--disp); color: var(--green-bright); font-weight: 600; }
+/* slim variant used by the sub-pages (products-v1 / solutions-v3: kicker + h2 left, two
+   buttons right). Declared after .cta-band so it wins on equal specificity. */
+.cta-band--slim { grid-template-columns: 1fr auto; padding: 52px 64px; }
+.cta-band--slim h2 { margin-bottom: 0; }
+.cta-band--slim .ctas { margin-top: 0; }
+.cta-wrap { margin-top: 96px; }
+
+/* ── sub-page hero (products-v1 / solutions-v3: half the homepage hero) ── */
+.phero { position: relative; height: 440px; display: flex; align-items: flex-end; overflow: hidden; }
+.phero .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+.phero .veil {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11, 31, 26, 0.78) 0%, rgba(11, 31, 26, 0.5) 45%, rgba(11, 31, 26, 0.12) 100%),
+    linear-gradient(180deg, rgba(11, 31, 26, 0.1) 55%, rgba(11, 31, 26, 0.55) 100%);
+}
+.phero .wrap { position: relative; width: 100%; padding-bottom: 52px; }
+.phero .kicker { color: var(--green-bright); }
+.phero .kicker::before { background: var(--green-bright); }
+.phero h1 { color: #fff; font-size: clamp(34px, 3.6vw, 46px); margin-top: 14px; }
 
 /* ── footer ── */
 footer { background: var(--dark); color: var(--on-dark-dim); margin-top: 104px; }
