@@ -272,8 +272,9 @@ header.sc .menu-btn:hover { border-color: var(--green); color: var(--green); }
 .phero .veil {
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(11, 31, 26, 0.78) 0%, rgba(11, 31, 26, 0.5) 45%, rgba(11, 31, 26, 0.12) 100%),
-    linear-gradient(180deg, rgba(11, 31, 26, 0.1) 55%, rgba(11, 31, 26, 0.55) 100%);
+    /* Joe 2026-09-05: sub-page veils lightened (DESIGN.md §4) — the homepage hero keeps its own wash */
+    linear-gradient(90deg, rgba(11, 31, 26, 0.55) 0%, rgba(11, 31, 26, 0.28) 45%, rgba(11, 31, 26, 0.05) 100%),
+    linear-gradient(180deg, rgba(11, 31, 26, 0.04) 60%, rgba(11, 31, 26, 0.38) 100%);
 }
 .phero .wrap { position: relative; width: 100%; padding-bottom: 52px; }
 .phero .kicker { color: var(--green-bright); }
