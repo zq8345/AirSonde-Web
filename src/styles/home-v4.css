@@ -87,9 +87,12 @@ header { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: tr
    ≈ rgb(44,213,192)); here two flat-colour assets crossfade instead, so each steady state
    is an exact colour at opacity 1 — no filter, no veil. */
 .nav img { height: 27px; width: auto; transition: 0.3s; }
+/* .logo-over = the wordmark shown over the transparent header (bright green on the
+   homepage, white on sub-page heroes — DESIGN.md §6); .logo-green = brand green once
+   the header turns white. Both are flat-colour assets; the swap is a crossfade. */
 .logo-link { display: inline-flex; position: relative; transition: 0.2s; }
 .logo-link .logo-green { position: absolute; inset: 0; opacity: 0; }
-header.sc .logo-link .logo-bright { opacity: 0; }
+header.sc .logo-link .logo-over { opacity: 0; }
 header.sc .logo-link .logo-green { opacity: 1; }
 .logo-link:hover { opacity: 0.8; }
 .nav nav { display: flex; gap: 30px; font-weight: 500; font-size: 15px; color: #fff; margin-left: auto; transition: 0.3s; }

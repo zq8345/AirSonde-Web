@@ -1,26 +1,37 @@
 ---
 /**
- * /products/ — light skin (W4 products批, Joe 点名). Skin only: the schemas
- * (ItemList + BreadcrumbList), title, description and the client-side
- * category filter behaviour are unchanged from the dark version.
+ * /products/ v1 — Design System v1 (真源 airsonde-design/products-v1.html, DESIGN.md wins
+ * on conflict). Skin + filter UX; the crawlable surface is unchanged: same title,
+ * description, canonical, ItemList + BreadcrumbList JSON-LD as before.
+ *
+ * 🔴 Filters derive from the catalog (src/lib/catalog-filters.ts), not from the design's
+ * hand-typed map: every count, every pill, every card's sensor membership is rendered
+ * from the product records and re-read on the client from data attributes.
+ *
+ * Filter state lives in the URL (?category=…&sensor=…) so a filtered view can be
+ * reloaded or shared; unknown values fall back to "all".
  */
 import { Image } from 'astro:assets';
-import LightBase from '../../layouts/LightBase.astro';
-import LightProductCard from '../../components/LightProductCard.astro';
-import { META, PRODUCTS_PAGE, SITE } from '../../data/site';
-// Generated brand showroom scene. It is a brand image, not documentary
-// evidence of a real AirSonde facility, so page copy must not describe it as
-// such. Earlier showroom/reception renders remain for easy comparison.
-// 2026-08-28: v6, 2880x1200 (2.400:1), same spec as the homepage hero —
-// Joe's declared final take. Panelled wall with downlights on the left,
-// wall shelves and display island on the right. v2 stays on disk as the
-// fallback until Joe signs off on this one in place.
+import HomeLayout from '../../layouts/HomeLayout.astro';
+import '../../styles/products-v1.css';
+import { HOME_V4, META, PRODUCTS_V1, SITE } from '../../data/site';
+// Brand showroom render (v6, 2880x1200), the same image the previous skin used. It is a
+// brand image, not documentary evidence of a facility — page copy must not call it one.
 import heroPhoto from '../../assets/photos/products-hero-showroom-v6.webp';
 import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
-import { categoriesOf, categoryLabel, getPublishedProducts } from '../../lib/products';
+import {
+  categoryLabel,
+  getPublishedProducts,
+  headlineSensors,
+  productHref,
+  resolveProductImage,
+} from '../../lib/products';
+import { categoriesInTaxonomyOrder, chipLabel, sensorGroupsFor, sensorKeysOf } from '../../lib/catalog-filters';
 
 const products = await getPublishedProducts();
-const categories = categoriesOf(products);
+const categories = categoriesInTaxonomyOrder(products);
+const sensorGroups = sensorGroupsFor(products);
+const countOf = (category: string) => products.filter((p) => p.data.category === category).length;
 
 const schemas = [
   itemListSchema(products),
@@ -29,102 +40,173 @@ const schemas = [
     { name: 'Products', url: `${SITE.url}/products/` },
   ]),
 ];
+
+const P = HOME_V4.products; // kicker + heading: same words as the homepage section, one source
+const C = HOME_V4.cta;
 ---
 
-<LightBase title={META.products.title} description={META.products.description} schemas={schemas}>
-  <!--
-    focus, measured on this render (v6) rather than carried over from v5:
-    the "airsonde" wordmark sits at x 70.5-76.5%, y 34.5-37.1%, and it is the
-    element that must survive every crop (the v2 hero cut it at 1680 and up).
-    · Y 50%: under the 2.8 cap the desktop crop is a fixed ~13.5% of the
-      height, so the wordmark is safe at any Y (top margin 27.7 points at 50);
-      50 balances the ceiling light track against the island's floor glow —
-      both survive. (v5 needed Y 34 because its wordmark sat 5 points higher
-      and the box was uncapped when it shipped.)
-    · X 72% below 768px: there the crop is horizontal and only ~39% of the
-      image WIDTH is visible. X 50% would clip the wordmark's right edge;
-      72% keeps it whole with 6.4 points to spare and the copy still opens on
-      the panelled wall. (Checked by cropping the visible rectangle.)
-  -->
-  <!-- as-hero--openright: 蒙版 B — the wash fades out by x 78% so the display
-       island shows through; the text side (0-38%) is unchanged. -->
-  <section
-    class="as-hero as-hero--page as-hero--openright as-hero--cap28"
-    style="--hero-focus: 50% 50%; --hero-focus-narrow: 72% 50%"
-  >
+<HomeLayout title={META.products.title} description={META.products.description} schemas={schemas}>
+  <div class="phero">
     <Image
       src={heroPhoto}
       alt="Showroom with a panelled, downlit wall on the left and air-quality monitors on two lit wall shelves under the airsonde wordmark, more models on a rounded display island below"
-      class="as-hero__img"
+      class="bg"
       widths={[768, 1280, 1600, 2400]}
       sizes="100vw"
       quality={72}
       loading="eager"
       fetchpriority="high"
     />
-    <div class="as-hero__wash" aria-hidden="true"></div>
-    <div class="as-container as-hero__in">
-      <p class="as-hero__eyebrow">{PRODUCTS_PAGE.eyebrow}</p>
-      <h1 class="as-hero__title">{PRODUCTS_PAGE.heading}</h1>
-      <p class="as-hero__lead">{PRODUCTS_PAGE.intro}</p>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="kicker">{P.kicker}</span>
+      <h1>{P.heading}</h1>
     </div>
-  </section>
+  </div>
 
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-filterbar" role="group" aria-label={PRODUCTS_PAGE.filterLabel}>
-        <button type="button" data-filter="all" class="as-filter is-active" aria-pressed="true">
-          All<span class="as-filter__n">({products.length})</span>
-        </button>
-        {
-          categories.map((category) => (
-            <button type="button" data-filter={category} class="as-filter" aria-pressed="false">
-              {categoryLabel(category)}
-              <span class="as-filter__n">
-                ({products.filter((p) => p.data.category === category).length})
-              </span>
+  <section class="prods prods--list">
+    <div class="fwrap">
+      <div class="wrap">
+        <div class="fbar">
+          <div class="filters" id="filters" role="group" aria-label="Filter by category">
+            <button type="button" class="on" data-f="all" aria-pressed="true">
+              {PRODUCTS_V1.allCategories} <i class="n">({products.length})</i>
             </button>
-          ))
-        }
+            {
+              categories.map((category) => (
+                <button type="button" data-f={category} aria-pressed="false">
+                  {categoryLabel(category)} <i class="n">({countOf(category)})</i>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+        <div class="sfilters" id="sfilters" role="group" aria-label="Filter by sensor">
+          <button type="button" class="on" data-s="all" aria-pressed="true">{PRODUCTS_V1.allSensors}</button>
+          {
+            sensorGroups.map((g) => (
+              <button type="button" data-s={g.key} aria-pressed="false">
+                {g.label}
+              </button>
+            ))
+          }
+        </div>
       </div>
+    </div>
 
-      <div id="product-grid" class="as-pgrid as-pgrid--4" style="margin-top:32px">
+    <div class="wrap">
+      <div class="prod-row" id="grid">
         {
-          products.map((product) => (
-            <div data-category={product.data.category}>
-              <LightProductCard product={product} />
-            </div>
-          ))
+          products.map((product) => {
+            const { name, model, category, images } = product.data;
+            return (
+              <a
+                class="pcard"
+                href={productHref(product)}
+                data-c={category}
+                data-s={sensorKeysOf(product, sensorGroups).join(' ')}
+              >
+                <div class="ph">
+                  <Image
+                    src={resolveProductImage(images.main)}
+                    alt={name}
+                    widths={[320, 480, 640]}
+                    sizes="(min-width: 1000px) 363px, (min-width: 640px) 45vw, 90vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="tx">
+                  <span class="model">{model}</span>
+                  <h3 title={name}>{name}</h3>
+                  <div class="chips">
+                    {headlineSensors(product, 4).map((s) => <span>{chipLabel(s)}</span>)}
+                  </div>
+                </div>
+              </a>
+            );
+          })
         }
       </div>
-
-      <p id="no-results" class="as-sub" style="margin-top:32px" hidden>
-        {PRODUCTS_PAGE.emptyState}
-      </p>
+      <p id="no-results" class="no-results" hidden>{PRODUCTS_V1.empty}</p>
     </div>
   </section>
-</LightBase>
+
+  <div class="wrap cta-wrap">
+    <div class="cta-band cta-band--slim">
+      <div>
+        <span class="kicker">{C.kicker}</span>
+        <h2>{C.heading}</h2>
+      </div>
+      <div class="ctas">
+        <a class="btn btn-solid btn-paper" href="/contact/">{C.primary} →</a>
+        <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+    </div>
+  </div>
+</HomeLayout>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.as-filter');
-  const cards = document.querySelectorAll<HTMLElement>('#product-grid > [data-category]');
+  // Category × sensor AND filter. The card's data-c / data-s were rendered from the
+  // catalog, so this re-derives the same answer the build did — no second list.
+  const cards = [...document.querySelectorAll<HTMLElement>('#grid .pcard')];
+  const catBtns = [...document.querySelectorAll<HTMLButtonElement>('#filters button')];
+  const senBtns = [...document.querySelectorAll<HTMLButtonElement>('#sfilters button')];
   const empty = document.getElementById('no-results');
 
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const wanted = button.dataset.filter;
-      buttons.forEach((other) => {
-        const on = other === button;
-        other.setAttribute('aria-pressed', String(on));
-        other.classList.toggle('is-active', on);
-      });
-      let shown = 0;
-      cards.forEach((card) => {
-        const match = wanted === 'all' || card.dataset.category === wanted;
-        card.hidden = !match;
-        if (match) shown += 1;
-      });
-      if (empty) empty.hidden = shown > 0;
-    });
-  });
+  const matches = (card: HTMLElement, cat: string, sen: string) =>
+    (cat === 'all' || card.dataset.c === cat) &&
+    (sen === 'all' || (card.dataset.s ?? '').split(' ').includes(sen));
+
+  const known = (btns: HTMLButtonElement[], attr: 'f' | 's', v: string | null) =>
+    v && btns.some((b) => b.dataset[attr] === v) ? v : 'all';
+
+  const params = new URLSearchParams(location.search);
+  let cat = known(catBtns, 'f', params.get('category'));
+  let sen = known(senBtns, 's', params.get('sensor'));
+
+  const apply = () => {
+    let shown = 0;
+    for (const c of cards) {
+      const on = matches(c, cat, sen);
+      c.hidden = !on;
+      if (on) shown++;
+    }
+    if (empty) empty.hidden = shown > 0;
+
+    // category counts follow the current sensor choice (design: 数量集成进分类胶囊)
+    for (const b of catBtns) {
+      const f = b.dataset.f ?? 'all';
+      const n = cards.filter((c) => matches(c, f, sen)).length;
+      const el = b.querySelector('.n');
+      if (el) el.textContent = `(${n})`;
+      const active = f === cat;
+      b.classList.toggle('on', active);
+      b.setAttribute('aria-pressed', String(active));
+    }
+    for (const b of senBtns) {
+      const active = (b.dataset.s ?? 'all') === sen;
+      b.classList.toggle('on', active);
+      b.setAttribute('aria-pressed', String(active));
+    }
+
+    const q = new URLSearchParams();
+    if (cat !== 'all') q.set('category', cat);
+    if (sen !== 'all') q.set('sensor', sen);
+    const qs = q.toString();
+    history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + location.hash);
+  };
+
+  catBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      cat = b.dataset.f ?? 'all';
+      apply();
+    }),
+  );
+  senBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      sen = b.dataset.s ?? 'all';
+      apply();
+    }),
+  );
+  apply();
 </script>

@@ -335,5 +335,11 @@
       "channels": "WhatsApp · WeChat",
       "tagline": "OEM / ODM programmes open · reply within 2 business days"
     }
+  },
+  "productsV1": {
+    "_readme": "/products/ list page (design products-v1.html). The hero kicker/heading reuse homeV4.products (one variable, never two values); the CTA band reuses homeV4.cta. Pill labels for categories come from taxonomy.json, sensor pill labels from src/lib/catalog-filters.ts.",
+    "allCategories": "All categories",
+    "allSensors": "All sensors",
+    "empty": "No products match those filters yet."
   }
 }

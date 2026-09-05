@@ -130,6 +130,8 @@ export const VALUE_PROPS = content.home.valueProps;
  * layout, order, hrefs and crop parameters stay in the templates.
  */
 export const HOME_V4 = content.homeV4;
+/** /products/ v1 list page copy (2026-09-05). */
+export const PRODUCTS_V1 = content.productsV1;
 
 /**
  * W25: which products the homepage features, and in what order — the array's

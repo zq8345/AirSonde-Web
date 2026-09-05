@@ -18,6 +18,7 @@ import { organisationSchema, websiteSchema } from '../lib/jsonld';
 import wordmarkGreen from '../assets/airsonde-wordmark-green.png';
 // Derived by scripts/build-wordmark-bright.mjs: same alpha, RGB = --green-bright.
 import wordmarkBright from '../assets/airsonde-wordmark-bright.png';
+import wordmarkWhite from '../assets/airsonde-wordmark-white.png';
 
 interface Props {
   title?: string;
@@ -40,6 +41,11 @@ const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
 
 const path = Astro.url.pathname;
 const isCurrent = (href: string) => path === href || path === `${href}/` || path.startsWith(`${href}/`);
+// DESIGN.md §6 (总工 2026-09-05): over the transparent header the wordmark is bright
+// green on the homepage (Logo = Home = selected) and white on sub-page heroes; once
+// the header turns white every page shows the brand-green wordmark.
+const isHome = path === '/';
+const logoOver = isHome ? wordmarkBright : wordmarkWhite;
 
 const F = HOME_V4.footer;
 const contact = contentJson.contact;
@@ -90,10 +96,10 @@ const companyLinks = ['/solutions/', '/guides/', '/about/', '/contact/'];
     <header id="hd">
       <div class="wrap nav">
         <a class="logo-link" href="/" aria-label="Home">
-          {/* Logo = Home, colour = state (Joe 2026-09-05): bright green over the dark hero,
-              brand green once the header turns white. Two flat-colour assets, no filter,
-              no opacity on the visible logo — the swap is a CSS crossfade between them. */}
-          <Image class="logo-bright" src={wordmarkBright} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="eager" />
+          {/* Logo = Home, colour = state (Joe 2026-09-05): bright green (home) or white
+              (sub-pages) over the dark hero, brand green once the header turns white. Two
+              flat-colour assets, no filter, no opacity on the visible logo — a CSS crossfade. */}
+          <Image class="logo-over" src={logoOver} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="eager" />
           <Image class="logo-green" src={wordmarkGreen} alt="" aria-hidden="true" widths={[240, 480]} sizes="120px" loading="eager" />
         </a>
         <nav aria-label="Primary">
