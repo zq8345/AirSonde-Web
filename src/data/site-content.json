@@ -96,39 +96,6 @@
       "primaryCta": "Request a quote",
       "secondaryCta": "Browse all products"
     },
-    "marquee": [
-      {
-        "label": "CO₂",
-        "note": "NDIR"
-      },
-      {
-        "label": "PM1.0 / 2.5 / 10"
-      },
-      {
-        "label": "TVOC"
-      },
-      {
-        "label": "HCHO"
-      },
-      {
-        "label": "T / RH"
-      },
-      {
-        "label": "CO"
-      },
-      {
-        "label": "Breath alcohol"
-      },
-      {
-        "label": "Radon"
-      },
-      {
-        "label": "γ radiation"
-      },
-      {
-        "label": "AQI"
-      }
-    ],
     "products": {
       "kicker": "Products",
       "heading": "Ready to ship — or ready to rebrand",
@@ -211,13 +178,13 @@
         "warehouse": "Warehouse",
         "shipping": "Dispatch"
       },
-      "statLabels": [
-        "founded",
-        "staff",
-        "patents",
-        "facility",
-        "units / month",
-        "countries"
+      "stats": [
+        { "value": "2015", "label": "founded" },
+        { "value": "120+", "label": "staff" },
+        { "value": "200+", "label": "patents" },
+        { "value": "5,000m²", "label": "facility" },
+        { "value": "600,000+", "label": "units / month" },
+        { "value": "100+", "label": "countries" }
       ],
       "qc": [
         {
@@ -338,6 +305,10 @@
   },
   "productsV1": {
     "_readme": "/products/ list page (design products-v1.html). The hero kicker/heading reuse homeV4.products (one variable, never two values); the CTA band reuses homeV4.cta. Pill labels for categories come from taxonomy.json, sensor pill labels from src/lib/catalog-filters.ts.",
+    "hero": {
+      "kicker": "Products",
+      "heading": "Helping Everyone Breathe Healthier Air"
+    },
     "allCategories": "All Products",
     "allSensors": "All Sensing",
     "empty": "No products match those filters yet."

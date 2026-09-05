@@ -22,7 +22,7 @@ import { Image } from 'astro:assets';
 import HomeLayout from '../layouts/HomeLayout.astro';
 import '../styles/about-v1.css';
 import { ABOUT_V1, CERTIFICATES, HOME_V4, SITE } from '../data/site';
-import { ABOUT_META, ABOUT_STATS } from '../data/about';
+import { ABOUT_META } from '../data/about';
 import { breadcrumbSchema } from '../lib/jsonld';
 import heroPhoto from '../assets/photos/products-hero-reception-v3.webp';
 import parkPhoto from '../assets/photos/about-hero-industrial-park.webp';
@@ -60,8 +60,8 @@ const cells = [
   { key: 'shipping', src: facShipping, alt: 'Palletised cartons staged for dispatch' },
 ].map((c) => ({ ...c, caption: (V.floor.cells as Record<string, string>)[c.key] ?? c.key }));
 
-// six figures: values from about.ts, short labels paired by position (same pairing as the homepage)
-const stats = ABOUT_STATS.items.map((s, i) => ({ value: s.value, label: HOME_V4.factory.statLabels[i] ?? s.label }));
+// six figures: one admin-editable array (value + label per entry), shared with the homepage
+const stats = HOME_V4.factory.stats;
 
 // certificate links: slot path from the admin-written block, only if the file really exists
 const PUBLIC_DIR = path.resolve('public');

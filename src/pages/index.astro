@@ -13,7 +13,8 @@
 import { Image } from 'astro:assets';
 import HomeLayout from '../layouts/HomeLayout.astro';
 import { HOME_V4, META, SITE } from '../data/site';
-import { ABOUT_HERO, ABOUT_STATS } from '../data/about';
+import { ABOUT_HERO } from '../data/about';
+import { sensorGroupsFor } from '../lib/catalog-filters';
 import { SCENES_DATA } from '../data/solutions';
 import { GUIDES } from '../data/guides';
 import { getPublishedProducts, productHref, resolveProductImage } from '../lib/products';
@@ -66,9 +67,13 @@ const floor = [
   { key: 'shipping', src: facShipping, alt: 'Dispatch' },
 ].map((f) => ({ ...f, caption: (V.factory.floor as Record<string, string>)[f.key] ?? f.alt }));
 
-/* stats: values are the group figures Joe authorised (about.ts); the short
-   labels are homepage copy, paired by position */
-const stats = ABOUT_STATS.items.map((s, i) => ({ value: s.value, label: V.factory.statLabels[i] ?? s.label }));
+/* stats: one admin-editable array (value + label per entry), shared with /about/ */
+const stats = V.factory.stats;
+
+/* hero marquee: the same derivation as the /products/ sensor filter row (Joe 2026-09-05) —
+   the admin's sensor table (taxonomy.json), its order and labels, only values a published
+   product carries. No hand-written chip list anywhere. */
+const marquee = sensorGroupsFor(products);
 
 const guides = GUIDES.slice(0, 3);
 
@@ -112,13 +117,7 @@ const ICONS: Record<string, string> = {
             {
               [0, 1].map((copy) => (
                 <div class="set" aria-hidden={copy === 1 ? 'true' : undefined}>
-                  {V.marquee.map((c) => (
-                    <span class="chip">
-                      {c.label}
-                      {/* design: `CO₂ <i>NDIR</i>` — the space before <i> is part of the layout */}
-                      {'note' in c && c.note ? <>{' '}<i>{c.note}</i></> : null}
-                    </span>
-                  ))}
+                  {marquee.map((g) => <span class="chip">{g.label}</span>)}
                 </div>
               ))
             }

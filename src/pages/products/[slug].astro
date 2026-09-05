@@ -17,7 +17,7 @@ import { Image, getImage } from 'astro:assets';
 import type { GetStaticPaths } from 'astro';
 import HomeLayout from '../../layouts/HomeLayout.astro';
 import '../../styles/product-detail-v1.css';
-import { CONTACT_V1, HOME_V4, PRODUCTS_PAGE, SITE } from '../../data/site';
+import { CONTACT_V1, HOME_V4, PRODUCTS_PAGE, PRODUCTS_V1, SITE } from '../../data/site';
 import { stripLenticular } from '../../lib/text';
 import { breadcrumbSchema, productSchema } from '../../lib/jsonld';
 import { chipLabel } from '../../lib/catalog-filters';
@@ -156,7 +156,7 @@ const note = CONTACT_V1.replyNote.replace(/\.$/, '');
       />
       <div class="veil" aria-hidden="true"></div>
       <div class="wrap">
-        <span class="kicker">{HOME_V4.products.kicker}</span>
+        <span class="kicker">{PRODUCTS_V1.hero.kicker}</span>
         <div class="htitle">{P.heroHeading}</div>
       </div>
     </div>

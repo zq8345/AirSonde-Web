@@ -7,7 +7,9 @@
  * and was removed. What stays is what other pages depend on:
  *   - ABOUT_META  — /about/ title + description (the six figures appear in the description)
  *   - ABOUT_HERO  — the park photo, also the homepage factory stage
- *   - ABOUT_STATS — the six figures, read by /about/ and the homepage (Joe's ruling 2026-09-05)
+ * The six figures themselves moved to site-content.json homeV4.factory.stats (value + label
+ * per entry, admin-editable) on 2026-09-05; ⚠️ the description below still spells two of
+ * them out by hand ("founded in 2015, 120+ staff") — change both when the figures change.
  *
  * Certification names: the 2026-08-12 red line was lifted on 2026-09-05 with a boundary —
  * they may appear only in the About compliance cards and product spec rows; the build gate
@@ -53,21 +55,4 @@ export const ABOUT_HERO = {
   lead: 'The IAQ line of an established Shenzhen manufacturing group. The brand is new; the floor behind it is not.',
 } as const;
 
-/**
- * Real group figures — Joe's site-wide ruling 2026-09-05 (supersedes the 2026-08-11 set):
- * founded 2015 · 120+ staff · 200+ patents · 5,000m² · 600,000+ units/month · 100+ countries.
- * 🔴 Single source: the homepage stats read these values (index.astro pairs them with its
- * own short labels by position — keep the ORDER stable, or the labels go wrong).
- */
-export const ABOUT_STATS = {
-  heading: 'The group in numbers',
-  items: [
-    { value: '2015', label: 'Founded' },
-    { value: '120+', label: 'Production and engineering staff' },
-    { value: '200+', label: 'Patents and registrations' },
-    { value: '5,000m²', label: 'Production facility' },
-    { value: '600,000+', label: 'Units per month capacity' },
-    { value: '100+', label: 'Countries shipped to' },
-  ],
-} as const;
 

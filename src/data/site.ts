@@ -219,10 +219,10 @@ export const PRODUCTS_PAGE = {
      the product detail page was its only reader, so keeping it would have left
      a string that renders nowhere, which this repo has revived by accident
      twice. */
-  /** Joe 2026-09-05: the Products list hero and every product detail hero say the same thing.
-   *  ⚠️ Kept in TS, not site-content.json — the admin validator whitelists JSON keys, and a
-   *  new block there has to be agreed with the Admin window first. */
-  heroHeading: 'Helping Everyone Breathe Healthier Air',
+  /** The Products list hero and every product detail hero say the same thing (Joe 2026-09-05).
+   *  Admin-editable since the content-keys migration: productsV1.hero.heading in site-content.json
+   *  (Joe rewrote this line three times in one day — it had to leave the TS). */
+  heroHeading: content.productsV1.hero.heading,
   sectionHeadings: {
     sensing: 'Sensing',
     highlights: 'What it is',
