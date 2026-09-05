@@ -137,12 +137,20 @@ export const SOLUTIONS_V3 = content.solutionsV3;
 /**
  * /contact/ v1 page copy (2026-09-05). Derived, never stored twice:
  *  - replyNote comes from contact.response ("Within 2 business days" → "Reply within 2 business days.")
- *  - mapEmbed comes from contact.address (same reason CONTACT_INFO.map.url is derived)
+ *
+ * ⚠️ mapEmbed is NOT derived from contact.address on purpose (Joe 2026-09-05, from the
+ * preview screenshot): the full postal string ("No. 62, Baotian 1st Road, Xixiang Street,
+ * Bao'an District, Shenzhen, Guangdong, China") makes Google fall back to a city-level
+ * view of Shenzhen with no pin. The shorter form below is the design file's query and pins
+ * Baotian 1st Road. It is a geocoding hint, not display copy — the visible address on the
+ * page stays contact.address. If the company moves, change BOTH (this is the one place
+ * where a second value is deliberate, and this comment is the reminder).
  */
+const MAP_QUERY = "No.62 Baotian 1st Road, Xixiang, Bao'an District, Shenzhen";
 export const CONTACT_V1 = {
   ...content.contactV1,
   replyNote: `Reply ${content.contact.response.charAt(0).toLowerCase()}${content.contact.response.slice(1)}.`,
-  mapEmbed: `https://www.google.com/maps?q=${encodeURIComponent(content.contact.address)}&output=embed`,
+  mapEmbed: `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`,
 } as const;
 
 /**
