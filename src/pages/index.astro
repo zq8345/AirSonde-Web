@@ -1,624 +1,370 @@
 ---
 /**
- * Homepage — W9: full-page mirror of wanew.com's eight-section skeleton
- * (structure/order/type tiers; light theme stays — 学骨架不学肤色).
- * Copy is rendered VERBATIM from site.ts / about.ts / solutions.ts /
- * guides.ts — the accepted assertions (OEM/ODM counts, banned-word zeros)
- * live on that text. Section labels come from home-light.ts only.
+ * Homepage v4 — implemented from airsonde-design/home-v4.html (Joe 逐屏验收
+ * 2026-09-05), section for section. Copy lives in site-content.json
+ * (`homeV4`, admin-writable); structure, order, colours, type, crop
+ * parameters and every href live here (DESIGN.md §9).
+ *
+ * Facts stay single-sourced: factory numbers come from about.ts
+ * (ABOUT_STATS, Joe-authorised), scene photos from solutions.ts, guides from
+ * guides.ts, products from the catalogue by slug. Nothing here invents a
+ * number or a claim the site does not already publish.
  */
 import { Image } from 'astro:assets';
-import LightBase from '../layouts/LightBase.astro';
-import { CONTACT, FEATURED_SLUGS, HERO, HOME_SECTIONS, META, SENSOR_CHIPS, SITE, VALUE_PROPS } from '../data/site';
-import {
-  ABOUT_HOME,
-  CTA_HOME,
-  GUIDES_HOME,
-  HERO_PHOTO,
-  PRODUCTS_HOME,
-  SCENES_HOME,
-  WHY_HOME,
-} from '../data/home-light';
-import { ABOUT_EXPECT, ABOUT_HERO, ABOUT_STATS, ABOUT_STORY } from '../data/about';
+import HomeLayout from '../layouts/HomeLayout.astro';
+import { HOME_V4, META, SITE } from '../data/site';
+import { ABOUT_HERO, ABOUT_STATS } from '../data/about';
 import { SCENES_DATA } from '../data/solutions';
 import { GUIDES } from '../data/guides';
-import {
-  categoryLabel,
-  getPublishedProducts,
-  headlineSensors,
-  productHref,
-  resolveProductImage,
-} from '../lib/products';
-import factoryPhoto from '../assets/photos/factory/factory-assembly.webp';
+import { getPublishedProducts, productHref, resolveProductImage } from '../lib/products';
+import heroImg from '../assets/photos/home-hero-ak34-family-v2.webp';
+import facAssembly from '../assets/photos/factory/factory-assembly.webp';
+import facCnc from '../assets/photos/factory/factory-cnc.webp';
+import facQc from '../assets/photos/factory/factory-qc.webp';
+import facWarehouse from '../assets/photos/factory/factory-warehouse.webp';
+import facShipping from '../assets/photos/factory/factory-shipping.webp';
 
+const V = HOME_V4;
+
+/* products: featured list is admin data (slug + tagline + chips); image and
+   model resolve from the catalogue. An unknown or unpublished slug renders
+   one card fewer and is named at build time — never a blank card. */
 const products = await getPublishedProducts();
 const bySlug = new Map(products.map((p) => [p.data.slug, p]));
+const featured = V.products.featured
+  .map((f) => {
+    const p = bySlug.get(f.slug);
+    if (!p) {
+      console.warn(`[home] featured slug "${f.slug}" is not a published product — card skipped`);
+      return null;
+    }
+    return { ...f, product: p, image: resolveProductImage(p.data.images.main), href: productHref(p) };
+  })
+  .filter((x): x is NonNullable<typeof x> => x !== null);
+const rows = [featured.slice(0, 3), featured.slice(3, 6)].filter((r) => r.length > 0);
 
-/**
- * W25: the featured set comes from site-content.json, which the admin can
- * write; the array's order is the display order and the count is not fixed at
- * eight — the grid flows.
- * ⚠️ A slug that matches nothing is skipped rather than failing the build:
- * unpublishing a product from the admin must never take the site's build down.
- * But it used to be skipped in silence, which meant the homepage could quietly
- * drop to seven tiles with nobody told. It says which ones now.
- */
-const missingFeatured = FEATURED_SLUGS.filter((slug) => !bySlug.has(slug));
-if (missingFeatured.length > 0) {
-  console.warn(
-    `[home] ${missingFeatured.length} featured slug(s) in site-content.json match no published product and will not render: ${missingFeatured.join(', ')}`,
-  );
-}
-const curated = FEATURED_SLUGS.map((slug) => bySlug.get(slug)).filter(
-  (p): p is NonNullable<typeof p> => Boolean(p),
-);
+/* scenes: crop parameters are design-locked (DESIGN.md §9 半配置: photo swap
+   is allowed, framing is not). --po = expanded panel, --pc = collapsed. */
+const SCENE_FOCUS: Record<string, { po: string; pc: string }> = {
+  home: { po: '62%', pc: '56%' },
+  office: { po: '72%', pc: '79%' },
+  school: { po: '74%', pc: '86%' },
+  industrial: { po: '70%', pc: '68%' },
+};
+const scenes = SCENES_DATA.map((s) => ({
+  ...s,
+  line: (V.solutions.lines as Record<string, string>)[s.slug] ?? s.homeLine,
+  focus: SCENE_FOCUS[s.slug] ?? { po: '50%', pc: '50%' },
+}));
 
-/* §3 tiles grow from the live categories — never hardcoded */
-const categories = [...new Set(products.map((p) => p.data.category))];
-const formTiles = categories.map((category) => {
-  const preferred = PRODUCTS_HOME.formFactorImages[category];
-  const rep = (preferred && bySlug.get(preferred)) || products.find((p) => p.data.category === category)!;
-  return {
-    category,
-    label: categoryLabel(category),
-    count: products.filter((p) => p.data.category === category).length,
-    image: resolveProductImage(rep.data.images.main),
-  };
-});
+/* factory floor: five reviewed photos, captions from copy */
+const floor = [
+  { key: 'assembly', src: facAssembly, alt: 'Assembly line' },
+  { key: 'cnc', src: facCnc, alt: 'Machining hall' },
+  { key: 'qc', src: facQc, alt: 'QC test bench' },
+  { key: 'warehouse', src: facWarehouse, alt: 'Warehouse' },
+  { key: 'shipping', src: facShipping, alt: 'Dispatch' },
+].map((f) => ({ ...f, caption: (V.factory.floor as Record<string, string>)[f.key] ?? f.alt }));
 
-/* §5 — W41-B (审查问题 E): the six About numbers were repeated wholesale here.
-   Three hardest stay — years, staff, monthly capacity — the photo and the
-   /about/ link carry the rest. About keeps the full set, untouched. */
-const homeStats = [ABOUT_STATS.items[0], ABOUT_STATS.items[1], ABOUT_STATS.items[4]];
+/* stats: values are the group figures Joe authorised (about.ts); the short
+   labels are homepage copy, paired by position */
+const stats = ABOUT_STATS.items.map((s, i) => ({ value: s.value, label: V.factory.statLabels[i] ?? s.label }));
 
-/* §6 — W41-A (宪法 §5): the section answers "why not source the same-looking
-   unit from a marketplace listing?". 🔴 红线纪律: every factual sentence below
-   is a published sentence from about.ts / site.ts, verbatim or tightened —
-   zero new fact claims. The framing question and card titles are positioning
-   copy (站方定位), which is this window's to draft and 总工's to strike.
-   ⚠️ Dropped from the brief: "English-speaking engineering contact" — no page
-   publishes that claim today, so it does not get invented here. */
-const whyLead = 'The question behind every sourcing decision: what do you get here that a marketplace listing cannot give you?';
-const whyCards = [
-  {
-    no: '01',
-    title: 'You deal with the factory itself',
-    // published: site default description == ABOUT_HERO lead (about.ts)
-    body: 'AirSonde is the indoor air quality product line of an established Shenzhen manufacturing group: 15+ years of OEM/ODM production, 150+ staff, in-house tooling, assembly and QC.',
-  },
-  {
-    no: '02',
-    title: 'An engineer answers',
-    // published: ABOUT_EXPECT items 1+2, verbatim
-    body: `${ABOUT_EXPECT.items[0]} ${ABOUT_EXPECT.items[1]}`,
-  },
-  {
-    no: '03',
-    title: 'Specifications you can defend',
-    // published: ABOUT_PROCESS step 03 + ABOUT_COMPLIANCE, tightened
-    body: 'The specification is fixed in writing before anything is built. Certification is scoped per programme and per model — the route your market requires is agreed in writing first.',
-  },
-  {
-    no: '04',
-    title: 'Built under your name, as deep as you need',
-    // composed FROM the admin's VALUE_PROPS (not copied): this section is now
-    // the field's only consumer, and hardcoding the sentences here would turn
-    // home.valueProps into a dead admin field — the exact failure site.ts
-    // warns about. The join adds only the ODM depth list from ABOUT_SERVICES.
-    body: `${VALUE_PROPS[1].body.replace(/\.\s*$/, '')} — sensing set, enclosure, display and firmware. ${VALUE_PROPS[0].body}`,
-  },
-];
-/* published verbatim: ABOUT_STORY.paragraphs[0] — the section's closing line */
-const whyCoda = ABOUT_STORY.paragraphs[0];
+const guides = GUIDES.slice(0, 3);
+
+/* hand-drawn line icons (DESIGN.md §7: stroke 1.8, round caps, 24 viewBox) */
+const ICONS: Record<string, string> = {
+  factory: 'M3 21V9l6 3V9l6 3V5.5L21 4v17M3 21h18M7 17h2m4 0h2',
+  chat: 'M4 6h16v10H9l-5 4V6zM8 11h.01M12 11h.01M16 11h.01',
+  doc: 'M7 3h8l4 4v14H7V3zM15 3v4h4M10 13l2 2 4-4',
+  star: 'M12 3l2 4 4.5.6-3.2 3.2.8 4.5-4.1-2.2-4.1 2.2.8-4.5L5.5 7.6 10 7l2-4zM8 21h8',
+  send: 'M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z',
+  reply: 'M4 6h16v10H9l-5 4V6zM8 11h8',
+  box: 'M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5m0 0l9-5m-9 5v9',
+};
 ---
 
-<LightBase title={META.home.title} description={META.home.description}>
-  {/* 1 ── hero. banner-split (七条之2, 图归图字归字): the image runs
-      full-bleed with nothing on it — product and scene untouched — and the
-      positioning copy sits below at its full display tier. Other modes keep
-      the overlay hero. */}
-  {
-    HERO_PHOTO.mode === 'banner-over' ? (
-      /* Joe: copy sits ON the image, stepped down, headline in exactly two
-         lines — split on the comma so the break is data-driven, not a manual
-         <br> that would rot if the sentence changes. */
-      <section
-        class="as-heroover"
-        style={`--hero-focus: ${HERO_PHOTO.focus}; --hero-focus-narrow: ${HERO_PHOTO.focusNarrow ?? HERO_PHOTO.focus}`}
-      >
-        <Image
-          src={HERO_PHOTO.src}
-          alt={HERO_PHOTO.alt}
-          class="as-heroover__img"
-          widths={[768, 1280, 1600, 2400]}
-          sizes="100vw"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <div class="as-heroover__scrim" aria-hidden="true"></div>
-        {/* Joe: eyebrow pill and the CTA pair come off the hero — headline and
-            one subline only, sitting lower on the wall. */}
-        <div class="as-container as-heroover__in">
-          <div class="as-heroover__text">
-            <h1 class="as-heroover__title">
-              {HERO.headline.split(/,\s+/).map((line, i, all) => (
-                <span class="as-heroover__line">{i < all.length - 1 ? `${line},` : line}</span>
-              ))}
-            </h1>
-            <p class="as-heroover__sub">{HERO.body}</p>
-          </div>
-        </div>
-      </section>
-    ) : HERO_PHOTO.mode === 'side' ? (
-      /* W44 方案 2 (Joe「你先试试」): 图文分离 — the copy stands on the page
-         background inside the grid, the image is its own cover panel on the
-         right (below on phones). Zero wash, zero text-over-image: contrast
-         stops being a function of the photograph entirely. */
-      <section
-        class="as-heroside"
-        style={`--hero-focus: ${HERO_PHOTO.focus}; --hero-focus-narrow: ${HERO_PHOTO.focusNarrow ?? HERO_PHOTO.focus}`}
-      >
-        <div class="as-container as-heroside__grid">
-          <div class="as-heroside__text">
-            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
-            <h1 class="as-heroside__title">
-              {HERO.headline.split(/,\s+/).map((line, i, all) => (
-                <span class="as-heroside__line">{i < all.length - 1 ? `${line},` : line}</span>
-              ))}
-            </h1>
-            <p class="as-hero__sub">{HERO.body}</p>
-            <div class="as-hero__cta">
-              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-                {HERO.primaryCta.label}
-                <span class="as-arw" aria-hidden="true">→</span>
-              </a>
-              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
-            </div>
-          </div>
-          <div class="as-heroside__media">
-            <Image
-              src={HERO_PHOTO.src}
-              alt={HERO_PHOTO.alt}
-              class="as-heroside__img"
-              widths={[768, 1280, 1600, 2400]}
-              sizes="(min-width: 980px) 54vw, 94vw"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-        </div>
-      </section>
-    ) : HERO_PHOTO.mode === 'banner-split' || HERO_PHOTO.mode === 'banner-under' ? (
-      <>
-        <section
-          class:list={['as-herosplit', { 'as-herosplit--under': HERO_PHOTO.mode === 'banner-under' }]}
-          style={`--hero-focus: ${HERO_PHOTO.focus}`}
-        >
-          <Image
-            src={HERO_PHOTO.src}
-            alt={HERO_PHOTO.alt}
-            class="as-herosplit__img"
-            widths={[768, 1280, 1600, 2400]}
-            sizes="100vw"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </section>
-        <section class="as-herosplit__copy">
-          <div class="as-container">
-            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
-            <h1 class="as-herosplit__title">{HERO.headline}</h1>
-            <p class="as-hero__sub">{HERO.body}</p>
-            <div class="as-hero__cta">
-              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-                {HERO.primaryCta.label}
-                <span class="as-arw" aria-hidden="true">→</span>
-              </a>
-              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
-            </div>
-          </div>
-        </section>
-      </>
-    ) : (
-      <section
-        class:list={[
-          'as-hero',
-          {
-            'as-hero--banner': HERO_PHOTO.mode === 'banner',
-            'as-hero--bannerclean': HERO_PHOTO.mode === 'banner-clean',
-          },
-        ]}
-        style={`--hero-focus: ${HERO_PHOTO.focus}`}
-      >
-        <Image
-          src={HERO_PHOTO.src}
-          alt={HERO_PHOTO.alt}
-          class="as-hero__img"
-          widths={[768, 1280, 1600]}
-          sizes="100vw"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <div class="as-hero__wash" aria-hidden="true" />
-        <div class="as-container as-hero__in">
-          <div class="as-hero__text">
-            <p class="as-hero__eyebrow">{HERO.eyebrow}</p>
-            <h1 class="as-hero__title">{HERO.headline}</h1>
-            <p class="as-hero__sub">{HERO.body}</p>
-            <div class="as-hero__cta">
-              <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-                {HERO.primaryCta.label}
-                <span class="as-arw" aria-hidden="true">→</span>
-              </a>
-              <a href={HERO.secondaryCta.href} class="as-btn as-btn--ghost">{HERO.secondaryCta.label}</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  {/* sensor-chip band — kept under the hero (not a wanew section; it carries
-      the sensing enumeration that left the hero tagline) */}
-  <div class="as-container">
-    <ul class="as-chips">
-      {
-        SENSOR_CHIPS.map((sensor) => (
-          <li class="as-chip">
-            <span class="as-chip__code">{sensor.code}</span>
-            <span class="as-chip__label">{sensor.label}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-
-  {/* 2+3 ── products: curated eight, 2×4, All-products top-right; form-factor
-      rail is an h3 subsection INSIDE this block (wanew: 先看货,机型是另一条路) */}
-  <section class="as-section" id="featured">
-    <div class="as-container">
-      <div class="as-sechead as-sechead--row">
-        <div>
-          <p class="as-eyebrow">{PRODUCTS_HOME.eyebrow}</p>
-          <h2 class="as-d2">{PRODUCTS_HOME.heading}</h2>
-        </div>
-        <a class="as-link-arrow" href="/products/">{PRODUCTS_HOME.allLink}</a>
-      </div>
-      <div class="as-pgrid as-pgrid--4">
-        {
-          curated.map((product) => (
-            <a class="as-pcard" href={productHref(product)} data-as-reveal>
-              <span class="as-stage">
-                <Image
-                  src={resolveProductImage(product.data.images.main)}
-                  alt={product.data.name}
-                  widths={[320, 480, 640]}
-                  sizes="(min-width: 980px) 280px, (min-width: 560px) 45vw, 90vw"
-                  loading="lazy"
-                />
-              </span>
-              <span class="as-pcard__body">
-                <span class="as-pcard__meta">
-                  {categoryLabel(product.data.category)} · {product.data.model}
-                </span>
-                <span class="as-pcard__name">{product.data.name}</span>
-                {headlineSensors(product).length > 0 && (
-                  <span class="as-pcard__chips">
-                    {headlineSensors(product).map((chip) => (
-                      <span>{chip}</span>
-                    ))}
-                  </span>
-                )}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-      <h3 class="as-h3 as-formrail__title">{PRODUCTS_HOME.formFactorHeading}</h3>
-      <div class="as-forms">
-        {
-          /* W27: a vertical card. The name and the count are direct children
-             of the tile, each its own block — as two inline spans with nothing
-             between them they ran together as one text flow ("Desktop16
-             models") and broke wherever the line ended.
-             ⚠️ The count is a bare number now, so the link's accessible name
-             would read "Desktop 16". The aria-label restores what the removed
-             word carried; it is not rendered text. */
-          formTiles.map((tile) => (
-            <a class="as-form-tile" href="/products/" aria-label={`${tile.label} — ${tile.count} products`}>
-              <span class="as-stage">
-                <Image
-                  src={tile.image}
-                  alt=""
-                  widths={[240, 360, 480]}
-                  sizes="(min-width: 1024px) 240px, (min-width: 720px) 45vw, 90vw"
-                  loading="lazy"
-                />
-              </span>
-              <span class="as-form-tile__name">{tile.label}</span>
-              <span class="as-form-tile__count">{tile.count}</span>
-              <span class="as-form-tile__arw" aria-hidden="true">→</span>
-            </a>
-          ))
-        }
+<HomeLayout title={META.home.title} description={META.home.description}>
+  {/* ① HERO — full-bleed image, dark-green veil, H1 + two CTAs, sensor marquee */}
+  <div class="hero">
+    <Image
+      src={heroImg}
+      alt="AK34 monitor on a coffee table showing CO2 and comfort readings, with parents and a child building wooden blocks on the sofa behind it"
+      class="bg"
+      widths={[768, 1280, 1600, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="veil" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>{V.hero.eyebrow}</span>
+      <h1>{V.hero.headline} <em>{V.hero.headlineEm}</em></h1>
+      <div class="ctas">
+        <a class="btn btn-solid" href="/contact/">{V.hero.primaryCta} →</a>
+        <a class="btn btn-line" href="/products/">{V.hero.secondaryCta} →</a>
       </div>
     </div>
-  </section>
-
-  {/* 4 ── scene tabs + one big panel (W8 spec, wanew "For every environment").
-      wanew separates same-bg sections with hairlines; our light constitution
-      (§3.2c) forbids hairlines — tonal alternation carries the separation. */}
-  <section class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <p class="as-eyebrow">{SCENES_HOME.eyebrow}</p>
-        <h2 class="as-d2">{SCENES_HOME.heading}</h2>
-        <p class="as-sub">{SCENES_HOME.sub}</p>
-      </div>
-      <div class="as-scenetabs" role="tablist" aria-label={SCENES_HOME.heading} data-as-scenes>
-        {
-          SCENES_DATA.map((scene, i) => (
-            <button
-              type="button"
-              class:list={['as-scenetab', { 'is-active': i === 0 }]}
-              role="tab"
-              aria-selected={i === 0 ? 'true' : 'false'}
-              data-scene={String(i)}
-            >
-              {scene.label}
-            </button>
-          ))
-        }
-      </div>
-    </div>
-    <div class="as-container">
-      <div class="as-scenestage" data-as-scenes-stage>
-        {
-          SCENES_DATA.map((scene, i) => (
-            <a
-              class:list={['as-scenepanel', { 'is-active': i === 0 }]}
-              data-scene={String(i)}
-              href={`/solutions/${scene.slug}/`}
-            >
-              {/* W17 R1+Y7: every panel is lazy — the module sits at y≈2528,
-                  so eager here only bought a 137KB first-screen bill (Y7).
-                  Lazy alone is not enough either: the inactive panels are
-                  display:none, and a lazy image in a hidden subtree is never
-                  requested, not even after it is revealed (measured: no
-                  network entry 4s after the tab was clicked). The tab script
-                  kicks the fetch on activate/hover. */}
-              {/* W39: per-scene framing — at 375 this panel shows only ~32%
-                  of the 2.4:1 render's width, and the subjects sit in a
-                  different place in each one. Inline object-position because
-                  the img carries no other inline style and the value is data,
-                  not skin. */}
-              <Image
-                src={scene.photo.src}
-                alt={scene.photo.alt}
-                widths={[1280, 1600]}
-                sizes="(min-width: 1200px) 1140px, 94vw"
-                loading="lazy"
-                style={`object-position: ${scene.photo.panelFocus}`}
-              />
-              <span class="as-scenepanel__cap">
-                <span class="as-scenepanel__eyebrow">{scene.label}</span>
-                <span class="as-scenepanel__line">{scene.homeLine}</span>
-                <span class="as-scenepanel__more">{SCENES_HOME.readMore} →</span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  {/* 5 ── about band (wanew "We make what we sell"): head full-width, photo
-      left, copy + four stats right — facts imported from about.ts (同源) */}
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-abhead">
-        <p class="as-eyebrow">{ABOUT_HOME.eyebrow}</p>
-        <h2 class="as-d2">{ABOUT_HERO.heading}</h2>
-      </div>
-      <div class="as-abgrid">
-        <div class="as-abgrid__media">
-          <Image
-            src={factoryPhoto}
-            alt={ABOUT_HERO.photo.alt}
-            widths={[640, 960]}
-            sizes="(min-width: 980px) 540px, 94vw"
-            loading="lazy"
-          />
-        </div>
-        <div>
-          <p class="as-sub">{ABOUT_HERO.lead}</p>
-          <div class="as-stats as-stats--home">
+    <div class="hero-band">
+      <div class="wrap">
+        <div class="mq" aria-label="Sensing range">
+          <div class="mq-t">
             {
-              homeStats.map((s) => (
-                <div class="as-stat">
-                  <div class="as-stat__value">{s.value}</div>
-                  <div class="as-stat__label">{s.label}</div>
+              [0, 1].map((copy) => (
+                <div class="set" aria-hidden={copy === 1 ? 'true' : undefined}>
+                  {V.marquee.map((c) => (
+                    <span class="chip">
+                      {c.label}
+                      {'note' in c && c.note ? <i>{c.note}</i> : null}
+                    </span>
+                  ))}
                 </div>
               ))
             }
           </div>
-          <a href="/about/" class="as-link-arrow">{ABOUT_HOME.learnMore}</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  {/* 6 ── why band, rebuilt (W41-A, 宪法 §5): answers the direct-sourcing
-      question with four numbered arguments composed from published facts.
-      🔴 wanev's FCC/CE/RoHS cert strip is still NOT ported — zero-cert red
-      line stands; card 03 says exactly what the About compliance section
-      says and nothing more. The admin's capabilities intro keeps its slot. */}
-  <section id={HOME_SECTIONS.capabilities.id} class="as-section as-band--alt">
-    <div class="as-container">
-      <div class="as-sechead">
-        <p class="as-eyebrow">{WHY_HOME.eyebrow}</p>
-        <h2 class="as-d2">{WHY_HOME.heading}</h2>
-        <p class="as-sub">{whyLead}</p>
-        <p class="as-sub">{HOME_SECTIONS.capabilities.intro}</p>
+  {/* ② PRODUCTS — six cards, two rows of three */}
+  <section class="prods">
+    <div class="wrap">
+      <div class="sec-head sec-head--row rv">
+        <div>
+          <span class="kicker">{V.products.kicker}</span>
+          <h2>{V.products.heading}</h2>
+        </div>
+        <a class="alink" href="/products/">{V.products.allLabel} →</a>
       </div>
-      <div class="as-why">
-        {
-          whyCards.map((card) => (
-            <article class="as-whycard">
-              <p class="as-eyebrow as-whycard__no">{card.no}</p>
-              <h3>{card.title}</h3>
-              <p>{card.body}</p>
-            </article>
-          ))
-        }
-      </div>
-      <p class="as-why__coda">{whyCoda}</p>
+      {
+        rows.map((row) => (
+          <div class="prod-row">
+            {row.map((f) => (
+              <a class="pcard rv" href={f.href}>
+                <div class="ph">
+                  <Image src={f.image} alt={f.product.data.name} widths={[480, 720]} sizes="(min-width: 1000px) 380px, (min-width: 640px) 45vw, 94vw" loading="lazy" />
+                </div>
+                <div class="tx">
+                  <span class="model">{f.product.data.model}</span>
+                  <h3>{f.tagline}</h3>
+                  <div class="chips">{f.chips.map((c) => <span>{c}</span>)}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+        ))
+      }
     </div>
   </section>
 
-  {/* 7 ── guides (three W5 articles), same card language as /guides/ */}
-  <section class="as-section">
-    <div class="as-container">
-      <div class="as-sechead">
-        <p class="as-eyebrow">{GUIDES_HOME.eyebrow}</p>
-        <h2 class="as-d2">{GUIDES_HOME.heading}</h2>
+  {/* ③ SOLUTIONS — accordion strip, hover to switch */}
+  <section>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">{V.solutions.kicker}</span>
+        <h2>{V.solutions.heading}</h2>
       </div>
-      <div class="as-ggrid">
+      <div class="sol-strip rv" data-sol>
         {
-          GUIDES.map((guide) => (
-            <a class="as-gcard" href={`/guides/${guide.slug}/`}>
-              <span class="as-gcard__eyebrow">{guide.eyebrow}</span>
-              <span class="as-gcard__title" style="display:block">{guide.title}</span>
-              <span class="as-gcard__sum" style="display:block">{guide.description}</span>
-              <span class="as-gcard__arw" aria-hidden="true">Read →</span>
+          scenes.map((s, i) => (
+            <div class:list={['sol-p', { on: i === 0 }]} data-sol-p>
+              <Image
+                src={s.photo.src}
+                alt={s.photo.alt}
+                widths={[768, 1280, 1600]}
+                sizes="(min-width: 1240px) 1140px, 94vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                style={`--po:${s.focus.po};--pc:${s.focus.pc}`}
+              />
+              <div class="shade" aria-hidden="true"></div>
+              <span class="tag">{s.label}</span>
+              <div class="txt">
+                <div>
+                  <em>{s.label}</em>
+                  <h3>{s.line}</h3>
+                </div>
+                <a href={`/solutions/${s.slug}/`}>{V.solutions.readMore} →</a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ④ FACTORY — campus stage, five floor photos, stats, QC steps */}
+  <section class="fac">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">{V.factory.kicker}</span>
+        <h2>{V.factory.heading}</h2>
+      </div>
+      <div class="stage rv">
+        <Image src={ABOUT_HERO.photo.src} alt={ABOUT_HERO.photo.alt} widths={[768, 1280, 1600]} sizes="(min-width: 1240px) 1136px, 94vw" loading="lazy" />
+        <div class="cap">
+          <div class="t">
+            <em>{V.factory.place}</em>
+            <p>{V.factory.caption}</p>
+          </div>
+          <a class="btn btn-glass" href="/about/">{V.factory.aboutCta} →</a>
+        </div>
+      </div>
+      <div class="floor rv">
+        {
+          floor.map((f) => (
+            <figure>
+              <Image src={f.src} alt={f.alt} widths={[320, 480]} sizes="(min-width: 1000px) 220px, 45vw" loading="lazy" />
+              <figcaption>{f.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <div class="stats rv">
+        {
+          stats.map((s) => (
+            <div>
+              <b>{s.value}</b>
+              <span>{s.label}</span>
+            </div>
+          ))
+        }
+      </div>
+      <div class="qc rv">
+        {
+          V.factory.qc.map((q, i) => (
+            <div>
+              <em>{String(i + 1).padStart(2, '0')}</em>
+              <h4>{q.title}</h4>
+              <p>{q.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ⑤ WHY — four feature cards */}
+  <section class="why">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">{V.why.kicker}</span>
+        <h2>{V.why.heading}</h2>
+      </div>
+      <div class="feat-row">
+        {
+          V.why.cards.map((c) => (
+            <div class="feat rv">
+              <div class="fhead">
+                <span class="ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d={ICONS[c.icon] ?? ICONS.doc} /></svg>
+                </span>
+                <div class="fig">{c.fig}</div>
+              </div>
+              <h3>{c.title}</h3>
+              <p>{c.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ⑥ PROGRAMME — dark band, three glass steps */}
+  <section class="prog">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">{V.programme.kicker}</span>
+        <h2>{V.programme.heading}</h2>
+      </div>
+      <div class="steps">
+        {
+          V.programme.steps.map((s, i) => (
+            <>
+              {i > 0 && (
+                <div class="arr" aria-hidden="true">
+                  →
+                </div>
+              )}
+              <div class="step rv">
+                <div class="shead">
+                  <span class="ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d={ICONS[s.icon] ?? ICONS.doc} /></svg>
+                  </span>
+                  <span class="d">{s.when}</span>
+                </div>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            </>
+          ))
+        }
+      </div>
+      <div class="foot rv">
+        <a class="btn btn-paper" href="/contact/">{V.programme.cta} →</a>
+        <span>{SITE.email} · {V.programme.noteSuffix}</span>
+      </div>
+    </div>
+  </section>
+
+  {/* ⑦ GUIDES — latest three */}
+  <section>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">{V.guides.kicker}</span>
+        <h2>{V.guides.heading}</h2>
+      </div>
+      <div class="gd-grid">
+        {
+          guides.map((g) => (
+            <a class="gd rv" href={`/guides/${g.slug}/`}>
+              <em>{g.eyebrow}</em>
+              <h3>{g.title}</h3>
+              <p>{g.description}</p>
+              <span>{V.guides.read} →</span>
             </a>
           ))
         }
       </div>
-      <p style="margin-top:32px">
-        <a class="as-link-arrow" href="/guides/">{GUIDES_HOME.viewAll} →</a>
-      </p>
     </div>
   </section>
 
-  {/* 8 ── contact CTA band — wires into the W7 form on /contact/ */}
-  <section id={HOME_SECTIONS.contact.id} class="as-section" style="padding-top:0">
-    <div class="as-container">
-      <div class="as-cta">
-        <p class="as-eyebrow">{CTA_HOME.eyebrow}</p>
-        <h2 class="as-cta__title as-d2">{CONTACT.title}</h2>
-        <p class="as-cta__body">{CONTACT.body}</p>
-        <div class="as-cta__actions">
-          <a href={HERO.primaryCta.href} class="as-btn as-btn--primary">
-            {HERO.primaryCta.label}
-            <span class="as-arw" aria-hidden="true">→</span>
-          </a>
-          <a href={`mailto:${SITE.email}`} class="as-btn as-btn--ghost">{SITE.email}</a>
+  {/* ⑧ CTA */}
+  <div class="wrap">
+    <div class="cta-band rv">
+      <div>
+        <span class="kicker">{V.cta.kicker}</span>
+        <h2>{V.cta.heading}</h2>
+        <div class="ctas">
+          <a class="btn btn-paper" href="/contact/">{V.cta.primary} →</a>
+          <a class="btn btn-glass" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </div>
       </div>
+      <div class="send">
+        <h4>{V.cta.sendTitle}</h4>
+        <ul>
+          {
+            V.cta.items.map((item, i) => (
+              <li>
+                <b>{String(i + 1).padStart(2, '0')}</b> {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
-  </section>
-</LightBase>
+  </div>
+</HomeLayout>
 
 <script>
-  // W9 §4 scene tabs + W48 auto-rotate (Joe: 「这几个场景轮播，1秒切换」).
-  // Rotation drives the SAME activate() path the tabs use — no second
-  // rendering route to drift.
-  const ROTATE_MS = 1000; // Joe-specified interval — retune here, one line
-
-  const wrap = document.querySelector('[data-as-scenes]');
-  const stage = document.querySelector('[data-as-scenes-stage]');
-  if (wrap && stage) {
-    const tabs = [...wrap.querySelectorAll<HTMLButtonElement>('.as-scenetab')];
-    const panels = [...stage.querySelectorAll<HTMLElement>('.as-scenepanel')];
-
-    /**
-     * A lazy <img> inside a display:none subtree is never requested, and
-     * revealing it does not start the request either — the panel just showed
-     * its scrim over nothing. Kick the fetch ourselves when a panel is about
-     * to be shown (and for the rotation: all of them up front, so a 1s cycle
-     * never flashes an empty panel).
-     */
-    const ensureLoaded = (panel: HTMLElement | null) => {
-      const img = panel?.querySelector<HTMLImageElement>('img');
-      if (!img || img.complete) return;
-      img.loading = 'eager';
-      const { src, srcset } = img;
-      if (srcset) img.srcset = srcset;
-      img.src = src;
-    };
-    const panelFor = (id: string | null) =>
-      panels.find((p) => p.getAttribute('data-scene') === id) ?? null;
-
-    let current = Math.max(0, tabs.findIndex((t) => t.classList.contains('is-active')));
-    const activate = (index: number) => {
-      current = index;
-      const tab = tabs[index];
-      const id = tab.getAttribute('data-scene');
-      ensureLoaded(panelFor(id));
-      tabs.forEach((t) => {
-        const on = t === tab;
-        t.classList.toggle('is-active', on);
-        t.setAttribute('aria-selected', String(on));
-      });
-      panels.forEach((p) => {
-        p.classList.toggle('is-active', p.getAttribute('data-scene') === id);
-      });
-    };
-
-    /* ---- auto-rotate. Three ways it yields to the human, one to the OS:
-       click = permanent stop (人接管); hover/focus inside the module = pause,
-       resume on leave; prefers-reduced-motion = never starts; hidden tab =
-       paused via visibilitychange (no background churn). ---- */
-    let timer: ReturnType<typeof setInterval> | null = null;
-    let stopped = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let paused = false;
-    const clear = () => {
-      if (timer !== null) clearInterval(timer);
-      timer = null;
-    };
-    const start = () => {
-      if (stopped || paused || document.hidden || timer !== null) return;
-      timer = setInterval(() => activate((current + 1) % tabs.length), ROTATE_MS);
-    };
-    const stopForGood = () => {
-      stopped = true;
-      clear();
-    };
-
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('pointerenter', () => ensureLoaded(panelFor(tab.getAttribute('data-scene'))));
-      tab.addEventListener('click', () => {
-        stopForGood();
-        activate(i);
-      });
-    });
-
-    for (const zone of [wrap, stage]) {
-      zone.addEventListener('pointerenter', () => {
-        paused = true;
-        clear();
-      });
-      zone.addEventListener('pointerleave', () => {
-        paused = false;
-        start();
-      });
-      zone.addEventListener('focusin', () => {
-        paused = true;
-        clear();
-      });
-      zone.addEventListener('focusout', () => {
-        paused = false;
-        start();
-      });
-    }
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) clear();
-      else start();
-    });
-
-    if (!stopped) {
-      panels.forEach(ensureLoaded); // preload all four before the first hop
-      start();
-    }
-  }
+  // scene accordion — Anker style: hover or click expands, one open at a time
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-sol-p]')];
+  const solSwitch = (p: HTMLElement) => {
+    if (p.classList.contains('on')) return;
+    panels.forEach((x) => x.classList.toggle('on', x === p));
+  };
+  panels.forEach((p) => {
+    p.addEventListener('click', () => solSwitch(p));
+    p.addEventListener('mouseenter', () => solSwitch(p));
+  });
 </script>

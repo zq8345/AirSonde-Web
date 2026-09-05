@@ -126,6 +126,12 @@ export const HOME_SECTIONS = {
 export const VALUE_PROPS = content.home.valueProps;
 
 /**
+ * Homepage v4 copy (Joe 逐屏验收 2026-09-05). Admin-writable text only —
+ * layout, order, hrefs and crop parameters stay in the templates.
+ */
+export const HOME_V4 = content.homeV4;
+
+/**
  * W25: which products the homepage features, and in what order — the array's
  * order IS the display order. It used to be a hardcoded array in
  * home-light.ts, where the admin could not reach it.

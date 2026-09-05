@@ -81,5 +81,259 @@
       "portable-breathalyser",
       "pump-breathalyser"
     ]
+  },
+  "homeV4": {
+    "_readme": [
+      "首页 v4（2026-09-05 Joe 逐屏验收的设计稿）的可配置文案。只放文案与产品位选择；",
+      "布局/顺序/色板/字体/交互/裁切参数锁在代码里（DESIGN.md §9）。",
+      "⚠️ 链接 href 不在这里（同上面的规则）：页脚链接、CTA 去向都由代码派生。",
+      "products.featured: slug 必须是已发布产品；图与型号从产品库解析，这里只写一句话与 chips。"
+    ],
+    "hero": {
+      "eyebrow": "Shenzhen factory · Ready products · OEM / ODM",
+      "headline": "Indoor air quality monitors,",
+      "headlineEm": "straight from the factory.",
+      "primaryCta": "Request a quote",
+      "secondaryCta": "Browse all products"
+    },
+    "marquee": [
+      {
+        "label": "CO₂",
+        "note": "NDIR"
+      },
+      {
+        "label": "PM1.0 / 2.5 / 10"
+      },
+      {
+        "label": "TVOC"
+      },
+      {
+        "label": "HCHO"
+      },
+      {
+        "label": "T / RH"
+      },
+      {
+        "label": "CO"
+      },
+      {
+        "label": "Breath alcohol"
+      },
+      {
+        "label": "Radon"
+      },
+      {
+        "label": "γ radiation"
+      },
+      {
+        "label": "AQI"
+      }
+    ],
+    "products": {
+      "kicker": "Products",
+      "heading": "Ready to ship — or ready to rebrand",
+      "allLabel": "All products",
+      "featured": [
+        {
+          "slug": "ak34-18-in-1-air-quality-monitor-indoor-15d-24h-history-7-tft-co2-monitor-true-ndir-co-external-sensors-9-aqi-7-alerts-tester-co2-tvoc-pm2-5-pm1-0-pm10-hcho-temperature-humidity-aqi-time",
+          "tagline": "18-in-1 desktop, 15-day logging",
+          "chips": [
+            "CO₂",
+            "PM2.5",
+            "TVOC",
+            "HCHO"
+          ]
+        },
+        {
+          "slug": "wifi-widescreen-air-quality-monitor",
+          "tagline": "Large-screen grid display",
+          "chips": [
+            "CO₂",
+            "PM2.5",
+            "TVOC",
+            "HCHO"
+          ]
+        },
+        {
+          "slug": "handheld-air-quality-analyser",
+          "tagline": "Handheld analyser, 173 g",
+          "chips": [
+            "CO₂",
+            "PM2.5",
+            "TVOC",
+            "HCHO"
+          ]
+        },
+        {
+          "slug": "app-breathalyser",
+          "tagline": "App-connected breathalyser",
+          "chips": [
+            "Breath alcohol"
+          ]
+        },
+        {
+          "slug": "pump-breathalyser",
+          "tagline": "Pump-type breathalyser",
+          "chips": [
+            "Breath alcohol"
+          ]
+        },
+        {
+          "slug": "portable-co-alarm",
+          "tagline": "Pocket CO alarm, 39 g",
+          "chips": [
+            "CO"
+          ]
+        }
+      ]
+    },
+    "solutions": {
+      "kicker": "Solutions",
+      "heading": "For every environment",
+      "readMore": "Read more",
+      "lines": {
+        "home": "One glance, one question — is the air in here fine?",
+        "office": "Meeting rooms fill with people and empty of fresh air.",
+        "school": "Thirty people, windows shut through winter.",
+        "industrial": "Readings where the work happens."
+      }
+    },
+    "factory": {
+      "kicker": "The factory",
+      "heading": "The factory behind your product.",
+      "place": "Shenzhen · Greater Bay Area",
+      "caption": "The same floor that builds our group's other electronics lines builds AirSonde.",
+      "aboutCta": "About the factory",
+      "floor": {
+        "assembly": "Assembly",
+        "cnc": "Machining",
+        "qc": "QC & testing",
+        "warehouse": "Warehouse",
+        "shipping": "Dispatch"
+      },
+      "statLabels": [
+        "years OEM / ODM",
+        "staff",
+        "patents",
+        "facility",
+        "units / month",
+        "countries"
+      ],
+      "qc": [
+        {
+          "title": "Incoming inspection",
+          "body": "Components checked against spec."
+        },
+        {
+          "title": "In-process checks",
+          "body": "Fit, soldering, connections."
+        },
+        {
+          "title": "Functional testing",
+          "body": "Every unit powers on and reads."
+        },
+        {
+          "title": "Final inspection",
+          "body": "Sampled against the agreed spec."
+        },
+        {
+          "title": "Packing verification",
+          "body": "Confirmed before sealing."
+        }
+      ]
+    },
+    "why": {
+      "kicker": "Why AirSonde",
+      "heading": "Why brands come to us directly",
+      "cards": [
+        {
+          "icon": "factory",
+          "fig": "15+ yrs",
+          "title": "The factory itself",
+          "body": "No trading layer between your spec and the line."
+        },
+        {
+          "icon": "chat",
+          "fig": "< 48 h",
+          "title": "An engineer answers",
+          "body": "Straight numbers, before you commit."
+        },
+        {
+          "icon": "doc",
+          "fig": "100%",
+          "title": "Specs in writing",
+          "body": "Fixed before anything is built."
+        },
+        {
+          "icon": "star",
+          "fig": "0",
+          "title": "Channel conflict",
+          "body": "We supply you — and stay out of your market."
+        }
+      ]
+    },
+    "programme": {
+      "kicker": "How a programme runs",
+      "heading": "From your spec to a sealed carton",
+      "steps": [
+        {
+          "icon": "send",
+          "when": "Day 0",
+          "title": "Send the spec",
+          "body": "Market, sensing set, volumes."
+        },
+        {
+          "icon": "reply",
+          "when": "≤ 2 business days",
+          "title": "An engineer answers",
+          "body": "Cost, tooling, lead time — in writing."
+        },
+        {
+          "icon": "box",
+          "when": "Sample → production",
+          "title": "Built under your name",
+          "body": "Your brand, from housing to packaging."
+        }
+      ],
+      "cta": "Start with a quote",
+      "noteSuffix": "reply within 1 business day"
+    },
+    "guides": {
+      "kicker": "Guides",
+      "heading": "Working notes, not marketing",
+      "read": "Read"
+    },
+    "cta": {
+      "kicker": "Start a programme",
+      "heading": "Tell us what you need.",
+      "primary": "Request a quote",
+      "sendTitle": "What to send us",
+      "items": [
+        "Your market — region and channel",
+        "Sensing set — CO₂ / PM / VOC / HCHO / alcohol",
+        "Volumes and timeline",
+        "Ready stock, OEM or ODM"
+      ]
+    },
+    "footer": {
+      "blurb": "Factory-direct IAQ monitors — ready products and OEM/ODM — for brands, importers and distributors.",
+      "productsHeading": "Products",
+      "companyHeading": "Company",
+      "hqHeading": "Shenzhen HQ",
+      "productLinks": [
+        "IAQ monitors",
+        "Breathalysers",
+        "Specialty detectors",
+        "All products"
+      ],
+      "companyLinks": [
+        "Solutions",
+        "Guides",
+        "About the factory",
+        "Contact"
+      ],
+      "channels": "WhatsApp · WeChat",
+      "tagline": "OEM / ODM programmes open · reply within 1 business day"
+    }
   }
 }

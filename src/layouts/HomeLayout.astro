@@ -1,0 +1,210 @@
+---
+/**
+ * Homepage v4 layout (Design System v1 — 真源 airsonde-design/home-v4.html).
+ *
+ * 🔴 The <head> below is LightBase.astro's head, line for line: title,
+ * description, canonical/noindex, favicons, OG/Twitter, generator, and the
+ * Organization + WebSite JSON-LD. The redesign changes the skin, not the
+ * crawlable surface — diff the two heads and they must match.
+ *
+ * Only index.astro uses this layout this round. The other five pages stay
+ * on LightBase + light.css untouched until their own design files arrive.
+ */
+import { Image } from 'astro:assets';
+import '../styles/home-v4.css';
+import { HOME_V4, NAV, SITE } from '../data/site';
+import contentJson from '../data/site-content.json';
+import { organisationSchema, websiteSchema } from '../lib/jsonld';
+import wordmarkGreen from '../assets/airsonde-wordmark-green.png';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  schemas?: Record<string, unknown>[];
+  ogImage?: string;
+}
+
+const {
+  title = SITE.defaultTitle,
+  description = SITE.defaultDescription,
+  noindex = false,
+  schemas = [],
+  ogImage,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const ogImageUrl = ogImage ? new URL(ogImage, SITE.url).href : undefined;
+const allSchemas = [organisationSchema(), websiteSchema(), ...schemas];
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path === `${href}/` || path.startsWith(`${href}/`);
+
+const F = HOME_V4.footer;
+const contact = contentJson.contact;
+// hrefs are structure, not content (site-content _readme) — they live here.
+const productLinks = ['/products/', '/products/', '/products/', '/products/'];
+const companyLinks = ['/solutions/', '/guides/', '/about/', '/contact/'];
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+
+    <link rel="icon" href="/favicon.svg?v=v11" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=v11" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-192.png?v=v11" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=v11" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en" />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <meta name="generator" content={Astro.generator} />
+
+    {
+      allSchemas.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+  </head>
+
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+
+    <header id="hd">
+      <div class="wrap nav">
+        <a class="logo-link" href="/" aria-label="Home">
+          <Image src={wordmarkGreen} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="eager" />
+        </a>
+        <nav aria-label="Primary">
+          {
+            NAV.map((item) => (
+              <a
+                href={item.href}
+                class:list={{ on: isCurrent(item.href) }}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="i-burger" d="M4 7h16M4 12h16M4 17h16" />
+            <path class="i-x" d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <div class="mnav" id="mnav">
+          {
+            NAV.map((item) => (
+              <a href={item.href} class:list={{ on: isCurrent(item.href) }}>
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer>
+      <div class="wrap cols">
+        <div class="brand">
+          <Image src={wordmarkGreen} alt={SITE.brand} widths={[240, 480]} sizes="120px" loading="lazy" />
+          <p>{F.blurb}</p>
+          <a class="mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
+        <div>
+          <h4>{F.productsHeading}</h4>
+          <ul>
+            {F.productLinks.map((label, i) => <li><a href={productLinks[i] ?? '/products/'}>{label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h4>{F.companyHeading}</h4>
+          <ul>
+            {F.companyLinks.map((label, i) => <li><a href={companyLinks[i] ?? '/'}>{label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h4>{F.hqHeading}</h4>
+          <ul>
+            <li>{contact.address}</li>
+            <li>{contact.hours}</li>
+            <li>{F.channels} · {contact.phone}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bar">
+        <div class="wrap">
+          <span>&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</span>
+          <span>{F.tagline}</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // mobile menu (design: circular button, white panel)
+      const mb = document.getElementById('menuBtn');
+      const mn = document.getElementById('mnav');
+      if (mb && mn) {
+        const setOpen = (open: boolean) => {
+          mn.classList.toggle('open', open);
+          mb.setAttribute('aria-expanded', String(open));
+        };
+        mb.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setOpen(!mn.classList.contains('open'));
+        });
+        document.addEventListener('click', (e) => {
+          if (!mn.contains(e.target as Node) && e.target !== mb) setOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setOpen(false);
+        });
+      }
+
+      // header: transparent over the hero, white glass once scrolled (design: 60px)
+      const hd = document.getElementById('hd');
+      const onScroll = () => hd?.classList.toggle('sc', window.scrollY > 60);
+      addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // reveal on scroll; reduced-motion users get everything shown at once
+      const rv = document.querySelectorAll('.rv');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver(
+          (es) =>
+            es.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            }),
+          { threshold: 0.12 },
+        );
+        rv.forEach((x) => io.observe(x));
+      } else {
+        rv.forEach((x) => x.classList.add('in'));
+      }
+    </script>
+  </body>
+</html>

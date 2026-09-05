@@ -15,8 +15,7 @@
  * elsewhere later is invisible here until someone adds its source below. The
  * page-side stderr warnings stay as the local net for that gap.
  */
-import { FEATURED_SLUGS } from '../data/site';
-import { PRODUCTS_HOME } from '../data/home-light';
+import { HOME_V4 } from '../data/site';
 import { GUIDES } from '../data/guides';
 import { SCENES_DATA } from '../data/solutions';
 
@@ -33,27 +32,17 @@ export type CuratedSkip = {
 export function curatedRefSkips(published: ReadonlySet<string>): CuratedSkip[] {
   const out: CuratedSkip[] = [];
 
-  for (const slug of FEATURED_SLUGS) {
-    if (!published.has(slug)) {
+  // Homepage v4 (2026-09-05): the six featured cards come from
+  // homeV4.products.featured; the older home.featuredSlugs list and the
+  // form-factor rail are no longer rendered anywhere, so they are no longer
+  // checked here — a check on a list no page reads would only report noise.
+  for (const f of HOME_V4.products.featured) {
+    if (!published.has(f.slug)) {
       out.push({
         kind: 'curated-ref',
-        source: 'home.featuredSlugs (site-content.json)',
-        slug,
-        detail: 'featured tile not rendered on the homepage',
-      });
-    }
-  }
-
-  // ⚠️ The form-factor rail falls back to the category's first product when
-  // the preferred slug is gone, so the page shows no hole — this is the one
-  // curated ref whose failure was fully silent before W33.
-  for (const [category, slug] of Object.entries(PRODUCTS_HOME.formFactorImages)) {
-    if (!published.has(slug)) {
-      out.push({
-        kind: 'curated-ref',
-        source: `home.formFactorImages.${category} (home-light.ts)`,
-        slug,
-        detail: 'preferred representative image replaced by category fallback',
+        source: 'homeV4.products.featured (site-content.json)',
+        slug: f.slug,
+        detail: 'featured card not rendered on the homepage',
       });
     }
   }
